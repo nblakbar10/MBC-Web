@@ -3,7 +3,7 @@ import React from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import route from 'ziggy-js';
 
-import AppLayout from '@/Layouts/AppLayout';
+import AppLayout from '@/Layouts/DashboardAdminLayout';
 import { User } from '@/types';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink } from '@inertiajs/inertia-react';

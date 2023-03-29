@@ -1,18 +1,15 @@
 import React from 'react';
 import route from 'ziggy-js';
 
-import AppLayout from '@/Layouts/AppLayout';
-import { NewUser, Role, UserProfile } from '@/types';
+import AppLayout from '@/Layouts/DashboardAdminLayout';
+import { NewUser, Role } from '@/types';
 import { useForm } from '@inertiajs/inertia-react';
 
 import Form from './Form';
 
-interface UserEdited extends NewUser { 
-    user_profile: UserProfile;
-}
 
 interface Props {
-    user: UserEdited;
+    user: NewUser;
     roles: Array<Role>;
 }
 
@@ -21,9 +18,6 @@ export default function Edit(props: Props) {
     let form = useForm<NewUser>(
         {
             ...user,
-            NIM: user.user_profile ? user.user_profile.NIM : '',
-            NIDN: user.user_profile ? user.user_profile.NIDN : '',
-            NIP_NIPH: user.user_profile ? user.user_profile.NIP_NIPH : '',
         }
     );
 

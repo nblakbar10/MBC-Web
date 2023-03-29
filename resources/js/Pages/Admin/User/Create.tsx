@@ -1,7 +1,7 @@
 import React from 'react';
 import route from 'ziggy-js';
 
-import AppLayout from '@/Layouts/AppLayout';
+import AppLayout from '@/Layouts/DashboardAdminLayout';
 import { NewUser, Role } from '@/types';
 import { useForm } from '@inertiajs/inertia-react';
 
@@ -19,9 +19,6 @@ export default function Create(props: Props) {
             phone_number: '',
             password: '',
             roles: [],
-            NIM: '',
-            NIDN: '',
-            NIP_NIPH: '',
         }
     );
 
@@ -45,10 +42,10 @@ export default function Create(props: Props) {
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div className="flex justify-between">
                         <div className="text-2xl">
-                            Tambah Kategori Dokumen Baru
+                            Tambah User
                         </div>
                         <button className="btn btn-primary">
-                            <a href={route('research-document-category.index')}>
+                            <a href={route('user.index')}>
                                 Kembali
                             </a>
                         </button>

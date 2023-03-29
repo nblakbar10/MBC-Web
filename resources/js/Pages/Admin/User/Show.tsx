@@ -1,27 +1,20 @@
 import React from 'react';
 import route from 'ziggy-js';
 
-import AppLayout from '@/Layouts/AppLayout';
-import { Research } from '@/Models/Research/Research';
-import { ResearchContributor } from '@/Models/Research/ResearchContributor';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { User } from '@/types';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink } from '@inertiajs/inertia-react';
 
-interface ResearchContribution extends ResearchContributor{
-    research: Research;
-}
-
 interface Props {
     user: User;
-    researches_contributions: Array<ResearchContribution>;
 }
 
 export default function Show(props: Props) {
     let user = props.user;
 
     return (
-        <AppLayout title={`Pengguna ${user.name}`}>
+        <DashboardAdminLayout title={`Pengguna ${user.name}`}>
             <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
@@ -94,63 +87,12 @@ export default function Show(props: Props) {
                                         <td className=''>Status</td>
                                         <td className=''>{user.roles.map((role) => role.name).join(', ')}</td>
                                     </tr>
-                                    {user.user_profile?.NIM && (
-                                        <tr>
-                                            <td className=''>NIM</td>
-                                            <td className=''>{user.user_profile.NIM}</td>
-                                        </tr>
-                                    )}
-                                    {user.user_profile?.NIP_NIPH && (
-                                        <tr>
-                                            <td className=''>NIP/NIPH</td>
-                                            <td className=''>{user.user_profile.NIP_NIPH}</td>
-                                        </tr>
-                                    )}
-                                    {user.user_profile?.NIDN && (
-                                        <tr>
-                                            <td className=''>NIDN</td>
-                                            <td className=''>{user.user_profile.NIDN}</td>
-                                        </tr>
-                                    )}
                                 </tbody>
                             </table>
-                            <div className='flex flex-col gap-4 py-4'>
-                                <h3 className='text-2xl'>Riwayat Penelitian</h3>
-                                {props.researches_contributions.length > 0 ? (<table className='table table-zebra w-full'>
-                                    <thead>
-                                        <tr>
-                                            <th className=''>Judul</th>
-                                            <th className=''>Kontribusi</th>
-                                            <th className=''>Data Penelitian</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {props.researches_contributions.map((researches_contribution) => (
-                                            <tr key={researches_contribution.id}>
-                                                <td className=''>{researches_contribution.research.name}</td>
-                                                <td className=''>{researches_contribution.contributor_type}</td>
-                                                <td className=''>
-                                                    <InertiaLink
-                                                        className="btn btn-square btn-primary rounded py-2 px-10  focus:outline-none border-2"
-                                                        href={route('research.show', researches_contribution.research.id)}
-                                                    >
-                                                        Lihat
-                                                    </InertiaLink>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                                ) : (
-                                        <div className='text-center'>
-                                            <h3 className='text-xl'>Tidak ada Penelitian terkait akun ini</h3>
-                                        </div>
-                                )}
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </AppLayout>
+        </DashboardAdminLayout>
     )
 }

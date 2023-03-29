@@ -19,16 +19,12 @@ export interface BaseUser{
 }
 
 export interface NewUser extends BaseUser {
-  NIM?: string;
-  NIP_NIPH?: string;
-  NIDN?: string;
   password?: string
 }
 
 export interface User extends BaseUser {
   id: number;
   roles: Array<Role>;
-  user_profile? : UserProfile;
   current_team_id: Nullable<number>;
   profile_photo_path: Nullable<string>;
   profile_photo_url: string;
@@ -36,13 +32,6 @@ export interface User extends BaseUser {
   email_verified_at: Nullable<DateTime>;
   created_at: DateTime;
   updated_at: DateTime;
-}
-
-export interface UserProfile {
-  id: number;
-  NIDN: string;
-  NIP_NIPH: string;
-  NIM: string;
 }
 
 export type InertiaSharedProps<T = {}> = T & {

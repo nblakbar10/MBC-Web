@@ -86,49 +86,6 @@ export default function Form(props: Props) {
                 />
                 <InputError className="mt-2" message={form.errors.phone_number} />
             </div>
-            {form.data.roles?.some(role => role.name === 'mahasiswa')  && (
-                <div className="mt-4">
-                    <InputLabel htmlFor="NIM">NIM</InputLabel>
-                    <TextInput
-                        id="NIM"
-                        type="text"
-                        className="mt-1 block w-full"
-                        value={form.data.NIM}
-                        onChange={e => form.setData('NIM', e.currentTarget.value)}
-                        required
-                    />
-                    <InputError className="mt-2" message={form.errors.NIM} />
-                </div>
-            )}
-
-            {form.data.roles?.some(role => role.name === 'dosen') && (
-                <>
-                    <div className="mt-4">
-                        <InputLabel htmlFor="NIDN">NIDN</InputLabel>
-                        <TextInput
-                            id='NIDN'
-                            type="text"
-                            className="mt-1 block w-full"
-                            value={form.data.NIDN}
-                            onChange={e => form.setData('NIDN', e.currentTarget.value)}
-                            required
-                        />
-                        <InputError className="mt-2" message={form.errors.NIDN} />
-                    </div>
-                    <div className="mt-4">
-                        <InputLabel htmlFor="NIP_NIPH">NIP/NIPH</InputLabel>
-                        <TextInput
-                            id='NIP_NIPH'
-                            type="text"
-                            className="mt-1 block w-full"
-                            value={form.data.NIP_NIPH}
-                            onChange={e => form.setData('NIP_NIPH', e.currentTarget.value)}
-                            required
-                        />
-                        <InputError className="mt-2" message={form.errors.NIP_NIPH} />
-                    </div>
-                </>
-            )}
         </div>
     )
 }
