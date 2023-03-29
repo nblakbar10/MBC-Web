@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AppLayout from '@/Layouts/AppLayout';
+import AppLayout from '@/Layouts/DashboardAdminLayout';
 
 interface Props {
 }
