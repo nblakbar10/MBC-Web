@@ -63,23 +63,6 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function researchContributor(){
-        return $this->hasMany('App\Models\Research\ResearchContributor', 'user_id');
-    }
-
-    public function researches(){
-        return $this->belongsToMany(
-            Research::class,
-            'research_contributors',
-            'user_id',
-            'research_id',
-        );
-    }
-
-    public function userProfile(){
-        return $this->hasOne('App\Models\UserProfile', 'user_id');
-    }
-
     public function isAdmin() {
         return $this->hasAnyRole(['admin','super-admin']);
     }

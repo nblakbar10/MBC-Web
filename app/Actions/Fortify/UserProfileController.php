@@ -30,7 +30,7 @@ class UserProfileController extends Controller
         return Jetstream::inertia()->render($request, 'Profile/Show', [
             'confirmsTwoFactorAuthentication' => Features::optionEnabled(Features::twoFactorAuthentication(), 'confirm'),
             'sessions' => $this->sessions($request)->all(),
-            'user' => User::with(['userProfile','roles'])->find(Auth::user()->id),
+            'user' => User::with(['roles'])->find(Auth::user()->id),
         ]);
     }
 

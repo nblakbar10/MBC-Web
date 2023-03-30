@@ -43,10 +43,10 @@ export default function Index(props: Props) {
                                 <div className="mt-8 text-2xl">
                                     Users
                                 </div>
-                                <div className="btn btn-primary text-md my-3">
+                                <div className="">
                                     <InertiaLink
                                         href={route('user.create')}
-                                    >
+                                        className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
                                         Tambah User
                                     </InertiaLink>
                                 </div>
@@ -67,7 +67,7 @@ export default function Index(props: Props) {
                                     renderRowActions={({ row }) => (
                                         <div className="flex items-center justify-center gap-2">
                                             <InertiaLink href={route('user.show', row.original.id)} 
-                                                className="btn btn-primary text-md my-3">
+                                                className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
                                                 Show
                                             </InertiaLink>
                                         </div>

@@ -2,7 +2,7 @@ import React from 'react';
 
 import SectionBorder from '@/Components/Jetstream/SectionBorder';
 import useTypedPage from '@/Hooks/useTypedPage';
-import AppLayout from '@/Layouts/AppLayout';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import DeleteUserForm from '@/Pages/Profile/Partials/DeleteUserForm';
 import LogoutOtherBrowserSessions from '@/Pages/Profile/Partials/LogoutOtherBrowserSessionsForm';
 import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthenticationForm';
@@ -24,7 +24,7 @@ export default function Show({
   const page = useTypedPage();
 
   return (
-    <AppLayout
+    <DashboardAdminLayout
       title={'Profile'}
       renderHeader={() => (
         <h2 className="font-semibold text-xl text-gray-800 leading-tight">
@@ -75,6 +75,6 @@ export default function Show({
           ) : null}
         </div>
       </div>
-    </AppLayout>
+    </DashboardAdminLayout>
   );
 }

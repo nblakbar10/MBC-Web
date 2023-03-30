@@ -3,7 +3,7 @@ import route from 'ziggy-js';
 
 import AppLayout from '@/Layouts/DashboardAdminLayout';
 import { NewUser, Role } from '@/types';
-import { useForm } from '@inertiajs/inertia-react';
+import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
 import Form from './Form';
 
@@ -46,10 +46,13 @@ export default function Edit(props: Props) {
                             <div className="text-2xl">
                                 Edit User
                             </div>
-                            <button className="btn btn-primary">
-                                <a href={route('user.index')}>
+                            <button>
+                                <InertiaLink
+                                    className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                    href={route('user.index')}
+                                >
                                     Kembali
-                                </a>
+                                </InertiaLink>
                             </button>
                         </div>
                         <form className="flex-col gap-5" onSubmit={onSubmit}>
@@ -59,7 +62,7 @@ export default function Edit(props: Props) {
                                 className="my-5"
                             />
                             <button
-                                className="btn btn-warning py-2 px-4 rounded mt-10 w-full"
+                                className="bg-yellow-500 text-white hover:bg-yellow-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2 w-full"
                                 type="submit"
                                 disabled={form.processing}
                             >

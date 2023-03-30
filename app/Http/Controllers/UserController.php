@@ -81,11 +81,9 @@ class UserController extends Controller
     public function show($id)
     {
         //
-        $user = User::with(['roles','userProfile'])->find($id);
-        $researches_contributions = $user->researchContributor()->with('research')->get();
+        $user = User::with(['roles'])->find($id);
         return Inertia::render('Admin/User/Show', [
             'user' => $user,
-            'researches_contributions' => $researches_contributions
         ]);
     }
 
@@ -98,7 +96,7 @@ class UserController extends Controller
     public function edit($id)
     {
         //
-        $user = User::with(['roles','userProfile'])->find($id);
+        $user = User::with(['roles'])->find($id);
         $roles = Role::all();
         return Inertia::render('Admin/User/Edit', [
             'user' => $user,
@@ -123,9 +121,6 @@ class UserController extends Controller
                 'password' => 'nullable|string|min:8',
                 'roles.*.id' => 'required|exists:roles',
                 'phone_number' => 'required|string',
-                'NIM' => 'nullable|string',
-                'NIDN' => 'nullable|string',
-                'NIP_NIPH' => 'nullable|string',
             ]);
             
             $user = User::findOrFail($id);
@@ -140,22 +135,6 @@ class UserController extends Controller
                 ]);
             }
             $user->syncRoles($validated['roles']??[]);
-            if($user->hasRole('mahasiswa')){
-                $user->userProfile()->updateOrCreate(
-                    ['user_id' => $user->id],
-                    [
-                        'NIM' => $validated['NIM'],
-                    ]
-                );
-            }else if($user->hasRole('dosen')){
-                $user->userProfile()->updateOrCreate(
-                    ['user_id' => $user->id],
-                    [
-                        'NIDN' => $validated['NIDN'],
-                        'NIP_NIPH' => $validated['NIP_NIPH'],
-                    ]
-                );
-            }
             $user->save();
             return redirect()->route('user.show',$id)->banner('User Updated Successfully');
         });
@@ -171,10 +150,6 @@ class UserController extends Controller
     {
         //
         $user = User::findOrFail($id);
-        $user_profile = $user->userProfile();
-        if($user_profile){
-            $user_profile->delete();
-        }
         $user->delete();
         return redirect()->route('user.index')->banner('User Deleted Successfully');
     }

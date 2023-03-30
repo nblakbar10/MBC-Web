@@ -5,7 +5,12 @@ import ResponsiveNavLink from '@/Components/Jetstream/ResponsiveNavLink';
 import useRoute from '@/Hooks/useRoute';
 import useTypedPage from '@/Hooks/useTypedPage';
 import { Inertia } from '@inertiajs/inertia';
-import { Head, InertiaLink } from '@inertiajs/inertia-react';
+import { Box, Drawer } from '@mui/material';
+import { asset } from '@/Models/Helper';
+import MenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Dropdown from '@/Components/Jetstream/Dropdown';
+import DropdownLink from '@/Components/Jetstream/DropdownLink';
 
 interface Props {
     title: string;
@@ -26,107 +31,107 @@ export default function DashboardAdminLayout({
         Inertia.post(route('logout'));
     }
 
+    const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+    const toggleDrawer =
+        (open: boolean) =>
+            (event: React.KeyboardEvent | React.MouseEvent) => {
+                if (
+                    event.type === 'keydown' &&
+                    ((event as React.KeyboardEvent).key === 'Tab' ||
+                        (event as React.KeyboardEvent).key === 'Shift')
+                ) {
+                    return;
+                }
+                setIsSidebarOpen(open)
+            };
+    
+    const sideBar = () => (
+        <Box
+            sx={{ width: 250 }}
+            role="presentation"
+            onClick={toggleDrawer( false)}
+            onKeyDown={toggleDrawer(false)}
+        >
+            <div className="bg-stone-500">
+                <img
+                    className="p-5"
+                    src={asset('root', 'assets/images/MBC_HD.png')}
+                    alt="Logo"
+                />
+            </div>
+            <ul className="my-10">
+                <li>
+                    <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
+                        Dashboard
+                    </ResponsiveNavLink>
+                </li>
+                <li>
+                    <ResponsiveNavLink href={route('user.index')} active={route().current('user.index')}>
+                        Pengguna
+                    </ResponsiveNavLink>
+                </li>
+                <li>
+                    <ResponsiveNavLink href={route('dashboard')}
+                        // active={route().current('dashboard')}
+                    >
+                        History Transaksi
+                    </ResponsiveNavLink>
+                </li>
+            </ul>
+        </Box>
+    );
+
     return (
         <div>
-            <Head title={title} />
             <Banner />
-            <div className="drawer">
-                <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-                <div className="drawer-content">
-                    {/* Navbar */}
-                    <div className="navbar bg-primary text-white font-medium">
-                        <div className="navbar-start gap-2">
-                            <div className="flex-none">
-                                <button className="btn btn-square btn-ghost">
-                                    <label htmlFor="my-drawer" className=" drawer-button">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                                    </label>
-                                </button>
-                            </div>
-                            <div className='hidden md:flex'>
-                                <a className="btn btn-ghost normal-case text-xl" href={route('dashboard')}>Dashboard</a>
-                            </div>
-                        </div>
-                        <div className="navbar-end mr-10">
-                            <div className="dropdown dropdown-hover dropdown-end ">
-                                <label tabIndex={0} className="btn btn-ghost">
-                                    <div className="p-2 rounded-full flex">
-                                        Profile
-                                    </div>
-                                </label>
-                                <ul tabIndex={0} className="dropdown-content menu p-2 gap-2 shadow bg-base-100 rounded-box w-40 top-10">
-                                    <li className="z-50">
-                                        <ResponsiveNavLink
-                                            href={route('profile.show')}
-                                            active={route().current('profile.show')}
-                                        >
-                                            Profile
-                                        </ResponsiveNavLink>
-                                    </li>
-                                    <li className="z-50">
-                                        <form method="POST" onSubmit={logout}>
-                                            <ResponsiveNavLink as="button">
-                                                Log Out
-                                            </ResponsiveNavLink>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    {/* End of Navbar */}
-                    <div className='mx-7'>
-                        <main>{children}</main>
-                    </div>
+            <nav className="flex justify-between w-full sticky bg-blue-400 py-7 px-10">
+                <div className="flex gap-3 max-w-6xl mr-30">
+                    <button className="text-3xl md:ml-20 bg-blue-400 text-white hover:bg-blue-600 px-3 py-2"
+                        onClick={toggleDrawer(true)}
+                    >
+                        <MenuIcon fontSize="large" /> Admin
+                    </button>
                 </div>
-                <div className="drawer-side text-white">
-                    <label htmlFor="my-drawer" className="drawer-overlay "></label>
-                    <ul className="menu p-4 overflow-y-auto w-80 bg-base-100 text-base-content font-medium ">
-                        <div className='md:hidden'>
-                            <div className="divider">SIMPEL</div>
-                            <li>
-                                <div className="dropdown dropdown-hover dropdown-end">
-                                    <ul className="flex flex-col gap-5">
-                                        <InertiaLink href={route('dashboard')}>
-                                            <label>
-                                                Dashboard
-                                            </label>
-                                        </InertiaLink>
-                                    </ul>
-                                </div>
-                            </li>
-                        </div>
-                        {page.props.isAdministrator ? (
-                            <>
-                                <div className="divider">Admin Only</div>
-                                <li >
-                                    <div className="dropdown dropdown-hover dropdown-end">
-                                        <label tabIndex={0} className="">
-                                            Autentikasi
-                                        </label>
-                                        <ul tabIndex={0} className="dropdown-content menu p-2 gap-2 shadow bg-base-100 rounded-box w-40 top-5 text-sm">
-                                            <li className="z-50">
-                                                <InertiaLink
-                                                    className=""
-                                                    href={route('user.index')}
-                                                >
-                                                    Users
-                                                </InertiaLink>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            </>
-                        ) : null
+                <div className="mr-3 relative">
+                    <Dropdown
+                        align="right"
+                        width="48"
+                        renderTrigger={() => (
+                            <button className="flex text-sm text-white border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                                <SettingsIcon fontSize="large"/>
+                            </button>
+                            )
                         }
-                        <button className="block lg:hidden">
-                            <label htmlFor="my-drawer" className="btn btn-ghost drawer-button text-lg">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-5 h-5 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
-                            </label>
-                        </button>
-                    </ul>
+                    >
+                        {/* <!-- Account Management --> */}
+                        <div className="block px-4 py-2 text-xs text-gray-400">
+                            Manage Account
+                        </div>
+
+                        <DropdownLink href={route('profile.show')}>
+                            Profile
+                        </DropdownLink>
+
+                        <div className="border-t border-gray-100"></div>
+
+                        {/* <!-- Authentication --> */}
+                        <form onSubmit={logout}>
+                            <DropdownLink as="button">Log Out</DropdownLink>
+                        </form>
+                    </Dropdown>
                 </div>
-            </div >
+            </nav>
+            <React.Fragment>
+                <Drawer
+                    anchor={"left"}
+                    open={isSidebarOpen}
+                    onClose={toggleDrawer(false)}
+                >
+                    {sideBar()}
+                </Drawer>
+            </React.Fragment>
+            {children}
         </div >
     );
 }

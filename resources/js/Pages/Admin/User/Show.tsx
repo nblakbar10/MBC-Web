@@ -5,6 +5,7 @@ import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { User } from '@/types';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink } from '@inertiajs/inertia-react';
+import { Dialog, DialogContent } from '@mui/material';
 
 interface Props {
     user: User;
@@ -12,6 +13,15 @@ interface Props {
 
 export default function Show(props: Props) {
     let user = props.user;
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     return (
         <DashboardAdminLayout title={`Pengguna ${user.name}`}>
@@ -24,68 +34,55 @@ export default function Show(props: Props) {
                                     Data Profil
                                 </div>
                                 <div className="flex flex-col md:flex-row gap-3">
-                                    <InertiaLink
-                                        className="btn btn-square btn-primary rounded py-2 px-10  focus:outline-none border-2"
-                                        href={route('user.index')}
-                                    >
-                                        Kembali
-                                    </InertiaLink>
-                                    <InertiaLink
-                                        className="btn btn-square btn-warning rounded py-2 px-10  focus:outline-none border-2"
-                                        href={route('user.edit', user.id)}
-                                    >
-                                        Edit
-                                    </InertiaLink>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-square btn-error rounded  py-2 px-10 focus:outline-none border-2 "
-                                    >
-                                        <label htmlFor="my-modal">Delete</label>
+                                    <button>
+                                        <InertiaLink
+                                            className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                            href={route('user.index')}
+                                        >
+                                            Kembali
+                                        </InertiaLink>
                                     </button>
-                                    <input type="checkbox" id="my-modal" className="modal-toggle" />
-                                    <div className="modal">
-                                        <div className="modal-box">
-                                            <h3 className="font-bold text-lg">Confirm to Delete</h3>
-                                            <p className="py-4">Are you sure to do this.</p>
-                                            <div className="modal-action">
-                                                <label htmlFor="my-modal" className="btn btn-error"
-                                                    onClick={
-                                                        () => {
-                                                            Inertia.post(route('user.destroy', user.id), {
-                                                                _method: 'DELETE',
-                                                            });
-                                                        }
-                                                    }
-                                                >Yes</label>
-                                                <label htmlFor="my-modal" className="btn">No!</label>
-                                            </div>
-                                        </div>
+                                    <button>
+                                        <InertiaLink
+                                            className="bg-yellow-500 text-white hover:bg-yellow-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                            href={route('user.edit', user.id)}
+                                        >
+                                            Edit
+                                        </InertiaLink>
+                                    </button>
+                                    <div className="flex flex-col justify-center" >
+                                        <button
+                                            className="bg-red-500 text-white hover:bg-red-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                            onClick={handleClickOpen}
+                                        >
+                                            <label htmlFor="my-modal">Delete</label>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                            <table className='table table-zebra w-full'>
+                            <table className='w-full'>
                                 <thead>
-                                    <tr>
+                                    <tr className='border-b py-3 border-black'>
                                         <th className=''>Properti</th>
                                         <th className=''>Keterangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td className=''>Nama</td>
-                                        <td className=''>{user.name}</td>
+                                    <tr className='border-b py-3 border-black'>
+                                        <td className='py-3 text-center'>Nama</td>
+                                        <td className='py-3 text-center'>{user.name}</td>
                                     </tr>
-                                    <tr>
-                                        <td className=''>Email</td>
-                                        <td className=''>{user.email}</td>
+                                    <tr className='border-b py-3 border-black'>
+                                        <td className='py-3 text-center'>Email</td>
+                                        <td className='py-3 text-center'>{user.email}</td>
                                     </tr>
-                                    <tr>
-                                        <td className=''>No Telepon</td>
-                                        <td className=''>{user.phone_number}</td>
+                                    <tr className='border-b py-3 border-black'>
+                                        <td className='py-3 text-center'>No Telepon</td>
+                                        <td className='py-3 text-center'>{user.phone_number}</td>
                                     </tr>
-                                    <tr>
-                                        <td className=''>Status</td>
-                                        <td className=''>{user.roles.map((role) => role.name).join(', ')}</td>
+                                    <tr className='border-b py-3 border-black'>
+                                        <td className='py-3 text-center'>Status</td>
+                                        <td className='py-3 text-center'>{user.roles.map((role) => role.name).join(', ')}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -93,6 +90,27 @@ export default function Show(props: Props) {
                     </div>
                 </div>
             </div>
+            <Dialog open={open} onClose={handleClose}
+            >
+                <DialogContent className="w-full">
+                    <div>
+                        <h3 className="font-bold text-lg">Confirm to Delete</h3>
+                        <p className="py-4">Are you sure to do this.</p>
+                        <div className="flex justify-end">
+                            <button
+                                className="bg-red-500 text-white hover:bg-red-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                onClick={
+                                    () => {
+                                        Inertia.post(route('user.destroy', user.id), {
+                                            _method: 'DELETE',
+                                        });
+                                    }
+                                }
+                            >Yes</button>
+                        </div>
+                    </div>
+                </DialogContent>
+            </Dialog>
         </DashboardAdminLayout>
     )
 }
