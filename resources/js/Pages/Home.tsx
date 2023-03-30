@@ -1,28 +1,63 @@
 import BuyDialogForm from "@/Components/BuyDialogForm";
 import AppLayout from "@/Layouts/AppLayout";
 import { asset } from "@/Models/Helper";
-import React from "react";
+import { Tab, Tabs } from "@mui/material";
+import React, { useState } from "react";
+
+interface TabPanelProps {
+    children?: React.ReactNode;
+    index: number;
+    value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <div className="p-3">
+                    {children}
+                </div>
+            )}
+        </div>
+    );
+}
+
+function a11yProps(index: number) {
+    return {
+        id: `simple-tab-${index}`,
+        'aria-controls': `simple-tabpanel-${index}`,
+    };
+}
 
 export default function Home() {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const [tabValue, setTabValue] = useState(0);
+
+    const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+        setTabValue(newValue);
+    };
 
     return (
         <AppLayout>
             <div className="flex justify-center m-auto p-3 w-full md:w-5/6">
-                <div className="flex flex-col gap-5">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                     <img
-                        className="object-cover h-2/5 rounded-xl"
+                        className="object-cover rounded-xl basis-2/3"
                         src={asset('root', 'assets/images/bg-caknan.jpeg')}
                     />
-                    <div className="flex flex-col md:flex-row gap-3">
-                        <div className="flex justify-center p-10 text-4xl bg-orange-300 h-96 basis-1/2 rounded-2xl">
-                            <div className="my-auto">
-                                Deskripsi
-                            </div>
-                        </div>
-                        <div className="flex flex-col p-auto bg-orange-300 h-96 basis-1/2 p-3 md:p-10 rounded-2xl">
+                    <div className="flex flex-col gap-3 ">
+                        <div className="flex flex-col gap-3 p-auto basis-1/2 p-3 md:p-10 rounded-2xl border-stone-600 border-2">
                             <p className="text-xl md:text-4xl">
                                 Balikpapan Fest 2023
                             </p>
@@ -40,14 +75,76 @@ export default function Home() {
                                     14:00 - 22:00
                                 </p>
                             </div>
+                            <div className="border-black border-t-2 text-md md:text-xl my-5">
+                                <p>
+                                    Diselenggarakan Oleh
+                                </p>
+                                <p className="font-bold">
+                                    MBC Entertainment
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex justify-center">
+                            <button className="bg-blue-400 hover:bg-blue-500 text-xl text-white font-bold py-3 px-7 rounded-lg" onClick={handleOpen}>
+                                Beli Tiket
+                            </button>
                         </div>
                     </div>
-                    <div className="flex justify-center">
-                        <button className="bg-orange-300 hover:bg-amber-500 text-xl py-3 px-7 rounded-lg" onClick={handleOpen}>
-                            Beli Tiket
-                        </button>
+                    <div className="p-10  h-96 rounded-2xl">
+                        <div>
+                            <Tabs value={tabValue} onChange={handleTabChange} centered variant="fullWidth">
+                                <Tab label="Deskripsi" {...a11yProps(0)} />
+                                <Tab label="Promo Tiket" {...a11yProps(1)} />
+                            </Tabs>
+                            <TabPanel value={tabValue} index={0}>
+                                <div className="my-auto text-4xl">
+                                    Deskripsi
+                                </div>
+                            </TabPanel>
+                            <TabPanel value={tabValue} index={1}>
+                                <div className="flex flex-col my-3 gap-3">
+                                    <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
+                                        <p className="text-xl text-cyan-500 font-bold">
+                                            PROMOTIONAL SALES 1
+                                        </p>
+                                        <p>
+                                            Harga Belum Termasuk Pajak dan Biaya Layanan
+                                        </p>
+                                        <div className="border-black border-t-2 text-md md:text-xl my-5 flex justify-between py-3">
+                                            <p className="font-bold">
+                                                {`Rp. ${Number(100000).toLocaleString()}`}
+                                            </p>
+                                            <p className="font-semibold text-pink-500">
+                                                PROMO ENDED
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
+                                        <p className="text-xl text-cyan-500 font-bold">
+                                            PROMOTIONAL SALES 2
+                                        </p>
+                                        <p>
+                                            Harga Belum Termasuk Pajak dan Biaya Layanan
+                                        </p>
+                                        <div className="border-black border-t-2 text-md md:text-xl my-5 flex justify-between py-3">
+                                            <p className="font-bold">
+                                                {`Rp. ${Number(100000).toLocaleString()}`}
+                                            </p>
+                                            <button className="bg-blue-400 hover:bg-blue-500 text-xl text-white font-bold py-1 px-7 rounded-lg" onClick={handleOpen}>
+                                                Beli Tiket
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </TabPanel>
+                        </div>
                     </div>
-                    
+                    <div className="flex justify-center p-10">
+                        <img
+                            className="object-cover rounded-xl basis-2/3"
+                            src={asset('root', 'assets/images/peta.jpg')}
+                        />
+                    </div>
                 </div>
             </div>
             <BuyDialogForm open={open} closeHandler={handleClose} />

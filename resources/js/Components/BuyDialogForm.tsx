@@ -1,3 +1,4 @@
+import { asset } from "@/Models/Helper";
 import { useForm } from "@inertiajs/inertia-react";
 import { Dialog, DialogActions, DialogContent, DialogContentText, TextField } from "@mui/material";
 import React, { useEffect } from "react";
@@ -46,13 +47,16 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
     }
 
     return (
-        <Dialog open={open} onClose={closeHandler}
-        >
-            <DialogContent className="w-full">
-                <div className="text-2xl">
-                    Balikpapan Fest 2023
+        <Dialog open={open} onClose={closeHandler} sx={{ borderRadius: 2 }} maxWidth="sm" fullWidth>
+            <DialogContent className="w-full" >
+                <div className="flex justify-center">
+                    <img
+                        src={asset('root', 'assets/images/Smile Fest Post-07.png')}
+                        alt="Logo"
+                        width={300}
+                    />
                 </div>
-                <form className="flex flex-col gap-5 m-5">
+                <form className="flex flex-col gap-5 mx-5">
                     <div className="form-control w-full mt-4">
                         <InputLabel htmlFor="name">Nama Lengkap Sesuai KTP</InputLabel>
                         <TextInput
@@ -119,48 +123,53 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
                         </select>
                         {/* <InputError className="mt-2" message={"salah"} /> */}
                     </div>
-                    <div className="flex gap-3">
-                        <div className="flex flex-col">
-                            <div className="font-bold">
-                                Harga per Tiket
+                    <div className="flex justify-center">
+                        <div className="grid grid-cols-3 gap-3 justify-center">
+                            <div className="flex flex-col">
+                                <div className="font-bold text-center">
+                                    Harga per Tiket
+                                </div>
+                                <div className="text-center">
+                                    Rp. {price?.toLocaleString()}
+                                </div>
                             </div>
-                            <div className="font-bold">
-                                Rp. {price?.toLocaleString()}
+                            <div>
+                                <div className="font-bold text-center">
+                                    Biaya Langganan
+                                </div>
+                                <div className="text-center">
+                                    Rp. {adminFee?.toLocaleString()}
+                                </div>
+                            </div>
+                            <div>
+                                <div className="font-bold text-center">
+                                    Jumlah
+                                </div>
+                                <div className="text-center">
+                                    Rp. {(price! * form.data.ticket_amount).toLocaleString()}
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <div className="font-bold">
-                                Biaya Langganan
-                            </div>
-                            <div className="font-bold">
-                                Rp. {adminFee?.toLocaleString()}
-                            </div>
-                        </div>
-                        <div>
-                            <div className="font-bold">
+                    </div>
+                    <div className="flex justify-center">
+                        <div className="text-xl">
+                            <div className="font-bold text-center">
                                 Jumlah
                             </div>
-                            <div className="font-bold">
-                                Rp. {(price! * form.data.ticket_amount).toLocaleString()}
+                            <div className="text-center">
+                                Rp. {form.data.total_price.toLocaleString()}
                             </div>
                         </div>
                     </div>
-                    <div className="form-control w-full mt-4">
-                        <InputLabel htmlFor="total_price">Total Harga</InputLabel>
-                        <TextInput
-                            id="total_price"
-                            type="number"
-                            className="mt-1 block w-full"
-                            value={form.data.total_price}
-                            readOnly
-                        />
-                        {/* <InputError className="mt-2" message={"salah"} /> */}
-                    </div>
                 </form>
-                <DialogActions>
-                    <button onClick={closeHandler}>Cancel</button>
-                    <button onClick={onSubmitHandler}>Beli</button>
-                </DialogActions>
+                <div className="flex justify-center">
+                    <button
+                        onClick={onSubmitHandler}
+                        className="bg-pink-400 hover:bg-pink-600 rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
+                    >
+                        Beli Tiket
+                    </button>
+                </div>
             </DialogContent>
 
         </Dialog >

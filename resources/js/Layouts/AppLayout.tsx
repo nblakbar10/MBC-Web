@@ -1,19 +1,24 @@
+import { asset } from "@/Models/Helper";
 import React from "react";
 
 interface Props {
     children: React.ReactNode;
 }
 
-export default function AppLayout({children }: Props) {
+export default function AppLayout({ children }: Props) {
     return (
-        <div className="min-h-screen bg-orange-100 flex flex-col">
-            <nav className="flex w-full sticky bg-orange-400 p-5">
-                <div className="text-3xl md:ml-20 bg-orange-700 text-white px-10 py-2">
-                        Logo
-                    </div>
+        <div className="min-h-screen bg-white flex flex-col">
+            <nav className="flex w-full bg-blue-500 p-5 pl-20">
+                <div className="ml-7">
+                    <img
+                        src={asset('root', 'assets/images/MBC_HD.png')}
+                        alt="Logo"
+                        width={200}
+                    />
+                </div>
             </nav>
             {children}
-            <div className="w-full h-60  bg-amber-800">
+            <div className="w-full h-60 bg-pink-600">
             </div>
         </div >
     );
