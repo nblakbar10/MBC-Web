@@ -17,14 +17,32 @@ export default function Index({ events }: Props) {
             {
                 id: 1,
                 name: 'Event 1',
+                eventPromos: [
+                    {
+                        id: 1,
+                        name: 'Event Promo 1',
+                    },
+                ]
             },
             {
                 id: 2,
                 name: 'Event 2',
+                eventPromos: [
+                    {
+                        id: 1,
+                        name: 'Event Promo 1',
+                    },
+                ]
             },
             {
                 id: 3,
                 name: 'Event 3',
+                eventPromos: [
+                    {
+                        id: 1,
+                        name: 'Event Promo 1',
+                    },
+                ]
             },
         ];
     }
