@@ -21,7 +21,7 @@ export default function Form(props: Props) {
     let roles = props.roles;
 
     return (
-        <div className={`flex-col gap-5 ${props.className}`}>
+        <div className={`flex-col gap-5 p-5 md:mx-6 md:p-12" ${props.className}`}>
             <div className="form-control w-full mt-4">
                 <InputLabel htmlFor="name">Name</InputLabel>
                 <TextInput

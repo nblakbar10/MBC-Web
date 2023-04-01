@@ -1,5 +1,6 @@
 import React from 'react';
 import route from 'ziggy-js';
+import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
 import AppLayout from '@/Layouts/DashboardAdminLayout';
 import { NewUser, Role } from '@/types';
@@ -40,11 +41,12 @@ export default function Create(props: Props) {
         <AppLayout title={'Tambah User'}>
             <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div className="flex justify-between">
+                    <div className="flex justify-between md:mx-10">
                         <div className="text-2xl">
+                            {/* <svg className='fill-dark-200'></svg> */}
                             Tambah User
                         </div>
-                        <button className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
+                        <button className="bg-[#2EA1DA] text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
                             <InertiaLink href={route('user.index')}>
                                 Kembali
                             </InertiaLink>
@@ -58,12 +60,12 @@ export default function Create(props: Props) {
                         />
                         <div className="flex justify-end">
                             <button
-                                className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold m-5 mt-10 w-1/2"
+                                className="bg-[#2EA1DA] text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold m-5 mt-10 w-1/4 md:mx-10"
                                 type="submit"
                                 disabled={form.processing}
                             >
                                 Submit
-                            </button>   
+                            </button>
                         </div>
                     </form>
                 </div>
