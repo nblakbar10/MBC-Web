@@ -85,7 +85,7 @@ export default function Register() {
                 src={asset('root', 'assets/images/MBC_HD.png')}
                 alt="logo" />
               <h4 className="mt-1 mb-12 pb-1 p-4 text-xl text-center font-semibold">
-                Digital Reconnect Ticketing
+
               </h4>
               <form
                 onSubmit={onSubmit}
@@ -174,12 +174,12 @@ export default function Register() {
                     Selanjutnya
                   </button>
                 </div>
+                <div className='border-white border-t-2 flex justify-center mt-5 p-2'>By : Digital Reconnect</div>
               </form>
             </div>
           </div>
         </div>
       </div>
-
     </AuthenticationCard>
   );
 }
