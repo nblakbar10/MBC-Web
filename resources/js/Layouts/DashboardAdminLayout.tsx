@@ -55,7 +55,7 @@ export default function DashboardAdminLayout({
         >
             <div className="bg-[#ACA2A2] ">
                 <img
-                    className="p-3"
+                    className="h-20 p-4 px-2 ml-10"
                     src={asset('root', 'assets/images/MBC_HD.png')}
                     alt="Logo"
                 />
