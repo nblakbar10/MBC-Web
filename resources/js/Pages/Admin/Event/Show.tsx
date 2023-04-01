@@ -7,7 +7,6 @@ import { InertiaLink } from '@inertiajs/inertia-react';
 import { Dialog, DialogContent } from '@mui/material';
 import { EventModel } from '@/Models/Event';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import { EventPromoModel } from '@/Models/EventPromo';
 
 interface Props {
     event: EventModel;
