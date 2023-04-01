@@ -8,7 +8,7 @@ interface Props {
 export default function AppLayout({ children }: Props) {
     return (
         <div className="min-h-screen bg-white flex flex-col">
-            <nav className="flex w-full bg-blue-500 p-5 pl-20">
+            <nav className="flex w-full bg-[#2EA1DA] p-5 pl-20">
                 <div className="ml-7">
                     <img
                         src={asset('root', 'assets/images/MBC_HD.png')}

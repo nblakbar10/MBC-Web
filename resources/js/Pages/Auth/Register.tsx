@@ -10,6 +10,7 @@ import TextInput from '@/Components/Jetstream/TextInput';
 import useRoute from '@/Hooks/useRoute';
 import useTypedPage from '@/Hooks/useTypedPage';
 import { Head, InertiaLink, useForm } from '@inertiajs/inertia-react';
+import { asset } from "@/Models/Helper";
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 
@@ -76,7 +77,19 @@ export default function Register() {
   return (
     <AuthenticationCard>
       <Head title="Register" />
+      <div className="container h-full p-10">
+        <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
+            <div className="w-full">
+                <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
 
+
+                            <div className="md:mx-6 md:p-12">
+                                <img className="mx-auto w-48"
+                                    src={asset('root', 'assets/images/MBC_HD.png')}
+                                    alt="logo" />
+                                <h4 className="mt-1 mb-12 pb-1 p-4 text-xl text-center font-semibold">
+                                    Digital Reconnect Ticketing
+                                </h4>
       <form
         onSubmit={onSubmit}
         className=''
@@ -95,7 +108,7 @@ export default function Register() {
         </Tabs>
         <TabPanel index={0} value={tabIndex}>
           <div>
-            <InputLabel htmlFor="name">Name</InputLabel>
+            <InputLabel htmlFor="name"><p className="text-[#FFFFFF]">Name</p></InputLabel>
             <TextInput
               id="name"
               type="text"
@@ -109,7 +122,7 @@ export default function Register() {
             <InputError className="mt-2" message={form.errors.name} />
           </div>
           <div className="mt-4">
-            <InputLabel htmlFor="email">Phone Number</InputLabel>
+            <InputLabel htmlFor="email"><p className="text-[#FFFFFF]">Phone Number</p></InputLabel>
             <TextInput
               id="phone_number"
               type="text"
@@ -151,7 +164,7 @@ export default function Register() {
         </TabPanel>
         <TabPanel index={1} value={tabIndex}>
           <div className="mt-4">
-            <InputLabel htmlFor="email">Email</InputLabel>
+            <InputLabel htmlFor="email"><p className="text-[#FFFFFF]">Email</p></InputLabel>
             <TextInput
               id="email"
               type="email"
@@ -164,7 +177,7 @@ export default function Register() {
           </div>
 
           <div className="mt-4">
-            <InputLabel htmlFor="password">Password</InputLabel>
+            <InputLabel htmlFor="password"><p className="text-[#FFFFFF]">Password</p></InputLabel>
             <TextInput
               id="password"
               type="password"
@@ -178,7 +191,7 @@ export default function Register() {
           </div>
 
           <div className="mt-4">
-            <InputLabel htmlFor="password_confirmation">Confirm Password</InputLabel>
+            <InputLabel htmlFor="password_confirmation"><p className="text-[#FFFFFF]">Confirm Password</p></InputLabel>
             <TextInput
               id="password_confirmation"
               type="password"
@@ -235,7 +248,7 @@ export default function Register() {
             Already registered?
           </InertiaLink>
           <div className="flex items-center justify-between mt-4">
-            
+
             <button
               className='inline-flex items-center px-4 py-2 bg-sky-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition'
               onClick={() => setTabIndex(0)}
@@ -257,6 +270,12 @@ export default function Register() {
           </div>
         </TabPanel>
       </form>
+      </div>
+      </div>
+      </div>
+      </div>
+      </div>
+
     </AuthenticationCard>
   );
 }

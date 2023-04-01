@@ -19,7 +19,7 @@ export default function AuthenticationCard({
           <div className="card-body ">
             <div className='flex flex-col text-black'>
               <div className='text-2xl m-auto font-semibold'>
-                Digital Reconnect Ticketing
+
               </div>
             </div>
             <div className="mt-6 py-4 sm:rounded-lg ">
