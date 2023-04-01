@@ -17,7 +17,7 @@ export default function Dashboard(props: Props) {
               <div className='text-3xl lg:text-6xl font-bold'>
                 Selamat Datang di Digital Reconnect Ticketing
               </div>
-              <div className='lg:text-xl'>
+              {/* <div className='lg:text-xl'>
                 Halo Administrator
               </div>
             </div>
@@ -35,7 +35,7 @@ export default function Dashboard(props: Props) {
               <div className="stat">
                 <div className="stat-title">Jumlah Dokumen Penelitian</div>
                 <div className="stat-value">{"Testing"}</div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
