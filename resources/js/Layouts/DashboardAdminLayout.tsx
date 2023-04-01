@@ -45,7 +45,7 @@ export default function DashboardAdminLayout({
                 }
                 setIsSidebarOpen(open)
             };
-    
+
     const sideBar = () => (
         <Box
             sx={{ width: 250 }}
@@ -53,9 +53,9 @@ export default function DashboardAdminLayout({
             onClick={toggleDrawer( false)}
             onKeyDown={toggleDrawer(false)}
         >
-            <div className="bg-stone-500">
+            <div className="bg-[#ACA2A2] ">
                 <img
-                    className="p-5"
+                    className="p-3"
                     src={asset('root', 'assets/images/MBC_HD.png')}
                     alt="Logo"
                 />
@@ -85,9 +85,9 @@ export default function DashboardAdminLayout({
     return (
         <div>
             <Banner />
-            <nav className="flex justify-between w-full sticky bg-blue-400 py-7 px-10">
+            <nav className="flex justify-between w-full sticky bg-[#2EA1DA] py-3 px-5">
                 <div className="flex gap-3 max-w-6xl mr-30">
-                    <button className="text-3xl md:ml-20 bg-blue-400 text-white hover:bg-blue-600 px-3 py-2"
+                    <button className="text-3xl md:ml-20 bg-[#2EA1DA] text-white hover:bg-blue-600 px-3 py-2"
                         onClick={toggleDrawer(true)}
                     >
                         <MenuIcon fontSize="large" /> Admin

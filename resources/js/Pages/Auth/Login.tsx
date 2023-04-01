@@ -34,7 +34,7 @@ export default function Login({ canResetPassword, status }: Props) {
   return (
     <AuthenticationCard>
       <Head title="login" />
-      <div className="container h-full p-10">
+      <div className="flex container h-full p-10">
         <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
             <div className="w-full">
                 <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
@@ -58,7 +58,7 @@ export default function Login({ canResetPassword, status }: Props) {
                         <TextInput
                             id="email"
                             type="email"
-                            className="mt-1 block w-full"
+                            className="mt-1 block w-full text-[#000000]"
                             value={form.data.email}
                             onChange={e => form.setData('email', e.currentTarget.value)}
                             required
@@ -72,7 +72,7 @@ export default function Login({ canResetPassword, status }: Props) {
                         <TextInput
                             id="password"
                             type="password"
-                            className="mt-1 block w-full"
+                            className="mt-1 block w-full text-[#000000]"
                             value={form.data.password}
                             onChange={e => form.setData('password', e.currentTarget.value)}
                             required
@@ -109,7 +109,7 @@ export default function Login({ canResetPassword, status }: Props) {
                         <div className="flex items-center justify-end">
                             <InertiaLink
                             href={route('register')}
-                            className="underline text-sm text-white hover:text-gray-900"
+                            className="underline text-sm text-white hover:text-[#2EA1DA]"
                             >
                             Need an account?
                             </InertiaLink>
