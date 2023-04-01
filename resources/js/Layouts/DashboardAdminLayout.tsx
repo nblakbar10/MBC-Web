@@ -90,8 +90,10 @@ export default function DashboardAdminLayout({
                     <button className="text-3xl md:ml-20 bg-[#2EA1DA] text-white hover:bg-blue-600 px-3 py-2"
                         onClick={toggleDrawer(true)}
                     >
-                        <MenuIcon fontSize="large" /> Admin
+                        <MenuIcon fontSize="large" />
                     </button>
+                    <p className='inline text-3xl bg-[#2EA1DA] text-white py-2'>Admin</p>
+
                 </div>
                 <div className="mr-3 relative">
                     <Dropdown
