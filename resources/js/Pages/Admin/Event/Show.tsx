@@ -30,7 +30,7 @@ export default function Show({ event }: Props) {
             accessorKey: 'name',
             header: 'Nama Event',
         },
-    ] as MRT_ColumnDef<EventPromoModel>[];
+    ] as MRT_ColumnDef<typeof event.eventPromos[0]>[];
 
     return (
         <DashboardAdminLayout title={`Pengguna ${event.name}`}>
