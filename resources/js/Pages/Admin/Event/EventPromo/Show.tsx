@@ -13,6 +13,8 @@ interface Props {
 
 export default function Show({ promo }: Props) {
 
+    console.log(promo);
+
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
