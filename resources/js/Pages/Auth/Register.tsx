@@ -77,203 +77,107 @@ export default function Register() {
   return (
     <AuthenticationCard>
       <Head title="Register" />
-      <div className="flex container h-full p-10">
-        <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
-            <div className="w-full">
-                <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
-
-
-                            <div className="md:mx-6 md:p-12">
-                                <img className="mx-auto w-48"
-                                    src={asset('root', 'assets/images/MBC_HD.png')}
-                                    alt="logo" />
-                                <h4 className="mt-1 mb-12 pb-1 p-4 text-xl text-center font-semibold">
-                                    Digital Reconnect Ticketing
-                                </h4>
-      <form
-        onSubmit={onSubmit}
-        className=''
-      >
-        <Tabs
-          value={tabIndex}
-          onChange={handleOnTabChange}
-          indicatorColor="secondary"
-          textColor="inherit"
-          variant="fullWidth"
-          aria-label="full width tabs example"
-          centered
-        >
-          <Tab {...a11yProps(0)} label="Data Diri"/>
-          <Tab {...a11yProps(1)} label="Data Akun"/>
-        </Tabs>
-        <TabPanel index={0} value={tabIndex}>
-          <div>
-            <InputLabel htmlFor="name"><p className="text-[#FFFFFF]">Name</p></InputLabel>
-            <TextInput
-              id="name"
-              type="text"
-              className="mt-1 block w-full text-[#000000]"
-              value={form.data.name}
-              onChange={e => form.setData('name', e.currentTarget.value)}
-              required
-              autoFocus
-              autoComplete="name"
-            />
-            <InputError className="mt-2" message={form.errors.name} />
-          </div>
-          <div className="mt-4">
-            <InputLabel htmlFor="email"><p className="text-[#FFFFFF]">Phone Number</p></InputLabel>
-            <TextInput
-              id="phone_number"
-              type="text"
-              className="mt-1 block w-full text-[#000000]"
-              value={form.data.phone_number}
-              onChange={e => form.setData('phone_number', e.currentTarget.value)}
-              required
-            />
-            <InputError className="mt-2" message={form.errors.phone_number} />
-          </div>
-          {/* <div className="mt-4">
-            <InputLabel htmlFor="role">Status Warga ITK </InputLabel>
-            <select
-              id="role"
-              className="mt-1 block w-full md:w-1/2"
-              value={form.data.role}
-              onChange={e => form.setData('role', e.currentTarget.value)}
-            >
-              <option value="guest">Guest</option>
-              <option value="mahasiswa">Mahasiswa</option>
-              <option value="dosen">Dosen</option>
-            </select>
-            <InputError className="mt-2" message={form.errors.role} />
-          </div> */}
-          <div className='flex justify-between mt-4 gap-5'>
-            <InertiaLink
-              href={route('login')}
-              className="underline text-sm text-[#FFFFFF] hover:text-[#2EA1DA]"
-            >
-              Already registered?
-            </InertiaLink>
-            <button
-              className='inline-flex items-center px-4 py-2 bg-[#2EA1DA] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition'
-              onClick={() => setTabIndex(1)}
-            >
-              Selanjutnya
-            </button>
-          </div>
-        </TabPanel>
-        <TabPanel index={1} value={tabIndex}>
-          <div className="mt-4">
-            <InputLabel htmlFor="email"><p className="text-[#FFFFFF]">Email</p></InputLabel>
-            <TextInput
-              id="email"
-              type="email"
-              className="mt-1 block w-full text-[#000000]"
-              value={form.data.email}
-              onChange={e => form.setData('email', e.currentTarget.value)}
-              required
-            />
-            <InputError className="mt-2" message={form.errors.email} />
-          </div>
-
-          <div className="mt-4">
-            <InputLabel htmlFor="password"><p className="text-[#FFFFFF]">Password</p></InputLabel>
-            <TextInput
-              id="password"
-              type="password"
-              className="mt-1 block w-full text-[#000000]"
-              value={form.data.password}
-              onChange={e => form.setData('password', e.currentTarget.value)}
-              required
-              autoComplete="new-password"
-            />
-            <InputError className="mt-2" message={form.errors.password} />
-          </div>
-
-          <div className="mt-4">
-            <InputLabel htmlFor="password_confirmation"><p className="text-[#FFFFFF]">Confirm Password</p></InputLabel>
-            <TextInput
-              id="password_confirmation"
-              type="password"
-              className="mt-1 block w-full text-[#000000]"
-              value={form.data.password_confirmation}
-              onChange={e =>
-                form.setData('password_confirmation', e.currentTarget.value)
-              }
-              required
-              autoComplete="new-password"
-            />
-            <InputError className="mt-2" message={form.errors.password_confirmation} />
-          </div>
-
-          {page.props.jetstream.hasTermsAndPrivacyPolicyFeature && (
-            <div className="mt-4">
-              <InputLabel htmlFor="terms">
-                <div className="flex items-center">
-                  <Checkbox
-                    name="terms"
-                    id="terms"
-                    checked={form.data.terms}
-                    onChange={e => form.setData('terms', e.currentTarget.checked)}
+      <div className="flex justify-center">
+        <div className="flex h-full items-center justify-center text-neutral-800 dark:text-neutral-200">
+          <div className=" rounded-lg bg-white shadow-lg dark:bg-neutral-800">
+            <div className="p-5 md:mx-6 md:p-12">
+              <img className="mx-auto w-48"
+                src={asset('root', 'assets/images/MBC_HD.png')}
+                alt="logo" />
+              <h4 className="mt-1 mb-12 pb-1 p-4 text-xl text-center font-semibold">
+                Digital Reconnect Ticketing
+              </h4>
+              <form
+                onSubmit={onSubmit}
+                className=''
+              >
+                <div>
+                  <InputLabel htmlFor="name"><p className="text-[#FFFFFF]">Name</p></InputLabel>
+                  <TextInput
+                    id="name"
+                    type="text"
+                    className="mt-1 block w-full text-[#000000]"
+                    value={form.data.name}
+                    onChange={e => form.setData('name', e.currentTarget.value)}
+                    required
+                    autoFocus
+                    autoComplete="name"
+                  />
+                  <InputError className="mt-2" message={form.errors.name} />
+                </div>
+                <div className="mt-4">
+                  <InputLabel htmlFor="email"><p className="text-[#FFFFFF]">Phone Number</p></InputLabel>
+                  <TextInput
+                    id="phone_number"
+                    type="text"
+                    className="mt-1 block w-full text-[#000000]"
+                    value={form.data.phone_number}
+                    onChange={e => form.setData('phone_number', e.currentTarget.value)}
                     required
                   />
-
-                  <div className="ml-2">
-                    I agree to the
-                    <a
-                      target="_blank"
-                      href={route('terms.show')}
-                      className="underline text-sm text-gray-600 hover:text-gray-900"
-                    >
-                      Terms of Service
-                    </a>
-                    and
-                    <a
-                      target="_blank"
-                      href={route('policy.show')}
-                      className="underline text-sm text-gray-600 hover:text-gray-900"
-                    >
-                      Privacy Policy
-                    </a>
-                  </div>
+                  <InputError className="mt-2" message={form.errors.phone_number} />
                 </div>
-                <InputError className="mt-2" message={form.errors.terms} />
-              </InputLabel>
-            </div>
-          )}
-          <InertiaLink
-            href={route('login')}
-            className="inline-flex md:hidden mt-4 underline text-sm text-gray-900 hover:text-gray-900"
-          >
-            Already registered?
-          </InertiaLink>
-          <div className="flex items-center justify-between mt-4 gap-2">
 
-            <button
-              className='inline-flex items-center px-4 py-2 bg-[#2EA1DA] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition'
-              onClick={() => setTabIndex(0)}
-            >
-              Kembali
-            </button>
-            <InertiaLink
-              href={route('login')}
-              className="hidden md:inline-flex underline text-sm text-gray-900 hover:text-gray-900"
-            >
-              Already registered?
-            </InertiaLink>
-            <PrimaryButton
-              className={classNames('ml-4', { 'opacity-25': form.processing })}
-              disabled={form.processing}
-            >
-              Register
-            </PrimaryButton>
+                <div className="mt-4">
+                  <InputLabel htmlFor="email"><p className="text-[#FFFFFF]">Email</p></InputLabel>
+                  <TextInput
+                    id="email"
+                    type="email"
+                    className="mt-1 block w-full text-[#000000]"
+                    value={form.data.email}
+                    onChange={e => form.setData('email', e.currentTarget.value)}
+                    required
+                  />
+                  <InputError className="mt-2" message={form.errors.email} />
+                </div>
+
+                <div className="mt-4">
+                  <InputLabel htmlFor="password"><p className="text-[#FFFFFF]">Password</p></InputLabel>
+                  <TextInput
+                    id="password"
+                    type="password"
+                    className="mt-1 block w-full text-[#000000]"
+                    value={form.data.password}
+                    onChange={e => form.setData('password', e.currentTarget.value)}
+                    required
+                    autoComplete="new-password"
+                  />
+                  <InputError className="mt-2" message={form.errors.password} />
+                </div>
+
+                <div className="mt-4">
+                  <InputLabel htmlFor="password_confirmation"><p className="text-[#FFFFFF]">Confirm Password</p></InputLabel>
+                  <TextInput
+                    id="password_confirmation"
+                    type="password"
+                    className="mt-1 block w-full text-[#000000]"
+                    value={form.data.password_confirmation}
+                    onChange={e =>
+                      form.setData('password_confirmation', e.currentTarget.value)
+                    }
+                    required
+                    autoComplete="new-password"
+                  />
+                  <InputError className="mt-2" message={form.errors.password_confirmation} />
+                </div>
+                <div className='flex justify-between mt-4 gap-5'>
+                  <InertiaLink
+                    href={route('login')}
+                    className="underline text-sm text-[#FFFFFF] hover:text-[#2EA1DA]"
+                  >
+                    Already registered?
+                  </InertiaLink>
+                  <button
+                    className='inline-flex items-center px-4 py-2 bg-[#2EA1DA] border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25 transition'
+                    onClick={() => setTabIndex(1)}
+                  >
+                    Selanjutnya
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
-        </TabPanel>
-      </form>
-      </div>
-      </div>
-      </div>
-      </div>
+        </div>
       </div>
 
     </AuthenticationCard>
