@@ -72,6 +72,11 @@ export default function DashboardAdminLayout({
                     </ResponsiveNavLink>
                 </li>
                 <li>
+                    <ResponsiveNavLink href={route('event.index')} active={route().current('event.index')}>
+                        Event
+                    </ResponsiveNavLink>
+                </li>
+                <li>
                     <ResponsiveNavLink href={route('dashboard')}
                         // active={route().current('dashboard')}
                     >
@@ -108,13 +113,10 @@ export default function DashboardAdminLayout({
                         <div className="block px-4 py-2 text-xs text-gray-400">
                             Manage Account
                         </div>
-
                         <DropdownLink href={route('profile.show')}>
                             Profile
                         </DropdownLink>
-
                         <div className="border-t border-gray-100"></div>
-
                         {/* <!-- Authentication --> */}
                         <form onSubmit={logout}>
                             <DropdownLink as="button">Log Out</DropdownLink>
