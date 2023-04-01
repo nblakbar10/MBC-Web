@@ -124,7 +124,7 @@ export default function Show({ event }: Props) {
                                     muiTableBodyRowProps={{ hover: false }}
                                     renderRowActions={({ row }) => (
                                         <div className="flex items-center justify-center gap-2">
-                                            <InertiaLink href={route('event.show', row.original.id)}
+                                            <InertiaLink href={route('event-promo.show', row.original.id)}
                                                 className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
                                                 Show
                                             </InertiaLink>

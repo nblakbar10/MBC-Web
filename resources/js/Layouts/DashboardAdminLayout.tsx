@@ -77,6 +77,11 @@ export default function DashboardAdminLayout({
                     </ResponsiveNavLink>
                 </li>
                 <li>
+                    <ResponsiveNavLink href={route('event-promo.index')} active={route().current('event-promo.index')}>
+                        Promo Event
+                    </ResponsiveNavLink>
+                </li>
+                <li>
                     <ResponsiveNavLink href={route('dashboard')}
                         // active={route().current('dashboard')}
                     >
