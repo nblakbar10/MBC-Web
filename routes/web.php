@@ -4,6 +4,7 @@ use App\Actions\Fortify\UserProfileController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventPromoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,6 +45,7 @@ Route::middleware([
         Route::middleware(['role:super-admin'])->group(function () {
             Route::resource('/user', UserController::class);
             Route::resource('/event', EventController::class);
+            Route::resource('/event-promo', EventPromoController::class);
         });
     });
 });
