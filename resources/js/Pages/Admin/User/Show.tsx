@@ -34,17 +34,19 @@ export default function Show(props: Props) {
                                     Data Profil
                                 </div>
                                 <div className="flex flex-col md:flex-row gap-3">
-                                    <button>
+                                    <button
+                                        className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                    >
                                         <InertiaLink
-                                            className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
                                             href={route('user.index')}
                                         >
                                             Kembali
                                         </InertiaLink>
                                     </button>
-                                    <button>
+                                    <button
+                                        className="bg-yellow-500 text-white hover:bg-yellow-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                    >
                                         <InertiaLink
-                                            className="bg-yellow-500 text-white hover:bg-yellow-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
                                             href={route('user.edit', user.id)}
                                         >
                                             Edit
