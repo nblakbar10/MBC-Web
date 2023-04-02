@@ -85,12 +85,6 @@ export default function Login() {
 
                 <div className="flex flex-col space-y-2 md:flex-row md:items-center md:justify-end md:space-y-0 mt-4">
                   <div className="flex items-center justify-end">
-                    <InertiaLink
-                      href={route('register')}
-                      className="underline text-sm text-white hover:text-[#2EA1DA]"
-                    >
-                      Need an account?
-                    </InertiaLink>
                     <PrimaryButton
                       className={classNames('ml-4', { 'opacity-25': form.processing })}
                       disabled={form.processing}
