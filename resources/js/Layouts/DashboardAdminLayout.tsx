@@ -11,6 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Dropdown from '@/Components/Jetstream/Dropdown';
 import DropdownLink from '@/Components/Jetstream/DropdownLink';
+import { Head } from '@inertiajs/inertia-react';
 
 interface Props {
     title: string;
@@ -94,6 +95,10 @@ export default function DashboardAdminLayout({
 
     return (
         <div>
+            <Head>
+                <title>{title || "MBC Entertainment"}</title>
+                <link rel="icon" type="image/svg+xml" href={asset('root', 'assets/images/Icon-MBC.JPG')} />
+            </Head>
             <Banner />
             <nav className="flex justify-between w-full sticky bg-[#2EA1DA] py-3 px-5">
                 <div className="flex gap-3 max-w-6xl mr-30">
