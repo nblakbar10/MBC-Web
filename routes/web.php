@@ -30,7 +30,7 @@ use Inertia\Inertia;
 // });
 
 Route::get('/', function () {
-    return Inertia::render('EventsHome');
+    return Inertia::render('Home');
 });
 
 
