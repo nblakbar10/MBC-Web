@@ -50,7 +50,7 @@ export default function EventsHome() {
                         className=" lg:h-[50rem] w-screen object-cover rounded"
                         src={asset('root', 'assets/images/bg-caknan.jpeg')}
                     />
-                    <div className="flex flex-col lg:flex-row gap-3 mt-5 justify-around rounded-xl shadow-sm shadow-slate-600 p-5">
+                    <div className="flex flex-col lg:flex-row gap-3 mt-5 justify-around rounded-xl shadow-sm shadow-[#767171] p-5">
                         <div className="form-control w-full mt-4 lg:mr-7    ">
                             <InputLabel htmlFor="Search">Nama Event</InputLabel>
                             <TextInput
@@ -100,7 +100,7 @@ export default function EventsHome() {
                         </div>
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-3 -mx-5 ">
-                        <div className="flex flex-col gap-3 pb-5 m-5 rounded-xl shadow-md shadow-slate-600">
+                        <div className="flex flex-col gap-3 pb-5 m-5 rounded-xl shadow-sm shadow-[#767171]">
                             <img
                                 className="w-full h-56   object-cover rounded-t-xl"
                                 src={asset('root', 'assets/images/bg-caknan.jpeg')}
