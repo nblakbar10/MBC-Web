@@ -1,16 +1,22 @@
 import { asset } from "@/Models/Helper";
 import { useForm } from "@inertiajs/inertia-react";
-import { Dialog, DialogActions, DialogContent, DialogContentText, TextField } from "@mui/material";
+import { Dialog, DialogContent} from "@mui/material";
 import React, { useEffect } from "react";
 import InputError from "./Jetstream/InputError";
 import InputLabel from "./Jetstream/InputLabel";
 import TextInput from "./Jetstream/TextInput";
+import Select from "react-select";
 
 interface Props {
     open: boolean;
     closeHandler: () => void;
     price?: number;
     adminFee?: number;
+}
+
+interface District {
+    id: string;
+    name: string;
 }
 
 
@@ -24,6 +30,19 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
         total_price: 0,
     });
 
+    const [provinceSelected, setProvinceSelected] = React.useState<District>({
+        id: '',
+        name: '',
+    });
+    const [citySelected, setCitySelected] = React.useState<District>({
+        id: '', 
+        name: '',
+    });
+
+
+    const [provinces, setProvinces] = React.useState([]);
+    const [cities, setCities] = React.useState([]);
+
     if (!price) {
         price = 100000;
     }
@@ -31,6 +50,41 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
     if (!adminFee) {
         adminFee = 6000;
     }
+
+    useEffect(() => {
+        function fetchProvince() {
+            fetch('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json', {
+                method: 'GET',
+            })
+                .then(response => response.json())
+                .then(responseJson => {
+                    console.log(responseJson);
+                    setProvinces(responseJson);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+        fetchProvince();
+    }, []);
+
+    useEffect(() => {
+        function fetchCities() {
+            fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinceSelected.id}.json`, {
+                method: 'GET',
+            })
+                .then(response => response.json())
+                .then(responseJson => {
+                    console.log(responseJson);
+                    setCities(responseJson);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+        console.log("get cities", provinceSelected.id, provinceSelected.name);
+        fetchCities();
+    }, [provinceSelected]);
 
     useEffect(() => {
         form.setData('total_price', (price! * form.data.ticket_amount) + adminFee!);
@@ -94,6 +148,32 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
                             required
                         />
                         {/* <InputError className="mt-2" message={"salah"} /> */}
+                    </div>
+                    <div className="form-control w-full mt-4">
+                        <InputLabel htmlFor="phone_number">Provinsi</InputLabel>
+                        <Select
+                            id="province"
+                            className="mt-1 block w-full"
+                            value={provinceSelected}
+                            onChange={e => setProvinceSelected(e as District)}
+                            getOptionValue={option => option.id}
+                            getOptionLabel={option => option.name}
+                            required
+                            options={provinces}
+                        />
+                    </div>
+                    <div className="form-control w-full mt-4">
+                        <InputLabel htmlFor="phone_number">Kota / Kabupaten</InputLabel>
+                        <Select
+                            id="province"
+                            className="mt-1 block w-full"
+                            value={citySelected}
+                            onChange={e => setCitySelected(e as District)}
+                            getOptionValue={option => option.id}
+                            getOptionLabel={option => option.name}
+                            required
+                            options={cities}
+                        />
                     </div>
                     <div className="form-control w-full mt-4">
                         <InputLabel htmlFor="ticket_amount">Jumlah Tiket</InputLabel>
