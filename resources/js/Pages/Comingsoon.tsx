@@ -7,7 +7,7 @@ export default function Comingsoon() {
         <>
             <Head  >
                 <title>MBC Entertainment</title>
-                <link rel="icon" href={asset('root','public/assets/images/MBC_HD.png') } />
+                <link rel="icon" type="image/svg+xml" href={asset('root','assets/images/Icon-MBC.JPG') } />
             </Head>
             
             <div className="flex flex-col items-center justify-center max-h-screen bg-gray-600">
