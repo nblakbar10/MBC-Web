@@ -40,7 +40,7 @@ export default function Index(props: Props) {
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                         <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <div className="flex justify-between">
-                                <div className="mt-8 text-2xl">
+                                <div className="mt-1 p-2 text-2xl">
                                     Users
                                 </div>
                                 <div className="">
@@ -66,7 +66,7 @@ export default function Index(props: Props) {
                                     muiTableBodyRowProps={{ hover: false }}
                                     renderRowActions={({ row }) => (
                                         <div className="flex items-center justify-center gap-2">
-                                            <InertiaLink href={route('user.show', row.original.id)} 
+                                            <InertiaLink href={route('user.show', row.original.id)}
                                                 className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
                                                 Show
                                             </InertiaLink>
