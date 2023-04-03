@@ -19,9 +19,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone_number')->unique();
-            $table->string('NIM')->unique()->nullable();
-            $table->string('NIP/NIPH')->unique()->nullable();
-            $table->string('NIDN')->unique()->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();

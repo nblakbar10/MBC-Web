@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class EventPromoController extends Controller
+class PromoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class EventPromoController extends Controller
     public function index()
     {
         //
-        return Inertia::render('Admin/Event/EventPromo/Index', [
-        ]);
+        // return Inertia::render('Admin/Event/EventPromo/Index', [
+        // ]);
     }
 
     /**
@@ -49,16 +49,16 @@ class EventPromoController extends Controller
     public function show($id)
     {
         //
-        return Inertia::render('Admin/Event/EventPromo/Show', [
-            'promo' => [
-                'id' => 1,
-                'name' => 'Promo 1',
-                'event' => [
-                    'id' => 1,
-                    'name' => 'Event 1',
-                ],
-            ]
-        ]);
+        // return Inertia::render('Admin/Event/EventPromo/Show', [
+        //     'promo' => [
+        //         'id' => 1,
+        //         'name' => 'Promo 1',
+        //         'event' => [
+        //             'id' => 1,
+        //             'name' => 'Event 1',
+        //         ],
+        //     ]
+        // ]);
     }
 
     /**
