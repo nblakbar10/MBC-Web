@@ -2,6 +2,7 @@ import { asset } from "@/Models/Helper";
 import { useForm } from "@inertiajs/inertia-react";
 import { Dialog, DialogActions, DialogContent, DialogContentText, TextField } from "@mui/material";
 import React, { useEffect } from "react";
+import route from "ziggy-js";
 import InputError from "./Jetstream/InputError";
 import InputLabel from "./Jetstream/InputLabel";
 import TextInput from "./Jetstream/TextInput";
@@ -29,7 +30,7 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
     }
 
     if (!adminFee) {
-        adminFee = 6000;
+        adminFee = 6500;
     }
 
     useEffect(() => {
@@ -38,12 +39,12 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        // form.post(route('buy-ticket'), {
-        //     preserveScroll: true,
-        //     onSuccess: () => {
-        //         closeHandler();
-        //     }
-        // }); 
+        form.post(route('transaction.store'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                closeHandler();
+            }
+        }); 
     }
 
     return (
@@ -118,8 +119,8 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
                             onChange={e => form.setData('payment_method', e.currentTarget.value)}
                             required
                         >
-                            <option value="bank_transfer">Transfer Bank</option>
-                            <option value="credit_card">Kartu Kredit</option>
+                            <option value="Transfer Bank (VA)">Transfer Bank (VA)</option>
+                            <option value="QRIS">QRIS</option>
                         </select>
                         {/* <InputError className="mt-2" message={"salah"} /> */}
                     </div>
