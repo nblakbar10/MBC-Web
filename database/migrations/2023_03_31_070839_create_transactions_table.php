@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone_number');
             $table->integer('total_tickets');
+            $table->string('tickets_category');
             $table->integer('total_amount');
             $table->string('payment_method');
             $table->string('payment_status');
@@ -36,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('transaction');
     }
 };
