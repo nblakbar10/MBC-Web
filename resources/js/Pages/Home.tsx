@@ -155,7 +155,7 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <BuyDialogForm open={openForm} closeHandler={handleCloseForm} checkOutOpenHandler={handleOpenCheckOut} />
+            <BuyDialogForm open={openForm} closeHandler={handleCloseForm} checkOutOpenHandler={handleOpenCheckOut} setXenditLinkHandler={setXenditLink}/>
             <CheckOutModal open={openCheckOut} closeHandler={handleCloseCheckOut} xenditLink={ xenditLink} />
         </AppLayout>
     )

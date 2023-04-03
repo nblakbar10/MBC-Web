@@ -66,4 +66,5 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->hasAnyRole(['admin','super-admin']);
     }
+    public $guard_name = 'api';
 }

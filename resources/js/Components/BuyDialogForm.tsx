@@ -2,6 +2,7 @@ import { asset } from "@/Models/Helper";
 import { useForm } from "@inertiajs/inertia-react";
 import { Dialog, DialogActions, DialogContent, DialogContentText, TextField } from "@mui/material";
 import React, { useEffect } from "react";
+import route from "ziggy-js";
 import InputError from "./Jetstream/InputError";
 import InputLabel from "./Jetstream/InputLabel";
 import TextInput from "./Jetstream/TextInput";
@@ -10,12 +11,13 @@ interface Props {
     open: boolean;
     checkOutOpenHandler: () => void;
     closeHandler: () => void;
+    setXenditLinkHandler: (link: string) => void;
     price?: number;
     adminFee?: number;
 }
 
 
-export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, price, adminFee }: Props) {
+export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, adminFee }: Props) {
     const form = useForm({
         name: '',
         email: '',
@@ -40,13 +42,13 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        checkOutOpenHandler();
-        // form.post(route('buy-ticket'), {
-        //     preserveScroll: true,
-        //     onSuccess: () => {
-        //         closeHandler();
-        //     }
-        // }); 
+        form.post(route('transaction.store'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                checkOutOpenHandler();
+                // setXenditLinkHandler('https://www.google.com'); Ngubah Link Xendit Disini
+            }
+        }); 
     }
 
     return (
@@ -121,8 +123,8 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             onChange={e => form.setData('payment_method', e.currentTarget.value)}
                             required
                         >
-                            <option value="bank_transfer">Transfer Bank</option>
-                            <option value="credit_card">Kartu Kredit</option>
+                            <option value="Transfer Bank (VA)">Transfer Bank (VA)</option>
+                            <option value="QRIS">QRIS</option>
                         </select>
                         {/* <InputError className="mt-2" message={"salah"} /> */}
                     </div>
