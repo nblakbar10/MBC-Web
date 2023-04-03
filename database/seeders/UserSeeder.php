@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
     {
         User::updateOrCreate([
             'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'email' => 'admin@loketmbc.com',
             'password' => bcrypt('password'),
             'phone_number' => '081234567890',
             'email_verified_at' => now(),      
