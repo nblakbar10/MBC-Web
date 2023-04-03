@@ -6,7 +6,7 @@ export default function Comingsoon() {
     return (
         <>
             <Head  >
-                <title>MBC Entertainment</title>
+                {/* <title>Coming Soon</title> */}
                 <link rel="icon" type="image/svg+xml" href={asset('root', 'assets/images/Icon-MBC.JPG')} />
                 <meta name="description" content="MBC Entertainment" />
             </Head>
