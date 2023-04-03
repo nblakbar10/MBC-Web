@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('promo_name');
             $table->string('description');
+            $table->integer('stocks');
             $table->integer('price');
             $table->timestamps();
         });

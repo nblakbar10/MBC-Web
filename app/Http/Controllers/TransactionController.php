@@ -43,18 +43,6 @@ class TransactionController extends Controller
         $transaction_id = Str::random(16);
         $external_id = Str::random(5); //id transaksi
 
-        // $data_request = Http::withHeaders([
-        //     'Authorization' => $secret_key,
-        // ])->post('https://api.xendit.co/v2/invoices', [
-        //     'transaction_id' => $transaction_id,
-        //     'external_id' => 'MBC-SmileFest2023-'.$external_id,
-        //     'amount' => $request->total_price,
-        //     'payment_methods' => ['BCA', 'BNI', 'BRI', 'Mandiri']
-        // ]);
-
-        // // $response = $data_request->object();
-
-
         if ($check_payment_methods == 'Transfer Bank (VA)')
         {
             $data_request = Http::withHeaders([
@@ -85,7 +73,8 @@ class TransactionController extends Controller
             'email' => $request->email,
             'phone_number' => $request->phone_number,
             'total_tickets' => $request->ticket_amount,
-            'tickets_category' => $request->tickets_category,
+            // 'tickets_category' => $request->tickets_category,
+            'tickets_category' => 'VIP',
             'total_amount' => $request->total_price,
             'payment_status' => $response->status,
             'payment_method' => $request->payment_method,
