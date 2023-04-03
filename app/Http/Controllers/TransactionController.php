@@ -66,22 +66,24 @@ class TransactionController extends Controller
 
         $response = $data_request->object();
 
-        Transaction::create([
-            'id' => $transaction_id,
-            // 'user_id' => $request->user_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'total_tickets' => $request->ticket_amount,
-            // 'tickets_category' => $request->tickets_category,
-            'tickets_category' => 'VIP',
-            'total_amount' => $request->total_price,
-            'payment_status' => $response->status,
-            'payment_method' => $request->payment_method,
-            'payment_link' => $response->invoice_url
-        ]);
+        // Transaction::create([
+        //     'id' => $transaction_id,
+        //     // 'user_id' => $request->user_id,
+        //     'name' => $request->name,
+        //     'email' => $request->email,
+        //     'phone_number' => $request->phone_number,
+        //     'total_tickets' => $request->ticket_amount,
+        //     // 'tickets_category' => $request->tickets_category,
+        //     'tickets_category' => 'VIP',
+        //     'total_amount' => $request->total_price,
+        //     'payment_status' => $response->status,
+        //     'payment_method' => $request->payment_method,
+        //     'payment_link' => $response->invoice_url
+        // ]);
 
-        return $response->invoice_url;
+        // dd($response->invoice_url);
+
+        return json_encode($response->invoice_url);
     }
 
     /**

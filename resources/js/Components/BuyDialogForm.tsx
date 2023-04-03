@@ -1,11 +1,13 @@
 import { asset } from "@/Models/Helper";
 import { useForm } from "@inertiajs/inertia-react";
-import { Dialog, DialogActions, DialogContent, DialogContentText, TextField } from "@mui/material";
+import { Dialog, DialogContent} from "@mui/material";
 import React, { useEffect } from "react";
-import route from "ziggy-js";
 import InputError from "./Jetstream/InputError";
 import InputLabel from "./Jetstream/InputLabel";
 import TextInput from "./Jetstream/TextInput";
+
+import { Inertia } from "@inertiajs/inertia";
+import route from "ziggy-js";
 
 interface Props {
     open: boolean;
@@ -42,13 +44,27 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        form.post(route('transaction.store'), {
-            preserveScroll: true,
-            onSuccess: () => {
+
+        const data = fetch(route('checkout'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1")
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(form.data)
+        })
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                setXenditLinkHandler(data);
                 checkOutOpenHandler();
-                // setXenditLinkHandler('https://www.google.com'); Ngubah Link Xendit Disini
             }
-        }); 
+        );
+        
     }
 
     return (
