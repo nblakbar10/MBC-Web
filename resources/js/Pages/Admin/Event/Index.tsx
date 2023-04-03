@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function Index({ events }: Props) {
-    
+
     if (!events) {
         events = [
             {
@@ -56,7 +56,7 @@ export default function Index({ events }: Props) {
     return (
         <AppLayout title="Events">
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-5xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                         <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <div className="flex justify-between">
@@ -86,7 +86,7 @@ export default function Index({ events }: Props) {
                                     muiTableBodyRowProps={{ hover: false }}
                                     renderRowActions={({ row }) => (
                                         <div className="flex items-center justify-center gap-2">
-                                            <InertiaLink href={route('event.show', row.original.id)} 
+                                            <InertiaLink href={route('event.show', row.original.id)}
                                                 className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
                                                 Show
                                             </InertiaLink>

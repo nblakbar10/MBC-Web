@@ -33,11 +33,10 @@ export default function Show({ event }: Props) {
 
     return (
         <DashboardAdminLayout title={`Pengguna ${event.name}`}>
-            <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+            <div className="py-10 max-w-5xl mx-auto sm:px-6 lg:px-8">
+                <div className="bg-white overflow-hidden shadow-md sm:rounded-lg">
                     <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
-                        <div className="flex flex-col gap-3 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                            <div className='flex justify-between'>
+                            <div className='flex justify-between mb-2'>
                                 <div className="text-lg md:text-3xl">
                                     Data Event
                                 </div>
@@ -70,6 +69,7 @@ export default function Show({ event }: Props) {
                                     </div>
                                 </div>
                             </div>
+                        <div className="flex flex-col gap-3 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                             <table className='w-full'>
                                 <thead>
                                     <tr className='border-b py-3 border-black'>
@@ -78,15 +78,22 @@ export default function Show({ event }: Props) {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr className='border-b py-3 border-black'>
+                                    <tr className='py-3'>
                                         <td className='py-3 text-center'>Nama</td>
                                         <td className='py-3 text-center'>{event.name}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div className='flex flex-col border-spacing-2 border-t border-gray-600 mt-5 p-3 border-collapse'>
-                                <div className='flex justify-between'>
-                                    <div className="text-lg md:text-2xl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div className="py-2 max-w-5xl mx-auto sm:px-6 lg:px-8">
+                <div className="bg-white overflow-hidden shadow-md sm:rounded-lg">
+                    <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
+                            <div className='flex flex-col mt-1 p-3 '>
+                                <div className='flex justify-between mb-2'>
+                                    <div className="text-lg md:text-3xl">
                                         Promo Event
                                     </div>
                                     <div className="flex flex-col md:flex-row gap-3">
@@ -128,13 +135,11 @@ export default function Show({ event }: Props) {
                                                 Show
                                             </InertiaLink>
                                         </div>
-                                    )}
-                                />
+                                    )}/>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
             <Dialog open={open} onClose={handleClose}
             >
                 <DialogContent className="w-full">
