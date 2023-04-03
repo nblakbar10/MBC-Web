@@ -8,13 +8,14 @@ import TextInput from "./Jetstream/TextInput";
 
 interface Props {
     open: boolean;
+    checkOutOpenHandler: () => void;
     closeHandler: () => void;
     price?: number;
     adminFee?: number;
 }
 
 
-export default function BuyDialogForm({ open, closeHandler, price, adminFee }: Props) {
+export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, price, adminFee }: Props) {
     const form = useForm({
         name: '',
         email: '',
@@ -32,12 +33,14 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
         adminFee = 6000;
     }
 
+
     useEffect(() => {
         form.setData('total_price', (price! * form.data.ticket_amount) + adminFee!);
     }, [form.data.ticket_amount]);
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
+        checkOutOpenHandler();
         // form.post(route('buy-ticket'), {
         //     preserveScroll: true,
         //     onSuccess: () => {
