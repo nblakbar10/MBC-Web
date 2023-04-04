@@ -14,6 +14,8 @@ import {
 } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
 import { InertiaLink } from '@inertiajs/inertia-react';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import route from 'ziggy-js';
 
 const LineChartConfig = {
   responsive: true,
@@ -59,7 +61,7 @@ ChartJS.register(
   Legend
 );
 
-export default function Dashboard({}: Props) {
+export default function Dashboard({ }: Props) {
 
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   const data = {
@@ -95,8 +97,14 @@ export default function Dashboard({}: Props) {
                   <div className="text-2xl font-extrabold">2</div>
                 </div>
                 <div className='h-8'>
-                 <InertiaLink href='/'><p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">More Info</p></InertiaLink >
-                </div>
+                <InertiaLink href={route("dashboard")}>
+                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                      More Info
+                      <span className="text-black border-black">
+                        <ArrowForwardIcon />
+                      </span>
+                    </p>
+                  </InertiaLink ></div>
               </div>
 
               <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
@@ -105,8 +113,14 @@ export default function Dashboard({}: Props) {
                   <div className="text-2xl font-extrabold">2</div>
                 </div>
                 <div className='h-8'>
-                <InertiaLink href='/'><p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">More Info</p></InertiaLink >
-                </div>
+                <InertiaLink href={route("dashboard")}>
+                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                      More Info
+                      <span className="text-black border-black">
+                        <ArrowForwardIcon />
+                      </span>
+                    </p>
+                  </InertiaLink >                </div>
               </div>
               <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
                 <div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
@@ -114,7 +128,14 @@ export default function Dashboard({}: Props) {
                   <div className="text-2xl font-extrabold">2</div>
                 </div>
                 <div className='h-8'>
-                <InertiaLink href='/'><p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">More Info</p></InertiaLink >
+                  <InertiaLink href={route("dashboard")}>
+                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                      More Info
+                      <span className="text-black border-black">
+                        <ArrowForwardIcon />
+                      </span>
+                    </p>
+                  </InertiaLink >
                 </div>
               </div>
             </div>

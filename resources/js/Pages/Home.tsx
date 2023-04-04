@@ -157,24 +157,7 @@ export default function Home({ promos }: Props) {
                                             </div>
                                         </div>
                                     ))}
-                                    <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
-                                        <p className="text-xl text-[#2EA1DA] font-bold">
-                                            VIP SALES
-                                        </p>
-                                        <p>
-                                            Harga Belum Termasuk Pajak dan Biaya Layanan <p className="text-gray-400">
-                                                (60 seat)
-                                            </p>
-                                        </p>
-                                        <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-2 flex justify-between py-3">
-                                            <p className="font-bold">
-                                                {`Rp. ${Number(700000).toLocaleString()}`}
-                                            </p>
-                                            <p className="font-semibold text-pink-500">
-                                                SOLD OUT
-                                            </p>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </TabPanel>
                         </div>
