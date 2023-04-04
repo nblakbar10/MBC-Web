@@ -87,7 +87,7 @@ export default function Dashboard({ }: Props) {
       title="Dashboard"
     >
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
-        <div className="bg-white-100 shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
+        <div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
           <div className="max-w-7xl">
             <div className="flex flex-col lg:flex-row p-3 gap-10 justify-around">
 

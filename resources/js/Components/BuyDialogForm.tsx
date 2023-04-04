@@ -25,6 +25,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         email: '',
         phone_number: '',
         ticket_amount: 1,
+        tickets_category: promo?.promo_name,
         payment_method: 'Transfer Bank (VA)',
         total_price: 0,
     });
@@ -40,6 +41,10 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
     useEffect(() => {
         form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
     }, [form.data.ticket_amount]);
+
+    useEffect(() => {
+        form.setData('tickets_category', promo?.promo_name);
+    }, [promo?.promo_name]);
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
@@ -65,8 +70,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                     setXenditLinkHandler(data);
                     checkOutOpenHandler();
                 }
-            }
-            );
+            });
     }
 
     return (
@@ -79,6 +83,9 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                         width={300}
                     />
                 </div>
+                <div className="text-lg text-center">
+                    {promo?.promo_name}
+                </div>
                 <form className="flex flex-col gap-5 mx-5">
                     <div className="form-control w-full mt-4">
                         <InputLabel htmlFor="name">Nama (Sesuai KTP atau Identitas Lainnya)</InputLabel>
@@ -87,7 +94,10 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             type="text"
                             className="mt-1 block w-full"
                             value={form.data.name}
-                            onChange={e => form.setData('name', e.currentTarget.value)}
+                            onChange={e => {
+                                form.setData('name', e.currentTarget.value)
+                                form.setData('tickets_category', promo?.promo_name)
+                            }}
                             required
                             autoFocus
                             autoComplete="name"
