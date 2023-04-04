@@ -1,7 +1,7 @@
 import React from 'react';
 import route from 'ziggy-js';
 
-import AppLayout from '@/Layouts/DashboardAdminLayout';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
 import Form from './Form';
@@ -36,7 +36,7 @@ export default function Edit({ promo }: Props) {
     }
 
     return (
-        <AppLayout title={"Edit Promo Event"}>
+        <DashboardAdminLayout title={"Edit Promo Event"}>
             <div className='py-12'>
                 <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -69,6 +69,6 @@ export default function Edit({ promo }: Props) {
                     </div>
                 </div>
             </div>
-        </AppLayout>
+        </DashboardAdminLayout>
     )
 }

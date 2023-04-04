@@ -2,7 +2,7 @@ import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 import React from 'react';
 import route from 'ziggy-js';
 
-import AppLayout from '@/Layouts/DashboardAdminLayout';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink } from '@inertiajs/inertia-react';
 import { PromoModel } from '@/Models/Promo';
 
@@ -29,7 +29,7 @@ export default function Index({ promos }: Props) {
 
     ] as MRT_ColumnDef<PromoModel>[];
     return (
-        <AppLayout title="Promo Event">
+        <DashboardAdminLayout title="Promo Event">
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -61,7 +61,7 @@ export default function Index({ promos }: Props) {
                                     muiTableBodyRowProps={{ hover: false }}
                                     renderRowActions={({ row }) => (
                                         <div className="flex items-center justify-center gap-2">
-                                            <InertiaLink href={route('promo.show', row.original.id)} 
+                                            <InertiaLink href={route('promo.show', row.original.id)}
                                                 className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
                                                 Show
                                             </InertiaLink>
@@ -73,6 +73,6 @@ export default function Index({ promos }: Props) {
                     </div>
                 </div>
             </div>
-        </AppLayout>
+        </DashboardAdminLayout>
     );
 }
