@@ -83,7 +83,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                 </div>
                 <form className="flex flex-col gap-5 mx-5">
                     <div className="form-control w-full mt-4">
-                        <InputLabel htmlFor="name">Nama Lengkap Sesuai KTP</InputLabel>
+                        <InputLabel htmlFor="name">Nama (Sesuai KTP atau Identitas Lainnya)</InputLabel>
                         <TextInput
                             id="name"
                             type="text"
