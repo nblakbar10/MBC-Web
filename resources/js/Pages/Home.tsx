@@ -1,4 +1,5 @@
 import BuyDialogForm from "@/Components/BuyDialogForm";
+import CheckOutModal from "@/Components/CheckOutModal";
 import AppLayout from "@/Layouts/AppLayout";
 import { asset } from "@/Models/Helper";
 import { Tab, Tabs } from "@mui/material";
@@ -38,9 +39,16 @@ function a11yProps(index: number) {
 }
 
 export default function Home() {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+    const [openForm, setOpenForm] = useState(false);
+    const handleOpenForm = () => setOpenForm(true);
+    const handleCloseForm = () => setOpenForm(false);
+
+    const [openCheckOut, setOpenCheckOut] = useState(false);
+    const handleOpenCheckOut = () => setOpenCheckOut(true);
+    const handleCloseCheckOut = () => setOpenCheckOut(false);
+
+    // Xendit Link State Controller
+    const [xenditLink, setXenditLink] = useState<string>("");
 
     const [tabValue, setTabValue] = useState(0);
 
@@ -84,11 +92,11 @@ export default function Home() {
                                 </p>
                             </div>
                         </div>
-                        <div className="flex justify-center p-24">
+                        {/* <div className="flex justify-center p-24">
                             <button className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-3 px-7 rounded-lg" onClick={handleOpen}>
                                 Beli Tiket
                             </button>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="p-10 rounded-2xl">
                         <div>
@@ -114,7 +122,7 @@ export default function Home() {
                                             <p className="font-bold">
                                                 {`Rp. ${Number(100000).toLocaleString()}`}
                                             </p>
-                                            <button className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-1 px-7 rounded-lg" onClick={handleOpen}>
+                                            <button className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-1 px-7 rounded-lg" onClick={handleOpenForm}>
                                                 Beli Tiket
                                             </button>
                                         </div>
@@ -135,6 +143,24 @@ export default function Home() {
                                             </p>
                                         </div>
                                     </div>
+                                    <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
+                                        <p className="text-xl text-[#2EA1DA] font-bold">
+                                            VIP SALES
+                                        </p>
+                                        <p>
+                                            Harga Belum Termasuk Pajak dan Biaya Layanan <p className="text-gray-400">
+                                            (60 seat)
+                                        </p>
+                                        </p>
+                                        <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-2 flex justify-between py-3">
+                                            <p className="font-bold">
+                                                {`Rp. ${Number(700000).toLocaleString()}`}
+                                            </p>
+                                            <p className="font-semibold text-pink-500">
+                                                SOLD OUT
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </TabPanel>
                         </div>
@@ -147,7 +173,8 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <BuyDialogForm open={open} closeHandler={handleClose} />
+            <BuyDialogForm open={openForm} closeHandler={handleCloseForm} checkOutOpenHandler={handleOpenCheckOut} setXenditLinkHandler={setXenditLink}/>
+            <CheckOutModal open={openCheckOut} closeHandler={handleCloseCheckOut} xenditLink={ xenditLink} />
         </AppLayout>
     )
 }

@@ -95,6 +95,7 @@ class TransactionController extends Controller
                 ->header('X-Inertia-Location', $response->invoice_url);
         }
 
+        // return json_encode($response->invoice_url);
     }
 
     /**
