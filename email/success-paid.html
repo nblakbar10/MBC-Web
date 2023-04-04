@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LoketMBC.com - SmileFest2023</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="justify-center bg-gray-600 h-screen py-10 px-24">
+        <div class="bg-white rounded-lg max-w-7xl h-full flex flex-col gap-5 p-5">
+            <div class="flex justify-center p-3">
+                <img src="./MBC_HD.png" class="w-40 bg-gray-500 p-3 rounded-lg" />
+            </div>
+
+            <div class="text-md mt-5">
+                Pesananmu telah berhasil di proses, silahkan cek email kamu untuk mendapatkan tiket yang telah kamu
+                pesan.
+            </div>
+            <div class="text-md mt-5">
+                Jika kamu tidak menerima email, silahkan cek folder spam atau masuk ke halaman <a
+                    href="https://loketmbc.com/cek-pesanan">cek pesanan</a> untuk mendapatkan tiket yang telah kamu
+                pesan.
+            </div>
+
+            <div class="border-y-neutral-900 border flex py-3">
+                <div>
+                    <table class="w-full table-auto	">
+                        <tr>
+                            <td class="text-md">Metode Pembayaran</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">Bank_Transfer</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Status</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">Paid</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Merchant</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">Xendit</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Amount</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">50000</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Paid Amount</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">50000</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Bank Code</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">PERMATA</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Paid At</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">2023-04-05</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Payment Email</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">ruvne@gmail.com</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Adjusted Received Amount</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">47500</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Currency</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">IDR</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Created_at</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">2023-04-05</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div class="flex justify-center">
+                <svg id="barcode"></svg>
+            </div>
+            <div class="flex justify-end">
+                <p>2023 @ PT Maju Bersama Kreatif</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<script>
+    JsBarcode("#barcode", "INV/20230403/MPL/3152703799");
+</script>
+
+</html>
