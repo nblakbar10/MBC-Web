@@ -86,8 +86,9 @@ class TransactionController extends Controller
                 'payment_method' => $request->payment_method,
                 'payment_link' => $response->invoice_url,
             ]);
-            $promo = Promo::where('promo_id', '=', $request->promo_id)->first();
-            $promo->stock = (int)$promo->stocks - (int)$request->ticket_amount;
+            //promo decrement :
+            $promo = Promo::where('promo_id', $request->promo_id)->first();
+            $promo->stocks = (int)$promo->stocks - (int)$request->ticket_amount;
             $promo->save();
 
             return response('', 409)
