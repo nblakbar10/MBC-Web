@@ -2,7 +2,7 @@ import React from 'react';
 import route from 'ziggy-js';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
-import AppLayout from '@/Layouts/DashboardAdminLayout';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { NewUser, Role } from '@/types';
 import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
@@ -38,7 +38,7 @@ export default function Create(props: Props) {
     }
 
     return (
-        <AppLayout title={'Tambah User'}>
+        <DashboardAdminLayout title={'Tambah User'}>
             <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div className="flex justify-between md:mx-10">
@@ -70,6 +70,6 @@ export default function Create(props: Props) {
                     </form>
                 </div>
             </div>
-        </AppLayout>
+        </DashboardAdminLayout>
     )
 }

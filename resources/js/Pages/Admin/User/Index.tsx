@@ -3,7 +3,7 @@ import React from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import route from 'ziggy-js';
 
-import AppLayout from '@/Layouts/DashboardAdminLayout';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { User } from '@/types';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink } from '@inertiajs/inertia-react';
@@ -34,7 +34,7 @@ export default function Index(props: Props) {
         }
     ] as MRT_ColumnDef<typeof users[0]>[];
     return (
-        <AppLayout title="Users">
+        <DashboardAdminLayout title="Users">
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -78,6 +78,6 @@ export default function Index(props: Props) {
                     </div>
                 </div>
             </div>
-        </AppLayout>
+        </DashboardAdminLayout>
     );
 }

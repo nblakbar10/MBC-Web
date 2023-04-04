@@ -1,7 +1,7 @@
 import React from 'react';
 import route from 'ziggy-js';
 
-import AppLayout from '@/Layouts/DashboardAdminLayout';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
 import Form from './Form';
@@ -33,7 +33,7 @@ export default function Create() {
     }
 
     return (
-        <AppLayout title={'Tambah Promo Event'}>
+        <DashboardAdminLayout title={'Tambah Promo Event'}>
             <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div className="flex justify-between">
@@ -58,11 +58,11 @@ export default function Create() {
                                 disabled={form.processing}
                             >
                                 Submit
-                            </button>   
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
-        </AppLayout>
+        </DashboardAdminLayout>
     )
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AppLayout from '@/Layouts/DashboardAdminLayout';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -83,7 +83,7 @@ export default function Dashboard({ }: Props) {
   };
 
   return (
-    <AppLayout
+    <DashboardAdminLayout
       title="Dashboard"
     >
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
@@ -153,6 +153,6 @@ export default function Dashboard({ }: Props) {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </DashboardAdminLayout>
   );
 }
