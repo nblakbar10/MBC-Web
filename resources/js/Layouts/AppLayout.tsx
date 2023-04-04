@@ -11,7 +11,7 @@ export default function AppLayout({ children, title }: Props) {
     return (
         <>
             <Head  >
-                <title>{title || "MBC Entertainment"}</title>
+                <title>{title || "LoketMBC"}</title>
                 <link rel="icon" type="image/svg+xml" href={asset('root', 'assets/images/Icon-MBC.JPG')} />
             </Head>
             <div className="min-h-screen bg-white flex flex-col">
