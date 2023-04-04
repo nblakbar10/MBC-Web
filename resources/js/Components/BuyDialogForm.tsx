@@ -135,6 +135,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             type="number"
                             className="mt-1 block w-full"
                             min={1}
+                            max={5}
                             step={1}
                             value={form.data.ticket_amount}
                             onChange={e => form.setData('ticket_amount', Number(e.currentTarget.value))}
