@@ -5,13 +5,16 @@ import AppLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
 import Form from './Form';
-import { EventPromoCreateModel } from '@/Models/EventPromo';
+import { PromoCreateModel } from '@/Models/Promo';
 
 
 export default function Create() {
-    let form = useForm<EventPromoCreateModel>(
+    let form = useForm<PromoCreateModel>(
         {
-            name: '',
+            promo_name: '',
+            description: '',
+            stocks: 0,
+            price: 0,
         }
     );
 
@@ -19,7 +22,7 @@ export default function Create() {
         console.log(form.data);
         e.preventDefault();
         form.clearErrors();
-        form.post(route('event-promo.store'), {
+        form.post(route('promo.store'), {
             onError: (errors) => {
                 console.log(errors);
             },
@@ -30,7 +33,7 @@ export default function Create() {
     }
 
     return (
-        <AppLayout title={'Tambah Event'}>
+        <AppLayout title={'Tambah Promo Event'}>
             <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div className="flex justify-between">
@@ -38,7 +41,7 @@ export default function Create() {
                             Tambah Promo Event
                         </div>
                         <button className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
-                            <InertiaLink href={route('event-promo.index')}>
+                            <InertiaLink href={route('promo.index')}>
                                 Kembali
                             </InertiaLink>
                         </button>

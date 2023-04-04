@@ -9,10 +9,9 @@ use Illuminate\Database\Eloquent\Model;
 class Promo extends Model
 {
     use HasFactory;
-    public $table = "promo";
+    public $table = "promos";
     protected $guarded = ['id'];
     protected $fillable = [
-        // 'user_id',
         'promo_name',
         'stocks',
         'description',

@@ -4,75 +4,52 @@ import route from 'ziggy-js';
 
 import AppLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink } from '@inertiajs/inertia-react';
-import { EventPromoModel } from '@/Models/EventPromo';
+import { PromoModel } from '@/Models/Promo';
 
 interface Props {
-    eventPromos?: Array<EventPromoModel>,
+    promos: Array<PromoModel>,
 }
 
-export default function Index({ eventPromos }: Props) {
-    
-    if (!eventPromos) {
-        eventPromos = [
-            {
-                id: 1,
-                name: 'Event Promo 1',
-                event: {
-                    id: 1,
-                    name: 'Event 1',
-                }
-            },
-            {
-                id: 2,
-                name: 'Event Promo 2',
-                event: {
-                    id: 1,
-                    name: 'Event 1',
-                }
-            },
-            {
-                id: 3,
-                name: 'Event Promo 3',
-                event: {
-                    id: 1,
-                    name: 'Event 2',
-                }
-            },
-        ];
-    }
+export default function Index({ promos }: Props) {
+
 
     const dataColumns = [
         {
-            accessorKey: 'name',
+            accessorKey: 'promo_name',
             header: 'Nama Promo',
         },
         {
-            accessorKey: 'event.name',
-            header: 'Nama Event',
-        }
-    ] as MRT_ColumnDef<EventPromoModel>[];
+            accessorKey: 'stocks',
+            header: 'Stok',
+        },
+        {
+            accessorKey: 'price',
+            header: 'Harga',
+        },
+
+    ] as MRT_ColumnDef<PromoModel>[];
     return (
-        <AppLayout title="Events">
+        <AppLayout title="Promo Event">
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                         <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <div className="flex justify-between">
                                 <div className="mt-8 text-2xl">
-                                    Events
+                                    Daftar Promo
                                 </div>
                                 <div className="">
                                     <InertiaLink
-                                        href={route('event.create')}
+                                        href={route('promo.create')}
                                         className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
-                                        Tambah Event
+                                        Tambah Promo
                                     </InertiaLink>
                                 </div>
                             </div>
                             <div className="mt-6 text-gray-500">
                                 <MaterialReactTable
                                     columns={dataColumns}
-                                    data={eventPromos}
+                                    data={promos}
                                     enableColumnActions
                                     enableColumnFilters
                                     enablePagination
@@ -84,7 +61,7 @@ export default function Index({ eventPromos }: Props) {
                                     muiTableBodyRowProps={{ hover: false }}
                                     renderRowActions={({ row }) => (
                                         <div className="flex items-center justify-center gap-2">
-                                            <InertiaLink href={route('event-promo.show', row.original.id)} 
+                                            <InertiaLink href={route('promo.show', row.original.id)} 
                                                 className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
                                                 Show
                                             </InertiaLink>

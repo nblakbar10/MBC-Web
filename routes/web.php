@@ -31,16 +31,13 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/', function () {
-    return Inertia::render('Home');
-});
+Route::get('/', [DashboardController::class, 'home']);
 
 Route::resource('/transaction', TransactionController::class);
 Route::resource('/promo', PromoController::class);
 
 Route::resource('/user', UserController::class);
             Route::resource('/event', EventController::class);
-            Route::resource('/event-promo', PromoController::class);
 
 Route::middleware([
     'auth:sanctum',

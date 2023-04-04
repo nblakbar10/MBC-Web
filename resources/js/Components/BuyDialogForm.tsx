@@ -6,6 +6,7 @@ import InputLabel from "./Jetstream/InputLabel";
 import TextInput from "./Jetstream/TextInput";
 
 import route from "ziggy-js";
+import { PromoModel } from "@/Models/Promo";
 
 interface Props {
     open: boolean;
@@ -14,22 +15,19 @@ interface Props {
     setXenditLinkHandler: (link: string) => void;
     price?: number;
     adminFee?: number;
+    promo: PromoModel | null;
 }
 
 
-export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, adminFee }: Props) {
+export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, adminFee, promo }: Props) {
     const form = useForm({
         name: '',
         email: '',
         phone_number: '',
         ticket_amount: 1,
-        payment_method: '',
+        payment_method: 'Transfer Bank (VA)',
         total_price: 0,
     });
-
-    if (!price) {
-        price = 100000;
-    }
 
     if (!adminFee) {
         adminFee = 6000;
@@ -40,7 +38,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
 
     useEffect(() => {
-        form.setData('total_price', (price! * form.data.ticket_amount) + adminFee!);
+        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
     }, [form.data.ticket_amount]);
 
     const onSubmitHandler = (e: React.FormEvent) => {
@@ -155,7 +153,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                     Harga per Tiket
                                 </div>
                                 <div className="text-center">
-                                    Rp. {price?.toLocaleString()}
+                                    Rp. {promo?.price.toLocaleString() || 0}
                                 </div>
                             </div>
                             <div>
