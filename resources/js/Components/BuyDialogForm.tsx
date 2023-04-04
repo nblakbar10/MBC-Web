@@ -45,30 +45,38 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        setIsLoading(true);
-        const data = fetch(route('checkout'), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1")
-            },
-            credentials: 'same-origin',
-            body: JSON.stringify(form.data)
-        })
-            .then(response => {
-                response.status === 200 ? setPaymentError(false) : setPaymentError(true)
-                setIsLoading(false);
-                return response.json()
-            })
-            .then(data => {
-                if (!paymentError) {
-                    setXenditLinkHandler(data);
-                    checkOutOpenHandler();
-                }
+        form.post(route('transaction.store'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                closeHandler();
             }
-            );
+        });
+        
+        
+        // setIsLoading(true);
+        // const data = fetch(route('checkout'), {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json',
+        //         'X-Requested-With': 'XMLHttpRequest',
+        //         'X-CSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1")
+        //     },
+        //     credentials: 'same-origin',
+        //     body: JSON.stringify(form.data)
+        // })
+        //     .then(response => {
+        //         response.status === 200 ? setPaymentError(false) : setPaymentError(true)
+        //         setIsLoading(false);
+        //         return response.json()
+        //     })
+        //     .then(data => {
+        //         if (!paymentError) {
+        //             setXenditLinkHandler(data);
+        //             checkOutOpenHandler();
+        //         }
+        //     }
+        //     );
     }
 
     return (

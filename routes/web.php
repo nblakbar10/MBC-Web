@@ -10,6 +10,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\SendEmailController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,10 @@ Route::get('/', function () {
 
 Route::resource('/transaction', TransactionController::class);
 Route::resource('/promo', PromoController::class);
+
+
+
+// Route::get('send-email', [SendEmailController::class, 'index']);
 
 Route::resource('/user', UserController::class);
             Route::resource('/event', EventController::class);
