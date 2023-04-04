@@ -31,26 +31,30 @@ use Inertia\Inertia;
 //     ]);
 // });
 
-Route::get('/', [DashboardController::class, 'home']);
-
-Route::resource('/transaction', TransactionController::class);
-Route::resource('/promo', PromoController::class);
-
-Route::resource('/user', UserController::class);
-            Route::resource('/event', EventController::class);
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/user/profile', [UserProfileController::class, 'show'])->name('profile.show');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::middleware(['role:admin|super-admin'])->group(function () {
-        Route::middleware(['role:super-admin'])->group(function () {
-            // Route::resource('/user', UserController::class);
-            // Route::resource('/event', EventController::class);
-            // Route::resource('/event-promo', PromoController::class);
-        });
-    });
+Route::get('/', function(){
+    return Inertia::render('Broken');
 });
+
+// Route::get('/', [DashboardController::class, 'home']);
+
+// Route::resource('/transaction', TransactionController::class);
+// Route::resource('/promo', PromoController::class);
+
+// Route::resource('/user', UserController::class);
+//             Route::resource('/event', EventController::class);
+
+// Route::middleware([
+//     'auth:sanctum',
+//     config('jetstream.auth_session'),
+//     'verified',
+// ])->group(function () {
+//     Route::get('/user/profile', [UserProfileController::class, 'show'])->name('profile.show');
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+//     Route::middleware(['role:admin|super-admin'])->group(function () {
+//         Route::middleware(['role:super-admin'])->group(function () {
+//             // Route::resource('/user', UserController::class);
+//             // Route::resource('/event', EventController::class);
+//             // Route::resource('/event-promo', PromoController::class);
+//         });
+//     });
+// });
