@@ -17,7 +17,9 @@ class PromoController extends Controller
     public function index()
     {
         $all_promo = Promo::orderBy('id', 'desc')->get();
-        // $tickets_stock_left = Promo::orderBy('id', 'desc')->get()->pluck('stocks');
+
+        
+        $tickets_stock_left = Promo::orderBy('id', 'desc')->get()->pluck('stocks');
         // if ($tickets_stock_left != 0)
         // {
         //     $all_promo = Promo::orderBy('id', 'desc')->get();
