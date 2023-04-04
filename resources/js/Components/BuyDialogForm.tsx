@@ -1,21 +1,23 @@
 import { asset } from "@/Models/Helper";
 import { useForm } from "@inertiajs/inertia-react";
-import { Dialog, DialogActions, DialogContent, DialogContentText, TextField } from "@mui/material";
+import { Dialog, DialogContent } from "@mui/material";
 import React, { useEffect } from "react";
-import route from "ziggy-js";
-import InputError from "./Jetstream/InputError";
 import InputLabel from "./Jetstream/InputLabel";
 import TextInput from "./Jetstream/TextInput";
 
+import route from "ziggy-js";
+
 interface Props {
     open: boolean;
+    checkOutOpenHandler: () => void;
     closeHandler: () => void;
+    setXenditLinkHandler: (link: string) => void;
     price?: number;
     adminFee?: number;
 }
 
 
-export default function BuyDialogForm({ open, closeHandler, price, adminFee }: Props) {
+export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, adminFee }: Props) {
     const form = useForm({
         name: '',
         email: '',
@@ -33,18 +35,40 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
         adminFee = 6000;
     }
 
+    const [paymentError, setPaymentError] = React.useState<boolean>(false);
+    const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+
     useEffect(() => {
         form.setData('total_price', (price! * form.data.ticket_amount) + adminFee!);
     }, [form.data.ticket_amount]);
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        form.post(route('transaction.store'), {
-            preserveScroll: true,
-            onSuccess: () => {
-                closeHandler();
+        setIsLoading(true);
+        const data = fetch(route('checkout'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1")
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(form.data)
+        })
+            .then(response => {
+                response.status === 200 ? setPaymentError(false) : setPaymentError(true)
+                setIsLoading(false);
+                return response.json()
+            })
+            .then(data => {
+                if (!paymentError) {
+                    setXenditLinkHandler(data);
+                    checkOutOpenHandler();
+                }
             }
-        }); 
+            );
     }
 
     return (
@@ -163,14 +187,29 @@ export default function BuyDialogForm({ open, closeHandler, price, adminFee }: P
                         </div>
                     </div>
                 </form>
-                <div className="flex justify-center">
-                    <button
-                        onClick={onSubmitHandler}
-                        className="bg-pink-400 hover:bg-pink-600 rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
-                    >
-                        Beli Tiket
-                    </button>
-                </div>
+                {isLoading ? (
+                    <div className="flex justify-center">
+                        <div className="text-xl text-gray-500">
+                            Memproses...
+                        </div>
+                    </div>
+                ) : (
+                    <div className="flex justify-center">
+                        <button
+                            onClick={onSubmitHandler}
+                            className="bg-pink-400 hover:bg-pink-600 rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
+                        >
+                            Beli Tiket
+                        </button>
+                    </div>
+                )}
+                {paymentError && (
+                    <div className="flex justify-center">
+                        <div className="text-xl text-red-500">
+                            Terjadi kesalahan, silahkan coba lagi
+                        </div>
+                    </div>
+                )}
             </DialogContent>
 
         </Dialog >
