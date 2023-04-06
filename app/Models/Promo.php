@@ -12,7 +12,7 @@ class Promo extends Model
     public $table = "promos";
     protected $guarded = ['id'];
     protected $fillable = [
-        'promo_name',
+        'name',
         'stocks',
         'description',
         'price',
