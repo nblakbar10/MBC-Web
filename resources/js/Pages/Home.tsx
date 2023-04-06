@@ -149,7 +149,7 @@ export default function Home({ promos }: Props) {
                                     {promos.map((promo) => (
                                         <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
                                             <p className="text-xl text-[#2EA1DA] font-bold">
-                                                {promo.promo_name}
+                                                {promo.name}
                                             </p>
                                             <p>
                                                 Harga Belum Termasuk Pajak dan Biaya Layanan

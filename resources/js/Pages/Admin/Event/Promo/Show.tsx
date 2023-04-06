@@ -25,7 +25,7 @@ export default function Show({ promo }: Props) {
     };
 
     return (
-        <DashboardAdminLayout title={`${promo.promo_name}`}>
+        <DashboardAdminLayout title={`${promo.name}`}>
             <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
@@ -73,7 +73,7 @@ export default function Show({ promo }: Props) {
                                 <tbody>
                                     <tr className='border-b py-3 border-black'>
                                         <td className='py-3 text-center'>Nama Promo</td>
-                                        <td className='py-3 text-center'>{promo.promo_name}</td>
+                                        <td className='py-3 text-center'>{promo.name}</td>
                                     </tr>
                                     <tr className='border-b py-3 border-black'>
                                         <td className='py-3 text-center'>Deskripsi Promo</td>

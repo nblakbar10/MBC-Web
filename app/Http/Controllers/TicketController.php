@@ -33,13 +33,13 @@ class TicketController extends Controller
 
         $check_payment_status = Transaction::where('external_id',$external_id)->pluck('payment_status')->first();
         if ($check_payment_status == 'PAID'){
-            $date1 = Carbon::now();
-            $date2 = Carbon::parse($date1)->format('d F Y');
+            $source_date = Carbon::now();
+            $parsed_date = Carbon::parse($source_date)->format('d F Y');
             $ticket_id = Str::random(5);
             $data = Transaction::where('external_id', $external_id)->get();
             Ticket::create([
                 "external_id" => $external_id,
-                "ticket_id" => $date2.$ticket_id,
+                "ticket_id" => $parsed_date.$ticket_id,
                 "ticket_name" => $data->name,
                 "email" => $data->email,
                 "phone_number" => $data->phone_number,
@@ -58,7 +58,7 @@ class TicketController extends Controller
             'no_hp' => $data->phone_number,
             'jumlah_tiket' => $data->ticket_amount,
             'jenis_tiket' => $data->tickets_category,
-            // 'total_pembayaran' => $data->total_amount,
+            'total_pembayaran' => $data->total_amount,
             'metode_pembayaran' => $data->payment_method,
             // 'barcode' => $data->ticket_id, //$response->invoice_url,
         ];

@@ -11,7 +11,7 @@ import { PromoCreateModel } from '@/Models/Promo';
 export default function Create() {
     let form = useForm<PromoCreateModel>(
         {
-            promo_name: '',
+            name: '',
             description: '',
             stocks: 0,
             price: 0,

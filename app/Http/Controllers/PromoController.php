@@ -57,12 +57,13 @@ class PromoController extends Controller
     public function store(Request $request)
     {
         $promo = Promo::create([
-            'promo_name' => $request->promo_name,
+            'name' => $request->name,
             'stocks' => $request->stocks,
             'description' => $request->description,
             'price' => $request->price,
         ]);
         $promo->save();
+        
         return redirect()->route('promo.index')->banner('New Promo Created Successfully');    
     }
 
@@ -106,7 +107,7 @@ class PromoController extends Controller
     {
         $promo = Promo::where('id', $id)->first();
         $promo->update([
-            'promo_name' => $request->promo_name,
+            'name' => $request->name,
             'stocks' => $request->stocks,
             'description' => $request->description,
             'price' => $request->price,

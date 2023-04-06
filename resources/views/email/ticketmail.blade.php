@@ -16,7 +16,8 @@
             </div>
 
             <div class="text-md mt-5">
-                Selamat, pembayaran tiketmu telah kami terima, berikut data detail untuk tiketmu yang dapat di-redeem ketika
+                Selamat, pembayaran tiketmu telah kami terima, berikut data detail untuk tiketmu yang dapat di-redeem
+                ketika
                 konser akan berlangsung.
             </div>
             <!-- <div class="text-md mt-5">
@@ -24,6 +25,9 @@
                     href="https://loketmbc.com/cek-pesanan">cek pesanan</a> untuk mendapatkan tiket yang telah kamu
                 pesan.
             </div> -->
+            <div id="token" hidden>
+                {{$mailData['id_tiket']}}
+            </div>
 
             <div class="border-y-neutral-900 border flex py-3 px-2">
                 <div>
@@ -59,6 +63,11 @@
                             <td class="text-md">{{$mailData['jenis_tiket']}}</td>
                         </tr>
                         <tr>
+                            <td class="text-md">Total Pembelian</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">{{$mailData['total_pembayaran']}}</td>
+                        </tr>
+                        <tr>
                             <td class="text-md">Metode Pembayaran</td>
                             <td class="text-md px-3">:</td>
                             <td class="text-md">{{$mailData['metode_pembayaran']}}</td>
@@ -75,7 +84,7 @@
             <div class="flex justify-center">
                 <svg id="id_tiket"></svg>
             </div>
-            <div class="flex justify-end">
+            <div class="flex justify-center">
                 <p>2023 @ PT Maju Bersama Kreatif</p>
             </div>
         </div>
@@ -83,7 +92,8 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <script>
-    JsBarcode("#id_tiket", "INV/20230403/MPL/3152703799");
+    const id_tiket = document.getElementById("token").innerHTML;
+    JsBarcode("#id_tiket", id_tiket);
 </script>
 
 </html>

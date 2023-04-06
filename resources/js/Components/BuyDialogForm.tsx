@@ -25,7 +25,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         email: '',
         phone_number: '',
         ticket_amount: 1,
-        tickets_category: promo?.promo_name,
+        tickets_category: promo?.name,
         payment_method: 'Transfer Bank (VA)',
         total_price: 0,
     });
@@ -39,38 +39,48 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
 
     useEffect(() => {
-        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
-    }, [form.data.ticket_amount]);
+        form.setData('tickets_category', promo?.name);
+    }, [promo?.name]);``
 
     useEffect(() => {
-        form.setData('tickets_category', promo?.promo_name);
-    }, [promo?.promo_name]);
+        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
+    }, [promo?.price, form.data.ticket_amount]);
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        setIsLoading(true);
-        const data = fetch(route('checkout'), {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1")
-            },
-            credentials: 'same-origin',
-            body: JSON.stringify(form.data)
-        })
-            .then(response => {
-                response.status === 200 ? setPaymentError(false) : setPaymentError(true)
-                setIsLoading(false);
-                return response.json()
-            })
-            .then(data => {
-                if (!paymentError) {
-                    setXenditLinkHandler(data);
-                    checkOutOpenHandler();
+            form.post(route('transaction.store'), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    closeHandler();
                 }
-            });
+            }); 
+
+
+    // const onSubmitHandler = (e: React.FormEvent) => {
+    //     e.preventDefault();
+    //     setIsLoading(true);
+    //     const data = fetch(route('checkout'), {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json',
+    //             'X-Requested-With': 'XMLHttpRequest',
+    //             'X-CSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1")
+    //         },
+    //         credentials: 'same-origin',
+    //         body: JSON.stringify(form.data)
+    //     })
+    //         .then(response => {
+    //             response.status === 200 ? setPaymentError(false) : setPaymentError(true)
+    //             setIsLoading(false);
+    //             return response.json()
+    //         })
+    //         .then(data => {
+    //             if (!paymentError) {
+    //                 setXenditLinkHandler(data);
+    //                 checkOutOpenHandler();
+    //             }
+    //         });
     }
 
     return (
@@ -84,7 +94,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                     />
                 </div>
                 <div className="text-lg text-center">
-                    {promo?.promo_name}
+                    {promo?.name}
                 </div>
                 <form className="flex flex-col gap-5 mx-5">
                     <div className="form-control w-full mt-4">
@@ -96,7 +106,6 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             value={form.data.name}
                             onChange={e => {
                                 form.setData('name', e.currentTarget.value)
-                                form.setData('tickets_category', promo?.promo_name)
                             }}
                             required
                             autoFocus
