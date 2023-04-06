@@ -5,10 +5,13 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\PromoController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+use App\Http\Controllers\SendEmailController;
 
 
 /*
@@ -33,11 +36,19 @@ use Inertia\Inertia;
 
 Route::get('/', [DashboardController::class, 'home']);
 
-Route::resource('/transaction', TransactionController::class);
+// Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
+Route::get('/transaction/index', [TicketController::class, 'index'])->name('transaction.index');
+Route::post('/callback', [TicketController::class, 'callback']);
+// Route::post('/callback', [TransactionController::class, 'callback']);
+
 Route::resource('/promo', PromoController::class);
 
+// Route::get('send-email', [SendEmailController::class, 'index']);
+
 Route::resource('/user', UserController::class);
-            Route::resource('/event', EventController::class);
+Route::resource('/event', EventController::class);
+Route::resource('/transaction', TransactionController::class);
+
 
 Route::middleware([
     'auth:sanctum',
@@ -54,3 +65,5 @@ Route::middleware([
         });
     });
 });
+
+

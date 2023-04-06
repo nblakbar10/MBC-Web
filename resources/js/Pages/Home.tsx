@@ -120,7 +120,7 @@ export default function Home({ promos }: Props) {
                             </button>
                         </div> */}
                     </div>
-                    <div className="p-10 rounded-2xl">
+                    <div className="p-10 rounded-2xl ">
                         <div>
                             <Tabs value={tabValue} onChange={handleTabChange} centered variant="fullWidth">
                                 <Tab label="Deskripsi" {...a11yProps(0)} />
@@ -162,10 +162,10 @@ export default function Home({ promos }: Props) {
                             </TabPanel>
                         </div>
                     </div>
-                    <div className="flex justify-center p-10">
+                    <div className="flex justify-center my-10 bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg border border-neutral-500">
                         <img
-                            className="object-cover rounded-xl basis-2/3"
-                            src={asset('root', 'assets/images/peta.jpg')}
+                            className="object-contain rounded-xl p-2"
+                            src={asset('root', 'assets/images/STAGE_BORDER.png')}
                         />
                     </div>
                 </div>

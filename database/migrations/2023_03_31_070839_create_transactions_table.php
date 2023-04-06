@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('transaction', function (Blueprint $table) {
             $table->id();
             // $table->integer('user_id');
+            $table->string('external_id');
             $table->string('name');
             $table->string('email');
             $table->string('phone_number');
