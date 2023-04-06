@@ -54,7 +54,7 @@ export default function Home({ promos }: Props) {
 
     const [xenditLink, setXenditLink] = useState<string>("");
 
-    const [selectedPromo, setSelectedPromo] = useState < PromoModel | null > (null);
+    const [selectedPromo, setSelectedPromo] = useState<PromoModel | null>(null);
 
     const [tabValue, setTabValue] = useState(0);
 
@@ -62,7 +62,7 @@ export default function Home({ promos }: Props) {
         setTabValue(newValue);
     };
 
-    const handleSelectPromo = (newValue : PromoModel) => {
+    const handleSelectPromo = (newValue: PromoModel) => {
         setSelectedPromo(newValue);
     }
 
@@ -183,7 +183,7 @@ export default function Home({ promos }: Props) {
                     </div>
                 </div>
             </div>
-            <BuyDialogForm open={openForm} closeHandler={removeSelectedPromo} checkOutOpenHandler={handleOpenCheckOut} setXenditLinkHandler={setXenditLink} promo={ selectedPromo} />
+            <BuyDialogForm open={openForm} closeHandler={removeSelectedPromo} checkOutOpenHandler={handleOpenCheckOut} setXenditLinkHandler={setXenditLink} promo={selectedPromo} />
             <CheckOutModal open={openCheckOut} closeHandler={handleCloseCheckOut} xenditLink={xenditLink} />
         </AppLayout>
     )
