@@ -86,7 +86,6 @@ class TransactionController extends Controller
             }
 
             $response = $data_request->object();
-            dd($response->invoice_url);
 
             Transaction::create([
                 'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
