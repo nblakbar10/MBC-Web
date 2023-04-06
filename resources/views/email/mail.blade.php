@@ -25,14 +25,6 @@
             <div class="text-md mt-5">
             Berikut detail data pemesanan anda yang kami terima:
             </div>
-            <!-- <div class="text-md mt-5">
-                Jika kamu tidak menerima email, silahkan cek folder spam atau masuk ke halaman <a
-                    href="https://loketmbc.com/cek-pesanan">cek pesanan</a> untuk mendapatkan tiket yang telah kamu
-                pesan.
-            </div> -->
-            <!-- <div id="token" hidden>
-                {{$mailData['id_tiket']}}
-            </div> -->
 
             <div class="border-y-neutral-900 border flex py-3 px-2">
                 <div>
@@ -78,22 +70,17 @@
                             <td class="text-md">{{$mailData['status_pembayaran']}}</td>
                         </tr>
                     </table>
+                    <div class="text-md mt-5">
+                        Berikut link untuk melakukan pembayaran:
+                    </div>
                 </div>
 
             </div>
-            <!-- <div class="flex justify-center">
-                <svg id="id_tiket"></svg>
-            </div> -->
             <div class="flex justify-center">
                 <p>2023 @ PT Maju Bersama Kreatif</p>
             </div>
         </div>
     </div>
 </body>
-<!-- <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-<script>
-    const id_tiket = document.getElementById("token").innerHTML;
-    JsBarcode("#id_tiket", id_tiket);
-</script> -->
 
 </html>
