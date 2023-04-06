@@ -67,14 +67,14 @@ class TransactionController extends Controller
                     'amount' => $request->total_price,
                     'payment_methods' => ['BCA', 'BNI', 'BRI', 'Mandiri']
                 ]);
-            }else if ($check_payment_methods == 'QRIS'){
+            }else if ($check_payment_methods == 'DANA'){
                 $data_request = Http::withHeaders([
                     'Authorization' => $secret_key,
                 ])->post('https://api.xendit.co/v2/invoices', [
                     // 'transaction_id' => $transaction_id,
                     'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
                     'amount' => $request->total_price,
-                    'payment_methods' => ['QRIS']
+                    'payment_methods' => ['DANA']
                 ]);
             }
 
@@ -93,7 +93,7 @@ class TransactionController extends Controller
                 'payment_method' => $request->payment_method,
                 'payment_link' => $response->invoice_url,
             ]);
-            //promo decrement :
+            //promo ticket stocks decrement :
             $promo = Promo::where('promo_id', $request->promo_id)->first();
             $promo->stocks = (int)$promo->stocks - (int)$request->ticket_amount;
             $promo->save();

@@ -60,8 +60,22 @@ class TicketController extends Controller
             'jenis_tiket' => $data->tickets_category,
             // 'total_pembayaran' => $data->total_amount,
             'metode_pembayaran' => $data->payment_method,
-            'barcode' => 'https://checkout-staging.xendit.co/web/642c67f202f2fc3803f1b941', //$response->invoice_url,
+            // 'barcode' => $data->ticket_id, //$response->invoice_url,
         ];
         Mail::to($data->email)->send(new SuccessMail($mailData));
+    }
+
+    public function redeem_ticket(Request $request)
+    {
+        $check = Ticket::where('ticket_id', $request->token)->get();
+        if($check){
+            Ticket::where('external_id', $check->external_id)->update([
+                'ticket_status' => 'Reedeemed'
+            ]);
+            return redirect()->route('ticket.index')->banner('Ticket ID Found!'); 
+
+        }else{
+            return redirect()->route('ticket.index')->banner('Ticket ID Not Found!');
+        }
     }
 }

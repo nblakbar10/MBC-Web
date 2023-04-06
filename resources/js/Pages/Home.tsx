@@ -77,7 +77,7 @@ export default function Home({ promos }: Props) {
             setOpenForm(false);
         }
     }, [selectedPromo]);
-
+    // console.log(promos);
     return (
         <AppLayout>
             <div className="flex justify-center m-auto p-3 w-full md:w-5/6">

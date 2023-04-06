@@ -153,7 +153,8 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             required
                         >
                             <option value="Transfer Bank (VA)">Transfer Bank (VA)</option>
-                            <option value="QRIS">QRIS</option>
+                            <option value="DANA">DANA</option>
+                            {/* <option value="GOPAY">GOPAY</option> */}
                         </select>
                         {/* <InputError className="mt-2" message={"salah"} /> */}
                     </div>

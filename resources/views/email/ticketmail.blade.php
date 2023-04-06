@@ -73,7 +73,7 @@
 
             </div>
             <div class="flex justify-center">
-                <svg id="barcode"></svg>
+                <svg id="id_tiket"></svg>
             </div>
             <div class="flex justify-end">
                 <p>2023 @ PT Maju Bersama Kreatif</p>
@@ -83,7 +83,7 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <script>
-    JsBarcode("#barcode", "INV/20230403/MPL/3152703799");
+    JsBarcode("#id_tiket", "INV/20230403/MPL/3152703799");
 </script>
 
 </html>
