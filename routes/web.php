@@ -34,7 +34,7 @@ use App\Http\Controllers\SendEmailController;
 //     ]);
 // });
 
-Route::get('/', [DashboardController::class, 'home']);
+Route::get('/', [DashboardController::class, 'home'])->name('home');
 
 // Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
 // Route::get('/transaction/index', [TicketController::class, 'index'])->name('transaction.index');
