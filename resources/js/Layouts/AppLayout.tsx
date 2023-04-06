@@ -25,8 +25,18 @@ export default function AppLayout({ children, title }: Props) {
                     </div>
                 </nav>
                 {children}
-                <div className="w-full h-60 bg-pink-600">
-                </div>
+                <footer className="w-full h-60 bg-[#E83879]">
+                    <div className ="container flex justify-center m-auto p-3 mt-8 ">
+                        <div className="object-cover object-center rounded-xl shadow-md h-auto">
+                        <img
+                                src={asset('root', 'assets/images/footer4.png')}
+                                className="justify-center"
+                                width={1000}
+
+                            />
+                        </div>
+                    </div>
+                </footer>
             </div >
         </>
     );
