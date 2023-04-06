@@ -50,16 +50,16 @@ class TransactionController extends Controller
         } else {
             $check_payment_methods = $request->payment_method;
             $secret_key = 'Basic '.config('xendit.key_auth');
-            $transaction_id = Str::random(16);
-            $external_id = Str::random(5); //id transaksi
+            $transaction_id = Str::random(5);
+            // $external_id = Str::random(5); //id transaksi
 
             if ($check_payment_methods == 'Transfer Bank (VA)')
             {
                 $data_request = Http::withHeaders([
                     'Authorization' => $secret_key,
                 ])->post('https://api.xendit.co/v2/invoices', [
-                    'transaction_id' => $transaction_id,
-                    'external_id' => 'MBC-SmileFest2023-'.$external_id,
+                    // 'transaction_id' => $transaction_id,
+                    'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
                     'amount' => $request->total_price,
                     'payment_methods' => ['BCA', 'BNI', 'BRI', 'Mandiri']
                 ]);
@@ -67,8 +67,8 @@ class TransactionController extends Controller
                 $data_request = Http::withHeaders([
                     'Authorization' => $secret_key,
                 ])->post('https://api.xendit.co/v2/invoices', [
-                    'transaction_id' => $transaction_id,
-                    'external_id' => 'MBC-SmileFest2023-'.$external_id,
+                    // 'transaction_id' => $transaction_id,
+                    'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
                     'amount' => $request->total_price,
                     'payment_methods' => ['QRIS']
                 ]);
@@ -77,7 +77,7 @@ class TransactionController extends Controller
             $response = $data_request->object();
 
             Transaction::create([
-                'id' => $transaction_id,
+                'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
                 // 'user_id' => $request->user_id,
                 'name' => $request->name,
                 'email' => $request->email,
@@ -162,5 +162,19 @@ class TransactionController extends Controller
     public function destroy(transaction $transaction)
     {
         //
+    }
+
+    public function callback()
+    {
+        $data = request()->all();
+
+        $status = $data['status'];
+        $external_id = $data['external_id'];
+
+        Transaction::where('external_id', 'MBC-SmileFest2023-'.$external_id)->update([
+            'payment_status' => $status
+        ]);
+
+        return response()->json($data);
     }
 }

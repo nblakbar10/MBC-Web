@@ -40,6 +40,7 @@ Route::get('/', function () {
 Route::resource('/transaction', TransactionController::class);
 Route::resource('/promo', PromoController::class);
 
+Route::post('/callback', [TransactionController::class, 'callback']);
 
 
 // Route::get('send-email', [SendEmailController::class, 'index']);
