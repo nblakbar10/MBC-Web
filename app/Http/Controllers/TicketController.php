@@ -27,43 +27,48 @@ class TicketController extends Controller
         $status = $data['status'];
         $external_id = $data['external_id'];
 
-        Transaction::where('external_id', 'MBC-SmileFest2023-'.$external_id)->update([
+        Transaction::where('external_id', 'MBC-SmileFest2023-'.'$external_id')->update([
             'payment_status' => $status
         ]);
 
-        $check_payment_status = Transaction::where('external_id',$external_id)->pluck('payment_status')->first();
-        if ($check_payment_status == 'PAID'){
-            $source_date = Carbon::now();
-            $parsed_date = Carbon::parse($source_date)->format('d F Y');
-            $ticket_id = Str::random(5);
-            $data = Transaction::where('external_id', $external_id)->get();
-            Ticket::create([
-                "external_id" => $external_id,
-                "ticket_id" => $parsed_date.$ticket_id,
-                "ticket_name" => $data->name,
-                "email" => $data->email,
-                "phone_number" => $data->phone_number,
-                "payment_method" => $data->payment_method,
-                "ticket_qty" => $data->total_tickets,
-                "ticket_category" => $data->tickets_category,
-                "ticket_status" => "Not redeemed"
-            ]);
-        }
 
-        //sent email :
-        $mailData = [
-            'id_tiket' => $data->ticket_id,
-            'nama' => $data->name,
-            'email' => $data->email,
-            'no_hp' => $data->phone_number,
-            'jumlah_tiket' => $data->ticket_amount,
-            'jenis_tiket' => $data->tickets_category,
-            'total_pembayaran' => $data->total_amount,
-            'metode_pembayaran' => $data->payment_method,
-            // 'barcode' => $data->ticket_id, //$response->invoice_url,
-        ];
-        Mail::to($data->email)->send(new SuccessMail($mailData));
+        // $check_payment_status = Transaction::where('external_id','$external_id')->pluck('payment_status')->first();
+        // $source_date = Carbon::now();
+        // $parsed_date = Carbon::parse($source_date)->format('d F Y');
+        // $mix_ticket = $parsed_date.Str::random(5);
+        // $data_trans = Transaction::where($external_id, 'external_id')->get();
+
+        // if ($check_payment_status == 'PAID'){
+        //     Ticket::create([
+        //         "external_id" => $external_id,
+        //         "ticket_id" => $mix_ticket,
+        //         "ticket_name" => $data_trans->name,
+        //         "email" => $data_trans->email,
+        //         "phone_number" => $data_trans->phone_number,
+        //         "payment_method" => $data_trans->payment_method,
+        //         "ticket_qty" => $data_trans->total_tickets,
+        //         "ticket_category" => $data_trans->tickets_category,
+        //         "ticket_status" => "Not redeemed"
+        //     ]);
+        // }
+
+        // //sent email :
+        // $mailData = [
+        //     'id_tiket' => $mix_ticket,
+        //     'nama' => $data_trans->name,
+        //     'email' => $data_trans->email,
+        //     'no_hp' => $data_trans->phone_number,
+        //     'jumlah_tiket' => $data_trans->ticket_amount,
+        //     'jenis_tiket' => $data_trans->tickets_category,
+        //     'total_pembayaran' => $data_trans->total_amount,
+        //     'metode_pembayaran' => $data_trans->payment_method,s
+        // ];
+        // Mail::to($data_trans->email)->send(new SuccessMail($mailData));
     }
+
+
+    // public function generate_ticket(){
+    // }
 
     public function redeem_ticket(Request $request)
     {
