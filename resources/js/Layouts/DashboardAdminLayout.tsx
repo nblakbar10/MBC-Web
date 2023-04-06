@@ -86,9 +86,7 @@ export default function DashboardAdminLayout({
                     </ResponsiveNavLink>
                 </li>
                 <li>
-                    <ResponsiveNavLink href={route('dashboard')}
-                        // active={route().current('dashboard')}
-                    >
+                    <ResponsiveNavLink href={route('transaction.index')} active={route().current('transaction.index')}>
                         History Transaksi
                     </ResponsiveNavLink>
                 </li>

@@ -35,7 +35,8 @@ use App\Http\Controllers\SendEmailController;
 
 Route::get('/', [DashboardController::class, 'home']);
 
-Route::resource('/transaction', TransactionController::class);
+Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
+
 Route::resource('/promo', PromoController::class);
 
 Route::post('/callback', [TransactionController::class, 'callback']);
@@ -44,7 +45,9 @@ Route::post('/callback', [TransactionController::class, 'callback']);
 // Route::get('send-email', [SendEmailController::class, 'index']);
 
 Route::resource('/user', UserController::class);
-            Route::resource('/event', EventController::class);
+Route::resource('/event', EventController::class);
+Route::resource('/transaction', TransactionController::class);
+
 
 Route::middleware([
     'auth:sanctum',
@@ -61,3 +64,5 @@ Route::middleware([
         });
     });
 });
+
+

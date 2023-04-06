@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use App\Models\Promo;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 use Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
@@ -22,6 +23,9 @@ class TransactionController extends Controller
     public function index()
     {
         //
+        return Inertia::render('Admin/Transaction/Index', [
+            'transactions' => Transaction::all(),
+        ]);
     }
 
     /**
@@ -128,6 +132,19 @@ class TransactionController extends Controller
     public function show(transaction $transaction)
     {
         //
+    }
+
+    
+    public function redeemForm()
+    {
+        return Inertia::render(
+            'Admin/Transaction/RedeemForm'
+        );
+    }
+
+    public function redeem(Request $request)
+    {
+        // dd("Redeem Tiket");
     }
 
     /**
