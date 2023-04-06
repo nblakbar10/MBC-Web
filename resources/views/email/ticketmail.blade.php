@@ -16,62 +16,57 @@
             </div>
 
             <div class="text-md mt-5">
-                Pesananmu telah berhasil di proses, silahkan cek email kamu untuk mendapatkan tiket yang telah kamu
-                pesan.
+                Selamat, pembayaran tiketmu telah kami terima, berikut data detail untuk tiketmu yang dapat di-redeem ketika
+                konser akan berlangsung.
             </div>
-            <div class="text-md mt-5">
+            <!-- <div class="text-md mt-5">
                 Jika kamu tidak menerima email, silahkan cek folder spam atau masuk ke halaman <a
                     href="https://loketmbc.com/cek-pesanan">cek pesanan</a> untuk mendapatkan tiket yang telah kamu
                 pesan.
-            </div>
+            </div> -->
 
             <div class="border-y-neutral-900 border flex py-3 px-2">
                 <div>
                     <table class="w-full table-auto	">
-                        <!-- <tr>
-                            <td class="text-md">mailData['to']</td>
+                        <tr>
+                            <td class="text-md">ID Tiket</td>
                             <td class="text-md px-3">:</td>
-                            <td class="text-md">mailData['to']</td>
-                        </tr> -->
-                        <!-- <tr>
-                            <td class="text-md">mailData['p1']</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-md">mailData['p1']</td>
-                        </tr> -->
+                            <td class="text-md">{{$mailData['id_tiket']}}</td>
+                        </tr>
                         <tr>
                             <td class="text-md">Nama</td>
                             <td class="text-md px-3">:</td>
-                            <td class="text-md">{{$mailData['data1']}}</td>
+                            <td class="text-md">{{$mailData['nama']}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-md">Email</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">{{$mailData['email']}}</td>
                         </tr>
                         <tr>
                             <td class="text-md">No. HP</td>
                             <td class="text-md px-3">:</td>
-                            <td class="text-md">{{$mailData['data2']}}</td>
+                            <td class="text-md">{{$mailData['no_hp']}}</td>
                         </tr>
                         <tr>
                             <td class="text-md">Jumlah Tiket</td>
                             <td class="text-md px-3">:</td>
-                            <td class="text-md">{{$mailData['data3']}}</td>
+                            <td class="text-md">{{$mailData['jumlah_tiket']}}</td>
                         </tr>
                         <tr>
-                            <td class="text-md">Kategori Tiket</td>
+                            <td class="text-md">Jenis Tiket</td>
                             <td class="text-md px-3">:</td>
-                            <td class="text-md">{{$mailData['data4']}}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-md">Total Pembayaran</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-md">{{$mailData['data5']}}</td>
+                            <td class="text-md">{{$mailData['jenis_tiket']}}</td>
                         </tr>
                         <tr>
                             <td class="text-md">Metode Pembayaran</td>
                             <td class="text-md px-3">:</td>
-                            <td class="text-md">{{$mailData['data6']}}</td>
+                            <td class="text-md">{{$mailData['metode_pembayaran']}}</td>
                         </tr>
                         <tr>
-                            <td class="text-md">Link untuk pembayaran</td>
+                            <td class="text-md">Status Tiket</td>
                             <td class="text-md px-3">:</td>
-                            <td class="text-md">{{$mailData['link']}}</td>
+                            <td class="text-md">{{$mailData['status_tiket']}}</td>
                         </tr>
                     </table>
                 </div>
@@ -86,31 +81,9 @@
         </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+<script>
+    JsBarcode("#barcode", "INV/20230403/MPL/3152703799");
+</script>
 
 </html>
-
-<!-- <h4> mailData['to']</h4>
-<h4> mailData['p1']</h4>
-<h4> mailData['data1']</h4>
-<p >mailData['data2']</p>
-<p> mailData['data3']</p>
-<p> mailData['data4']</p>
-<p> mailData['data5']</p>
-<p> mailData['data6']</p>
-<h4> mailData['p2']</h4>
-<h4> mailData['p3'] </h4>
-<h2> mailData['link'] </h2> -->
-
-
-
-<!-- <h4>{{ $mailData['to'] }}</h4>
-<h4>{{$mailData['p1'] }}</h4>
-<h4>{{ $mailData['data1'] }}</h4>
-<p>{{ $mailData['data2'] }}</p>
-<p>{{ $mailData['data3'] }}</p>
-<p>{{ $mailData['data4'] }}</p>
-<p>{{ $mailData['data5'] }}</p>
-<p>{{ $mailData['data6'] }}</p>
-<h4>{{ $mailData['p2'] }}</h4>
-<h4>{{ $mailData['p3'] }}</h4>
-<h2>{{ $mailData['link'] }}</h2> -->

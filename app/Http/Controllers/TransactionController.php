@@ -87,7 +87,7 @@ class TransactionController extends Controller
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
                 'total_tickets' => $request->ticket_amount,
-                'tickets_category' => 'Presale 2', //$request->tickets_category,
+                'tickets_category' => $request->tickets_category,
                 'total_amount' => $request->total_price,
                 'payment_status' => $response->status,
                 'payment_method' => $request->payment_method,
@@ -107,7 +107,7 @@ class TransactionController extends Controller
                 'data2' => '1. Nama : '.$request->name,
                 'data3' => '2. No. HP : '.$request->phone_number,
                 'data4' => '3. Jumlah Tiket : '.$request->ticket_amount,
-                'data5' => '4. Kategori Tiket : '.'Presale 2', //$request->tickets_category
+                'data5' => '4. Kategori Tiket : '.$request->tickets_category,
                 'data6' => '5. Total Pembayaran : '.$request->total_amount,
                 'data6' => '6. Metode Pembayaran : '.$request->payment_method,
                 'p2' => 'Silahkan hubungi email loketmbc.entertainment@gmail.com jika anda menemui problem atau jika memiliki suatu pertanyaan',
@@ -116,11 +116,11 @@ class TransactionController extends Controller
             ];
             Mail::to($request->email)->send(new NotifyMail($mailData));
 
-            return response('', 409)
-                ->header('X-Inertia-Location', $response->invoice_url);
+            // return response('', 409)
+            //     ->header('X-Inertia-Location', $response->invoice_url);
         }
 
-        // return json_encode($response->invoice_url);
+        return json_encode($response->invoice_url);
     }
 
     /**
@@ -135,17 +135,17 @@ class TransactionController extends Controller
     }
 
     
-    public function redeemForm()
-    {
-        return Inertia::render(
-            'Admin/Transaction/RedeemForm'
-        );
-    }
+    // public function redeemForm()
+    // {
+    //     return Inertia::render(
+    //         'Admin/Transaction/RedeemForm'
+    //     );
+    // }
 
-    public function redeem(Request $request)
-    {
-        // dd("Redeem Tiket");
-    }
+    // public function redeem(Request $request)
+    // {
+    //     // dd("Redeem Tiket");
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -181,17 +181,17 @@ class TransactionController extends Controller
         //
     }
 
-    public function callback()
-    {
-        $data = request()->all();
+    // public function callback()
+    // {
+    //     $data = request()->all();
 
-        $status = $data['status'];
-        $external_id = $data['external_id'];
+    //     $status = $data['status'];
+    //     $external_id = $data['external_id'];
 
-        Transaction::where('external_id', 'MBC-SmileFest2023-'.$external_id)->update([
-            'payment_status' => $status
-        ]);
+    //     Transaction::where('external_id', 'MBC-SmileFest2023-'.$external_id)->update([
+    //         'payment_status' => $status
+    //     ]);
 
-        return response()->json($data);
-    }
+    //     return response()->json($data);
+    // }
 }

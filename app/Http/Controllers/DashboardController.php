@@ -17,8 +17,10 @@ class DashboardController extends Controller
 
     public function home(){
         $promos = Promo::all();
+        dd($promos);
         return Inertia::render('Home', [
             'promos' => $promos,
         ]);
+        
     }
 }
