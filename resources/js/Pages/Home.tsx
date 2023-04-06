@@ -1,8 +1,10 @@
 import BuyDialogForm from "@/Components/BuyDialogForm";
+import CheckOutModal from "@/Components/CheckOutModal";
 import AppLayout from "@/Layouts/AppLayout";
 import { asset } from "@/Models/Helper";
+import { PromoModel } from "@/Models/Promo";
 import { Tab, Tabs } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -37,16 +39,44 @@ function a11yProps(index: number) {
     };
 }
 
-export default function Home() {
-    const [open, setOpen] = useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+interface Props {
+    promos: Array<PromoModel>
+}
+
+export default function Home({ promos }: Props) {
+    const [openForm, setOpenForm] = useState(false);
+    // const handleOpenForm = () => setOpenForm(true);
+    // const handleCloseForm = () => setOpenForm(false);
+
+    const [openCheckOut, setOpenCheckOut] = useState(false);
+    const handleOpenCheckOut = () => setOpenCheckOut(true);
+    const handleCloseCheckOut = () => setOpenCheckOut(false);
+
+    const [xenditLink, setXenditLink] = useState<string>("");
+
+    const [selectedPromo, setSelectedPromo] = useState < PromoModel | null > (null);
 
     const [tabValue, setTabValue] = useState(0);
 
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
     };
+
+    const handleSelectPromo = (newValue : PromoModel) => {
+        setSelectedPromo(newValue);
+    }
+
+    const removeSelectedPromo = () => {
+        setSelectedPromo(null);
+    }
+
+    useEffect(() => {
+        if (selectedPromo) {
+            setOpenForm(true);
+        } else {
+            setOpenForm(false);
+        }
+    }, [selectedPromo]);
 
     return (
         <AppLayout>
@@ -84,70 +114,77 @@ export default function Home() {
                                 </p>
                             </div>
                         </div>
-                        <div className="flex justify-center p-24">
+                        {/* <div className="flex justify-center p-24">
                             <button className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-3 px-7 rounded-lg" onClick={handleOpen}>
                                 Beli Tiket
                             </button>
-                        </div>
+                        </div> */}
                     </div>
-                    <div className="p-10 rounded-2xl">
+                    <div className="p-10 rounded-2xl ">
                         <div>
                             <Tabs value={tabValue} onChange={handleTabChange} centered variant="fullWidth">
                                 <Tab label="Deskripsi" {...a11yProps(0)} />
                                 <Tab label="Promo Tiket" {...a11yProps(1)} />
                             </Tabs>
                             <TabPanel value={tabValue} index={0}>
-                                <div className="my-auto text-4xl">
-                                    Deskripsi
+                                <div className="flex flex-col gap-5">
+                                    <div className="my-auto text-4xl font-bold">
+                                        <p>FESTIVAL TEMU DULUR 2023</p>
+                                    </div>
+
+                                    <p>Pasukan ambyar mana suaranyaa ??</p>
+                                    <p>Hai sobat MBC, ini nih yang ditunggu-tunggu. SMILE FEST kali ini kita punya special GUEST STAR "DENNY CAKNAN" & Mr. JONO & JONI yang siap menggoyangkan panggung dan ambyar bareng sobat semua.</p>
+                                    <p>Buruan Segera amankan tiketmu sekarang sebelum kehabisan....</p>
+                                    <p>Los Doll Dar..Der..Doooorr !!!</p>
+                                    <div className="my-auto text-4xl font-bold">
+                                        <p> Syarat & Ketentuan</p>
+                                    </div>
+                                    <p>- 1 Akun Email hanya bisa digunakan untuk 1 kali transaksi</p>
+                                    <p>- Maksimal jumlah tiket yang dapat dibeli per 1 transaksi adalah 5 Tiket</p>
+                                    <p>- Pembeli wajib mencantumkan Nomer KTP dan menuliskan nama lengkap sesuai yang tertera di KTP pada saat melakukan pembelian tiket.</p>
                                 </div>
                             </TabPanel>
                             <TabPanel value={tabValue} index={1}>
                                 <div className="flex flex-col my-3 gap-3">
-                                    <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
-                                        <p className="text-xl text-[#2EA1DA] font-bold">
-                                            PROMOTIONAL SALES 2
-                                        </p>
-                                        <p>
-                                            Harga Belum Termasuk Pajak dan Biaya Layanan
-                                        </p>
-                                        <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-5 flex justify-between py-3">
-                                            <p className="font-bold">
-                                                {`Rp. ${Number(100000).toLocaleString()}`}
+                                    {promos.map((promo) => (
+                                        <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
+                                            <p className="text-xl text-[#2EA1DA] font-bold">
+                                                {promo.name}
                                             </p>
-                                            <button className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-1 px-7 rounded-lg" onClick={handleOpen}>
-                                                Beli Tiket
-                                            </button>
+                                            <p>
+                                                Harga Belum Termasuk Pajak dan Biaya Layanan
+                                            </p>
+                                            <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-5 flex justify-between py-3">
+                                                <p className="font-bold">
+                                                    {`Rp. ${promo.price.toLocaleString()}`}
+                                                </p>
+                                                {promo.stocks > 0 ? (
+                                                    <button className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-1 px-7 rounded-lg" onClick={() => handleSelectPromo(promo)}>
+                                                        Beli Tiket
+                                                    </button>
+                                                ) : (
+                                                    <p className="font-semibold text-pink-500">
+                                                        SOLD OUT
+                                                    </p>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
-                                        <p className="text-xl text-[#2EA1DA] font-bold">
-                                            PROMOTIONAL SALES 1
-                                        </p>
-                                        <p>
-                                            Harga Belum Termasuk Pajak dan Biaya Layanan
-                                        </p>
-                                        <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-2 flex justify-between py-3">
-                                            <p className="font-bold">
-                                                {`Rp. ${Number(100000).toLocaleString()}`}
-                                            </p>
-                                            <p className="font-semibold text-pink-500">
-                                                PROMO ENDED
-                                            </p>
-                                        </div>
-                                    </div>
+                                    ))}
+
                                 </div>
                             </TabPanel>
                         </div>
                     </div>
-                    <div className="flex justify-center p-10">
+                    <div className="flex justify-center my-10 bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg border border-neutral-500">
                         <img
-                            className="object-cover rounded-xl basis-2/3"
-                            src={asset('root', 'assets/images/peta.jpg')}
+                            className="object-contain rounded-xl p-2"
+                            src={asset('root', 'assets/images/STAGE_BORDER.png')}
                         />
                     </div>
                 </div>
             </div>
-            <BuyDialogForm open={open} closeHandler={handleClose} />
+            <BuyDialogForm open={openForm} closeHandler={removeSelectedPromo} checkOutOpenHandler={handleOpenCheckOut} setXenditLinkHandler={setXenditLink} promo={ selectedPromo} />
+            <CheckOutModal open={openCheckOut} closeHandler={handleCloseCheckOut} xenditLink={xenditLink} />
         </AppLayout>
     )
 }

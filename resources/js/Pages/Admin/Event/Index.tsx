@@ -2,7 +2,7 @@ import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 import React from 'react';
 import route from 'ziggy-js';
 
-import AppLayout from '@/Layouts/DashboardAdminLayout';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink } from '@inertiajs/inertia-react';
 import { EventModel } from '@/Models/Event';
 
@@ -54,7 +54,7 @@ export default function Index({ events }: Props) {
         },
     ] as MRT_ColumnDef<EventModel>[];
     return (
-        <AppLayout title="Events">
+        <DashboardAdminLayout title="Events">
             <div className="py-12">
                 <div className="max-w-5xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -98,6 +98,6 @@ export default function Index({ events }: Props) {
                     </div>
                 </div>
             </div>
-        </AppLayout>
+        </DashboardAdminLayout>
     );
 }

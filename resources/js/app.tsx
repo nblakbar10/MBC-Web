@@ -9,10 +9,10 @@ import { RouteContext } from '@/Hooks/useRoute';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 
 const appName =
-  window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+  window.document.getElementsByTagName('title')[0]?.innerText;
 
 createInertiaApp({
-  title: title => `${title} - ${appName}`,
+  title: title => `${title}`,
   resolve: name =>
     resolvePageComponent(
       `./Pages/${name}.tsx`,

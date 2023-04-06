@@ -32,7 +32,7 @@ export default function Show({ event }: Props) {
     ] as MRT_ColumnDef<typeof event.eventPromos[0]>[];
 
     return (
-        <DashboardAdminLayout title={`Pengguna ${event.name}`}>
+        <DashboardAdminLayout title={`${event.name}`}>
             <div className="py-10 max-w-5xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-md sm:rounded-lg">
                     <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
