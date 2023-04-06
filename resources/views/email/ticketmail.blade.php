@@ -16,7 +16,8 @@
             </div>
 
             <div class="text-md mt-5">
-                Selamat, pembayaran tiketmu telah kami terima, berikut data detail untuk tiketmu yang dapat di-redeem ketika
+                Selamat, pembayaran tiketmu telah kami terima, berikut data detail untuk tiketmu yang dapat di-redeem
+                ketika
                 konser akan berlangsung.
             </div>
             <!-- <div class="text-md mt-5">
@@ -24,6 +25,9 @@
                     href="https://loketmbc.com/cek-pesanan">cek pesanan</a> untuk mendapatkan tiket yang telah kamu
                 pesan.
             </div> -->
+            <div id="token" hidden>
+                {{$mailData['id_tiket']}}
+            </div>
 
             <div class="border-y-neutral-900 border flex py-3 px-2">
                 <div>
@@ -83,7 +87,8 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
 <script>
-    JsBarcode("#id_tiket", "INV/20230403/MPL/3152703799");
+    const id_tiket = document.getElementById("token").innerHTML;
+    JsBarcode("#id_tiket", id_tiket);
 </script>
 
 </html>
