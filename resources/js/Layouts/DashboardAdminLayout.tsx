@@ -73,12 +73,15 @@ export default function DashboardAdminLayout({
                     </ResponsiveNavLink>
                 </li>
                 <li>
-                    <ResponsiveNavLink href={route('event.index')} active={route().current('event.index')}>
+                    {/* <ResponsiveNavLink href={route('event.index')} active={route().current('event.index')}>
                         Event
-                    </ResponsiveNavLink>
+                    </ResponsiveNavLink> */}
+                    <div className="ml-4    ">
+                        Event
+                    </div>
                 </li>
                 <li>
-                    <ResponsiveNavLink href={route('event-promo.index')} active={route().current('event-promo.index')}>
+                    <ResponsiveNavLink href={route('promo.index')} active={route().current('event-promo.index')}>
                         Promo Event
                     </ResponsiveNavLink>
                 </li>

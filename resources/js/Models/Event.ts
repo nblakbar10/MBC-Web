@@ -1,4 +1,4 @@
-import { BaseEventPromoModel} from "./EventPromo";
+import { BaseEventPromoModel} from "./Promo";
 
 export interface BaseEventModel{
     id?: number;

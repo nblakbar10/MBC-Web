@@ -1,7 +1,7 @@
 import React from 'react';
 import route from 'ziggy-js';
 
-import AppLayout from '@/Layouts/DashboardAdminLayout';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { NewUser, Role } from '@/types';
 import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
@@ -38,7 +38,7 @@ export default function Edit(props: Props) {
     }
 
     return (
-        <AppLayout title={"Edit User"}>
+        <DashboardAdminLayout title={"Edit User"}>
             <div className='py-12'>
                 <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -72,6 +72,6 @@ export default function Edit(props: Props) {
                     </div>
                 </div>
             </div>
-        </AppLayout>
+        </DashboardAdminLayout>
     )
 }

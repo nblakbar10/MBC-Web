@@ -6,6 +6,7 @@ import InputLabel from "./Jetstream/InputLabel";
 import TextInput from "./Jetstream/TextInput";
 
 import route from "ziggy-js";
+import { PromoModel } from "@/Models/Promo";
 
 interface Props {
     open: boolean;
@@ -14,22 +15,20 @@ interface Props {
     setXenditLinkHandler: (link: string) => void;
     price?: number;
     adminFee?: number;
+    promo: PromoModel | null;
 }
 
 
-export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, adminFee }: Props) {
+export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, adminFee, promo }: Props) {
     const form = useForm({
         name: '',
         email: '',
         phone_number: '',
         ticket_amount: 1,
-        payment_method: '',
+        tickets_category: promo?.promo_name,
+        payment_method: 'Transfer Bank (VA)',
         total_price: 0,
     });
-
-    if (!price) {
-        price = 100000;
-    }
 
     if (!adminFee) {
         adminFee = 6000;
@@ -40,43 +39,38 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
 
     useEffect(() => {
-        form.setData('total_price', (price! * form.data.ticket_amount) + adminFee!);
+        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
     }, [form.data.ticket_amount]);
+
+    useEffect(() => {
+        form.setData('tickets_category', promo?.promo_name);
+    }, [promo?.promo_name]);
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        form.post(route('transaction.store'), {
-            preserveScroll: true,
-            onSuccess: () => {
-                closeHandler();
-            }
-        });
-        
-        
-        // setIsLoading(true);
-        // const data = fetch(route('checkout'), {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json',
-        //         'X-Requested-With': 'XMLHttpRequest',
-        //         'X-CSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1")
-        //     },
-        //     credentials: 'same-origin',
-        //     body: JSON.stringify(form.data)
-        // })
-        //     .then(response => {
-        //         response.status === 200 ? setPaymentError(false) : setPaymentError(true)
-        //         setIsLoading(false);
-        //         return response.json()
-        //     })
-        //     .then(data => {
-        //         if (!paymentError) {
-        //             setXenditLinkHandler(data);
-        //             checkOutOpenHandler();
-        //         }
-        //     }
-        //     );
+        setIsLoading(true);
+        const data = fetch(route('checkout'), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1")
+            },
+            credentials: 'same-origin',
+            body: JSON.stringify(form.data)
+        })
+            .then(response => {
+                response.status === 200 ? setPaymentError(false) : setPaymentError(true)
+                setIsLoading(false);
+                return response.json()
+            })
+            .then(data => {
+                if (!paymentError) {
+                    setXenditLinkHandler(data);
+                    checkOutOpenHandler();
+                }
+            });
     }
 
     return (
@@ -89,15 +83,21 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                         width={300}
                     />
                 </div>
+                <div className="text-lg text-center">
+                    {promo?.promo_name}
+                </div>
                 <form className="flex flex-col gap-5 mx-5">
                     <div className="form-control w-full mt-4">
-                        <InputLabel htmlFor="name">Nama Lengkap Sesuai KTP</InputLabel>
+                        <InputLabel htmlFor="name">Nama (Sesuai KTP atau Identitas Lainnya)</InputLabel>
                         <TextInput
                             id="name"
                             type="text"
                             className="mt-1 block w-full"
                             value={form.data.name}
-                            onChange={e => form.setData('name', e.currentTarget.value)}
+                            onChange={e => {
+                                form.setData('name', e.currentTarget.value)
+                                form.setData('tickets_category', promo?.promo_name)
+                            }}
                             required
                             autoFocus
                             autoComplete="name"
@@ -135,6 +135,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             type="number"
                             className="mt-1 block w-full"
                             min={1}
+                            max={5}
                             step={1}
                             value={form.data.ticket_amount}
                             onChange={e => form.setData('ticket_amount', Number(e.currentTarget.value))}
@@ -163,7 +164,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                     Harga per Tiket
                                 </div>
                                 <div className="text-center">
-                                    Rp. {price?.toLocaleString()}
+                                    Rp. {promo?.price.toLocaleString() || 0}
                                 </div>
                             </div>
                             <div>

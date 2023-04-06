@@ -20,7 +20,9 @@ class User extends Authenticatable
     use HasRoles;
     use Notifiable;
     use TwoFactorAuthenticatable;
-
+    
+    public $guard_name = 'web';
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -66,5 +68,4 @@ class User extends Authenticatable
     public function isAdmin() {
         return $this->hasAnyRole(['admin','super-admin']);
     }
-    public $guard_name = 'api';
 }

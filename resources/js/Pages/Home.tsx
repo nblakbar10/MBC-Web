@@ -2,8 +2,9 @@ import BuyDialogForm from "@/Components/BuyDialogForm";
 import CheckOutModal from "@/Components/CheckOutModal";
 import AppLayout from "@/Layouts/AppLayout";
 import { asset } from "@/Models/Helper";
+import { PromoModel } from "@/Models/Promo";
 import { Tab, Tabs } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -38,23 +39,44 @@ function a11yProps(index: number) {
     };
 }
 
-export default function Home() {
+interface Props {
+    promos: Array<PromoModel>
+}
+
+export default function Home({ promos }: Props) {
     const [openForm, setOpenForm] = useState(false);
-    const handleOpenForm = () => setOpenForm(true);
-    const handleCloseForm = () => setOpenForm(false);
+    // const handleOpenForm = () => setOpenForm(true);
+    // const handleCloseForm = () => setOpenForm(false);
 
     const [openCheckOut, setOpenCheckOut] = useState(false);
     const handleOpenCheckOut = () => setOpenCheckOut(true);
     const handleCloseCheckOut = () => setOpenCheckOut(false);
 
-    // Xendit Link State Controller
     const [xenditLink, setXenditLink] = useState<string>("");
+
+    const [selectedPromo, setSelectedPromo] = useState < PromoModel | null > (null);
 
     const [tabValue, setTabValue] = useState(0);
 
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
     };
+
+    const handleSelectPromo = (newValue : PromoModel) => {
+        setSelectedPromo(newValue);
+    }
+
+    const removeSelectedPromo = () => {
+        setSelectedPromo(null);
+    }
+
+    useEffect(() => {
+        if (selectedPromo) {
+            setOpenForm(true);
+        } else {
+            setOpenForm(false);
+        }
+    }, [selectedPromo]);
 
     return (
         <AppLayout>
@@ -98,7 +120,7 @@ export default function Home() {
                             </button>
                         </div> */}
                     </div>
-                    <div className="p-10 rounded-2xl">
+                    <div className="p-10 rounded-2xl ">
                         <div>
                             <Tabs value={tabValue} onChange={handleTabChange} centered variant="fullWidth">
                                 <Tab label="Deskripsi" {...a11yProps(0)} />
@@ -111,70 +133,45 @@ export default function Home() {
                             </TabPanel>
                             <TabPanel value={tabValue} index={1}>
                                 <div className="flex flex-col my-3 gap-3">
-                                    <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
-                                        <p className="text-xl text-[#2EA1DA] font-bold">
-                                            PROMOTIONAL SALES 2
-                                        </p>
-                                        <p>
-                                            Harga Belum Termasuk Pajak dan Biaya Layanan
-                                        </p>
-                                        <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-5 flex justify-between py-3">
-                                            <p className="font-bold">
-                                                {`Rp. ${Number(100000).toLocaleString()}`}
+                                    {promos.map((promo) => (
+                                        <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
+                                            <p className="text-xl text-[#2EA1DA] font-bold">
+                                                {promo.promo_name}
                                             </p>
-                                            <button className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-1 px-7 rounded-lg" onClick={handleOpenForm}>
-                                                Beli Tiket
-                                            </button>
+                                            <p>
+                                                Harga Belum Termasuk Pajak dan Biaya Layanan
+                                            </p>
+                                            <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-5 flex justify-between py-3">
+                                                <p className="font-bold">
+                                                    {`Rp. ${promo.price.toLocaleString()}`}
+                                                </p>
+                                                {promo.stocks > 0 ? (
+                                                    <button className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-1 px-7 rounded-lg" onClick={() => handleSelectPromo(promo)}>
+                                                        Beli Tiket
+                                                    </button>
+                                                ) : (
+                                                    <p className="font-semibold text-pink-500">
+                                                        SOLD OUT
+                                                    </p>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
-                                        <p className="text-xl text-[#2EA1DA] font-bold">
-                                            PROMOTIONAL SALES 1
-                                        </p>
-                                        <p>
-                                            Harga Belum Termasuk Pajak dan Biaya Layanan
-                                        </p>
-                                        <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-2 flex justify-between py-3">
-                                            <p className="font-bold">
-                                                {`Rp. ${Number(100000).toLocaleString()}`}
-                                            </p>
-                                            <p className="font-semibold text-pink-500">
-                                                PROMO ENDED
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
-                                        <p className="text-xl text-[#2EA1DA] font-bold">
-                                            VIP SALES
-                                        </p>
-                                        <p>
-                                            Harga Belum Termasuk Pajak dan Biaya Layanan <p className="text-gray-400">
-                                            (60 seat)
-                                        </p>
-                                        </p>
-                                        <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-2 flex justify-between py-3">
-                                            <p className="font-bold">
-                                                {`Rp. ${Number(700000).toLocaleString()}`}
-                                            </p>
-                                            <p className="font-semibold text-pink-500">
-                                                SOLD OUT
-                                            </p>
-                                        </div>
-                                    </div>
+                                    ))}
+
                                 </div>
                             </TabPanel>
                         </div>
                     </div>
-                    <div className="flex justify-center p-10">
+                    <div className="flex justify-center my-10 bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg border border-neutral-500">
                         <img
-                            className="object-cover rounded-xl basis-2/3"
-                            src={asset('root', 'assets/images/peta.jpg')}
+                            className="object-contain rounded-xl p-2"
+                            src={asset('root', 'assets/images/STAGE_BORDER.png')}
                         />
                     </div>
                 </div>
             </div>
-            <BuyDialogForm open={openForm} closeHandler={handleCloseForm} checkOutOpenHandler={handleOpenCheckOut} setXenditLinkHandler={setXenditLink}/>
-            <CheckOutModal open={openCheckOut} closeHandler={handleCloseCheckOut} xenditLink={ xenditLink} />
+            <BuyDialogForm open={openForm} closeHandler={removeSelectedPromo} checkOutOpenHandler={handleOpenCheckOut} setXenditLinkHandler={setXenditLink} promo={ selectedPromo} />
+            <CheckOutModal open={openCheckOut} closeHandler={handleCloseCheckOut} xenditLink={xenditLink} />
         </AppLayout>
     )
 }

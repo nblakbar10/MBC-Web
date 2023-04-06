@@ -17,9 +17,11 @@ class PromoController extends Controller
     public function index()
     {
         $all_promo = Promo::orderBy('id', 'desc')->get();
-        if ($all_promo->pluck('stocks') == 0){
-            return 'Tiket dah abis';
-        }
+
+        // dd($all_promo->pluck('stocks'));
+        // if ($all_promo->pluck('stocks') == 0){
+        //     return 'Tiket dah abis';
+        // }
 
         // $tickets_stock_left = Promo::orderBy('id', 'desc')->get()->pluck('stocks');
         // if ($tickets_stock_left != 0)
@@ -29,10 +31,9 @@ class PromoController extends Controller
         //     return 'Tiket abis';
         // }
         
-        return view('formulir.pendaftaran', compact('all_promo'));
-        // return Inertia::render('Admin/User/Show', [
-        //     'user' => $user,
-        // ]);
+        return Inertia::render('Admin/Event/Promo/Index', [
+            'promos' => $all_promo,
+        ]);
     }
 
     /**
@@ -43,6 +44,8 @@ class PromoController extends Controller
     public function create()
     {
         //
+        return Inertia::render('Admin/Event/Promo/Create', [
+        ]);
     }
 
     /**
@@ -60,7 +63,7 @@ class PromoController extends Controller
             'price' => $request->price,
         ]);
         $promo->save();
-        return redirect('/db-instruktur-profil-instruktur');
+        return redirect()->route('promo.index')->banner('New Promo Created Successfully');    
     }
 
     /**
@@ -71,17 +74,10 @@ class PromoController extends Controller
      */
     public function show($id)
     {
-        //
-        // return Inertia::render('Admin/Event/EventPromo/Show', [
-        //     'promo' => [
-        //         'id' => 1,
-        //         'name' => 'Promo 1',
-        //         'event' => [
-        //             'id' => 1,
-        //             'name' => 'Event 1',
-        //         ],
-        //     ]
-        // ]);
+        $promo = Promo::find($id);
+        return Inertia::render('Admin/Event/Promo/Show', [
+            'promo' => $promo,
+        ]);
     }
 
     /**
@@ -92,9 +88,11 @@ class PromoController extends Controller
      */
     public function edit($id)
     {
+
         $promo = Promo::find($id);
-        $action = URL::route('promo.update', ['id' => $id]);
-        return view('promo.index', compact('promo'));
+        return Inertia::render('Admin/Event/Promo/Edit', [
+            'promo' => $promo,
+        ]);
     }
 
     /**
@@ -113,7 +111,7 @@ class PromoController extends Controller
             'description' => $request->description,
             'price' => $request->price,
         ]);
-        return redirect()->back()->with('success', compact('promo'));
+        return redirect()->route('promo.index')->banner('Promo Updated Successfully');
     }
 
     /**
@@ -126,6 +124,6 @@ class PromoController extends Controller
     {
         $promo = Promo::where('id', $id)->first();
         $promo->delete();
-        // return redirect()->back()->with('success', "Berhasil menghapus instruktur!");
+        return redirect()->route('promo.index')->banner('Promo Deleted Successfully');    
     }
 }

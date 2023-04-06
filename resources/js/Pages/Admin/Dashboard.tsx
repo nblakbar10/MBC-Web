@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AppLayout from '@/Layouts/DashboardAdminLayout';
+import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,6 +13,9 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
+import { InertiaLink } from '@inertiajs/inertia-react';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import route from 'ziggy-js';
 
 const LineChartConfig = {
   responsive: true,
@@ -23,8 +26,9 @@ const LineChartConfig = {
     title: {
       display: true,
       text: 'Grafik Transaksi Pembelian',
+
     },
-    
+
   },
 };
 
@@ -57,7 +61,7 @@ ChartJS.register(
   Legend
 );
 
-export default function Dashboard({}: Props) {
+export default function Dashboard({ }: Props) {
 
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   const data = {
@@ -79,54 +83,76 @@ export default function Dashboard({}: Props) {
   };
 
   return (
-    <AppLayout
+    <DashboardAdminLayout
       title="Dashboard"
     >
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
-        <div className="bg-neutral-100 overflow-hidden sm:rounded-lg p-4">
+        <div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
           <div className="max-w-7xl">
             <div className="flex flex-col lg:flex-row p-3 gap-10 justify-around">
-              
-              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 border-neutral-400 text-white">
-                <div className='basis-  4/5 bg-stone-400 px-10 py-5 rounded-t-lg text-center'>
-                  <div className="text-lg font-semibold">Jumlah Pengguna</div>
+
+              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+                  <div className="text-lg font-semibold mb-2">Jumlah Pengguna</div>
                   <div className="text-2xl font-extrabold">2</div>
                 </div>
                 <div className='h-8'>
-                </div>
+                <InertiaLink href={route("dashboard")}>
+                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                      More Info
+                      <span className="text-black border-black">
+                        <ArrowForwardIcon />
+                      </span>
+                    </p>
+                  </InertiaLink ></div>
               </div>
 
-              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700  border-neutral-400 text-white">
-                <div className='basis-4/5 bg-stone-400 px-10 py-5 rounded-t-lg text-center'>
-                  <div className="text-lg font-semibold">Jumlah Pengguna</div>
+              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                <div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+                  <div className="text-lg font-semibold mb-2">Jumlah Transaksi</div>
                   <div className="text-2xl font-extrabold">2</div>
                 </div>
                 <div className='h-8'>
-                </div>
+                <InertiaLink href={route("dashboard")}>
+                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                      More Info
+                      <span className="text-black border-black">
+                        <ArrowForwardIcon />
+                      </span>
+                    </p>
+                  </InertiaLink >                </div>
               </div>
-              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 border-neutral-400 text-white">
-                <div className='basis-4/5 bg-stone-400 px-10 py-5 rounded-t-lg text-center'>
-                  <div className="text-lg font-semibold">Jumlah Pengguna</div>
+              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                <div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+                  <div className="text-lg font-semibold mb-2">Jumlah Event</div>
                   <div className="text-2xl font-extrabold">2</div>
                 </div>
                 <div className='h-8'>
+                  <InertiaLink href={route("dashboard")}>
+                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                      More Info
+                      <span className="text-black border-black">
+                        <ArrowForwardIcon />
+                      </span>
+                    </p>
+                  </InertiaLink >
                 </div>
               </div>
             </div>
             <div className="flex flex-col lg:flex-row gap-3 mt-5">
-              <div className="flex-1 rounded-lg shadow-md shadow-neutral-700 border-neutral-400">
+              <div className="flex-1 rounded-lg shadow-sm shadow-neutral-700 border-neutral-400">
                 <Line options={LineChartConfig} data={data} />
               </div>
-              <div className="basis-1/2 rounded-lg shadow-md shadow-neutral-700 border-neutral-400">
+              <div className="basis-1/2 rounded-lg shadow-sm shadow-neutral-700 border-neutral-400">
                 <Bar options={BarChartConfig} data={data} />
               </div>
             </div>
             <div className="mt-5">
-              
+
             </div>
           </div>
         </div>
       </div>
-    </AppLayout>
+    </DashboardAdminLayout>
   );
 }
