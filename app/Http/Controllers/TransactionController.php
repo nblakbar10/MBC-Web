@@ -94,7 +94,8 @@ class TransactionController extends Controller
                 'payment_link' => $response->invoice_url,
             ]);
             //promo ticket stocks decrement :
-            $promo = Promo::where('promo_id', $request->promo_id)->first();
+            $promo = Promo::where('name', $request->name)->get()[0];
+            
             $promo->stocks = (int)$promo->stocks - (int)$request->ticket_amount;
             $promo->save();
 
@@ -112,14 +113,16 @@ class TransactionController extends Controller
                 'total_pembelian' => $request->total_amount,
                 'metode_pembayaran' => $request->payment_method,
                 'status_pembayaran' => $response->status,
+                'link' => $response->invoice_url
             ];
             Mail::to($request->email)->send(new NotifyMail($mailData));
 
-            // return response('', 409)
-            //     ->header('X-Inertia-Location', $response->invoice_url);
+            return response('', 409)
+                ->header('X-Inertia-Location', $response->invoice_url);
+            // return json_encode($response->invoice_url);
         }
 
-        return json_encode($response->invoice_url);
+        
     }
 
     /**
