@@ -49,6 +49,14 @@ class TransactionController extends Controller
         $check_user_ticket_limit = Transaction::where(['phone_number' => $request->phone_number, 'email' => $request->email])->pluck('total_tickets');
         $data = $check_user_ticket_limit->toArray();
         $maximum_ticket = array_sum($data); 
+
+        $check2 = $request->tickets_category;
+        dd($check2);
+        // $check_sisa_tiket = Promo::where('name', $request->tickets_category)->get();
+        // if ((int)$request->ticket_amount > (int)$check_sisa_tiket->stocks) {
+        //     return 'Tiket yang tersedia tidak cukup dengan jumlah yang ingin anda beli';  //NANTI RUSDI EDIT LAGI BUAT KE INERTIA
+        // }
+
         if ($maximum_ticket >= 5){
             return 'Anda sudah kena limit tiket';  //NANTI RUSDI EDIT LAGI BUAT KE INERTIA
         } else {
