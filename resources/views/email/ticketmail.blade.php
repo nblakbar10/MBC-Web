@@ -63,6 +63,11 @@
                             <td class="text-md">{{$mailData['jenis_tiket']}}</td>
                         </tr>
                         <tr>
+                            <td class="text-md">Total Pembelian</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">{{$mailData['total_pembayaran']}}</td>
+                        </tr>
+                        <tr>
                             <td class="text-md">Metode Pembayaran</td>
                             <td class="text-md px-3">:</td>
                             <td class="text-md">{{$mailData['metode_pembayaran']}}</td>
@@ -79,7 +84,7 @@
             <div class="flex justify-center">
                 <svg id="id_tiket"></svg>
             </div>
-            <div class="flex justify-end">
+            <div class="flex justify-center">
                 <p>2023 @ PT Maju Bersama Kreatif</p>
             </div>
         </div>

@@ -101,18 +101,17 @@ class TransactionController extends Controller
             //sent email :
             $mailData = [
                 'to' => 'Hallo '.$request->name.' !',
-                'p1' => 'Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
-                        ketika pembayaran anda telah kami terima',
-                'data1' => 'Berikut data diri anda yang kami terima:',
-                'data2' => '1. Nama : '.$request->name,
-                'data3' => '2. No. HP : '.$request->phone_number,
-                'data4' => '3. Jumlah Tiket : '.$request->ticket_amount,
-                'data5' => '4. Kategori Tiket : '.$request->tickets_category,
-                'data6' => '5. Total Pembayaran : '.$request->total_amount,
-                'data6' => '6. Metode Pembayaran : '.$request->payment_method,
-                'p2' => 'Silahkan hubungi email loketmbc.entertainment@gmail.com jika anda menemui problem atau jika memiliki suatu pertanyaan',
-                'p3' => 'Berikut link pembayaran booking tiket anda yang harus segera dilakukan pembayaran :',
-                'link' => 'https://checkout-staging.xendit.co/web/642c67f202f2fc3803f1b941', //$response->invoice_url,
+                // 'p1' => 'Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
+                //         ketika pembayaran anda telah kami terima',
+                // 'data1' => 'Berikut data diri anda yang kami terima:',
+                'nama' => $request->name,
+                'no_hp' => $request->phone_number,
+                'email' => $request->email,
+                'jumlah_tiket' => $request->ticket_amount,
+                'jenis_tiket' => $request->tickets_category,
+                'total_pembelian' => $request->total_amount,
+                'metode_pembayaran' => $request->payment_method,
+                'status_pembayaran' => $response->status,
             ];
             Mail::to($request->email)->send(new NotifyMail($mailData));
 
