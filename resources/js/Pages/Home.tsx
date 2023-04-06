@@ -127,8 +127,21 @@ export default function Home({ promos }: Props) {
                                 <Tab label="Promo Tiket" {...a11yProps(1)} />
                             </Tabs>
                             <TabPanel value={tabValue} index={0}>
-                                <div className="my-auto text-4xl">
-                                    Deskripsi
+                                <div className="flex flex-col gap-5">
+                                    <div className="my-auto text-4xl font-bold">
+                                        <p>FESTIVAL TEMU DULUR 2023</p>
+                                    </div>
+
+                                    <p>Pasukan ambyar mana suaranyaa ??</p>
+                                    <p>Hai sobat MBC, ini nih yang ditunggu-tunggu. SMILE FEST kali ini kita punya special GUEST STAR "DENNY CAKNAN" & Mr. JONO & JONI yang siap menggoyangkan panggung dan ambyar bareng sobat semua.</p>
+                                    <p>Buruan Segera amankan tiketmu sekarang sebelum kehabisan....</p>
+                                    <p>Los Doll Dar..Der..Doooorr !!!</p>
+                                    <div className="my-auto text-4xl font-bold">
+                                        <p> Syarat & Ketentuan</p>
+                                    </div>
+                                    <p>- 1 Akun Email hanya bisa digunakan untuk 1 kali transaksi</p>
+                                    <p>- Maksimal jumlah tiket yang dapat dibeli per 1 transaksi adalah 5 Tiket</p>
+                                    <p>- Pembeli wajib mencantumkan Nomer KTP dan menuliskan nama lengkap sesuai yang tertera di KTP pada saat melakukan pembelian tiket.</p>
                                 </div>
                             </TabPanel>
                             <TabPanel value={tabValue} index={1}>
