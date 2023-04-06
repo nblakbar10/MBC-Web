@@ -63,6 +63,7 @@ class PromoController extends Controller
             'price' => $request->price,
         ]);
         $promo->save();
+        
         return redirect()->route('promo.index')->banner('New Promo Created Successfully');    
     }
 

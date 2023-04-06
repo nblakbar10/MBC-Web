@@ -25,7 +25,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         email: '',
         phone_number: '',
         ticket_amount: 1,
-        tickets_category: promo?.promo_name,
+        tickets_category: promo?.name,
         payment_method: 'Transfer Bank (VA)',
         total_price: 0,
     });
@@ -43,8 +43,8 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
     }, [form.data.ticket_amount]);
 
     useEffect(() => {
-        form.setData('tickets_category', promo?.promo_name);
-    }, [promo?.promo_name]);
+        form.setData('tickets_category', promo?.name);
+    }, [promo?.name]);
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
@@ -84,7 +84,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                     />
                 </div>
                 <div className="text-lg text-center">
-                    {promo?.promo_name}
+                    {promo?.name}
                 </div>
                 <form className="flex flex-col gap-5 mx-5">
                     <div className="form-control w-full mt-4">
@@ -96,7 +96,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             value={form.data.name}
                             onChange={e => {
                                 form.setData('name', e.currentTarget.value)
-                                form.setData('tickets_category', promo?.promo_name)
+                                form.setData('tickets_category', promo?.name)
                             }}
                             required
                             autoFocus
