@@ -15,7 +15,7 @@ export default function Index({ promos }: Props) {
 
     const dataColumns = [
         {
-            accessorKey: 'promo_name',
+            accessorKey: 'name',
             header: 'Nama Promo',
         },
         {

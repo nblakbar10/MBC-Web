@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function index()
     {
         $promos = Promo::all();
-        dd($promos);
+        // dd($promos);
         return Inertia::render('Admin/Dashboard', [
         ]);
     }

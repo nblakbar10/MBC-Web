@@ -2,7 +2,7 @@ import { EventModel } from "./Event";
 
 export interface BasePromoModel {
     id?: number;
-    promo_name: string;
+    name: string;
     description: string;
     price: number;
     stocks: number;
