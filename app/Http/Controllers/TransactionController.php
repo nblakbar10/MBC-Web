@@ -50,15 +50,14 @@ class TransactionController extends Controller
         $data = $check_user_ticket_limit->toArray();
         $maximum_ticket = array_sum($data); 
 
-        $check2 = $request->tickets_category;
-        dd($check2);
-        // $check_sisa_tiket = Promo::where('name', $request->tickets_category)->get();
-        // if ((int)$request->ticket_amount > (int)$check_sisa_tiket->stocks) {
-        //     return 'Tiket yang tersedia tidak cukup dengan jumlah yang ingin anda beli';  //NANTI RUSDI EDIT LAGI BUAT KE INERTIA
-        // }
+        $check_sisa_tiket = Promo::where('name', $request->tickets_category)->first();
+        if ((int)$request->ticket_amount > (int)$check_sisa_tiket->stocks) {
+            return redirect()->route('home')->banner('Tiket yang tersedia tidak cukup dengan jumlah yang ingin anda beli');
+        }
 
         if ($maximum_ticket >= 5){
-            return 'Anda sudah kena limit tiket';  //NANTI RUSDI EDIT LAGI BUAT KE INERTIA
+            return redirect()->route('home')->banner('Anda sudah kena limit tiket');
+
         } else {
             $check_payment_methods = $request->payment_method;
             $secret_key = 'Basic '.config('xendit.key_auth');
@@ -87,6 +86,7 @@ class TransactionController extends Controller
             }
 
             $response = $data_request->object();
+            dd($response->invoice_url);
 
             Transaction::create([
                 'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
@@ -102,10 +102,9 @@ class TransactionController extends Controller
                 'payment_link' => $response->invoice_url,
             ]);
             //promo ticket stocks decrement :
-            $promo = Promo::where('name', $request->name)->get()[0];
+            // $check_if_zero = Promo::get();
+            // if ($check_if_zero->stocks == 0){
             
-            $promo->stocks = (int)$promo->stocks - (int)$request->ticket_amount;
-            $promo->save();
 
             //sent email :
             $mailData = [
@@ -125,6 +124,10 @@ class TransactionController extends Controller
             ];
             Mail::to($request->email)->send(new NotifyMail($mailData));
 
+            $promo = Promo::where('name', $request->tickets_category)->get()[0];
+            $promo->stocks = (int)$promo->stocks - (int)$request->ticket_amount;
+            $promo->save();
+            
             return response('', 409)
                 ->header('X-Inertia-Location', $response->invoice_url);
             // return json_encode($response->invoice_url);

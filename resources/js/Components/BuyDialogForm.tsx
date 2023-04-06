@@ -83,7 +83,6 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
     //         });
     }
 
-    console.log(form.data);
 
     return (
         <Dialog open={open} onClose={closeHandler} sx={{ borderRadius: 2 }} maxWidth="sm" fullWidth>
