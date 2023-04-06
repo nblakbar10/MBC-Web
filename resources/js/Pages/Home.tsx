@@ -77,14 +77,14 @@ export default function Home({ promos }: Props) {
             setOpenForm(false);
         }
     }, [selectedPromo]);
-    // console.log(promos);
+
     return (
         <AppLayout>
             <div className="flex justify-center m-auto p-3 w-full md:w-5/6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 h-780 w-780 gap-5">
                     <img
                         className="object-cover rounded-xl basis-2/3"
-                        src={asset('root', 'assets/images/SR Pro - Smile Fest Post 8-01.jpg')}
+                        src={asset('root', 'assets/images/bg-caknan.jpeg')}
                     />
                     <div className="flex flex-col gap-3 ">
                         <div className="flex flex-col gap-3 p-auto basis-1/2 p-3 md:p-10 rounded-2xl border-stone-600 border-2">
@@ -127,21 +127,8 @@ export default function Home({ promos }: Props) {
                                 <Tab label="Promo Tiket" {...a11yProps(1)} />
                             </Tabs>
                             <TabPanel value={tabValue} index={0}>
-                            <div className="flex flex-col gap-5">
-                                <div className="my-auto text-4xl font-bold">
-                                    <p>FESTIVAL TEMU DULUR 2023</p>
-                                </div>
-
-                                    <p>Pasukan ambyar mana suaranyaa ??</p>
-                                    <p>Hai sobat MBC, ini nih yang ditunggu-tunggu. SMILE FEST kali ini kita punya special GUEST STAR "DENNY CAKNAN" & Mr. JONO & JONI yang siap menggoyangkan panggung dan ambyar bareng sobat semua.</p>
-                                    <p>Buruan Segera amankan tiketmu sekarang sebelum kehabisan....</p>
-                                    <p>Los Doll Dar..Der..Doooorr !!!</p>
-                                    <div className="my-auto text-4xl font-bold">
-                                        <p> Syarat & Ketentuan</p>
-                                    </div>
-                                    <p>- 1 Akun Email hanya bisa digunakan untuk 1 kali transaksi</p>
-                                    <p>- Maksimal jumlah tiket yang dapat dibeli per 1 transaksi adalah 5 Tiket</p>
-                                    <p>- Pembeli wajib mencantumkan Nomer KTP dan menuliskan nama lengkap sesuai yang tertera di KTP pada saat melakukan pembelian tiket.</p>
+                                <div className="my-auto text-4xl">
+                                    Deskripsi
                                 </div>
                             </TabPanel>
                             <TabPanel value={tabValue} index={1}>

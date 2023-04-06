@@ -24,7 +24,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         name: '',
         email: '',
         phone_number: '',
-        ticket_amount: 1,
+        ticket_amount: 0,
         tickets_category: promo?.name,
         payment_method: 'Transfer Bank (VA)',
         total_price: 0,
@@ -39,12 +39,12 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
 
     useEffect(() => {
-        form.setData('tickets_category', promo?.name);
-    }, [promo?.name]);``
+        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
+    }, [form.data.ticket_amount]);
 
     useEffect(() => {
-        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
-    }, [promo?.price, form.data.ticket_amount]);
+        form.setData('tickets_category', promo?.name);
+    }, [promo?.name]);
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
@@ -82,6 +82,8 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
     //             }
     //         });
     }
+
+    console.log(form.data);
 
     return (
         <Dialog open={open} onClose={closeHandler} sx={{ borderRadius: 2 }} maxWidth="sm" fullWidth>
@@ -143,7 +145,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             id="ticket_amount"
                             type="number"
                             className="mt-1 block w-full"
-                            min={1}
+                            min={0}
                             max={5}
                             step={1}
                             value={form.data.ticket_amount}
