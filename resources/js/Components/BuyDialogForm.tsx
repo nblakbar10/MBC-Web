@@ -39,12 +39,12 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
 
     useEffect(() => {
-        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
-    }, [form.data.ticket_amount]);
+        form.setData('tickets_category', promo?.name);
+    }, [promo?.name]);``
 
     useEffect(() => {
-        form.setData('tickets_category', promo?.name);
-    }, [promo?.name]);
+        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
+    }, [promo?.price, form.data.ticket_amount]);
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
@@ -96,7 +96,6 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             value={form.data.name}
                             onChange={e => {
                                 form.setData('name', e.currentTarget.value)
-                                form.setData('tickets_category', promo?.name)
                             }}
                             required
                             autoFocus
