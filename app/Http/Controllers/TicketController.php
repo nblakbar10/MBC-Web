@@ -49,18 +49,18 @@ class TicketController extends Controller
             $data_trans = Transaction::where($external_id, 'external_id')->get();
             // if ($check_payment_status == 'PAID'){
             // if ($status == 'PAID'){
-                Ticket::create([
-                    "external_id" => $external_id,
-                    "ticket_id" => $mix_ticket,
-                    "ticket_name" => $data_trans->name,
-                    "email" => $data_trans->email,
-                    "phone_number" => $data_trans->phone_number,
-                    "payment_method" => $data_trans->payment_method,
-                    "ticket_qty" => $data_trans->total_tickets,
-                    "ticket_category" => $data_trans->tickets_category,
-                    "ticket_status" => "Not redeemed yet",
-                    "ticket_barcode" => url($mix_ticket.'.jpg')
-                ]);
+            Ticket::create([
+                "external_id" => $external_id,
+                "ticket_id" => $mix_ticket,
+                "ticket_name" => $data_trans->name,
+                "email" => $data_trans->email,
+                "phone_number" => $data_trans->phone_number,
+                "payment_method" => $data_trans->payment_method,
+                "ticket_qty" => $data_trans->total_tickets,
+                "ticket_category" => $data_trans->tickets_category,
+                "ticket_status" => "Not redeemed yet",
+                "ticket_barcode" => url($mix_ticket.'.jpg')
+            ]);
             // }
 
             //sent email :
