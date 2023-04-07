@@ -33,7 +33,8 @@ class TicketController extends Controller
         $status = $data['status'];
         $external_id = $data['external_id'];
         if ($status == 'PAID'){
-            $mix_ticket = 'ID2023MBC-'.Str::random(11);
+            // $mix_ticket = 'ID2023MBC-'.Str::random(16);
+            $mix_ticket = rand ( 000000000000 , 999999999999 );
             //barcode
             $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
             file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
