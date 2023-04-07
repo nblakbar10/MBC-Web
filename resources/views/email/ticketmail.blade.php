@@ -71,6 +71,11 @@
                             <td class="text-md">{{$mailData['metode_pembayaran']}}</td>
                         </tr>
                         <tr>
+                            <td class="text-md">Status Pembayaran</td>
+                            <td class="text-md px-3">:</td>
+                            <td class="text-md">{{$mailData['status_pembayaran']}}</td>
+                        </tr>
+                        <tr>
                             <td class="text-md">Status Tiket</td>
                             <td class="text-md px-3">:</td>
                             <td class="text-md">{{$mailData['status_tiket']}}</td>
