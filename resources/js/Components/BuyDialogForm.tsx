@@ -222,7 +222,8 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                     <div className="flex justify-center">
                         <button
                             onClick={onSubmitHandler}
-                            className="bg-pink-400 hover:bg-pink-600 rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
+                                className="bg-pink-400 hover:bg-pink-600 rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
+                                disabled={form.processing}
                         >
                             Beli Tiket
                         </button>
