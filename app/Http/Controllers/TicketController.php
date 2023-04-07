@@ -37,7 +37,7 @@ class TicketController extends Controller
             //barcode
             $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
             file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode('081231723897', $generator::TYPE_CODABAR));
-            $data_trans = Transaction::where('external_id', 'MBC-SmileFest2023-Vu1Wt')->get();
+            $data_trans = Transaction::where('external_id', 'MBC-SmileFest2023-Vu1Wt')->get()->first();
             // Ticket::create([
             //     "external_id" => 'MBC-SmileFest2023-Vu1Wt',
             //     "ticket_id" => $mix_ticket,
