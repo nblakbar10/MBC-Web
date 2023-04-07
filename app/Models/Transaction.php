@@ -22,7 +22,10 @@ class Transaction extends Model
         'total_amount',
         'payment_method',
         'payment_status',
-        'payment_link'
+        'payment_link',
+        'ticket_id',
+        'ticket_status',
+        'ticket_barcode'
     ];
 
     protected $casts = [

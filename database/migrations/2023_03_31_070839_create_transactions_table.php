@@ -26,6 +26,9 @@ return new class extends Migration
             $table->string('payment_method');
             $table->string('payment_status');
             $table->string('payment_link');
+            $table->string('ticket_id')->nullable();
+            $table->string('ticket_status')->nullable();
+            $table->string('ticket_barcode')->nullable();
             $table->timestamps(); //date
             // $table->softDeletes();
         });
