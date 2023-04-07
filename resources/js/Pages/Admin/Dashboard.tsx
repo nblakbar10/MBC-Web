@@ -17,6 +17,12 @@ import { InertiaLink } from '@inertiajs/inertia-react';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import route from 'ziggy-js';
 
+interface Props {
+    users_count:number,
+    event_count:number,
+    transaction_count:number,
+}
+
 const LineChartConfig = {
   responsive: true,
   plugins: {
@@ -61,7 +67,7 @@ ChartJS.register(
   Legend
 );
 
-export default function Dashboard({ }: Props) {
+export default function Dashboard(props: Props) {
 
   const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   const data = {
@@ -93,9 +99,11 @@ export default function Dashboard({ }: Props) {
 
               <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
                 <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
-                  <div className="text-lg font-semibold mb-2">Jumlah Pengguna</div>
-                  <div className="text-2xl font-extrabold">2</div>
+                    <div className="text-lg font-semibold mb-2">Jumlah Pengguna</div>
+                <div className="text-2xl font-extrabold">
+                    <div className="stat-value">{props.users_count}</div>
                 </div>
+            </div>
                 <div className='h-8'>
                 <InertiaLink href={route("dashboard")}>
                     <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
@@ -110,7 +118,8 @@ export default function Dashboard({ }: Props) {
               <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
                 <div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
                   <div className="text-lg font-semibold mb-2">Jumlah Transaksi</div>
-                  <div className="text-2xl font-extrabold">2</div>
+                  <div className="text-2xl font-extrabold">
+                    <div className="stat-value">2{props.event_count}</div></div>
                 </div>
                 <div className='h-8'>
                 <InertiaLink href={route("dashboard")}>
@@ -125,7 +134,8 @@ export default function Dashboard({ }: Props) {
               <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
                 <div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
                   <div className="text-lg font-semibold mb-2">Jumlah Event</div>
-                  <div className="text-2xl font-extrabold">2</div>
+                  <div className="text-2xl font-extrabold">
+                    <div className="stat-value">{props.transaction_count}</div></div>
                 </div>
                 <div className='h-8'>
                   <InertiaLink href={route("dashboard")}>
