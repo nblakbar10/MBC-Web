@@ -50,7 +50,7 @@ class TicketController extends Controller
             Transaction::where('external_id', $external_id)->update([
                 'payment_status' => $status
             ]);
-
+        }
         //     $mix_ticket = 'ID2023MBC-'.Str::random(11);
         //     //barcode
         //     $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
