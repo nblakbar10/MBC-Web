@@ -90,6 +90,11 @@ export default function DashboardAdminLayout({
                         History Transaksi
                     </ResponsiveNavLink>
                 </li>
+                <li>
+                    <ResponsiveNavLink href={route('ticket.index')} active={route().current('ticket.index')}>
+                        Daftar Tiket
+                    </ResponsiveNavLink>
+                </li>
             </ul>
         </Box>
     );
