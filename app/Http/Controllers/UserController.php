@@ -19,9 +19,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(!Auth::user()->isAdmin()){
-            return redirect()->route('home');
-        }
         $user = User::with('roles')->get();
         return Inertia::render('Admin/User/Index', [
             'users' => $user
