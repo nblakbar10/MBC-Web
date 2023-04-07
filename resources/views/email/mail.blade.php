@@ -3,7 +3,7 @@
 
 <head>
     <title>LoketMBC.com - SmileFest2023</title>
-    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+   <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
 </head>
@@ -82,7 +82,7 @@
                 </div>
 
             </div>
-            <div 
+            <div
             class="flex justify-center"
             style="display: flex;justify-content: center;"
             >

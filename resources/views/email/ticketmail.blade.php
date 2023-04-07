@@ -3,7 +3,7 @@
 
 <head>
     <title>LoketMBC.com - SmileFest2023</title>
-    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
 </head>
@@ -23,11 +23,11 @@
                 ketika
                 konser akan berlangsung.
             </div>
-            <!-- <div class="text-md mt-5">
+           <div class="text-md mt-5">
                 Jika kamu tidak menerima email, silahkan cek folder spam atau masuk ke halaman <a
                     href="https://loketmbc.com/cek-pesanan">cek pesanan</a> untuk mendapatkan tiket yang telah kamu
                 pesan.
-            </div> -->
+            </div>
             <div id="token" hidden >
                 {{$mailData['id_tiket']}}
             </div>
