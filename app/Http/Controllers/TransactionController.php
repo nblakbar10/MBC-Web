@@ -23,8 +23,11 @@ class TransactionController extends Controller
     public function index()
     {
         //
+        $transactions = Transaction::paginate(10);
+        // $transactions = Transaction::all();
+        // dd($transactions);  
         return Inertia::render('Admin/Transaction/Index', [
-            'transactions' => Transaction::all(),
+            'transactions' => $transactions,
         ]);
     }
 
@@ -148,17 +151,17 @@ class TransactionController extends Controller
     }
 
     
-    // public function redeemForm()
-    // {
-    //     return Inertia::render(
-    //         'Admin/Transaction/RedeemForm'
-    //     );
-    // }
+    public function redeemForm()
+    {
+        return Inertia::render(
+            'Admin/Transaction/RedeemForm'
+        );
+    }
 
-    // public function redeem(Request $request)
-    // {
-    //     // dd("Redeem Tiket");
-    // }
+    public function redeem(Request $request)
+    {
+        // dd("Redeem Tiket");
+    }
 
     /**
      * Show the form for editing the specified resource.

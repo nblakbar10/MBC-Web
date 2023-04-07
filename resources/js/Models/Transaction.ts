@@ -2,9 +2,16 @@
 
 export interface BaseTransactionModel{
     id?: number;
-    amount: number;
-    total_price: number;
-    status: TransactionStatus;
+    name: string;
+    email: string;
+    phone_number: string;
+    total_tickets: number;
+    tickets_category: string;
+    total_amount: number;
+    payment_method: string;
+    payment_status: string;
+    payment_link: string;
+    created_at: string;
 } 
 
 export interface TransactionModel extends BaseTransactionModel {

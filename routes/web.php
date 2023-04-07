@@ -36,8 +36,8 @@ use App\Http\Controllers\SendEmailController;
 
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 
-// Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
-// Route::get('/transaction/index', [TicketController::class, 'index'])->name('transaction.index');
+Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
+Route::get('/transaction/index', [TicketController::class, 'index'])->name('transaction.index');
 Route::post('/callback', [TicketController::class, 'callback']);
 Route::post('/redeem_ticket', [TicketController::class, 'redeem_ticket']);
 // Route::post('/callback', [TransactionController::class, 'callback']);
