@@ -111,7 +111,7 @@ class TransactionController extends Controller
 
             //sent email :
             $mailData = [
-                'to' => 'Hallo '.$request->name.' !',
+                'to' => $request->name.' !',
                 // 'p1' => 'Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
                 //         ketika pembayaran anda telah kami terima',
                 // 'data1' => 'Berikut data diri anda yang kami terima:',
@@ -120,7 +120,7 @@ class TransactionController extends Controller
                 'email' => $request->email,
                 'jumlah_tiket' => $request->ticket_amount,
                 'jenis_tiket' => $request->tickets_category,
-                'total_pembelian' => $request->total_amount,
+                'total_pembelian' => $request->total_price,
                 'metode_pembayaran' => $request->payment_method,
                 'status_pembayaran' => $response->status,
                 'link' => $response->invoice_url
