@@ -7,6 +7,7 @@ import TextInput from "./Jetstream/TextInput";
 
 import route from "ziggy-js";
 import { PromoModel } from "@/Models/Promo";
+import InputError from "./Jetstream/InputError";
 
 interface Props {
     open: boolean;
@@ -52,6 +53,10 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                 preserveScroll: true,
                 onSuccess: () => {
                     closeHandler();
+                    form.clearErrors();
+                },
+                onError: () => {
+                    setPaymentError(true);
                 }
             }); 
 
@@ -112,7 +117,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             autoFocus
                             autoComplete="name"
                         />
-                        {/* <InputError className="mt-2" message={"salah"} /> */}
+                        <InputError className="mt-2" message={form.errors["name"]} />
                     </div>
                     <div className="form-control w-full mt-4">
                         <InputLabel htmlFor="email">Email</InputLabel>
@@ -124,7 +129,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             onChange={e => form.setData('email', e.currentTarget.value)}
                             required
                         />
-                        {/* <InputError className="mt-2" message={"salah"} /> */}
+                        <InputError className="mt-2" message={form.errors["email"]} />
                     </div>
                     <div className="form-control w-full mt-4">
                         <InputLabel htmlFor="phone_number">Nomor Telepon</InputLabel>
@@ -136,7 +141,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             onChange={e => form.setData('phone_number', e.currentTarget.value)}
                             required
                         />
-                        {/* <InputError className="mt-2" message={"salah"} /> */}
+                        <InputError className="mt-2" message={form.errors["phone_number"]} />
                     </div>
                     <div className="form-control w-full mt-4">
                         <InputLabel htmlFor="ticket_amount">Jumlah Tiket</InputLabel>
@@ -151,7 +156,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             onChange={e => form.setData('ticket_amount', Number(e.currentTarget.value))}
                             required
                         />
-                        {/* <InputError className="mt-2" message={"salah"} /> */}
+                        <InputError className="mt-2" message={form.errors["ticket_amount"]} />
                     </div>
                     <div className="form-control w-full mt-4">
                         <InputLabel htmlFor="payment_method">Metode Pembayaran</InputLabel>
@@ -166,7 +171,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             <option value="DANA">DANA</option>
                             {/* <option value="GOPAY">GOPAY</option> */}
                         </select>
-                        {/* <InputError className="mt-2" message={"salah"} /> */}
+                        <InputError className="mt-2" message={form.errors["payment_method"]} />
                     </div>
                     <div className="flex justify-center">
                         <div className="grid grid-cols-3 gap-3 justify-center">
@@ -188,10 +193,10 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             </div>
                             <div>
                                 <div className="font-bold text-center">
-                                    Jumlah
+                                    Jumlah Harga
                                 </div>
                                 <div className="text-center">
-                                    Rp. {(price! * form.data.ticket_amount).toLocaleString()}
+                                    Rp. {(promo?.price! * form.data.ticket_amount).toLocaleString()}
                                 </div>
                             </div>
                         </div>
@@ -199,7 +204,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                     <div className="flex justify-center">
                         <div className="text-xl">
                             <div className="font-bold text-center">
-                                Jumlah
+                                Total Pembayaran
                             </div>
                             <div className="text-center">
                                 Rp. {form.data.total_price.toLocaleString()}

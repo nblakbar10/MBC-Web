@@ -49,6 +49,16 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => ['required', 'email'],
+            'phone_number' => ['required', 'string', 'max:255'],
+            'ticket_amount' => ['required', 'numeric', 'max:5', 'min:1'],
+            'tickets_category' => 'required',
+            'total_price' => 'required',
+            'payment_method' => 'required',
+        ]);
+        
         $check_user_ticket_limit = Transaction::where(['phone_number' => $request->phone_number, 'email' => $request->email])->pluck('total_tickets');
         $data = $check_user_ticket_limit->toArray();
         $maximum_ticket = array_sum($data); 
