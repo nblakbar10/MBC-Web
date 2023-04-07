@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('ticket_qty');
             $table->string('ticket_category');
             $table->string('ticket_status');
+            $table->string('ticket_barcode');
             $table->timestamps();
         });
     }

@@ -17,9 +17,11 @@ class Ticket extends Model
         'ticket_name',
         'email',
         'phone_number',
+        "payment_method",
         'ticket_qty',
         'ticket_category',
         'ticket_status',
+        'ticket_barcode'
     ];
 
     protected $casts = [

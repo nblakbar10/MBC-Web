@@ -45,7 +45,7 @@ class SuccessMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email.mail',
+            view: 'email.ticketmail',
         );
     }
 
