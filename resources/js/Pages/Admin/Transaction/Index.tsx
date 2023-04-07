@@ -70,8 +70,6 @@ export default function Index({ transactions }: Props) {
         }
     ] as MRT_ColumnDef<TransactionModel>[];
 
-    console.log(transactions)
-
     return (
         <DashboardAdminLayout title="Events">
             <div className="py-12">
