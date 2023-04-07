@@ -23,7 +23,7 @@
                 ketika
                 konser akan berlangsung.
             </div>
-           <div class="text-md mt-5">
+            <div class="text-md mt-5">
                 <a href="{{asset('storage/barcode_ticket/'.$mailData['id_tiket'].'.jpg')}}">Klik disini untuk melihat barcode tiketmu.</a>
             </div>
 
