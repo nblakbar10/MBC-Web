@@ -31,8 +31,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
     });
 
     if (!adminFee) {
-        // adminFee = 6000;
-        adminFee = 1000;
+        adminFee = 6000;
     }
 
     const [paymentError, setPaymentError] = React.useState<boolean>(false);
