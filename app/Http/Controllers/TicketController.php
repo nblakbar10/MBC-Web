@@ -34,7 +34,7 @@ class TicketController extends Controller
         $external_id = $data['external_id'];
         if ($status == 'PAID'){
             // $mix_ticket = 'ID2023MBC-'.Str::random(16);
-            $mix_ticket = rand ( 000000000000 , 999999999999 );
+            $mix_ticket = rand ( 00000000000000 , 99999999999999 ); //14digit
             //barcode
             $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
             file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
@@ -72,8 +72,8 @@ class TicketController extends Controller
             Transaction::where('external_id', 'MBC-SmileFest2023-X9I1B')->update([
                 'payment_status' => $status,
                 'ticket_id' => $mix_ticket,
-                "ticket_status" => "Not redeemed yet",
-                "ticket_barcode" => url($mix_ticket.'.jpg')
+                'ticket_status' => "Not redeemed yet",
+                'ticket_barcode' => url($mix_ticket.'.jpg')
             ]);
         }
         //     $mix_ticket = 'ID2023MBC-'.Str::random(11);
