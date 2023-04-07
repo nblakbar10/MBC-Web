@@ -15,9 +15,12 @@ class TicketController extends Controller
 {
     public function index() //redeemForm()
     {
-        return Inertia::render(
-            'Admin/Transaction/RedeemForm'
-        );
+        $tickets = Ticket::paginate(10);
+        // $transactions = Transaction::all();
+        // dd($transactions);  
+        return Inertia::render('Admin/Ticket/Index', [
+            'tickets' => $tickets,
+        ]);
     }
 
     public function callback() //update data payment, save data ticket, sent email
