@@ -29,7 +29,7 @@
                 pesan.
             </div>
             <div id="token" hidden >
-                {{$mailData['id_tiket']}}
+                TLJC3DP8KTM3LYJ0
             </div>
 
             <div class="border-y-neutral-900 border flex py-3 px-2" style="--tw-border-opacity: 1;border-top-color: rgb(23 23 23 / var(--tw-border-opacity));border-bottom-color: rgb(23 23 23 / var(--tw-border-opacity));border-top-style: solid;border-bottom-style: solid;border-width: 1px;padding-top: 0.75rem;padding-bottom: 0.75rem;padding-left: 0.5rem;padding-right: 0.5rem;">
@@ -84,7 +84,9 @@
                 </div>
 
             </div>
-            <div class="flex justify-center">
+            <div class="flex justify-center"
+            style="display: flex;justify-content: center; margin-left: 0.75rem;margin-right: 0.75rem;">
+                <!-- nanti gambar barcodenya ditaro disini ya , ganti aja tag SVGnya-->
                 <svg id="id_tiket"></svg>
             </div>
             <div class="flex justify-center"
