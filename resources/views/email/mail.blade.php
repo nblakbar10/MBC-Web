@@ -75,7 +75,7 @@
                         </tr>
                     </table>
                     <div>
-                    <a href="{{$mailData['link']}}}">Klik disini untuk untuk melakukan pembayaran</a>
+                    <a href="{{$mailData['link']}}">Klik disini untuk untuk melakukan pembayaran</a>
                     </div>
                     
                 </div>
