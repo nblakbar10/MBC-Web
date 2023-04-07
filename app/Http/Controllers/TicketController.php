@@ -97,7 +97,7 @@ class TicketController extends Controller
                 'total_pembayaran' => $data_trans_failed->total_amount,
                 'metode_pembayaran' => $data_trans_failed->payment_method,
                 'status_pembayaran' => $status->payment_status, //langsung dari xendit
-                "status_tiket" => "Not redeemed yet",
+                "status_tiket" => 'NULL',
                 // "ticket_barcode" => url($mix_ticket.'.jpg')
             ];
             Mail::to($data_trans_failed->email)->send(new SuccessMail($mailData));
