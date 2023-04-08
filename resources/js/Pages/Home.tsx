@@ -84,7 +84,7 @@ export default function Home({ promos }: Props) {
                 <div className="grid grid-cols-1 lg:grid-cols-2 h-780 w-780 gap-5">
                     <img
                         className="object-cover rounded-xl basis-2/3"
-                        src={asset('root', 'assets/images/bg-caknan.jpeg')}
+                        src={asset('root', 'assets/images/SR Pro - Smile Fest Post 8-01.jpg')}
                     />
                     <div className="flex flex-col gap-3 ">
                         <div className="flex flex-col gap-3 p-auto basis-1/2 p-3 md:p-10 rounded-2xl border-stone-600 border-2">
