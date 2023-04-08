@@ -185,7 +185,7 @@ class TicketController extends Controller
     public function redeem_ticket(Request $request)
     {
         // $check = Ticket::where('ticket_id', $request->token)->get();
-        $check = Transaction::where('ticket_id', $request->token)->get();
+        $check = Transaction::where($request->token, 'ticket_id')->get();
         if($check){
             if($check->ticket_status = 'Reedeemed!'){
                 return redirect()->route('ticket.index')->banner('Error! Ticket sudah ditukarkan!');
