@@ -47,6 +47,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
     const onSubmitHandler = (e: React.FormEvent) => {
         form.clearErrors();
+        setPaymentError(false);
         e.preventDefault();
         form.post(route('transaction.store'), {
             preserveScroll: true,
