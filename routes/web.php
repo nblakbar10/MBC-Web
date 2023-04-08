@@ -38,7 +38,7 @@ Route::get('/', [DashboardController::class, 'home'])->name('home');
 
 Route::post('/callback', [TicketController::class, 'callback']);
 Route::post('/redeem_ticket', [TicketController::class, 'redeem_ticket']);
-
+Route::post('/transaction/store',[TransactionController::class, 'store'])->name('transaction.store');
 
 
 Route::middleware([
@@ -55,7 +55,7 @@ Route::middleware([
         Route::resource('/promo', PromoController::class);
 
         Route::resource('/event', EventController::class);
-        Route::resource('/transaction', TransactionController::class);
+        Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
         Route::resource('/ticket', TicketController::class);
         Route::middleware(['role:super-admin'])->group(function () {
             Route::resource('/user', UserController::class);

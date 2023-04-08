@@ -36,8 +36,6 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
     }
 
     const [paymentError, setPaymentError] = React.useState<boolean>(false);
-    const [isLoading, setIsLoading] = React.useState<boolean>(false);
-
 
     useEffect(() => {
         form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
@@ -50,42 +48,42 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
     const onSubmitHandler = (e: React.FormEvent) => {
         form.clearErrors();
         e.preventDefault();
-            form.post(route('transaction.store'), {
-                preserveScroll: true,
-                onSuccess: () => {
-                    closeHandler();
-                },
-                onError: () => {
-                    setPaymentError(true);
-                }
-            }); 
+        form.post(route('transaction.store'), {
+            preserveScroll: true,
+            onSuccess: () => {
+                closeHandler();
+            },
+            onError: () => {
+                setPaymentError(true);
+            }
+        });
 
 
-    // const onSubmitHandler = (e: React.FormEvent) => {
-    //     e.preventDefault();
-    //     setIsLoading(true);
-    //     const data = fetch(route('checkout'), {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Accept': 'application/json',
-    //             'X-Requested-With': 'XMLHttpRequest',
-    //             'X-CSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1")
-    //         },
-    //         credentials: 'same-origin',
-    //         body: JSON.stringify(form.data)
-    //     })
-    //         .then(response => {
-    //             response.status === 200 ? setPaymentError(false) : setPaymentError(true)
-    //             setIsLoading(false);
-    //             return response.json()
-    //         })
-    //         .then(data => {
-    //             if (!paymentError) {
-    //                 setXenditLinkHandler(data);
-    //                 checkOutOpenHandler();
-    //             }
-    //         });
+        // const onSubmitHandler = (e: React.FormEvent) => {
+        //     e.preventDefault();
+        //     setIsLoading(true);
+        //     const data = fetch(route('checkout'), {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Accept': 'application/json',
+        //             'X-Requested-With': 'XMLHttpRequest',
+        //             'X-CSRF-TOKEN': document.cookie.replace(/(?:(?:^|.*;\s*)XSRF-TOKEN\s*\=\s*([^;]*).*$)|^.*$/, "$1")
+        //         },
+        //         credentials: 'same-origin',
+        //         body: JSON.stringify(form.data)
+        //     })
+        //         .then(response => {
+        //             response.status === 200 ? setPaymentError(false) : setPaymentError(true)
+        //             setIsLoading(false);
+        //             return response.json()
+        //         })
+        //         .then(data => {
+        //             if (!paymentError) {
+        //                 setXenditLinkHandler(data);
+        //                 checkOutOpenHandler();
+        //             }
+        //         });
     }
 
 
@@ -153,7 +151,19 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             max={5}
                             step={1}
                             value={form.data.ticket_amount}
-                            onChange={e => form.setData('ticket_amount', Number(e.currentTarget.value))}
+                            onChange={e => {
+                                e.currentTarget.value = e.currentTarget.value.replace('0', '');
+                                const value = parseInt(e.currentTarget.value.length > 1 ? e.currentTarget.value[1] : e.currentTarget.value);
+                                if (isNaN(value)) {
+                                    form.setData('ticket_amount', 0);
+                                } else if (value > 5) {
+                                    form.setData('ticket_amount', 5);
+                                } else if (value < 0) {
+                                    form.setData('ticket_amount', 0);
+                                } else {
+                                    form.setData('ticket_amount', value);
+                                }
+                            }}
                             required
                         />
                         <InputError className="mt-2" message={form.errors["ticket_amount"]} />
@@ -212,23 +222,15 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                         </div>
                     </div>
                 </form>
-                {isLoading ? (
-                    <div className="flex justify-center">
-                        <div className="text-xl text-gray-500">
-                            Memproses...
-                        </div>
-                    </div>
-                ) : (
-                    <div className="flex justify-center">
-                        <button
-                            onClick={onSubmitHandler}
-                                className="bg-pink-400 hover:bg-pink-600 rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
-                                disabled={form.processing}
-                        >
-                            Beli Tiket
-                        </button>
-                    </div>
-                )}
+                <div className="flex justify-center">
+                    <button
+                        onClick={onSubmitHandler}
+                        className="bg-pink-400 hover:bg-pink-600 rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
+                        disabled={form.processing}
+                    >
+                        Beli Tiket
+                    </button>
+                </div>
                 {paymentError && (
                     <div className="flex justify-center">
                         <div className="text-xl text-red-500">
