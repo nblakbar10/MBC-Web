@@ -10,40 +10,40 @@ import { Inertia } from '@inertiajs/inertia';
 import { TicketModel } from '@/Models/Ticket';
 
 interface Props {
-    tickets: Pagination<TicketModel>,
+    tickets: Array<TicketModel>,
 }
 
 export default function Index({ tickets }: Props) {
 
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [globalFilter, setGlobalFilter] = useState('');
-    const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: 10,
-    });
+    // const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    // const [globalFilter, setGlobalFilter] = useState('');
+    // const [pagination, setPagination] = useState<PaginationState>({
+    //     pageIndex: 0,
+    //     pageSize: 10,
+    // });
 
-    useEffect(() => {
-        const url = new URL(route(route().current()!).toString());
+    // useEffect(() => {
+    //     const url = new URL(route(route().current()!).toString());
 
-        url.searchParams.set('page', (pagination.pageIndex + 1).toString());
-        url.searchParams.set('perPage', pagination.pageSize.toString());
-        url.searchParams.set('columnFilters', JSON.stringify(columnFilters ?? []));
-        url.searchParams.set('globalFilter', globalFilter ?? '');
+    //     url.searchParams.set('page', (pagination.pageIndex + 1).toString());
+    //     url.searchParams.set('perPage', pagination.pageSize.toString());
+    //     url.searchParams.set('columnFilters', JSON.stringify(columnFilters ?? []));
+    //     url.searchParams.set('globalFilter', globalFilter ?? '');
 
-        Inertia.visit(url.toString(), {
-            preserveState: true,
-            preserveScroll: true,
-            data: {
-                page: pagination.pageIndex + 1,
-                perPage: pagination.pageSize,
-                columnFilters: JSON.stringify(columnFilters),
-                globalFilter: globalFilter,
-            },
-            only: ["tickets"],
-            replace: true,
-        })
+    //     Inertia.visit(url.toString(), {
+    //         preserveState: true,
+    //         preserveScroll: true,
+    //         data: {
+    //             page: pagination.pageIndex + 1,
+    //             perPage: pagination.pageSize,
+    //             columnFilters: JSON.stringify(columnFilters),
+    //             globalFilter: globalFilter,
+    //         },
+    //         only: ["tickets"],
+    //         replace: true,
+    //     })
 
-    }, [pagination]);
+    // }, [pagination]);
 
     const dataColumns = [
         {
@@ -59,8 +59,8 @@ export default function Index({ tickets }: Props) {
             header: 'No Hp',
         },
         {
-            accessorKey: 'ticket_qty',
-            header: 'Jumlah Tiket',
+            accessorKey: 'ticket_category',
+            header: 'Jenis Promo',
         },
         {
             accessorKey: 'ticket_status',
@@ -89,16 +89,16 @@ export default function Index({ tickets }: Props) {
                             <div className="mt-6 text-gray-500">
                                 <MaterialReactTable
                                     columns={dataColumns}
-                                    data={tickets.data}
+                                    data={tickets}
                                     enableColumnActions
                                     enableColumnFilters
                                     enableGlobalFilter={false}
-                                    onColumnFiltersChange={
-                                        (value) => {
-                                            setColumnFilters(value);
-                                            setPagination({ ...pagination, pageIndex: 0 });
-                                        }
-                                    }
+                                    // onColumnFiltersChange={
+                                    //     (value) => {
+                                    //         setColumnFilters(value);
+                                    //         setPagination({ ...pagination, pageIndex: 0 });
+                                    //     }
+                                    // }
                                     enablePagination
                                     manualPagination
                                     enableSorting
@@ -108,9 +108,9 @@ export default function Index({ tickets }: Props) {
                                     enableExpanding
                                     enableExpandAll
                                     muiTableBodyRowProps={{ hover: false }}
-                                    rowCount={tickets.total}
-                                    onPaginationChange={setPagination}
-                                    state={{ pagination, columnFilters, globalFilter }}
+                                    // rowCount={tickets.total}
+                                    // onPaginationChange={setPagination}
+                                    // state={{ pagination, columnFilters, globalFilter }}
                                     renderDetailPanel={({ row }) => (
                                         <table className='w-full'>
                                             <thead>
@@ -129,8 +129,8 @@ export default function Index({ tickets }: Props) {
                                                     <td className='py-3 text-center'>{row.original.ticket_id}</td>
                                                 </tr>
                                                 <tr className='border-b py-3 border-black'>
-                                                    <td className='py-3 text-center'>Jenis Promo</td>
-                                                    <td className='py-3 text-center'>{row.original.ticket_category}</td>
+                                                    <td className='py-3 text-center'>Jumlah Tiket</td>
+                                                    <td className='py-3 text-center'>{row.original.ticket_qty}</td>
                                                 </tr>
                                             </tbody>
                                         </table>

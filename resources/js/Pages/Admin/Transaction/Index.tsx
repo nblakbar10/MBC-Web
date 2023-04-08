@@ -10,42 +10,42 @@ import { Pagination } from '@/Models/Helper';
 import { Inertia } from '@inertiajs/inertia';
 
 interface Props {
-    transactions: Pagination<TransactionModel>,
+    transactions: Array<TransactionModel>,
 }
 
 
 
 export default function Index({ transactions }: Props) {
 
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [globalFilter, setGlobalFilter] = useState('');
-    const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: 10,
-    });
+    // const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    // const [globalFilter, setGlobalFilter] = useState('');
+    // const [pagination, setPagination] = useState<PaginationState>({
+    //     pageIndex: 0,
+    //     pageSize: 10,
+    // });
 
-    useEffect(() => {
-        const url = new URL(route(route().current()!).toString());
+    // useEffect(() => {
+    //     const url = new URL(route(route().current()!).toString());
 
-        url.searchParams.set('page', (pagination.pageIndex + 1).toString());
-        url.searchParams.set('perPage', pagination.pageSize.toString());
-        url.searchParams.set('columnFilters', JSON.stringify(columnFilters ?? []));
-        url.searchParams.set('globalFilter', globalFilter ?? '');
+    //     url.searchParams.set('page', (pagination.pageIndex + 1).toString());
+    //     url.searchParams.set('perPage', pagination.pageSize.toString());
+    //     url.searchParams.set('columnFilters', JSON.stringify(columnFilters ?? []));
+    //     url.searchParams.set('globalFilter', globalFilter ?? '');
 
-        Inertia.visit(url.toString(), {
-            preserveState: true,
-            preserveScroll: true,
-            data: {
-                page: pagination.pageIndex + 1,
-                perPage: pagination.pageSize,
-                columnFilters: JSON.stringify(columnFilters),
-                globalFilter: globalFilter,
-            },
-            only: ["transactions"],
-            replace: true,
-        })
+    //     Inertia.visit(url.toString(), {
+    //         preserveState: true,
+    //         preserveScroll: true,
+    //         data: {
+    //             page: pagination.pageIndex + 1,
+    //             perPage: pagination.pageSize,
+    //             columnFilters: JSON.stringify(columnFilters),
+    //             globalFilter: globalFilter,
+    //         },
+    //         only: ["transactions"],
+    //         replace: true,
+    //     })
 
-    }, [pagination]);
+    // }, [pagination]);
 
     const dataColumns = [
         {
@@ -61,8 +61,8 @@ export default function Index({ transactions }: Props) {
             header: 'No Hp',
         },
         {
-            accessorKey: 'total_tickets',
-            header: 'Jumlah Tiket',
+            accessorKey: 'tickets_category',
+            header: 'Jenis Promo',
         },
         {
             accessorKey: 'payment_status',
@@ -91,16 +91,16 @@ export default function Index({ transactions }: Props) {
                             <div className="mt-6 text-gray-500">
                                 <MaterialReactTable
                                     columns={dataColumns}
-                                    data={transactions.data}
+                                    data={transactions}
                                     enableColumnActions
                                     enableColumnFilters
                                     enableGlobalFilter={false}
-                                    onColumnFiltersChange={
-                                        (value) => {
-                                            setColumnFilters(value);
-                                            setPagination({ ...pagination, pageIndex: 0 });
-                                        }
-                                    }
+                                    // onColumnFiltersChange={
+                                    //     (value) => {
+                                    //         setColumnFilters(value);
+                                    //         setPagination({ ...pagination, pageIndex: 0 });
+                                    //     }
+                                    // }
                                     enablePagination
                                     manualPagination
                                     enableSorting
@@ -110,9 +110,9 @@ export default function Index({ transactions }: Props) {
                                     enableExpanding
                                     enableExpandAll
                                     muiTableBodyRowProps={{ hover: false }}
-                                    rowCount={transactions.total}
-                                    onPaginationChange={setPagination}
-                                    state={{ pagination, columnFilters, globalFilter }}
+                                    // rowCount={transactions.total}
+                                    // onPaginationChange={setPagination}
+                                    // state={{ pagination, columnFilters, globalFilter }}
                                     renderDetailPanel={({ row }) => (
                                         <table className='w-full'>
                                             <thead>
@@ -123,7 +123,7 @@ export default function Index({ transactions }: Props) {
                                             </thead>
                                             <tbody>
                                                 <tr className='border-b py-3 border-black'>
-                                                    <td className='py-3 text-center'>Jumlah Tiket</td>
+                                                    <td className='py-3 text-center'>Metode Pembayaran</td>
                                                     <td className='py-3 text-center'>{row.original.payment_method}</td>
                                                 </tr>
                                                 <tr className='border-b py-3 border-black'>
@@ -131,8 +131,8 @@ export default function Index({ transactions }: Props) {
                                                     <td className='py-3 text-center'>{row.original.total_amount}</td>
                                                 </tr>
                                                 <tr className='border-b py-3 border-black'>
-                                                    <td className='py-3 text-center'>Jenis Promo</td>
-                                                    <td className='py-3 text-center'>{row.original.tickets_category}</td>
+                                                    <td className='py-3 text-center'>Jumlah Tiket</td>
+                                                    <td className='py-3 text-center'>{row.original.total_tickets}</td>
                                                 </tr>
                                                 <tr className='border-b py-3 border-black'>
                                                     <td className='py-3 text-center'>Tautan Pembayaran</td>
