@@ -119,7 +119,7 @@ export default function Dashboard(props: Props) {
                 <div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
                   <div className="text-lg font-semibold mb-2">Jumlah Transaksi</div>
                   <div className="text-2xl font-extrabold">
-                    <div className="stat-value">2{props.event_count}</div></div>
+                    <div className="stat-value">{props.transaction_count}</div></div>
                 </div>
                 <div className='h-8'>
                 <InertiaLink href={route("dashboard")}>
@@ -135,7 +135,7 @@ export default function Dashboard(props: Props) {
                 <div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
                   <div className="text-lg font-semibold mb-2">Jumlah Event</div>
                   <div className="text-2xl font-extrabold">
-                    <div className="stat-value">{props.transaction_count}</div></div>
+                    <div className="stat-value">{props.event_count}</div></div>
                 </div>
                 <div className='h-8'>
                   <InertiaLink href={route("dashboard")}>
