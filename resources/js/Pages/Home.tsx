@@ -142,6 +142,8 @@ export default function Home({ promos }: Props) {
                                     <p>- 1 Akun Email hanya bisa digunakan untuk 1 kali transaksi</p>
                                     <p>- Maksimal jumlah tiket yang dapat dibeli per 1 transaksi adalah 5 Tiket</p>
                                     <p>- Pembeli wajib mencantumkan nama lengkap sesuai yang tertera di KTP pada saat melakukan pembelian tiket.</p>
+                                    <p>- Pembeli wajib mencantumkan Email yang masih aktif</p>
+                                    <p>- Apabila Nama dan Email tidak sesuai , maka tiket tidak valid</p>
                                 </div>
                             </TabPanel>
                             <TabPanel value={tabValue} index={1}>
