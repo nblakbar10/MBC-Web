@@ -138,8 +138,10 @@ class TransactionController extends Controller
             Mail::to($request->email)->send(new NotifyMail($mailData));
 
             $promo = Promo::where('name', $request->tickets_category)->get()[0];
-            $promo->stocks = (int)$promo->stocks - (int)$request->ticket_amount;
-            $promo->save();
+            if($promo){
+                $promo->stocks = (int)$promo->stocks - (int)$request->ticket_amount;
+                $promo->save();
+            }
             
             return response('', 409)
                 ->header('X-Inertia-Location', $response->invoice_url);
