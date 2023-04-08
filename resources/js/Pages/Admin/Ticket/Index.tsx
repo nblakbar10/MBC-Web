@@ -43,7 +43,7 @@ export default function Index({ tickets }: Props) {
             replace: true,
         })
 
-    }, [pagination, columnFilters, globalFilter]);
+    }, [pagination]);
 
     const dataColumns = [
         {
@@ -69,7 +69,7 @@ export default function Index({ tickets }: Props) {
     ] as MRT_ColumnDef<TicketModel>[];
 
     return (
-        <DashboardAdminLayout title="Events">
+        <DashboardAdminLayout title="Tiket">
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
