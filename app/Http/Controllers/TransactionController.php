@@ -54,7 +54,7 @@ class TransactionController extends Controller
             $request->validate([
                 'name' => 'required',
                 'email' => ['required', 'email'],
-                'phone_number' => ['required', 'string', 'max:255'],
+                'phone_number' => ['required', 'string', 'max:255', 'regex:(08)'],
                 'ticket_amount' => ['required', 'numeric', 'max:5', 'min:1'],
                 'tickets_category' => 'required',
                 'total_price' => 'required',

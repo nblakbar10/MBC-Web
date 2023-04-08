@@ -131,10 +131,10 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                         <InputError className="mt-2" message={form.errors["email"]} />
                     </div>
                     <div className="form-control w-full mt-4">
-                        <InputLabel htmlFor="phone_number">Nomor Telepon</InputLabel>
+                        <InputLabel htmlFor="phone_number">Nomor Telepon (diawali 08)</InputLabel>
                         <TextInput
                             id="phone_number"
-                            type="text"
+                            type="number"
                             className="mt-1 block w-full"
                             value={form.data.phone_number}
                             onChange={e => form.setData('phone_number', e.currentTarget.value)}
