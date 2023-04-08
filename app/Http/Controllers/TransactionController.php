@@ -102,6 +102,16 @@ class TransactionController extends Controller
 
                 $response = $data_request->object();
                 // dd($response->invoice_url);
+            $promo = Promo::where('name', $request->tickets_category)->get()[0];
+            if($promo){ //if true
+                $promo->stocks = (int)$promo->stocks - (int)$request->ticket_amount;
+                $promo->save();
+            }
+            
+            return response('', 409)
+                ->header('X-Inertia-Location', $response->invoice_url);
+            // return json_encode($response->invoice_url);
+        }
 
                 Transaction::create([
                     'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
