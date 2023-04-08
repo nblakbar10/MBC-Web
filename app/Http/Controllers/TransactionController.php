@@ -138,7 +138,7 @@ class TransactionController extends Controller
             Mail::to($request->email)->send(new NotifyMail($mailData));
 
             $promo = Promo::where('name', $request->tickets_category)->get()[0];
-            if($promo){
+            if($promo){ //if true
                 $promo->stocks = (int)$promo->stocks - (int)$request->ticket_amount;
                 $promo->save();
             }
