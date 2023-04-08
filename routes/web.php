@@ -36,20 +36,9 @@ use App\Http\Controllers\SendEmailController;
 
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 
-Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
-
 Route::post('/callback', [TicketController::class, 'callback']);
 Route::post('/redeem_ticket', [TicketController::class, 'redeem_ticket']);
-// Route::post('/callback', [TransactionController::class, 'callback']);
 
-Route::resource('/promo', PromoController::class);
-
-// Route::get('send-email', [SendEmailController::class, 'index']);
-
-Route::resource('/user', UserController::class);
-Route::resource('/event', EventController::class);
-Route::resource('/transaction', TransactionController::class);
-Route::resource('/ticket', TicketController::class);
 
 
 Route::middleware([
@@ -60,8 +49,16 @@ Route::middleware([
     Route::get('/user/profile', [UserProfileController::class, 'show'])->name('profile.show');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::middleware(['role:admin|super-admin'])->group(function () {
+        Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
+
+
+        Route::resource('/promo', PromoController::class);
+
+        Route::resource('/event', EventController::class);
+        Route::resource('/transaction', TransactionController::class);
+        Route::resource('/ticket', TicketController::class);
         Route::middleware(['role:super-admin'])->group(function () {
-            // Route::resource('/user', UserController::class);
+            Route::resource('/user', UserController::class);
             // Route::resource('/event', EventController::class);
             // Route::resource('/event-promo', PromoController::class);
         });
