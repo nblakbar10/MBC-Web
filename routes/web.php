@@ -36,6 +36,8 @@ use App\Http\Controllers\SendEmailController;
 
 Route::get('/', [DashboardController::class, 'home'])->name('home');
 
+Route::post('/callback', [TicketController::class, 'callback']);
+Route::post('/redeem_ticket', [TicketController::class, 'redeem_ticket']);
 
 
 
@@ -49,8 +51,6 @@ Route::middleware([
     Route::middleware(['role:admin|super-admin'])->group(function () {
         Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
 
-        Route::post('/callback', [TicketController::class, 'callback']);
-        Route::post('/redeem_ticket', [TicketController::class, 'redeem_ticket']);
 
         Route::resource('/promo', PromoController::class);
 
