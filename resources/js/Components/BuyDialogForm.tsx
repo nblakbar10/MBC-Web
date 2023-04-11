@@ -35,8 +35,6 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         adminFee = 6000;
     }
 
-    const [paymentError, setPaymentError] = React.useState<boolean>(false);
-
     useEffect(() => {
         form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
     }, [form.data.ticket_amount]);
@@ -47,7 +45,6 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
     const onSubmitHandler = (e: React.FormEvent) => {
         form.clearErrors();
-        setPaymentError(false);
         e.preventDefault();
         form.post(route('transaction.store'), {
             preserveScroll: true,
@@ -55,7 +52,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                 closeHandler();
             },
             onError: () => {
-                setPaymentError(true);
+                console.log(form.errors);
             }
         });
 
@@ -87,6 +84,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         //         });
     }
 
+    console.log(form.hasErrors);
 
     return (
         <Dialog open={open} onClose={closeHandler} sx={{ borderRadius: 2 }} maxWidth="sm" fullWidth>
@@ -224,15 +222,21 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                     </div>
                 </form>
                 <div className="flex justify-center">
-                    <button
-                        onClick={onSubmitHandler}
-                        className="bg-pink-400 hover:bg-pink-600 rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
-                        disabled={form.processing}
-                    >
-                        Beli Tiket
-                    </button>
+                    {form.processing ? (
+                        <div className="text-center text-xl">
+                            Memproses...
+                        </div>
+                    ) : (
+                        <button
+                            onClick={onSubmitHandler}
+                            className="bg-pink-400 hover:bg-pink-600 rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
+                            disabled={form.processing}
+                        >
+                            Beli Tiket
+                        </button>
+                    )}
                 </div>
-                {paymentError && (
+                {form.hasErrors && (
                     <div className="flex justify-center">
                         <div className="text-xl text-red-500">
                             Terjadi kesalahan, silahkan coba lagi
