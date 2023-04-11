@@ -5,6 +5,7 @@ import { asset } from "@/Models/Helper";
 import { PromoModel } from "@/Models/Promo";
 import { Tab, Tabs } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import ConfirmationNumberRoundedIcon from '@mui/icons-material/ConfirmationNumberRounded';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -54,7 +55,7 @@ export default function Home({ promos }: Props) {
 
     const [xenditLink, setXenditLink] = useState<string>("");
 
-    const [selectedPromo, setSelectedPromo] = useState < PromoModel | null > (null);
+    const [selectedPromo, setSelectedPromo] = useState<PromoModel | null>(null);
 
     const [tabValue, setTabValue] = useState(0);
 
@@ -62,7 +63,7 @@ export default function Home({ promos }: Props) {
         setTabValue(newValue);
     };
 
-    const handleSelectPromo = (newValue : PromoModel) => {
+    const handleSelectPromo = (newValue: PromoModel) => {
         setSelectedPromo(newValue);
     }
 
@@ -124,7 +125,7 @@ export default function Home({ promos }: Props) {
                         <div>
                             <Tabs value={tabValue} onChange={handleTabChange} centered variant="fullWidth">
                                 <Tab label="Deskripsi" {...a11yProps(0)} />
-                                <Tab label="Promo Tiket" {...a11yProps(1)} />
+                                <Tab label="Tiket" {...a11yProps(1)} />
                             </Tabs>
                             <TabPanel value={tabValue} index={0}>
                                 <div className="flex flex-col gap-5">
@@ -148,31 +149,37 @@ export default function Home({ promos }: Props) {
                             </TabPanel>
                             <TabPanel value={tabValue} index={1}>
                                 <div className="flex flex-col my-3 gap-3">
-                                    {promos.map((promo) => (
-                                        <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
-                                            <p className="text-xl text-[#2EA1DA] font-bold">
-                                                {promo.name}
-                                            </p>
-                                            <p>
-                                                Harga Belum Termasuk Pajak dan Biaya Layanan
-                                            </p>
-                                            <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-5 flex justify-between py-3">
-                                                <p className="font-bold">
-                                                    {`Rp. ${promo.price.toLocaleString()}`}
+                                    {promos.length > 0 ? (
+                                        promos.map((promo) => (
+                                            <div className="p-4 border-stone-600 border-2 flex flex-col gap-2">
+                                                <p className="text-xl text-[#2EA1DA] font-bold">
+                                                    {promo.name}
                                                 </p>
-                                                {promo.stocks > 0 ? (
-                                                    <button className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-1 px-7 rounded-lg" onClick={() => handleSelectPromo(promo)}>
-                                                        Beli Tiket
-                                                    </button>
-                                                ) : (
-                                                    <p className="font-semibold text-pink-500">
-                                                        SOLD OUT
+                                                <p>
+                                                    Harga Belum Termasuk Pajak dan Biaya Layanan
+                                                </p>
+                                                <div className="border-gray-500 border-dashed border-t-2 text-md md:text-xl mt-5 flex justify-between py-3">
+                                                    <p className="font-bold">
+                                                        {`Rp. ${promo.price.toLocaleString()}`}
                                                     </p>
-                                                )}
+                                                    {promo.stocks > 0 ? (
+                                                        <button className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-1 px-7 rounded-lg" onClick={() => handleSelectPromo(promo)}>
+                                                            Beli Tiket
+                                                        </button>
+                                                    ) : (
+                                                        <p className="font-semibold text-pink-500">
+                                                            SOLD OUT
+                                                        </p>
+                                                    )}
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))}
+                                        ))
 
+                                    ) : (
+                                        <p className="text-center text-xl mt-20">
+                                            <ConfirmationNumberRoundedIcon className="mr-2" fontSize="large"/> Belum ada tiket
+                                        </p>
+                                    )}
                                 </div>
                             </TabPanel>
                         </div>
@@ -185,7 +192,7 @@ export default function Home({ promos }: Props) {
                     </div>
                 </div>
             </div>
-            <BuyDialogForm open={openForm} closeHandler={removeSelectedPromo} checkOutOpenHandler={handleOpenCheckOut} setXenditLinkHandler={setXenditLink} promo={ selectedPromo} />
+            <BuyDialogForm open={openForm} closeHandler={removeSelectedPromo} checkOutOpenHandler={handleOpenCheckOut} setXenditLinkHandler={setXenditLink} promo={selectedPromo} />
             <CheckOutModal open={openCheckOut} closeHandler={handleCloseCheckOut} xenditLink={xenditLink} />
         </AppLayout>
     )
