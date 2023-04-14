@@ -95,6 +95,11 @@ export default function DashboardAdminLayout({
                         Daftar Tiket
                     </ResponsiveNavLink>
                 </li>
+                <li>
+                    <ResponsiveNavLink href={route('discount.index')} active={route().current('discount.index')}>
+                        Discount Tiket
+                    </ResponsiveNavLink>
+                </li>
             </ul>
         </Box>
     );

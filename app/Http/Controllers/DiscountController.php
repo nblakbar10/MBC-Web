@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discount;
-use Illuminate\Http\Request;
-
 use App\Models\Transaction;
 use App\Models\Ticket;
 use App\Models\Promo;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+
 
 class DiscountController extends Controller
 {
@@ -19,9 +20,9 @@ class DiscountController extends Controller
     public function index()
     {
         //list all tiket
-        $list = Discount::all();
+        $discounts = Discount::all();
         return Inertia::render('Admin/Discount/Index', [
-            'discount' => $discount,
+            'discounts' => $discounts,
         ]);
     }
 
@@ -33,7 +34,7 @@ class DiscountController extends Controller
     public function create()
     {
         //
-        return Inertia::render('Admin/Event/Discount/Create', [
+        return Inertia::render('Admin/Discount/Create', [
         ]);
     }
 
@@ -45,8 +46,6 @@ class DiscountController extends Controller
      */
     public function store(Request $request)
     {
-        //list all tiket
-        $list = Promo::all();
         Discount::create([
             'promo_id' => $request->promo_id,
             'name' => $request->name,
@@ -55,7 +54,6 @@ class DiscountController extends Controller
             'deduction' => $request->deduction,
             'quota' => $request->quota
         ]);
-        $list->save();
         return redirect()->route('discount.index')->banner('New discount Created Successfully'); 
     }
 
@@ -68,7 +66,7 @@ class DiscountController extends Controller
     public function show($id)
     {
         $discount = Discount::find($id);
-        return Inertia::render('Admin/Event/Discount/Show', [
+        return Inertia::render('Admin/Discount/Show', [
             'discount' => $discount,
         ]);
     }
@@ -82,7 +80,7 @@ class DiscountController extends Controller
     public function edit($id)
     {
         $discount = Discount::find($id);
-        return Inertia::render('Admin/Event/Discount/Edit', [
+        return Inertia::render('Admin/Discount/Edit', [
             'discount' => $discount,
         ]);
     }
@@ -114,9 +112,12 @@ class DiscountController extends Controller
      * @param  \App\Models\Discount  $discount
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Discount $discount)
+    public function destroy($id)
     {
         //
+        $discount = Discount::find($id);
+        $discount->delete();
+        return redirect()->route('discount.index')->banner('Discount Deleted Successfully');
     }
 
     // public function check_discount(Request $request)
