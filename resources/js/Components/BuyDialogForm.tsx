@@ -15,12 +15,11 @@ interface Props {
     closeHandler: () => void;
     setXenditLinkHandler: (link: string) => void;
     price?: number;
-    adminFee?: number;
     promo: PromoModel | null;
 }
 
 
-export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, adminFee, promo }: Props) {
+export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, promo }: Props) {
     const form = useForm({
         name: '',
         email: '',
@@ -28,20 +27,21 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         ticket_amount: 0,
         tickets_category: promo?.name,
         payment_method: 'Transfer Bank (VA)',
+        promo_id: promo?.id,
         total_price: 0,
     });
 
-    if (!adminFee) {
-        adminFee = 6000;
-    }
+
+    const adminFee = 2500;
 
     useEffect(() => {
         form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
     }, [form.data.ticket_amount]);
 
     useEffect(() => {
-        form.setData('tickets_category', promo?.name);
-    }, [promo?.name]);
+        form.setData('promo_id', promo?.id);
+    }, [promo])
+
 
     const onSubmitHandler = (e: React.FormEvent) => {
         form.clearErrors();
@@ -83,8 +83,6 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         //             }
         //         });
     }
-
-    console.log(form.hasErrors);
 
     return (
         <Dialog open={open} onClose={closeHandler} sx={{ borderRadius: 2 }} maxWidth="sm" fullWidth>
@@ -183,32 +181,32 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                         <InputError className="mt-2" message={form.errors["payment_method"]} />
                     </div>
                     <div className="flex flex-col ">
-                    <div className="flex justify-center mt-4 ">
-                        <div className=" sm:-mx-6 lg:-mx-8">
-                            <table className="table-auto font-light">
-                                <thead className="text-2xl">
-                                    <tr>
-                                    <th>Tagihan</th>
-                                    <th>Harga</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    <td className="text-lg pr-10">Harga per Tiket</td>
-                                    <td>Rp. {promo?.price.toLocaleString() || 0}</td>
-                                    </tr>
-                                    <tr>
-                                    <td className="text-lg pr-10">Biaya Langganan</td>
-                                    <td>Rp. {adminFee?.toLocaleString()}</td>
-                                    </tr>
-                                    <tr>
-                                    <td className="text-lg pr-10">Jumlah Harga</td>
-                                    <td>Rp. {(promo?.price! * form.data.ticket_amount).toLocaleString()}</td>
-                                    </tr>
-                                </tbody >
+                        <div className="flex justify-start mt-4 ">
+                            <div className="">
+                                <table className="table-auto font-light">
+                                    <thead className="text-2xl">
+                                        <tr>
+                                            <th>Tagihan</th>
+                                            <th>Harga</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="text-lg pr-10">Harga per Tiket</td>
+                                            <td>Rp. {promo?.price.toLocaleString() || 0}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-lg pr-10">Biaya Langganan</td>
+                                            <td>Rp. {adminFee?.toLocaleString()}</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="text-lg pr-10">Jumlah Harga</td>
+                                            <td>Rp. {(promo?.price! * form.data.ticket_amount).toLocaleString()}</td>
+                                        </tr>
+                                    </tbody >
                                     <tr className="border-gray-500 border-dashed border-t-2 mt-5 py-3">
-                                    <td className="text-lg pr-10">Total Pembayaran</td>
-                                    <td>Rp. {form.data.total_price.toLocaleString()}</td>
+                                        <td className="text-lg pr-10">Total Pembayaran</td>
+                                        <td>Rp. {form.data.total_price.toLocaleString()}</td>
                                     </tr>
                                 </table>
                             </div>
@@ -231,9 +229,15 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                     )}
                 </div>
                 {form.hasErrors && (
-                    <div className="flex justify-center">
+                    <div className="text-center">
                         <div className="text-xl text-red-500">
                             Terjadi kesalahan, silahkan coba lagi
+                        </div>
+                        <div className="text-xl text-red-500">
+                            {
+                                // @ts-ignore
+                                form.errors[0]
+                            }
                         </div>
                     </div>
                 )}

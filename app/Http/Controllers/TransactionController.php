@@ -11,7 +11,7 @@ use Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NotifyMail;
 
@@ -58,39 +58,45 @@ class TransactionController extends Controller
                 'email' => ['required', 'email'],
                 'phone_number' => ['required', 'string', 'max:255', 'regex:(08)'],
                 'ticket_amount' => ['required', 'numeric', 'max:5', 'min:1'],
-                'tickets_category' => 'required',
+                'promo_id' => ['required' , 'numeric'],
+                // 'tickets_category' => 'required',
                 // 'total_price' => 'required',
                 'payment_method' => 'required',
             ]);
+
             
             $check_user_ticket_limit = Transaction::where(['phone_number' => $request->phone_number, 'email' => $request->email])->pluck('total_tickets');
             $data = $check_user_ticket_limit->toArray();
-            $maximum_ticket = array_sum($data); 
+            $maximum_ticket = array_sum($data) + $request->ticket_amount; 
 
-            $check_sisa_tiket = Promo::where('name', $request->tickets_category)->first();
-            if ((int)$request->ticket_amount > (int)$check_sisa_tiket->stocks) {
-                return redirect()->route('home')->banner('Tiket yang tersedia tidak cukup dengan jumlah yang ingin anda beli');
+
+
+            $promo_tiket = Promo::find($request->promo_id);
+            if ((int)$request->ticket_amount > (int)$promo_tiket->stocks) {
+                throw ValidationException::withMessages(['Tiket yang tersedia tidak cukup dengan jumlah yang ingin anda beli']);
             }
 
             if ($maximum_ticket >= 5){
-                return redirect()->route('home')->banner('Anda sudah kena limit tiket');
+                throw ValidationException::withMessages(['Sisa Tiket yang dapat anda beli hanya sebanyak '.$maximum_ticket-5 . ' Tiket lagi!']);
+            }
 
             //count all total transactions (include discount)
-            $get_ticket_price = Promo::where('id', $request->promo_id)->get()->first();
-            $check_discount = Discount::where('promo_id', $request->id)->get()->first();
+            $check_discount = Discount::where('promo_id', $request->promo_id)->where('quota', '>', 0)->get()->first();
             if($check_discount){
                 if($check_discount->type == 'Absolute'){
-                    $totals = ($get_ticket_price->price * $request->ticket_amount) - $check_discount->deduction;
+                    $totals = ($promo_tiket->price * $request->ticket_amount) - $check_discount->deduction;
                 }else if($check_discount->type == 'Percentage'){
-                    $totals = ($get_ticket_price->price * $request->ticket_amount) - (($get_ticket_price->price * $request->ticket_amount) * ($check_discount->deduction / 100));
+                    $totals = ($promo_tiket->price * $request->ticket_amount) - (($promo_tiket->price * $request->ticket_amount) * ($check_discount->deduction / 100));
                 }
+                $check_discount->decrement('quota');
+
             }else{
-                $totals = $get_ticket_price->price * $request->ticket_amount;
+                $totals = $promo_tiket->price * $request->ticket_amount;
             }
 
             $check_payment_methods = $request->payment_method;
             $secret_key = 'Basic '.config('xendit.key_auth');
-            $transaction_id = Str::random(5);
+                $transaction_id = Str::random(5);
             // $external_id = Str::random(5); //id transaksi
 
             if ($check_payment_methods == 'Transfer Bank (VA)')
@@ -112,7 +118,7 @@ class TransactionController extends Controller
                     'email' => $request->email,
                     'phone_number' => $request->phone_number,
                     'total_tickets' => $request->ticket_amount,
-                    'tickets_category' => $request->tickets_category,
+                    'tickets_category' => $promo_tiket->name,
                     'total_amount' => $totals+(7000*$request->ticket_amount),
                     'payment_status' => $response->status,
                     'payment_method' => $request->payment_method,
@@ -152,7 +158,7 @@ class TransactionController extends Controller
                     'email' => $request->email,
                     'phone_number' => $request->phone_number,
                     'total_tickets' => $request->ticket_amount,
-                    'tickets_category' => $request->tickets_category,
+                    'tickets_category' => $promo_tiket->name,
                     'total_amount' => $totals+2500+($totals * (1.5 / 100)),
                     'payment_status' => $response->status,
                     'payment_method' => $request->payment_method,
@@ -166,7 +172,7 @@ class TransactionController extends Controller
                     'no_hp' => $request->phone_number,
                     'email' => $request->email,
                     'jumlah_tiket' => $request->ticket_amount,
-                    'jenis_tiket' => $request->tickets_category,
+                    'jenis_tiket' => $promo_tiket->name,
                     'total_pembelian' => $totals+2500+($totals * (1.5 / 100)),
                     'metode_pembayaran' => $request->payment_method,
                     'status_pembayaran' => $response->status,
@@ -192,7 +198,7 @@ class TransactionController extends Controller
                     'email' => $request->email,
                     'phone_number' => $request->phone_number,
                     'total_tickets' => $request->ticket_amount,
-                    'tickets_category' => $request->tickets_category,
+                    'tickets_category' => $promo_tiket->name,
                     'total_amount' => $totals+2500+($totals * (0.7 / 100)),
                     'payment_status' => $response->status,
                     'payment_method' => $request->payment_method,
@@ -206,7 +212,7 @@ class TransactionController extends Controller
                     'no_hp' => $request->phone_number,
                     'email' => $request->email,
                     'jumlah_tiket' => $request->ticket_amount,
-                    'jenis_tiket' => $request->tickets_category,
+                    'jenis_tiket' => $promo_tiket->name,
                     'total_pembelian' => $totals+2500+($totals * (0.7 / 100)),
                     'metode_pembayaran' => $request->payment_method,
                     'status_pembayaran' => $response->status,
@@ -224,7 +230,7 @@ class TransactionController extends Controller
             //     'email' => $request->email,
             //     'phone_number' => $request->phone_number,
             //     'total_tickets' => $request->ticket_amount,
-            //     'tickets_category' => $request->tickets_category,
+            //     'tickets_category' => $promo_tiket->name,
             //     'total_amount' => $request->total_price,
             //     'payment_status' => $response->status,
             //     'payment_method' => $request->payment_method,
@@ -238,7 +244,7 @@ class TransactionController extends Controller
             //     'no_hp' => $request->phone_number,
             //     'email' => $request->email,
             //     'jumlah_tiket' => $request->ticket_amount,
-            //     'jenis_tiket' => $request->tickets_category,
+            //     'jenis_tiket' => $promo_tiket->name,
             //     'total_pembelian' => $request->total_price,
             //     'metode_pembayaran' => $request->payment_method,
             //     'status_pembayaran' => $response->status,
@@ -246,16 +252,15 @@ class TransactionController extends Controller
             // ];
             // Mail::to($request->email)->send(new NotifyMail($mailData));
 
-            $promo = Promo::where('name', $request->tickets_category)->get()[0];
-            $promo->stocks = (int)$promo->stocks - (int)$request->ticket_amount;
-            $promo->save();
+            $promo_tiket->stocks = (int)$promo_tiket->stocks - (int)$request->ticket_amount;
+            $promo_tiket->save();
             
             return response('', 409)
                 ->header('X-Inertia-Location', $response->invoice_url);
             // return json_encode($response->invoice_url);
             }
-    
-        }
+        
+        
     );   
     
     }
