@@ -7,6 +7,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\DiscountController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -53,7 +54,7 @@ Route::middleware([
 
 
         Route::resource('/promo', PromoController::class);
-
+        Route::resource('/discount', DiscountController::class);
         Route::resource('/event', EventController::class);
         Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
         Route::resource('/ticket', TicketController::class);
