@@ -6,13 +6,15 @@ import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
 import Form from './Form';
 import { DiscountCreateModel } from '@/Models/Discount';
+import { PromoModel } from '@/Models/Promo';
 
 
 interface Props {
     discount: DiscountCreateModel;
+    promos: Array<PromoModel>
 }
 
-export default function Edit({ discount }: Props) {
+export default function Edit({ discount, promos }: Props) {
     let form = useForm<DiscountCreateModel>(
         {
             ...discount,
@@ -57,6 +59,7 @@ export default function Edit({ discount }: Props) {
                             <Form
                                 form={form}
                                 className="my-5"
+                                promos={promos}
                             />
                             <button
                                 className="bg-yellow-500 text-white hover:bg-yellow-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2 w-full"

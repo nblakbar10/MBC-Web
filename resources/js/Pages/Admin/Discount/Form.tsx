@@ -5,18 +5,37 @@ import TextInput from '@/Components/Jetstream/TextInput';
 import { InertiaFormProps } from '@inertiajs/inertia-react';
 import { InputLabel } from '@mui/material';
 import { DiscountCreateModel } from '@/Models/Discount';
+import { PromoModel } from '@/Models/Promo';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
     form: InertiaFormProps<DiscountCreateModel>,
     className?: string,
+    promos : Array<PromoModel>
 }
 
-export default function Form(props: Props) {
+export default function Form({form, className, promos}: Props) {
 
-    let form = props.form;
+
+    const numberInputHandler = (
+        val: string,
+        form: InertiaFormProps<DiscountCreateModel>,
+        column: keyof DiscountCreateModel,
+        max : number = 999999999,
+    ) => { 
+        const value = parseInt(val, 10);
+        if (isNaN(value)) {
+            form.setData(column, 0);
+        } else if (value > (max)) {
+            form.setData(column, max);
+        } else if (value < 0) {
+            form.setData(column, 0);
+        } else {
+            form.setData(column, value);
+        }
+    }
 
     return (
-        <div className={`flex-col gap-5 ${props.className}`}>
+        <div className={`flex-col gap-5 ${className}`}>
             <div className="form-control w-full mt-4">
                 <InputLabel htmlFor="name">Nama Promo</InputLabel>
                 <TextInput
@@ -62,7 +81,7 @@ export default function Form(props: Props) {
                     id="type"
                     className="mt-1 block w-full rounded-sm"
                     value={form.data.type}
-                    onChange={e => form.setData('type', e.currentTarget.value as "Percentage" | "Absolute")}
+                    onChange={e => form.setData('type', e.currentTarget.value as "Absolute" | "Percentage")}
                     required
                     autoFocus
                 >
@@ -72,17 +91,19 @@ export default function Form(props: Props) {
                 <InputError className="mt-2" message={form.errors.type} />
             </div>
             <div className="form-control w-full mt-4">
-                <InputLabel htmlFor="minimum_order">Promo Id</InputLabel>
-                <TextInput
+                <InputLabel htmlFor="minimum_order">Promo Tiket</InputLabel>
+                <select 
                     id="promo_id"
-                    type="number"
-                    className="mt-1 block w-full"
+                    className="mt-1 block w-full rounded-sm"
                     value={form.data.promo_id}
                     onChange={e => form.setData('promo_id', Number(e.currentTarget.value))}
                     required
                     autoFocus
-                    autoComplete="promo_id"
-                />
+                >
+                    {promos.map((promo) => (
+                        <option value={promo.id}>{promo.name}</option>
+                    ))}
+                </select>
                 <InputError className="mt-2" message={form.errors.promo_id} />
             </div>
             <div className="form-control w-full mt-4">
@@ -92,7 +113,11 @@ export default function Form(props: Props) {
                     type="number"
                     className="mt-1 block w-full"
                     value={form.data.quota}
-                    onChange={e => form.setData('quota', Number(e.currentTarget.value))}
+                    onChange={e => numberInputHandler(
+                        e.target.value,
+                        form,
+                        'quota'
+                    )}
                     required
                     autoFocus
                     autoComplete="quota"
@@ -103,10 +128,15 @@ export default function Form(props: Props) {
                 <InputLabel htmlFor="deduction">Deduction</InputLabel>
                 <TextInput
                     id="deduction"
-                    type="text"
+                    type="number"
                     className="mt-1 block w-full"
                     value={form.data.deduction}
-                    onChange={e => form.setData('deduction', Number(e.currentTarget.value))}
+                    onChange={e => numberInputHandler(
+                        e.target.value,
+                        form,
+                        'deduction',
+                    )}
+                    max={(form.data.type === 'Percentage' ? 100 : undefined)}
                     required
                     autoFocus
                     autoComplete="deduction"

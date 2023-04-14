@@ -34,7 +34,9 @@ class DiscountController extends Controller
     public function create()
     {
         //
+        $promos = Promo::all();
         return Inertia::render('Admin/Discount/Create', [
+            'promos' => $promos,
         ]);
     }
 
@@ -80,8 +82,10 @@ class DiscountController extends Controller
     public function edit($id)
     {
         $discount = Discount::find($id);
+        $promos = Promo::all();
         return Inertia::render('Admin/Discount/Edit', [
             'discount' => $discount,
+            'promos' => $promos,
         ]);
     }
 

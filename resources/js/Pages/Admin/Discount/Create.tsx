@@ -6,9 +6,13 @@ import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
 import Form from './Form';
 import { DiscountCreateModel } from '@/Models/Discount';
+import { PromoModel } from '@/Models/Promo';
 
+interface Props {
+    promos: Array<PromoModel>
+}
 
-export default function Create() {
+export default function Create({ promos }: Props) {
     let form = useForm<DiscountCreateModel>(
         {
             name: '',
@@ -52,6 +56,7 @@ export default function Create() {
                         <Form
                             form={form}
                             className="my-5 mx-2"
+                            promos={promos}
                         />
                         <div className="flex justify-end">
                             <button
