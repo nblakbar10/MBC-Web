@@ -182,35 +182,41 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                         </select>
                         <InputError className="mt-2" message={form.errors["payment_method"]} />
                     </div>
-                    <div className="flex flex-col ">
-                    <div className="flex justify-center mt-4 ">
-                        <div className=" sm:-mx-6 lg:-mx-8">
-                            <table className="table-auto font-light">
-                                <thead className="text-2xl">
-                                    <tr>
-                                    <th>Tagihan</th>
-                                    <th>Harga</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    <td className="text-lg pr-10">Harga per Tiket</td>
-                                    <td>Rp. {promo?.price.toLocaleString() || 0}</td>
-                                    </tr>
-                                    <tr>
-                                    <td className="text-lg pr-10">Biaya Langganan</td>
-                                    <td>Rp. {adminFee?.toLocaleString()}</td>
-                                    </tr>
-                                    <tr>
-                                    <td className="text-lg pr-10">Jumlah Harga</td>
-                                    <td>Rp. {(promo?.price! * form.data.ticket_amount).toLocaleString()}</td>
-                                    </tr>
-                                </tbody >
-                                    <tr className="border-gray-500 border-dashed border-t-2 mt-5 py-3">
-                                    <td className="text-lg pr-10">Total Pembayaran</td>
-                                    <td>Rp. {form.data.total_price.toLocaleString()}</td>
-                                    </tr>
-                                </table>
+                    <div className="flex justify-center">
+                        <div className="grid grid-cols-3 gap-3 justify-center">
+                            <div className="flex flex-col">
+                                <div className="font-bold text-center">
+                                    Harga per Tiket
+                                </div>
+                                <div className="text-center">
+                                    Rp. {promo?.price.toLocaleString() || 0}
+                                </div>
+                            </div>
+                            <div>
+                                <div className="font-bold text-center">
+                                    Biaya Langganan
+                                </div>
+                                <div className="text-center">
+                                    Rp. {adminFee?.toLocaleString()}
+                                </div>
+                            </div>
+                            <div>
+                                <div className="font-bold text-center">
+                                    Jumlah Harga
+                                </div>
+                                <div className="text-center">
+                                    Rp. {(promo?.price! * form.data.ticket_amount).toLocaleString()}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="flex justify-center">
+                        <div className="text-xl">
+                            <div className="font-bold text-center">
+                                Total Pembayaran
+                            </div>
+                            <div className="text-center">
+                                Rp. {form.data.total_price.toLocaleString()}
                             </div>
                         </div>
                     </div>
