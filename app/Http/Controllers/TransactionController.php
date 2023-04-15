@@ -26,6 +26,7 @@ class TransactionController extends Controller
     {
         //
         $transactions = Transaction::all();
+        $discounts = Discount::where('promo_id', $transactions->id)->get();
         // $transactions = Transaction::all();
         // dd($transactions);  
         return Inertia::render('Admin/Transaction/Index', [
@@ -66,9 +67,9 @@ class TransactionController extends Controller
 
             
             $check_user_ticket_limit = Transaction::where(['phone_number' => $request->phone_number, 'email' => $request->email])->pluck('total_tickets');
-            $data = $check_user_ticket_limit->toArray();
-            $maximum_ticket = array_sum($data) + $request->ticket_amount; 
-
+            $data = array_sum($check_user_ticket_limit->toArray());
+            $maximum_ticket = $data + $request->ticket_amount; 
+            
 
 
             $promo_tiket = Promo::find($request->promo_id);
@@ -76,8 +77,8 @@ class TransactionController extends Controller
                 throw ValidationException::withMessages(['Tiket yang tersedia tidak cukup dengan jumlah yang ingin anda beli']);
             }
 
-            if ($maximum_ticket >= 5){
-                throw ValidationException::withMessages(['Sisa Tiket yang dapat anda beli hanya sebanyak '.$maximum_ticket-5 . ' Tiket lagi!']);
+            if ($maximum_ticket > 5){
+                throw ValidationException::withMessages(['Sisa Tiket yang dapat anda beli hanya sebanyak '. (5-$data) . ' Tiket lagi!']);
             }
 
             //count all total transactions (include discount)
@@ -85,6 +86,7 @@ class TransactionController extends Controller
             if($check_discount){
                 if($check_discount->type == 'Absolute'){
                     $totals = ($promo_tiket->price * $request->ticket_amount) - $check_discount->deduction;
+
                 }else if($check_discount->type == 'Percentage'){
                     $totals = ($promo_tiket->price * $request->ticket_amount) - (($promo_tiket->price * $request->ticket_amount) * ($check_discount->deduction / 100));
                 }
@@ -223,38 +225,6 @@ class TransactionController extends Controller
                 ];
                 Mail::to($request->email)->send(new NotifyMail($mailData));
             }
-            
-            // $response = $data_request->object();
-
-            // Transaction::create([
-            //     'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
-            //     // 'user_id' => $request->user_id,
-            //     'name' => $request->name,
-            //     'email' => $request->email,
-            //     'phone_number' => $request->phone_number,
-            //     'total_tickets' => $request->ticket_amount,
-            //     'tickets_category' => $promo_tiket->name,
-            //     'total_amount' => $request->total_price,
-            //     'payment_status' => $response->status,
-            //     'payment_method' => $request->payment_method,
-            //     'payment_link' => $response->invoice_url,
-            // ]);
-
-            // //sent email :
-            // $mailData = [
-            //     'to' => $request->name.' !',
-            //     'nama' => $request->name,
-            //     'no_hp' => $request->phone_number,
-            //     'email' => $request->email,
-            //     'jumlah_tiket' => $request->ticket_amount,
-            //     'jenis_tiket' => $promo_tiket->name,
-            //     'total_pembelian' => $request->total_price,
-            //     'metode_pembayaran' => $request->payment_method,
-            //     'status_pembayaran' => $response->status,
-            //     'link' => $response->invoice_url
-            // ];
-            // Mail::to($request->email)->send(new NotifyMail($mailData));
-
             $promo_tiket->stocks = (int)$promo_tiket->stocks - (int)$request->ticket_amount;
             $promo_tiket->save();
             
@@ -264,7 +234,10 @@ class TransactionController extends Controller
             }
         
         
-    );   
+        );   
+
+        // $tests = Discount::leftjoin('promos', 'promos.id', 'promo_id')->select('discount.*', 'promos.*')->get(); //->where('discount.promo_id', 'id')
+        // dd($tests);
     
     }
 
