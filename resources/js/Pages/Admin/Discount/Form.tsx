@@ -33,6 +33,7 @@ export default function Form({form, className, promos}: Props) {
             form.setData(column, value);
         }
     }
+    console.log(form.data)
 
     return (
         <div className={`flex-col gap-5 ${className}`}>
@@ -91,8 +92,8 @@ export default function Form({form, className, promos}: Props) {
                 <InputError className="mt-2" message={form.errors.type} />
             </div>
             <div className="form-control w-full mt-4">
-                <InputLabel htmlFor="minimum_order">Promo Tiket</InputLabel>
-                <select 
+                <InputLabel htmlFor="promo_id">Promo Tiket</InputLabel>
+                {/* <select 
                     id="promo_id"
                     className="mt-1 block w-full rounded-sm"
                     value={form.data.promo_id}
@@ -103,7 +104,21 @@ export default function Form({form, className, promos}: Props) {
                     {promos.map((promo) => (
                         <option value={promo.id}>{promo.name}</option>
                     ))}
-                </select>
+                </select> */}
+                <TextInput
+                    id="promo_id"
+                    type="number"
+                    className="mt-1 block w-full"
+                    value={form.data.promo_id}
+                    onChange={e => numberInputHandler(
+                        e.target.value,
+                        form,
+                        'promo_id'
+                    )}
+                    required
+                    autoFocus
+                    autoComplete="promo_id"
+                />
                 <InputError className="mt-2" message={form.errors.promo_id} />
             </div>
             <div className="form-control w-full mt-4">

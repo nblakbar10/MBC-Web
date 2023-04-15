@@ -48,6 +48,7 @@ class DiscountController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all);
         Discount::create([
             'promo_id' => $request->promo_id,
             'name' => $request->name,
