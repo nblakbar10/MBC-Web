@@ -251,8 +251,8 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                             ) +
                                             (adminFee * form.data.ticket_amount) + 
                                             (
-                                                form.data.payment_method === 'Transfer Bank (VA) - 4500' ? 4500 :
-                                                    form.data.payment_method === 'DANA - 1.5%' ? (
+                                                form.data.payment_method === 'Transfer Bank (VA)' ? 4500 :
+                                                    form.data.payment_method === 'DANA' ? (
                                                         (
                                                             (
                                                                 (
