@@ -183,7 +183,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                         >
                             <option value="Transfer Bank (VA)">Transfer Bank (VA) - Rp.     4500</option>
                             <option value="DANA">DANA - 1.5%</option>
-                            <option value="QRIS">QRIS - 0.7%</option>
+                            {/* <option value="QRIS">QRIS - 0.7%</option> */}
                         </select>
                         <InputError className="mt-2" message={form.errors["payment_method"]} />
                     </div>
