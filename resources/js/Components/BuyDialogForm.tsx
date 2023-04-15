@@ -8,6 +8,8 @@ import TextInput from "./Jetstream/TextInput";
 import route from "ziggy-js";
 import { PromoModel } from "@/Models/Promo";
 import InputError from "./Jetstream/InputError";
+import { DiscountModel } from "@/Models/Discount";
+import { max } from "lodash";
 
 interface Props {
     open: boolean;
@@ -16,10 +18,11 @@ interface Props {
     setXenditLinkHandler: (link: string) => void;
     price?: number;
     promo: PromoModel | null;
+    discounts: Array<DiscountModel>
 }
 
 
-export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, promo }: Props) {
+export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, promo, discounts }: Props) {
     const form = useForm({
         name: '',
         email: '',
@@ -33,9 +36,13 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
     const adminFee = 2500;
 
+    console.log(discounts);
+
+    const [filteredDiscount, setFilteredDiscount] = React.useState<DiscountModel>();
     useEffect(() => {
         // form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
         form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount));
+        setFilteredDiscount(discounts.filter(discount => discount.minimum_order <= form.data.ticket_amount).sort((a, b) => b.minimum_order - a.minimum_order)[0]);
     }, [form.data.ticket_amount]);
 
     useEffect(() => {
@@ -166,7 +173,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                         <InputError className="mt-2" message={form.errors["ticket_amount"]} />
                     </div>
                     <div className="form-control w-full mt-4">
-                        <InputLabel htmlFor="payment_method">Metode Pembayaran</InputLabel>
+                        <InputLabel htmlFor="payment_method">Metode Pembayaran (Pajak Transaksi)</InputLabel>
                         <select
                             id="payment_method"
                             className="mt-1 block w-full"
@@ -174,9 +181,9 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             onChange={e => form.setData('payment_method', e.currentTarget.value)}
                             required
                         >
-                            <option value="Transfer Bank (VA)">Transfer Bank (VA)</option>
-                            <option value="DANA">DANA</option>
-                            <option value="QRIS">QRIS</option>
+                            <option value="Transfer Bank (VA)">Transfer Bank (VA) - Rp.     4500</option>
+                            <option value="DANA">DANA - 1.5%</option>
+                            <option value="QRIS">QRIS - 0.7%</option>
                         </select>
                         <InputError className="mt-2" message={form.errors["payment_method"]} />
                     </div>
@@ -193,20 +200,95 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                     <tbody>
                                         <tr>
                                             <td className="text-lg pr-10">Harga per Tiket</td>
-                                            <td>Rp. {promo?.price.toLocaleString() || 0}</td>
+                                            <td>Rp. {(
+                                                filteredDiscount && promo ? (
+                                                    filteredDiscount.type === 'Percentage' ?
+                                                        promo.price - (promo!.price *
+                                                            (filteredDiscount.deduction / 100)
+                                                        ) :
+                                                        promo.price - filteredDiscount.deduction
+                                                ) :
+                                                    promo?.price || 0
+                                            ).toLocaleString() || 0}</td>
                                         </tr>
                                         <tr>
-                                            <td className="text-lg pr-10">Biaya Langganan</td>
+                                            <td className="text-lg pr-10">Biaya Admin</td>
                                             <td>Rp. {adminFee?.toLocaleString()}</td>
                                         </tr>
                                         <tr>
                                             <td className="text-lg pr-10">Jumlah Harga</td>
-                                            <td>Rp. {(promo?.price! * form.data.ticket_amount).toLocaleString()}</td>
+                                            <td>Rp. {(
+                                                (
+                                                    (
+                                                        filteredDiscount && promo ? (
+                                                            filteredDiscount.type === 'Percentage' ?
+                                                                promo.price - (promo!.price *
+                                                                    (filteredDiscount.deduction / 100)
+                                                                ) :
+                                                                promo.price - filteredDiscount.deduction
+                                                        ) :
+                                                            promo?.price || 0
+                                                    ) * form.data.ticket_amount
+                                                ) +
+                                                (adminFee * form.data.ticket_amount)
+                                            ).toLocaleString()}</td>
                                         </tr>
                                     </tbody >
                                     <tr className="border-gray-500 border-dashed border-t-2 mt-5 py-3">
-                                        <td className="text-lg pr-10">Total Pembayaran</td>
-                                        <td>Rp. {form.data.total_price.toLocaleString()}</td>
+                                        <td className="text-lg pr-10">Total Pembayaran Termasuk Pajak</td>
+                                        <td>Rp. {(
+                                            (
+                                                (
+                                                    filteredDiscount && promo ? (
+                                                        filteredDiscount.type === 'Percentage' ?
+                                                            promo.price - (promo!.price *
+                                                                (filteredDiscount.deduction / 100)
+                                                            ) :
+                                                            promo.price - filteredDiscount.deduction
+                                                    ) :
+                                                        promo?.price || 0
+                                                ) * form.data.ticket_amount
+                                            ) +
+                                            (adminFee * form.data.ticket_amount) + 
+                                            (
+                                                form.data.payment_method === 'Transfer Bank (VA) - 4500' ? 4500 :
+                                                    form.data.payment_method === 'DANA - 1.5%' ? (
+                                                        (
+                                                            (
+                                                                (
+                                                                    filteredDiscount && promo ? (
+                                                                        filteredDiscount.type === 'Percentage' ?
+                                                                            promo.price - (promo!.price *
+                                                                                (filteredDiscount.deduction / 100)
+                                                                            ) :
+                                                                            promo.price - filteredDiscount.deduction
+                                                                    ) :
+                                                                        promo?.price || 0
+                                                                ) * form.data.ticket_amount
+                                                            ) +
+                                                            (adminFee * form.data.ticket_amount)
+                                                        ) * 0.015
+                                                    ) :
+                                                        form.data.payment_method === 'QRIS - 0.7%' ? (
+                                                            (
+                                                                (
+                                                                    (
+                                                                        filteredDiscount && promo ? (
+                                                                            filteredDiscount.type === 'Percentage' ?
+                                                                                promo.price - (promo!.price *
+                                                                                    (filteredDiscount.deduction / 100)
+                                                                                ) :
+                                                                                promo.price - filteredDiscount.deduction
+                                                                        ) :
+                                                                            promo?.price || 0
+                                                                    ) * form.data.ticket_amount
+                                                                ) +
+                                                                (adminFee * form.data.ticket_amount)
+                                                            ) * 0.007
+                                                        ) : 0
+                                            )
+                                            
+                                        ).toLocaleString()}</td>
                                     </tr>
                                 </table>
                             </div>

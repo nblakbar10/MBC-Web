@@ -6,6 +6,7 @@ import { PromoModel } from "@/Models/Promo";
 import { Tab, Tabs } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ConfirmationNumberRoundedIcon from '@mui/icons-material/ConfirmationNumberRounded';
+import { DiscountModel } from "@/Models/Discount";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -42,9 +43,10 @@ function a11yProps(index: number) {
 
 interface Props {
     promos: Array<PromoModel>
+    discounts: Array<DiscountModel>
 }
 
-export default function Home({ promos }: Props) {
+export default function Home({ promos, discounts }: Props) {
     const [openForm, setOpenForm] = useState(false);
     // const handleOpenForm = () => setOpenForm(true);
     // const handleCloseForm = () => setOpenForm(false);
@@ -62,7 +64,8 @@ export default function Home({ promos }: Props) {
     const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
         setTabValue(newValue);
     };
-
+    console.log(discounts);
+    
     const handleSelectPromo = (newValue: PromoModel) => {
         setSelectedPromo(newValue);
     }
@@ -192,7 +195,18 @@ export default function Home({ promos }: Props) {
                     </div>
                 </div>
             </div>
-            <BuyDialogForm open={openForm} closeHandler={removeSelectedPromo} checkOutOpenHandler={handleOpenCheckOut} setXenditLinkHandler={setXenditLink} promo={selectedPromo} />
+            <BuyDialogForm
+                open={openForm}
+                closeHandler={removeSelectedPromo}
+                checkOutOpenHandler={handleOpenCheckOut}
+                setXenditLinkHandler={setXenditLink}
+                promo={selectedPromo}
+                discounts={
+                    discounts.filter(
+                        (discount) => discount.promo_id === selectedPromo?.id
+                    ).sort((a, b) => a.minimum_order - b.minimum_order)
+                }
+            />
             <CheckOutModal open={openCheckOut} closeHandler={handleCloseCheckOut} xenditLink={xenditLink} />
         </AppLayout>
     )

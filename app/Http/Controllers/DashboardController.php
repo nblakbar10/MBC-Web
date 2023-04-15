@@ -19,20 +19,20 @@ class DashboardController extends Controller
         $users_count = User::all()->count();
         // $event_count = Event::all()->count();
         $transaction_count = Transaction::all()->count();
-        $discount = Discount::all();
         return Inertia::render('Admin/Dashboard', [
             'users_count' => $users_count,
             // 'event_count' => $event_count,
             'transaction_count' => $transaction_count,
-            'discount' => $discount
         ]);
 
     }
 
     public function home(){
         $promos = Promo::all();
+        $discounts = Discount::all();
         return Inertia::render('Home', [
             'promos' => $promos,
+            'discounts' => $discounts
         ]);
 
     }
