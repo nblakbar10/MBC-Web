@@ -35,7 +35,8 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
     const adminFee = 2500;
 
     useEffect(() => {
-        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
+        // form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
+        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount));
     }, [form.data.ticket_amount]);
 
     useEffect(() => {
