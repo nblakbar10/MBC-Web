@@ -82,21 +82,28 @@ class TransactionController extends Controller
             }
 
             //count all total transactions (include discount)
-            $check_discount = Discount::where('promo_id', $request->promo_id)->where('quota', '>', 0)->get()->first();
+            $check_discount = Discount::where('promo_id', $request->promo_id)->where('quota','>', 0)->get()->first();
+
+            // $totals = '';
             if($check_discount){
                 if($check_discount->type == 'Absolute'){
-                    $totals = ($promo_tiket->price * $request->ticket_amount) - $check_discount->deduction;
+                    $totals = ($promo_tiket->price * $request->ticket_amount) - $check_discount->deduction*$request->ticket_amount;
+                    
 
                 }else if($check_discount->type == 'Percentage'){
-                    $totals = ($promo_tiket->price * $request->ticket_amount) - (($promo_tiket->price * $request->ticket_amount) * ($check_discount->deduction / 100));
+                    $totals = ($promo_tiket->price * $request->ticket_amount) - (($promo_tiket->price * $request->ticket_amount) * ($check_discount->deduction / 100)*$request->ticket_amount);
+                    
                 }
                 $check_discount->decrement('quota');
 
             }else{
                 $totals = $promo_tiket->price * $request->ticket_amount;
+                
             }
 
             $platform_fee = 2500*$request->ticket_amount;
+
+            // dd($totals);
 
             $check_payment_methods = $request->payment_method;
             $secret_key = 'Basic '.config('xendit.key_auth');
@@ -231,15 +238,16 @@ class TransactionController extends Controller
             return response('', 409)
                 ->header('X-Inertia-Location', $response->invoice_url);
             // return json_encode($response->invoice_url);
-            }
+            
         
         
-        );   
-
+        });
+    
         // $tests = Discount::leftjoin('promos', 'promos.id', 'promo_id')->select('discount.*', 'promos.*')->get(); //->where('discount.promo_id', 'id')
         // dd($tests);
     
     }
+    
 
     /**
      * Display the specified resource.
