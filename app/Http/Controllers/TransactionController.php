@@ -110,7 +110,7 @@ class TransactionController extends Controller
                 ])->post('https://api.xendit.co/v2/invoices', [
                     // 'transaction_id' => $transaction_id,
                     'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
-                    'amount' => ($totals*$request->ticket_amount)+4500+$platform_fee, //$request->total_price,
+                    'amount' => ($totals)+4500+$platform_fee, //$request->total_price,
                     'payment_methods' => ['BNI', 'BRI', 'BSI', 'BJB', 'MANDIRI', 'PERMATA']
                 ]);
                 $response = $data_request->object();
@@ -124,7 +124,7 @@ class TransactionController extends Controller
                     'phone_number' => $request->phone_number,
                     'total_tickets' => $request->ticket_amount,
                     'tickets_category' => $promo_tiket->name,
-                    'total_amount' => ($totals*$request->ticket_amount)+4500+$platform_fee, //($totals*$request->ticket_amount)+(4500*$request->ticket_amount)+$platform_fee,
+                    'total_amount' => ($totals)+4500+$platform_fee, //($totals*$request->ticket_amount)+(4500*$request->ticket_amount)+$platform_fee,
                     'payment_status' => $response->status,
                     'payment_method' => $request->payment_method,
                     'payment_link' => $response->invoice_url,
@@ -138,7 +138,7 @@ class TransactionController extends Controller
                     'email' => $request->email,
                     'jumlah_tiket' => $request->ticket_amount,
                     'jenis_tiket' => $request->tickets_category,
-                    'total_pembelian' => ($totals*$request->ticket_amount)+4500+$platform_fee,
+                    'total_pembelian' => ($totals)+4500+$platform_fee,
                     'metode_pembayaran' => $request->payment_method,
                     'status_pembayaran' => $response->status,
                     'link' => $response->invoice_url
@@ -151,7 +151,7 @@ class TransactionController extends Controller
                 ])->post('https://api.xendit.co/v2/invoices', [
                     // 'transaction_id' => $transaction_id,
                     'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
-                    'amount' => $totals+$totals * (1.5 / 100)+$platform_fee, //$request->total_price, +(2500*$request->ticket_amount)
+                    'amount' => $totals+ ($totals * (1.5 / 100))+$platform_fee, //$request->total_price, +(2500*$request->ticket_amount)
                     'payment_methods' => ['DANA']
                 ]);
                 $response = $data_request->object();
@@ -164,7 +164,7 @@ class TransactionController extends Controller
                     'phone_number' => $request->phone_number,
                     'total_tickets' => $request->ticket_amount,
                     'tickets_category' => $promo_tiket->name,
-                    'total_amount' => $totals+$totals * (1.5 / 100)+$platform_fee,
+                    'total_amount' => $totals+($totals * (1.5 / 100))+$platform_fee,
                     'payment_status' => $response->status,
                     'payment_method' => $request->payment_method,
                     'payment_link' => $response->invoice_url,
@@ -178,7 +178,7 @@ class TransactionController extends Controller
                     'email' => $request->email,
                     'jumlah_tiket' => $request->ticket_amount,
                     'jenis_tiket' => $promo_tiket->name,
-                    'total_pembelian' => $totals+$totals * (1.5 / 100)+$platform_fee,
+                    'total_pembelian' => $totals+($totals * (1.5 / 100))+$platform_fee,
                     'metode_pembayaran' => $request->payment_method,
                     'status_pembayaran' => $response->status,
                     'link' => $response->invoice_url
@@ -191,7 +191,7 @@ class TransactionController extends Controller
                 ])->post('https://api.xendit.co/v2/invoices', [
                     // 'transaction_id' => $transaction_id,
                     'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
-                    'amount' => $totals+$totals * (0.7 / 100)+$platform_fee, //$request->total_price,
+                    'amount' => $totals+($totals * (0.7 / 100))+$platform_fee, //$request->total_price,
                     'payment_methods' => ['QRIS']
                 ]);
                 $response = $data_request->object();
@@ -204,7 +204,7 @@ class TransactionController extends Controller
                     'phone_number' => $request->phone_number,
                     'total_tickets' => $request->ticket_amount,
                     'tickets_category' => $promo_tiket->name,
-                    'total_amount' => $totals+$totals * (0.7 / 100)+$platform_fee,
+                    'total_amount' => $totals+($totals * (0.7 / 100))+$platform_fee,
                     'payment_status' => $response->status,
                     'payment_method' => $request->payment_method,
                     'payment_link' => $response->invoice_url,
@@ -218,7 +218,7 @@ class TransactionController extends Controller
                     'email' => $request->email,
                     'jumlah_tiket' => $request->ticket_amount,
                     'jenis_tiket' => $promo_tiket->name,
-                    'total_pembelian' => $totals+$totals * (0.7 / 100)+$platform_fee,
+                    'total_pembelian' => $totals+($totals * (0.7 / 100))+$platform_fee,
                     'metode_pembayaran' => $request->payment_method,
                     'status_pembayaran' => $response->status,
                     'link' => $response->invoice_url
