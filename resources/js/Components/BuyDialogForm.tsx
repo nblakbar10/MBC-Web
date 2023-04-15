@@ -269,7 +269,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                                             (adminFee * form.data.ticket_amount)
                                                         ) * 0.015
                                                     ) :
-                                                        form.data.payment_method === 'QRIS - 0.7%' ? (
+                                                        form.data.payment_method === 'QRIS' ? (
                                                             (
                                                                 (
                                                                     (
