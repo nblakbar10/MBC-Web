@@ -26,9 +26,6 @@ class TransactionController extends Controller
     {
         //
         $transactions = Transaction::all();
-        $discounts = Discount::where('promo_id', $transactions->id)->get();
-        // $transactions = Transaction::all();
-        // dd($transactions);  
         return Inertia::render('Admin/Transaction/Index', [
             'transactions' => $transactions
             ,
