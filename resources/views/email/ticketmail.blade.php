@@ -75,11 +75,11 @@
                             <td class="text-md px-3">:</td>
                             <td class="text-md">{{$mailData['status_pembayaran']}}</td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td class="text-md">Status Tiket</td>
                             <td class="text-md px-3">:</td>
-                            <td class="text-md">{{$mailData['status_tiket']}}</td>
-                        </tr>
+                            <td class="text-md"></td>
+                        </tr> -->
                     </table>
                 </div>
 

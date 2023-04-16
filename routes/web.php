@@ -42,6 +42,11 @@ Route::post('/redeem_ticket', [TicketController::class, 'redeem_ticket']);
 Route::post('/transaction/store',[TransactionController::class, 'store'])->name('transaction.store');
 
 
+Route::post('/callback_dev', [TicketController::class, 'callback_dev']);
+Route::get('/token', function () {
+    return csrf_token(); 
+});
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
