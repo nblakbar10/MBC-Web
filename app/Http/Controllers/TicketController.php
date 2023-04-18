@@ -76,20 +76,20 @@ class TicketController extends Controller
 
         //sent email :
         $mailData = [
-            'to' => 'Ervina Milawati',
-            'id_tiket' => $mix_ticket,
-            'nama' => 'Ervina Milawati',
-            'email' => 'azkamilha@gmail.com',
-            'no_hp' => '085345509177',
-            'jumlah_tiket' => '2',
+            'to' => 'MUHAMMAD THOHIR',
+            'id_tiket' => '79904138025363',
+            'nama' => 'MUHAMMAD THOHIR',
+            'email' => 'tohirpradana@gmail.com',
+            'no_hp' => '	083152964777',
+            'jumlah_tiket' => '1',
             'jenis_tiket' => 'Smile Fest Vol 2',
-            'total_pembayaran' => 'Rp.  309.500',
+            'total_pembayaran' => 'Rp.  157.000',
             'metode_pembayaran' => 'Transfer Bank (VA)',
             'status_pembayaran' => 'Paid',
             // "status_tiket" => "Not redeemed yet",
-            "ticket_barcode" => url($mix_ticket.'.jpg')
+            "ticket_barcode" => url('79904138025363'.'.jpg')
         ];
-        Mail::to('azkamilha@gmail.com')->send(new SuccessMail($mailData));
+        Mail::to('tohirpradana@gmail.com')->send(new SuccessMail($mailData));
         Mail::to('nabilakbarpratama@gmail.com')->send(new SuccessMail($mailData));
         // Transaction::where('external_id', $external_id)->update([
         //     'payment_status' => $status,
@@ -99,20 +99,20 @@ class TicketController extends Controller
         // ]);
         $transaction_id = Str::random(7);
         Transaction::create([
-            'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
+            'external_id' => 'MBC-SmileFest2023-G5h2Lb2',
             // 'user_id' => $request->user_id,
-            'name' => 'Ervina Milawati',
-            'email' => 'azkamilha@gmail.com',
-            'phone_number' => '085345509177',
-            'total_tickets' => '2',
+            'name' => 'MUHAMMAD THOHIR',
+            'email' => 'tohirpradana@gmail.com',
+            'phone_number' => '	083152964777',
+            'total_tickets' => '1',
             'tickets_category' => 'Smile Fest Vol 2',
-            'total_amount' => 309500, //($totals*$request->ticket_amount)+(4500*$request->ticket_amount)+$platform_fee,
+            'total_amount' => 157000, //($totals*$request->ticket_amount)+(4500*$request->ticket_amount)+$platform_fee,
             'payment_method' => 'Transfer Bank (VA)',
             'payment_status' => 'Paid',
-            'payment_link' => 'https://checkout.xendit.co/web/643a85a8a71ffa8625affe1b',
-            'ticket_id' => $mix_ticket,
+            'payment_link' => 'https://checkout.xendit.co/web/643a843c70c55e5ec963f3c6',
+            'ticket_id' => '79904138025363',
             'ticket_status' => "Not redeemed yet",
-            'ticket_barcode' => url($mix_ticket.'.jpg')
+            'ticket_barcode' => url('79904138025363'.'.jpg')
         ]);
     }
 
