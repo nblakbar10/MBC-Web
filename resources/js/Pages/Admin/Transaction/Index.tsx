@@ -53,21 +53,21 @@ export default function Index({ transactions }: Props) {
             header: 'Nama Pembeli',
         },
         {
-            accessorKey: 'email',
-            header: 'Email',
+            accessorKey: 'payment_method',
+            header: 'Metode Pembayaran',
         },
         {
-            accessorKey: 'phone_number',
-            header: 'No Hp',
-        },
-        {
-            accessorKey: 'tickets_category',
-            header: 'Jenis Promo',
+            accessorKey: 'total_tickets',
+            header: 'Jumlah Tiket',
         },
         {
             accessorKey: 'payment_status',
             header: 'Status',
-        }
+        },
+        {
+            accessorKey: 'tickets_category',
+            header: 'Jenis Tiket',
+        },
     ] as MRT_ColumnDef<TransactionModel>[];
 
     return (
@@ -102,7 +102,7 @@ export default function Index({ transactions }: Props) {
                                     //     }
                                     // }
                                     enablePagination
-                                    manualPagination
+                                    // manualPagination
                                     enableSorting
                                     enableBottomToolbar
                                     enableTopToolbar
@@ -123,25 +123,54 @@ export default function Index({ transactions }: Props) {
                                             </thead>
                                             <tbody>
                                                 <tr className='border-b py-3 border-black'>
-                                                    <td className='py-3 text-center'>Metode Pembayaran</td>
-                                                    <td className='py-3 text-center'>{row.original.payment_method}</td>
+                                                    <td className='py-3 text-center'>Email</td>
+                                                    <td className='py-3 text-center'>{row.original.email}</td>
+                                                </tr>
+                                                <tr className='border-b py-3 border-black'>
+                                                    <td className='py-3 text-center'>No Handphone</td>
+                                                    <td className='py-3 text-center'>{row.original.phone_number}</td>
                                                 </tr>
                                                 <tr className='border-b py-3 border-black'>
                                                     <td className='py-3 text-center'>Total Pembayaran</td>
-                                                    <td className='py-3 text-center'>{row.original.total_amount}</td>
-                                                </tr>
-                                                <tr className='border-b py-3 border-black'>
-                                                    <td className='py-3 text-center'>Jumlah Tiket</td>
-                                                    <td className='py-3 text-center'>{row.original.total_tickets}</td>
+                                                    <td className='py-3 text-center'>Rp. {row.original.total_amount.toLocaleString()}</td>
                                                 </tr>
                                                 <tr className='border-b py-3 border-black'>
                                                     <td className='py-3 text-center'>Tautan Pembayaran</td>
-                                                    <td className='py-3 text-center'>{row.original.payment_link}</td>
+                                                    <td className='py-3 text-center'>
+                                                        <InertiaLink href={row.original.payment_link}>
+                                                            {row.original.payment_link}
+                                                        </InertiaLink>
+                                                    </td>
                                                 </tr>
                                                 <tr className='border-b py-3 border-black'>
                                                     <td className='py-3 text-center'>Tanggal Pembelian</td>
                                                     <td className='py-3 text-center'>{row.original.created_at}</td>
                                                 </tr>
+                                                {row.original.payment_status === 'PAID' && (
+                                                    <>
+                                                        <tr className='border-b py-3 border-black'>
+                                                            <td className='py-3 text-center'>Tanggal Pembayaran</td>
+                                                            <td className='py-3 text-center'>{row.original.updated_at}</td>
+                                                        </tr>
+                                                        <tr className='border-b py-3 border-black'>
+                                                            <td className='py-3 text-center'>Tiket Id</td>
+                                                            <td className='py-3 text-center'>{row.original.ticket_id}</td>
+                                                        </tr>
+                                                        <tr className='border-b py-3 border-black'>
+                                                            <td className='py-3 text-center'>Tiket Status</td>
+                                                            <td className='py-3 text-center'>{row.original.ticket_status}</td>
+                                                        </tr>
+                                                        <tr className='border-b py-3 border-black'>
+                                                            <td className='py-3 text-center'>Tiket Barcode</td>
+                                                            <td className='py-3 text-center'>
+                                                                <InertiaLink href={row.original.ticket_barcode || route("transaction.index")}>
+                                                                    {row.original.ticket_barcode}
+                                                                </InertiaLink>
+                                                            </td>
+                                                        </tr>
+                                                    </>
+
+                                                )}
                                             </tbody>
                                         </table>
                                     )}

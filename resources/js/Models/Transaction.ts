@@ -11,7 +11,11 @@ export interface BaseTransactionModel{
     payment_method: string;
     payment_status: string;
     payment_link: string;
+    ticket_id?: string;
+    ticket_status?: string;
+    ticket_barcode?: string;
     created_at: string;
+    updated_at: string;
 } 
 
 export interface TransactionModel extends BaseTransactionModel {
