@@ -70,27 +70,35 @@ interface Props {
 }
 
 const totalTicketCount = (transactions: Array<TransactionModel>) => {
+  if (transactions.length === 0) return 0;
   return transactions.map(transaction => transaction.total_tickets).reduce((prev, next) => prev + next);
 }
 
 const totalIncome = (transactions: Array<TransactionModel>) => {
+  if (transactions.length === 0) return 0;
   return transactions.map(transaction => transaction.total_amount).reduce((prev, next) => prev + next);
 }
 
 export default function Dashboard(props: Props) {
 
-  const paidTransactions = props.transactions.filter(
-    (transaction) => transaction.payment_status === 'PAID'
-  );
+  const [netTransaction, setNetTransaction] = React.useState<Array<TransactionModel>>([]);
 
-  const netTransaction = paidTransactions.map((transaction) => {
-    if (transaction.payment_method === 'Transfer Bank (VA)') {
-      transaction.total_amount -= 4500;
-    } else if (transaction.payment_method === 'DANA') {
-      transaction.total_amount -= Math.round(((transaction.total_amount - (transaction.total_tickets * 2500)) * 0.02) / 1000) * 1000;
-    }
-    return transaction;
-  });
+  useEffect(() => {
+    // TODO : Harus diolah di backend
+    setNetTransaction(
+      props.transactions.map((transaction) => {
+        if (transaction.payment_method === 'Transfer Bank (VA)') {
+          transaction.total_amount -= 4500;
+        } else if (transaction.payment_method === 'DANA') {
+          transaction.total_amount -= Math.round(((transaction.total_amount - (transaction.total_tickets * 2500)) * 0.02) / 1000) * 1000;
+        }
+        return transaction;
+      })
+    )
+  }, [
+    props.transactions
+  ]);
+
 
   const Dana = netTransaction.filter(
     (transaction) => transaction.payment_method === 'DANA'
