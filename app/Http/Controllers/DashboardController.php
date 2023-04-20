@@ -24,6 +24,7 @@ class DashboardController extends Controller
             // 'event_count' => $event_count,
             'transaction_count' => $transaction_count,
             'transactions' => Transaction::where('payment_status', 'PAID')->get(),
+            'unpaid_transactions' => Transaction::where('payment_status', 'PENDING')->get(),
         ]);
 
     }

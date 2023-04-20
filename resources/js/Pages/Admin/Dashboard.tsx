@@ -67,6 +67,7 @@ interface Props {
   event_count: number,
   transaction_count: number,
   transactions: Array<TransactionModel>,
+  unpaid_transactions: Array<TransactionModel>,
 }
 
 const totalTicketCount = (transactions: Array<TransactionModel>) => {
@@ -82,6 +83,10 @@ const totalIncome = (transactions: Array<TransactionModel>) => {
 export default function Dashboard(props: Props) {
 
   const [netTransaction, setNetTransaction] = React.useState<Array<TransactionModel>>([]);
+
+  const unpaidTransaction = props.unpaid_transactions;
+
+  const allTransactions = unpaidTransaction.concat(props.transactions);
 
   useEffect(() => {
     // TODO : Harus diolah di backend
@@ -137,11 +142,11 @@ export default function Dashboard(props: Props) {
       <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
         <div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
           <div className="max-w-7xl">
-            <div className="flex flex-col lg:flex-row p-3 gap-10 justify-around">
+            <div className="grid grid-cols-1 lg:grid-cols-3 p-3 gap-10 justify-around">
 
               <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
                 <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
-                  <div className="text-lg font-semibold mb-2">Total Keseluruhan</div>
+                  <div className="text-lg font-semibold mb-2">Total Terbayar</div>
                   <div className="text-2xl font-extrabold">
                     <div className="stat-value">{netTransaction.length} Pembelian</div>
                     <div className="stat-value">{
@@ -196,6 +201,46 @@ export default function Dashboard(props: Props) {
                     }</div>
                     <div className="stat-value">{
                       totalTicketCount(TransferVABank)
+                    } Tiket</div>
+                  </div>
+                </div>
+                <div className='h-8'>
+                  <InertiaLink href={route("transaction.index")}>
+                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                      More Info
+                      <span className="text-black border-black">
+                        <ArrowForwardIcon />
+                      </span>
+                    </p>
+                  </InertiaLink ></div>
+              </div>
+              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+                  <div className="text-lg font-semibold mb-2">Terbayar dan Tidak Terbayar</div>
+                  <div className="text-2xl font-extrabold">
+                    <div className="stat-value">{allTransactions.length} Pembelian</div>
+                    <div className="stat-value">{
+                      totalTicketCount(allTransactions)
+                    } Tiket</div>
+                  </div>
+                </div>
+                <div className='h-8'>
+                  <InertiaLink href={route("transaction.index")}>
+                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                      More Info
+                      <span className="text-black border-black">
+                        <ArrowForwardIcon />
+                      </span>
+                    </p>
+                  </InertiaLink ></div>
+              </div>
+              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                <div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+                  <div className="text-lg font-semibold mb-2">PENDING</div>
+                  <div className="text-2xl font-extrabold">
+                    <div className="stat-value">{unpaidTransaction.length} Pembelian</div>
+                    <div className="stat-value">{
+                      totalTicketCount(unpaidTransaction)
                     } Tiket</div>
                   </div>
                 </div>
