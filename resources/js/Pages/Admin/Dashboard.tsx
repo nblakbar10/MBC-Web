@@ -67,7 +67,6 @@ interface Props {
   event_count: number,
   transaction_count: number,
   transactions: Array<TransactionModel>,
-  unpaid_transactions: Array<TransactionModel>,
 }
 
 const totalTicketCount = (transactions: Array<TransactionModel>) => {
@@ -81,17 +80,20 @@ const totalIncome = (transactions: Array<TransactionModel>) => {
 }
 
 export default function Dashboard(props: Props) {
+  
+    const allTransactions = props.transactions;
+  
+    const paidTransaction = props.transactions.filter(transaction => transaction.payment_status.toUpperCase() === 'PAID');
+  
+    const unpaidTransaction = props.transactions.filter(transaction => transaction.payment_status === 'PENDING');
 
   const [netTransaction, setNetTransaction] = React.useState<Array<TransactionModel>>([]);
 
-  const unpaidTransaction = props.unpaid_transactions;
-
-  const allTransactions = unpaidTransaction.concat(props.transactions);
 
   useEffect(() => {
     // TODO : Harus diolah di backend
     setNetTransaction(
-      props.transactions.map((transaction) => {
+      paidTransaction.map((transaction) => {
         if (transaction.payment_method === 'Transfer Bank (VA)') {
           transaction.total_amount -= 4500;
         } else if (transaction.payment_method === 'DANA') {
