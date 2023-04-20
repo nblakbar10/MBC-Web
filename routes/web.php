@@ -62,6 +62,7 @@ Route::middleware([
         Route::resource('/discount', DiscountController::class);
         Route::resource('/event', EventController::class);
         Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+        Route::get('/transaction/export', [TransactionController::class, 'exportView'])->name('transaction.export-view');
         Route::resource('/ticket', TicketController::class);
         Route::middleware(['role:super-admin'])->group(function () {
             Route::resource('/user', UserController::class);

@@ -304,6 +304,13 @@ class TransactionController extends Controller
         //
     }
 
+    public function exportView(){
+        $transactions = Transaction::all();
+        return Inertia::Render('Admin/Transaction/Export', [
+            'transactions' => $transactions
+        ]);
+    }
+
     // public function callback()
     // {
     //     $data = request()->all();

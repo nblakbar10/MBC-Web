@@ -91,8 +91,8 @@ export default function DashboardAdminLayout({
                     </ResponsiveNavLink>
                 </li>
                 <li>
-                    <ResponsiveNavLink href={route('ticket.index')} active={route().current('ticket.index')}>
-                        Daftar Tiket
+                    <ResponsiveNavLink href={route('transaction.export-view')} active={route().current('transaction.export-view')}>
+                        Export Transaksi
                     </ResponsiveNavLink>
                 </li>
                 <li>
