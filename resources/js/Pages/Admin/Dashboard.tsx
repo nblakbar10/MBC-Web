@@ -79,28 +79,26 @@ const totalIncome = (transactions: Array<TransactionModel>) => {
 
 export default function Dashboard(props: Props) {
 
-  let transactions = props.transactions.filter(
+  const paidTransactions = props.transactions.filter(
     (transaction) => transaction.payment_status === 'PAID'
   );
 
-  useEffect(() => {
-    transactions = transactions.map((transaction) => {
-      if (transaction.payment_method === 'Transfer Bank (VA)') {
-        transaction.total_amount -= 4500;
-      } else if (transaction.payment_method === 'DANA') {
-        transaction.total_amount -= Math.round(((transaction.total_amount - (transaction.total_tickets * 2500)) * 0.02) / 1000) * 1000;
-      }
-      return transaction;
-    });
-  }, []);    
+  const netTransaction = paidTransactions.map((transaction) => {
+    if (transaction.payment_method === 'Transfer Bank (VA)') {
+      transaction.total_amount -= 4500;
+    } else if (transaction.payment_method === 'DANA') {
+      transaction.total_amount -= Math.round(((transaction.total_amount - (transaction.total_tickets * 2500)) * 0.02) / 1000) * 1000;
+    }
+    return transaction;
+  });
 
   const { users_count, event_count, transaction_count } = props;
 
-  const Dana = transactions.filter(
+  const Dana = netTransaction.filter(
     (transaction) => transaction.payment_method === 'DANA'
   );
 
-  const TransferVABank = transactions.filter(
+  const TransferVABank = netTransaction.filter(
     (transaction) => transaction.payment_method === 'Transfer Bank (VA)'
   );
 
@@ -139,12 +137,12 @@ export default function Dashboard(props: Props) {
                 <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
                   <div className="text-lg font-semibold mb-2">Total Keseluruhan</div>
                   <div className="text-2xl font-extrabold">
-                    <div className="stat-value">{transactions.length} Pembelian</div>
+                    <div className="stat-value">{netTransaction.length} Pembelian</div>
                     <div className="stat-value">Rp. {
-                      totalIncome(transactions).toLocaleString('id-ID',{style: 'currency', currency: 'IDR'})
+                      totalIncome(netTransaction).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
                     }</div>
                     <div className="stat-value">{
-                      totalTicketCount(transactions)
+                      totalTicketCount(netTransaction)
                     } Tiket</div>
                   </div>
                 </div>
@@ -165,7 +163,7 @@ export default function Dashboard(props: Props) {
                   <div className="text-2xl font-extrabold">
                     <div className="stat-value">{Dana.length} Pembelian</div>
                     <div className="stat-value">Rp. {
-                      totalIncome(Dana).toLocaleString('id-ID',{style: 'currency', currency: 'IDR'})
+                      totalIncome(Dana).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
                     }</div>
                     <div className="stat-value">{
                       totalTicketCount(Dana)
