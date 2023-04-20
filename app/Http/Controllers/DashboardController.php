@@ -23,7 +23,7 @@ class DashboardController extends Controller
             'users_count' => $users_count,
             // 'event_count' => $event_count,
             'transaction_count' => $transaction_count,
-            'transactions' => Transaction::where('payment_status', 'PAID')->get(),
+            'transactions' => Transaction::all(),
         ]);
 
     }
