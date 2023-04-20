@@ -92,8 +92,6 @@ export default function Dashboard(props: Props) {
     return transaction;
   });
 
-  const { users_count, event_count, transaction_count } = props;
-
   const Dana = netTransaction.filter(
     (transaction) => transaction.payment_method === 'DANA'
   );
