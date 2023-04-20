@@ -144,7 +144,7 @@ export default function Dashboard(props: Props) {
                   <div className="text-lg font-semibold mb-2">Total Keseluruhan</div>
                   <div className="text-2xl font-extrabold">
                     <div className="stat-value">{netTransaction.length} Pembelian</div>
-                    <div className="stat-value">Rp. {
+                    <div className="stat-value">{
                       totalIncome(netTransaction).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
                     }</div>
                     <div className="stat-value">{
@@ -168,7 +168,7 @@ export default function Dashboard(props: Props) {
                   <div className="text-lg font-semibold mb-2">Dana</div>
                   <div className="text-2xl font-extrabold">
                     <div className="stat-value">{Dana.length} Pembelian</div>
-                    <div className="stat-value">Rp. {
+                    <div className="stat-value">{
                       totalIncome(Dana).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
                     }</div>
                     <div className="stat-value">{
