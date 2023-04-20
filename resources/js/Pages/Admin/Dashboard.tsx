@@ -69,6 +69,14 @@ interface Props {
   transactions: Array<TransactionModel>,
 }
 
+const totalTicketCount = (transactions: Array<TransactionModel>) => {
+  return transactions.map(transaction => transaction.total_tickets).reduce((prev, next) => prev + next);
+}
+
+const totalIncome = (transactions: Array<TransactionModel>) => {
+  return transactions.map(transaction => transaction.total_amount).reduce((prev, next) => prev + next);
+}
+
 export default function Dashboard(props: Props) {
 
   let transactions = props.transactions.filter(
@@ -133,10 +141,10 @@ export default function Dashboard(props: Props) {
                   <div className="text-2xl font-extrabold">
                     <div className="stat-value">{transactions.length} Pembelian</div>
                     <div className="stat-value">Rp. {
-                      transactions.map(transaction => transaction.total_amount).reduce((prev, next) => prev + next).toLocaleString()
+                      totalIncome(transactions).toLocaleString('id-ID',{style: 'currency', currency: 'IDR'})
                     }</div>
                     <div className="stat-value">{
-                      transactions.map(transaction => transaction.total_tickets).reduce((prev, next) => prev + next)
+                      totalTicketCount(transactions)
                     } Tiket</div>
                   </div>
                 </div>
@@ -157,10 +165,10 @@ export default function Dashboard(props: Props) {
                   <div className="text-2xl font-extrabold">
                     <div className="stat-value">{Dana.length} Pembelian</div>
                     <div className="stat-value">Rp. {
-                      Dana.map(transaction => transaction.total_amount).reduce((prev, next) => prev + next).toLocaleString()
+                      totalIncome(Dana).toLocaleString('id-ID',{style: 'currency', currency: 'IDR'})
                     }</div>
                     <div className="stat-value">{
-                      Dana.map(transaction => transaction.total_tickets).reduce((prev, next) => prev + next)
+                      totalTicketCount(Dana)
                     } Tiket</div>
                   </div>
                 </div>
@@ -179,11 +187,11 @@ export default function Dashboard(props: Props) {
                   <div className="text-lg font-semibold mb-2">Transfer VA Bank</div>
                   <div className="text-2xl font-extrabold">
                     <div className="stat-value">{TransferVABank.length} Pembelian</div>
-                    <div className="stat-value">Rp. {
-                      TransferVABank.map(transaction => transaction.total_amount).reduce((prev, next) => prev + next).toLocaleString()
+                    <div className="stat-value">{
+                      totalIncome(TransferVABank).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
                     }</div>
                     <div className="stat-value">{
-                      TransferVABank.map(transaction => transaction.total_tickets).reduce((prev, next) => prev + next)
+                      totalTicketCount(TransferVABank)
                     } Tiket</div>
                   </div>
                 </div>
