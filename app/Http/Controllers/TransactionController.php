@@ -83,20 +83,26 @@ class TransactionController extends Controller
 
             // $totals = '';
             if($check_discount){
-                if($check_discount->type == 'Absolute'){
-                    $totals = ($promo_tiket->price * $request->ticket_amount) - $check_discount->deduction*$request->ticket_amount;
-                    
-
-                }else if($check_discount->type == 'Percentage'){
-                    $totals = ($promo_tiket->price * $request->ticket_amount) - (($promo_tiket->price * $request->ticket_amount) * ($check_discount->deduction / 100)*$request->ticket_amount);
-                    
+                $check_minimum_discount = Discount::where('promo_id', $request->promo_id)->pluck('minimum_order')->first();
+                // dd($check_minimum_discount);
+                if ((int)$request->ticket_amount == (int)$check_minimum_discount){
+                    if($check_discount->type == 'Absolute'){
+                        $totals = ($promo_tiket->price * $request->ticket_amount) - $check_discount->deduction*$request->ticket_amount;
+                        // dd($totals);
+                        
+                    }else if($check_discount->type == 'Percentage'){
+                        $totals = ($promo_tiket->price * $request->ticket_amount) - (($promo_tiket->price * $request->ticket_amount) * ($check_discount->deduction / 100)*$request->ticket_amount);
+                        
+                    }
+                    $check_discount->decrement('quota');
+                }else{
+                    $totals = $promo_tiket->price * $request->ticket_amount;
                 }
-                $check_discount->decrement('quota');
-
-            }else{
-                $totals = $promo_tiket->price * $request->ticket_amount;
-                
             }
+            // }else{
+            //     $totals = $promo_tiket->price * $request->ticket_amount;
+                
+            // }
 
             $platform_fee = 2500*$request->ticket_amount;
 
