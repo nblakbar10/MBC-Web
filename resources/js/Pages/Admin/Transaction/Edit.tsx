@@ -37,7 +37,7 @@ export default function Edit({ transaction }: Props) {
     }
 
     return (
-        <DashboardAdminLayout title={"Edit discount Event"}>
+        <DashboardAdminLayout title={"Edit Transaksi"}>
             <div className='py-12'>
                 <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
