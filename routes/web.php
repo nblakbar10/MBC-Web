@@ -62,6 +62,8 @@ Route::middleware([
         Route::resource('/discount', DiscountController::class);
         Route::resource('/event', EventController::class);
         Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+        Route::get('/trasaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
+        Route::put('/transaction/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
         Route::get('/transaction/export', [TransactionController::class, 'exportView'])->name('transaction.export-view');
         Route::resource('/ticket', TicketController::class);
         Route::middleware(['role:super-admin'])->group(function () {
