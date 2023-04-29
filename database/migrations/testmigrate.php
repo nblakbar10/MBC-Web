@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('transaction', function (Blueprint $table) {
-            $table->integer('promo_id');
+            // $table->integer('promo_id');
+            $table->integer('promo_id')->nullable();
         });
     }
 
