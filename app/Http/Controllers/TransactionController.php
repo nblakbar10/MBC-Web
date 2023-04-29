@@ -27,8 +27,7 @@ class TransactionController extends Controller
         //
         $transactions = Transaction::all();
         return Inertia::render('Admin/Transaction/Index', [
-            'transactions' => $transactions
-            ,
+            'transactions' => $transactions,
         ]);
     }
 
@@ -285,9 +284,14 @@ class TransactionController extends Controller
      * @param  \App\Models\transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function edit(transaction $transaction)
+    public function edit($id)
     {
         //
+        $transaction = Transaction::find($id);
+        return Inertia::render(
+            'Admin/Transaction/Edit',
+            ['transaction' => $transaction]
+        );
     }
 
     /**
@@ -297,9 +301,14 @@ class TransactionController extends Controller
      * @param  \App\Models\transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, transaction $transaction)
+    public function update(Request $request, $id)
     {
         //
+        $transaction = Transaction::find($id);
+        $transaction->update([
+            'payment_status' => $request->payment_status
+        ]);
+        return redirect()->route('transaction.index')->banner('Transaction Updated');
     }
 
     /**

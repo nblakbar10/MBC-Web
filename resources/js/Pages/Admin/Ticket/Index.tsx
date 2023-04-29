@@ -1,5 +1,4 @@
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import { ColumnFiltersState, PaginationState } from '@tanstack/react-table';
 import React, { useEffect, useState } from 'react';
 import route from 'ziggy-js';
 

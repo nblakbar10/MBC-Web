@@ -2,15 +2,15 @@ import React, { useEffect } from 'react';
 
 import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
+	Chart as ChartJS,
+	CategoryScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	BarElement,
+	Title,
+	Tooltip,
+	Legend,
 } from 'chart.js';
 import { Bar, Line } from 'react-chartjs-2';
 import { InertiaLink } from '@inertiajs/inertia-react';
@@ -19,32 +19,32 @@ import route from 'ziggy-js';
 import { TransactionModel } from '@/Models/Transaction';
 
 const LineChartConfig = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Grafik Transaksi Pembelian',
+	responsive: true,
+	plugins: {
+		legend: {
+			position: 'top' as const,
+		},
+		title: {
+			display: true,
+			text: 'Grafik Transaksi Pembelian',
 
-    },
+		},
 
-  },
+	},
 };
 
 const BarChartConfig = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Grafik Event',
-    },
+	responsive: true,
+	plugins: {
+		legend: {
+			position: 'top' as const,
+		},
+		title: {
+			display: true,
+			text: 'Grafik Event',
+		},
 
-  },
+	},
 };
 
 interface Props {
@@ -52,212 +52,234 @@ interface Props {
 
 
 ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
+	CategoryScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	BarElement,
+	Title,
+	Tooltip,
+	Legend
 );
 
 interface Props {
-  users_count: number,
-  event_count: number,
-  transaction_count: number,
-  transactions: Array<TransactionModel>,
+	users_count: number,
+	event_count: number,
+	transaction_count: number,
+	transactions: Array<TransactionModel>,
 }
 
 const totalTicketCount = (transactions: Array<TransactionModel>) => {
-  if (transactions.length === 0) return 0;
-  return transactions.map(transaction => transaction.total_tickets).reduce((prev, next) => prev + next);
+	if (transactions.length === 0) return 0;
+	return transactions.map(transaction => transaction.total_tickets).reduce((prev, next) => prev + next);
 }
 
 const totalIncome = (transactions: Array<TransactionModel>) => {
-  if (transactions.length === 0) return 0;
-  return transactions.map(transaction => transaction.total_amount).reduce((prev, next) => prev + next);
+	if (transactions.length === 0) return 0;
+	return transactions.map(transaction => transaction.total_amount).reduce((prev, next) => prev + next);
 }
 
 export default function Dashboard(props: Props) {
-  
-    const allTransactions = props.transactions;
-  
-    const paidTransaction = props.transactions.filter(transaction => transaction.payment_status.toUpperCase() === 'PAID');
-  
-    const unpaidTransaction = props.transactions.filter(transaction => transaction.payment_status === 'PENDING');
 
-  const [netTransaction, setNetTransaction] = React.useState<Array<TransactionModel>>([]);
+	const allTransactions = props.transactions;
 
+	const paidTransaction = props.transactions.filter(transaction => transaction.payment_status.toUpperCase() === 'PAID');
 
-  useEffect(() => {
-    // TODO : Harus diolah di backend
-    setNetTransaction(
-      paidTransaction.map((transaction) => {
-        if (transaction.payment_method === 'Transfer Bank (VA)') {
-          transaction.total_amount -= 4500;
-        } else if (transaction.payment_method === 'DANA') {
-          transaction.total_amount -= Math.round(((transaction.total_amount - (transaction.total_tickets * 2500)) * 0.02) / 1000) * 1000;
-        }
-        return transaction;
-      })
-    )
-  }, [
-    props.transactions
-  ]);
+	const unpaidTransaction = props.transactions.filter(transaction => transaction.payment_status === 'PENDING');
+
+	const expiredTransaction = props.transactions.filter(transaction => transaction.payment_status === 'EXPIRED');
+
+	const [netTransaction, setNetTransaction] = React.useState<Array<TransactionModel>>([]);
 
 
-  const Dana = netTransaction.filter(
-    (transaction) => transaction.payment_method === 'DANA'
-  );
+	useEffect(() => {
+		// TODO : Harus diolah di backend
+		setNetTransaction(
+			paidTransaction.map((transaction) => {
+				if (transaction.payment_method === 'Transfer Bank (VA)') {
+					transaction.total_amount -= 4500;
+				} else if (transaction.payment_method === 'DANA') {
+					transaction.total_amount -= Math.round(((transaction.total_amount - (transaction.total_tickets * 2500)) * 0.02) / 1000) * 1000;
+				}
+				return transaction;
+			})
+		)
+	}, [
+		props.transactions
+	]);
 
-  const TransferVABank = netTransaction.filter(
-    (transaction) => transaction.payment_method === 'Transfer Bank (VA)'
-  );
+
+	const Dana = netTransaction.filter(
+		(transaction) => transaction.payment_method === 'DANA'
+	);
+
+	const TransferVABank = netTransaction.filter(
+		(transaction) => transaction.payment_method === 'Transfer Bank (VA)'
+	);
 
 
 
 
-  // const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-  // const data = {
-  //   labels,
-  //   datasets: [
-  //     {
-  //       label: 'Dataset 1',
-  //       data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
-  //       borderColor: 'rgb(255, 99, 132)',
-  //       backgroundColor: 'rgba(255, 99, 132, 0.5)',
-  //     },
-  //     {
-  //       label: 'Dataset 2',
-  //       data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
-  //       borderColor: 'rgb(53, 162, 235)',
-  //       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-  //     },
-  //   ],
-  // };
+	// const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+	// const data = {
+	//   labels,
+	//   datasets: [
+	//     {
+	//       label: 'Dataset 1',
+	//       data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+	//       borderColor: 'rgb(255, 99, 132)',
+	//       backgroundColor: 'rgba(255, 99, 132, 0.5)',
+	//     },
+	//     {
+	//       label: 'Dataset 2',
+	//       data: labels.map(() => Math.floor(Math.random() * (1000 - (-1000) + 1)) + (-1000)),
+	//       borderColor: 'rgb(53, 162, 235)',
+	//       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+	//     },
+	//   ],
+	// };
 
-  return (
-    <DashboardAdminLayout
-      title="Dashboard"
-    >
-      <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
-        <div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
-          <div className="max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-3 p-3 gap-10 justify-around">
+	return (
+		<DashboardAdminLayout
+			title="Dashboard"
+		>
+			<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
+				<div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
+					<div className="max-w-7xl">
+						<div className="grid grid-cols-1 lg:grid-cols-3 p-3 gap-10 justify-around">
 
-              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
-                  <div className="text-lg font-semibold mb-2">Total Terbayar</div>
-                  <div className="text-2xl font-extrabold">
-                    <div className="stat-value">{netTransaction.length} Pembelian</div>
-                    <div className="stat-value">{
-                      totalIncome(netTransaction).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
-                    }</div>
-                    <div className="stat-value">{
-                      totalTicketCount(netTransaction)
-                    } Tiket</div>
-                  </div>
-                </div>
-                <div className='h-8'>
-                  <InertiaLink href={route("transaction.index")}>
-                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                      More Info
-                      <span className="text-black border-black">
-                        <ArrowForwardIcon />
-                      </span>
-                    </p>
-                  </InertiaLink ></div>
-              </div>
+							<div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+								<div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+									<div className="text-lg font-semibold mb-2">Total Terbayar</div>
+									<div className="text-2xl font-extrabold">
+										<div className="stat-value">{netTransaction.length} Pembelian</div>
+										<div className="stat-value">{
+											totalIncome(netTransaction).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
+										}</div>
+										<div className="stat-value">{
+											totalTicketCount(netTransaction)
+										} Tiket</div>
+									</div>
+								</div>
+								<div className='h-8'>
+									<InertiaLink href={route("transaction.index")}>
+										<p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+											More Info
+											<span className="text-black border-black">
+												<ArrowForwardIcon />
+											</span>
+										</p>
+									</InertiaLink ></div>
+							</div>
 
-              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
-                  <div className="text-lg font-semibold mb-2">Dana</div>
-                  <div className="text-2xl font-extrabold">
-                    <div className="stat-value">{Dana.length} Pembelian</div>
-                    <div className="stat-value">{
-                      totalIncome(Dana).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
-                    }</div>
-                    <div className="stat-value">{
-                      totalTicketCount(Dana)
-                    } Tiket</div>
-                  </div>
-                </div>
-                <div className='h-8'>
-                  <InertiaLink href={route("transaction.index")}>
-                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                      More Info
-                      <span className="text-black border-black">
-                        <ArrowForwardIcon />
-                      </span>
-                    </p>
-                  </InertiaLink ></div>
-              </div>
-              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
-                  <div className="text-lg font-semibold mb-2">Transfer VA Bank</div>
-                  <div className="text-2xl font-extrabold">
-                    <div className="stat-value">{TransferVABank.length} Pembelian</div>
-                    <div className="stat-value">{
-                      totalIncome(TransferVABank).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
-                    }</div>
-                    <div className="stat-value">{
-                      totalTicketCount(TransferVABank)
-                    } Tiket</div>
-                  </div>
-                </div>
-                <div className='h-8'>
-                  <InertiaLink href={route("transaction.index")}>
-                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                      More Info
-                      <span className="text-black border-black">
-                        <ArrowForwardIcon />
-                      </span>
-                    </p>
-                  </InertiaLink ></div>
-              </div>
-              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
-                  <div className="text-lg font-semibold mb-2">Terbayar dan Tidak Terbayar</div>
-                  <div className="text-2xl font-extrabold">
-                    <div className="stat-value">{allTransactions.length} Pembelian</div>
-                    <div className="stat-value">{
-                      totalTicketCount(allTransactions)
-                    } Tiket</div>
-                  </div>
-                </div>
-                <div className='h-8'>
-                  <InertiaLink href={route("transaction.index")}>
-                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                      More Info
-                      <span className="text-black border-black">
-                        <ArrowForwardIcon />
-                      </span>
-                    </p>
-                  </InertiaLink ></div>
-              </div>
-              <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                <div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
-                  <div className="text-lg font-semibold mb-2">PENDING</div>
-                  <div className="text-2xl font-extrabold">
-                    <div className="stat-value">{unpaidTransaction.length} Pembelian</div>
-                    <div className="stat-value">{
-                      totalTicketCount(unpaidTransaction)
-                    } Tiket</div>
-                  </div>
-                </div>
-                <div className='h-8'>
-                  <InertiaLink href={route("transaction.index")}>
-                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                      More Info
-                      <span className="text-black border-black">
-                        <ArrowForwardIcon />
-                      </span>
-                    </p>
-                  </InertiaLink ></div>
-              </div>
-            </div>
-            {/* <div className="flex flex-col lg:flex-row p-3 gap-10 justify-around">
+							<div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+								<div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+									<div className="text-lg font-semibold mb-2">Dana</div>
+									<div className="text-2xl font-extrabold">
+										<div className="stat-value">{Dana.length} Pembelian</div>
+										<div className="stat-value">{
+											totalIncome(Dana).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
+										}</div>
+										<div className="stat-value">{
+											totalTicketCount(Dana)
+										} Tiket</div>
+									</div>
+								</div>
+								<div className='h-8'>
+									<InertiaLink href={route("transaction.index")}>
+										<p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+											More Info
+											<span className="text-black border-black">
+												<ArrowForwardIcon />
+											</span>
+										</p>
+									</InertiaLink ></div>
+							</div>
+							<div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+								<div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+									<div className="text-lg font-semibold mb-2">Transfer VA Bank</div>
+									<div className="text-2xl font-extrabold">
+										<div className="stat-value">{TransferVABank.length} Pembelian</div>
+										<div className="stat-value">{
+											totalIncome(TransferVABank).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })
+										}</div>
+										<div className="stat-value">{
+											totalTicketCount(TransferVABank)
+										} Tiket</div>
+									</div>
+								</div>
+								<div className='h-8'>
+									<InertiaLink href={route("transaction.index")}>
+										<p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+											More Info
+											<span className="text-black border-black">
+												<ArrowForwardIcon />
+											</span>
+										</p>
+									</InertiaLink ></div>
+							</div>
+							<div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+								<div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+									<div className="text-lg font-semibold mb-2">Terbayar dan Tidak Terbayar</div>
+									<div className="text-2xl font-extrabold">
+										<div className="stat-value">{allTransactions.length} Pembelian</div>
+										<div className="stat-value">{
+											totalTicketCount(allTransactions)
+										} Tiket</div>
+									</div>
+								</div>
+								<div className='h-8'>
+									<InertiaLink href={route("transaction.index")}>
+										<p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+											More Info
+											<span className="text-black border-black">
+												<ArrowForwardIcon />
+											</span>
+										</p>
+									</InertiaLink ></div>
+							</div>
+							<div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+								<div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+									<div className="text-lg font-semibold mb-2">PENDING</div>
+									<div className="text-2xl font-extrabold">
+										<div className="stat-value">{unpaidTransaction.length} Pembelian</div>
+										<div className="stat-value">{
+											totalTicketCount(unpaidTransaction)
+										} Tiket</div>
+									</div>
+								</div>
+								<div className='h-8'>
+									<InertiaLink href={route("transaction.index")}>
+										<p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+											More Info
+											<span className="text-black border-black">
+												<ArrowForwardIcon />
+											</span>
+										</p>
+									</InertiaLink ></div>
+							</div>
+							<div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+								<div className='basis-4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+									<div className="text-lg font-semibold mb-2">Expired</div>
+									<div className="text-2xl font-extrabold">
+										<div className="stat-value">{expiredTransaction.length} Pembelian</div>
+										<div className="stat-value">{
+											totalTicketCount(expiredTransaction)
+										} Tiket</div>
+									</div>
+								</div>
+								<div className='h-8'>
+									<InertiaLink href={route("transaction.index")}>
+										<p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+											More Info
+											<span className="text-black border-black">
+												<ArrowForwardIcon />
+											</span>
+										</p>
+									</InertiaLink ></div>
+							</div>
+						</div>
+						{/* <div className="flex flex-col lg:flex-row p-3 gap-10 justify-around">
 
               <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
                 <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
@@ -312,7 +334,7 @@ export default function Dashboard(props: Props) {
                 </div>
               </div>
             </div> */}
-            {/* <div className="flex flex-col lg:flex-row gap-3 mt-5">
+						{/* <div className="flex flex-col lg:flex-row gap-3 mt-5">
               <div className="flex-1 rounded-lg shadow-sm shadow-neutral-700 border-neutral-400">
                 <Line options={LineChartConfig} data={data} />
               </div>
@@ -323,9 +345,9 @@ export default function Dashboard(props: Props) {
             <div className="mt-5">
 
             </div> */}
-          </div>
-        </div>
-      </div>
-    </DashboardAdminLayout>
-  );
+					</div>
+				</div>
+			</div>
+		</DashboardAdminLayout>
+	);
 }

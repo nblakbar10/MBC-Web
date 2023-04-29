@@ -1,5 +1,4 @@
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
-import { ColumnFiltersState, PaginationState } from '@tanstack/react-table';
 import React, { useEffect, useState } from 'react';
 import route from 'ziggy-js';
 
@@ -114,65 +113,76 @@ export default function Index({ transactions }: Props) {
                                     // onPaginationChange={setPagination}
                                     // state={{ pagination, columnFilters, globalFilter }}
                                     renderDetailPanel={({ row }) => (
-                                        <table className='w-full'>
-                                            <thead>
-                                                <tr className='border-b py-3 border-black'>
-                                                    <th className='text-center'>Properti</th>
-                                                    <th className='text-center'>Keterangan</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr className='border-b py-3 border-black'>
-                                                    <td className='py-3 text-center'>Email</td>
-                                                    <td className='py-3 text-center'>{row.original.email}</td>
-                                                </tr>
-                                                <tr className='border-b py-3 border-black'>
-                                                    <td className='py-3 text-center'>No Handphone</td>
-                                                    <td className='py-3 text-center'>{row.original.phone_number}</td>
-                                                </tr>
-                                                <tr className='border-b py-3 border-black'>
-                                                    <td className='py-3 text-center'>Total Pembayaran</td>
-                                                    <td className='py-3 text-center'>Rp. {row.original.total_amount.toLocaleString()}</td>
-                                                </tr>
-                                                <tr className='border-b py-3 border-black'>
-                                                    <td className='py-3 text-center'>Tautan Pembayaran</td>
-                                                    <td className='py-3 text-center'>
-                                                        <InertiaLink href={row.original.payment_link}>
-                                                            {row.original.payment_link}
-                                                        </InertiaLink>
-                                                    </td>
-                                                </tr>
-                                                <tr className='border-b py-3 border-black'>
-                                                    <td className='py-3 text-center'>Tanggal Pembelian</td>
-                                                    <td className='py-3 text-center'>{row.original.created_at}</td>
-                                                </tr>
-                                                {row.original.payment_status === 'PAID' && (
-                                                    <>
-                                                        <tr className='border-b py-3 border-black'>
-                                                            <td className='py-3 text-center'>Tanggal Pembayaran</td>
-                                                            <td className='py-3 text-center'>{row.original.updated_at}</td>
-                                                        </tr>
-                                                        <tr className='border-b py-3 border-black'>
-                                                            <td className='py-3 text-center'>Tiket Id</td>
-                                                            <td className='py-3 text-center'>{row.original.ticket_id}</td>
-                                                        </tr>
-                                                        <tr className='border-b py-3 border-black'>
-                                                            <td className='py-3 text-center'>Tiket Status</td>
-                                                            <td className='py-3 text-center'>{row.original.ticket_status}</td>
-                                                        </tr>
-                                                        <tr className='border-b py-3 border-black'>
-                                                            <td className='py-3 text-center'>Tiket Barcode</td>
-                                                            <td className='py-3 text-center'>
-                                                                <InertiaLink href={row.original.ticket_barcode || route("transaction.index")}>
-                                                                    {row.original.ticket_barcode}
-                                                                </InertiaLink>
-                                                            </td>
-                                                        </tr>
-                                                    </>
+                                        <>
+                                            <div className='flex'>
+                                                <InertiaLink
+                                                    href={route('transaction.edit', row.original.id)}
+                                                >
+                                                    <button className='bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-10 rounded-lg text-lg font-semibold '>
+                                                        Edit
+                                                    </button>
+                                                </InertiaLink>
+                                            </div>
+                                            <table className='w-full'>
+                                                <thead>
+                                                    <tr className='border-b py-3 border-black'>
+                                                        <th className='text-center'>Properti</th>
+                                                        <th className='text-center'>Keterangan</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr className='border-b py-3 border-black'>
+                                                        <td className='py-3 text-center'>Email</td>
+                                                        <td className='py-3 text-center'>{row.original.email}</td>
+                                                    </tr>
+                                                    <tr className='border-b py-3 border-black'>
+                                                        <td className='py-3 text-center'>No Handphone</td>
+                                                        <td className='py-3 text-center'>{row.original.phone_number}</td>
+                                                    </tr>
+                                                    <tr className='border-b py-3 border-black'>
+                                                        <td className='py-3 text-center'>Total Pembayaran</td>
+                                                        <td className='py-3 text-center'>Rp. {row.original.total_amount.toLocaleString()}</td>
+                                                    </tr>
+                                                    <tr className='border-b py-3 border-black'>
+                                                        <td className='py-3 text-center'>Tautan Pembayaran</td>
+                                                        <td className='py-3 text-center'>
+                                                            <InertiaLink href={row.original.payment_link}>
+                                                                {row.original.payment_link}
+                                                            </InertiaLink>
+                                                        </td>
+                                                    </tr>
+                                                    <tr className='border-b py-3 border-black'>
+                                                        <td className='py-3 text-center'>Tanggal Pembelian</td>
+                                                        <td className='py-3 text-center'>{row.original.created_at}</td>
+                                                    </tr>
+                                                    {row.original.payment_status === 'PAID' && (
+                                                        <>
+                                                            <tr className='border-b py-3 border-black'>
+                                                                <td className='py-3 text-center'>Tanggal Pembayaran</td>
+                                                                <td className='py-3 text-center'>{row.original.updated_at}</td>
+                                                            </tr>
+                                                            <tr className='border-b py-3 border-black'>
+                                                                <td className='py-3 text-center'>Tiket Id</td>
+                                                                <td className='py-3 text-center'>{row.original.ticket_id}</td>
+                                                            </tr>
+                                                            <tr className='border-b py-3 border-black'>
+                                                                <td className='py-3 text-center'>Tiket Status</td>
+                                                                <td className='py-3 text-center'>{row.original.ticket_status}</td>
+                                                            </tr>
+                                                            <tr className='border-b py-3 border-black'>
+                                                                <td className='py-3 text-center'>Tiket Barcode</td>
+                                                                <td className='py-3 text-center'>
+                                                                    <InertiaLink href={row.original.ticket_barcode || route("transaction.index")}>
+                                                                        {row.original.ticket_barcode}
+                                                                    </InertiaLink>
+                                                                </td>
+                                                            </tr>
+                                                        </>
 
-                                                )}
-                                            </tbody>
-                                        </table>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </>
                                     )}
                                 />
                             </div>
