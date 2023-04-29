@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             // $table->integer('user_id');
             $table->string('external_id');
+            $table->integer('promo_id');
             $table->string('name');
             $table->string('email');
             $table->string('phone_number');

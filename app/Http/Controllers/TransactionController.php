@@ -128,6 +128,7 @@ class TransactionController extends Controller
                 // dd($totals);
                 Transaction::create([
                     'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
+                    'promo_id' => $request->promo_id,
                     // 'user_id' => $request->user_id,
                     'name' => $request->name,
                     'email' => $request->email,
@@ -168,6 +169,7 @@ class TransactionController extends Controller
 
                 Transaction::create([
                     'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
+                    'promo_id' => $request->promo_id,
                     // 'user_id' => $request->user_id,
                     'name' => $request->name,
                     'email' => $request->email,
@@ -208,6 +210,7 @@ class TransactionController extends Controller
 
                 Transaction::create([
                     'external_id' => 'MBC-SmileFest2023-'.$transaction_id,
+                    'promo_id' => $request->promo_id,
                     // 'user_id' => $request->user_id,
                     'name' => $request->name,
                     'email' => $request->email,
