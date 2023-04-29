@@ -34,43 +34,43 @@ class TicketController extends Controller
         $status = $data['status'];
         $external_id = $data['external_id'];
         if ($status == 'PAID'){
-            // // $mix_ticket = 'ID2023MBC-'.Str::random(16);
-            // $mix_ticket = rand ( 00000000000000 , 99999999999999 ); //14digit
-            // //barcode
-            // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-            // file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
-            // $data_trans = Transaction::where('external_id', $external_id)->get()->first();
+            // $mix_ticket = 'ID2023MBC-'.Str::random(16);
+            $mix_ticket = rand ( 00000000000000 , 99999999999999 ); //14digit
+            //barcode
+            $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+            file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
+            $data_trans = Transaction::where('external_id', $external_id)->get()->first();
 
-            // //sent email :
-            // $mailData = [
-            //     'to' => $data_trans->name,
-            //     'id_tiket' => $mix_ticket,
-            //     'nama' => $data_trans->name,
-            //     'email' => $data_trans->email,
-            //     'no_hp' => $data_trans->phone_number,
-            //     'jumlah_tiket' => $data_trans->total_tickets,
-            //     'jenis_tiket' => $data_trans->tickets_category,
-            //     'total_pembayaran' => $data_trans->total_amount,
-            //     'metode_pembayaran' => $data_trans->payment_method,
-            //     'status_pembayaran' => $status, //langsung dari xendit
-            //     "status_tiket" => "Not redeemed yet",
-            //     "ticket_barcode" => url($mix_ticket.'.jpg')
-            // ];
-            // Mail::to($data_trans->email)->send(new SuccessMail($mailData));
-
-            // Transaction::where('external_id', $external_id)->update([
-            //     'payment_status' => $status,
-            //     'ticket_id' => $mix_ticket,
-            //     'ticket_status' => "Not redeemed yet",
-            //     'ticket_barcode' => url($mix_ticket.'.jpg')
-            // ]);
+            //sent email :
+            $mailData = [
+                'to' => $data_trans->name,
+                'id_tiket' => $mix_ticket,
+                'nama' => $data_trans->name,
+                'email' => $data_trans->email,
+                'no_hp' => $data_trans->phone_number,
+                'jumlah_tiket' => $data_trans->total_tickets,
+                'jenis_tiket' => $data_trans->tickets_category,
+                'total_pembayaran' => $data_trans->total_amount,
+                'metode_pembayaran' => $data_trans->payment_method,
+                'status_pembayaran' => $status, //langsung dari xendit
+                "status_tiket" => "Not redeemed yet",
+                "ticket_barcode" => url($mix_ticket.'.jpg')
+            ];
+            Mail::to($data_trans->email)->send(new SuccessMail($mailData));
 
             Transaction::where('external_id', $external_id)->update([
                 'payment_status' => $status,
-                'ticket_id' => "Sucess null",
-                'ticket_status' => "Success",
-                'ticket_barcode' => "Success null"
+                'ticket_id' => $mix_ticket,
+                'ticket_status' => "Not redeemed yet",
+                'ticket_barcode' => url($mix_ticket.'.jpg')
             ]);
+
+            // Transaction::where('external_id', $external_id)->update([
+            //     'payment_status' => $status,
+            //     'ticket_id' => "Sucess null",
+            //     'ticket_status' => "Success",
+            //     'ticket_barcode' => "Success null"
+            // ]);
 
         }else if ($status == 'EXPIRED' or $status == 'FAILED'){
             // $restore_stocks = Transaction::where('external_id', $external_id)->pluck('total_tickets')->first();
