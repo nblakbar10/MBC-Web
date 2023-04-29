@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\SuccessMail;
 use Carbon\Carbon;
 use App\Models\Ticket;
+use App\Models\Promo;
 use Milon\Barcode\Facades\DNS1DFacade;
 use Picqer;
 
@@ -71,7 +72,7 @@ class TicketController extends Controller
                 'ticket_barcode' => "Success null"
             ]);
 
-        }else if ($status == 'EXPIRED'){
+        }else if ($status == 'EXPIRED' or $status == 'FAILED'){
             // $restore_stocks = Transaction::where('external_id', $external_id)->pluck('total_tickets')->first();
             Transaction::where('external_id', $external_id)->update([
                 'payment_status' => $status,
@@ -79,11 +80,17 @@ class TicketController extends Controller
                 'ticket_status' => "Failed",
                 'ticket_barcode' => "NULL"
             ]);
-            $restore_stocks = Transaction::where('external_id', $external_id)->pluck('total_tickets')->first();
+            $get_ticket_buyed = Transaction::where('external_id', $external_id)->pluck('total_tickets')->first();
             $get_promo_id = Transaction::where('external_id', $external_id)->pluck('promo_id')->first();
-            Promo::where('id', $get_promo_id)->update([
-                'ticket_barcode' => $restore_stocks
-            ]);
+            
+            $find_promo_id = Promo::find($get_promo_id);
+            $find_promo_id->stocks = (int)$find_promo_id->stocks + (int)$get_ticket_buyed;
+            $find_promo_id->save();
+
+            // Promo::where('id', $get_promo_id)->update([
+            //     'ticket_barcode' => $restore_stocks
+            // ]);
+
             // $restore_stocks->stocks = (int)$restore_stocks->stocks - (int)$request->ticket_amount;
             // $restore_stocks->save();
         }
