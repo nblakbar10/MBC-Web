@@ -4,7 +4,10 @@ import TextInput from "@/Components/Jetstream/TextInput";
 import DashboardAdminLayout from "@/Layouts/DashboardAdminLayout";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import { useForm } from "@inertiajs/react";
-import React from "react";
+import { Dialog, DialogContent } from "@mui/material";
+import axios, { Axios } from "axios";
+import React, { useEffect } from "react";
+import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import route from "ziggy-js";
 
 export default function RedeemForm() {
@@ -12,18 +15,48 @@ export default function RedeemForm() {
         token: '',
     });
 
+    const [redeemModal, setRedeemModal] = React.useState({
+        open: false,
+        message: ''
+    });
+
+    const handleClose = () => {
+        setRedeemModal({
+            open: false,
+            message: ''
+        });
+    };
+
+    const [cameraModal, setCameraModal] = React.useState(false);
+
+    const handleCameraClose = () => {
+        setCameraModal(false);
+    };
+
+    const handleCameraOpen = () => {
+        setCameraModal(true);
+    };
+
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
         console.log(form.data);
         form.clearErrors();
-        // form.post(route('transaction.redeem'), {
-        //     onError: (errors) => {
-        //         console.log(errors);
-        //     },
-        //     onSuccess: () => {
-        //         console.log('success');
-        //     }
-        // });
+        const { token } = form.data;
+        axios.post(route('transaction.redeem'), {
+            token: token
+        }).then((response) => {
+            setRedeemModal({
+                open: true,
+                message: response.data.message
+            });
+            console.log(response.data);
+        }).catch((error) => {
+            console.log(error);
+            setRedeemModal({
+                open: true,
+                message: error.response.data.message
+            });
+        });
     }
 
     return (
@@ -58,6 +91,13 @@ export default function RedeemForm() {
                             <InputError className="mt-2" message={form.errors.token} />
                         </div>
                         <div className="flex justify-end">
+                            <div
+                                className="bg-sky-500 text-white hover:bg-sky-600 py-3 px-5 rounded-lg text-md font-semibold m-5 mt-10 w-1/2 text-center"
+
+                                onClick={handleCameraOpen}
+                            >
+                                Scan
+                            </div>
                             <button
                                 className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold m-5 mt-10 w-1/2"
                                 disabled={form.processing}
@@ -69,6 +109,34 @@ export default function RedeemForm() {
                     </form>
                 </div>
             </div>
+            <Dialog open={redeemModal.open} onClose={handleClose}
+            >
+                <DialogContent className="w-full">
+                    <div>
+                        <h3 className="font-bold text-lg">{ redeemModal.message}</h3>
+                    </div>
+                </DialogContent>
+            </Dialog>
+            <Dialog open={cameraModal} onClose={handleCameraClose}
+            >
+                <DialogContent className="w-full">
+                    <BarcodeScannerComponent
+                        width={500}
+                        height={500}
+                        onUpdate={(err, result) => {
+                            if (result) {
+                                form.setData('token', result.getText())
+                                handleCameraClose();
+                            }
+                            else setRedeemModal({
+                                ...redeemModal,
+                                message: "Barcode tidak ditemukan : " + err
+                            });
+                        }}
+                    />
+                    <p>{form.data.token}</p>
+                </DialogContent>
+            </Dialog>
         </DashboardAdminLayout>
     )
 }

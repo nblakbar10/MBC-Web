@@ -275,7 +275,22 @@ class TransactionController extends Controller
 
     public function redeem(Request $request)
     {
-        // dd("Redeem Tiket");
+        $request->validate([
+            'token' => ['required', 'string', 'size:14']
+        ]);
+        $transaction = Transaction::where('ticket_id', $request->token)->get()->first();
+        if($transaction){
+            if($transaction->ticket_status === 'Reedeemed!'){
+                return response()->json(['message' => 'Error! Ticket sudah ditukarkan!'], 200);
+            }
+            $transaction->update([
+                'ticket_status' => 'Reedeemed!'
+            ]);
+            return response()->json(['message' => 'Ticket ID Found! This ticket has redeemed'], 200); 
+
+        }else{
+            return  response()->json(['message' => 'Ticket ID Not Found!'], 208);
+        }
     }
 
     /**
@@ -306,7 +321,8 @@ class TransactionController extends Controller
         //
         $transaction = Transaction::find($id);
         $transaction->update([
-            'payment_status' => $request->payment_status
+            'payment_status' => $request->payment_status,
+            'ticket_status' => $request->ticket_status
         ]);
         return redirect()->route('transaction.index')->banner('Transaction Updated');
     }

@@ -14,6 +14,7 @@ interface Props {
 }
 
 export default function Edit({ transaction }: Props) {
+    console.log(transaction);
     let form = useForm<TransactionModel>(
         {
             ...transaction,
@@ -223,16 +224,18 @@ export default function Edit({ transaction }: Props) {
                                     <div className="flex flex-col gap-2 p-3">
                                         <div className="form-control w-full mt-4">
                                             <InputLabel htmlFor="ticket_status">Tiket Status</InputLabel>
-                                            <TextInput
+                                            <select
                                                 id="ticket_status"
-                                                type="text"
                                                 className="mt-1 block w-full"
                                                 value={form.data.ticket_status}
                                                 required
                                                 autoFocus
                                                 autoComplete="ticket_status"
-                                                disabled
-                                            />
+                                                onChange={(e) => form.setData('ticket_status', e.target.value)}
+                                            >
+                                                <option value="not redeemed yet">Not Redeemeed yet</option>
+                                                <option value="Reedeemed!">Redeemed</option>
+                                            </select>
                                             <InputError className="mt-2" message={form.errors.ticket_status} />
                                         </div>
                                     </div>
