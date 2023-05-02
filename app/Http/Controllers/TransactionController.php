@@ -283,7 +283,8 @@ class TransactionController extends Controller
     public function redeem(Request $request)
     {
         $request->validate([
-            'token' => ['required', 'string', 'size:14']
+            'token' => ['required', 'string', 'size:14'],
+            'coupon' => ['required']
         ]);
         $transaction = Transaction::where('ticket_id', $request->token)->get()->first();
         if($transaction){

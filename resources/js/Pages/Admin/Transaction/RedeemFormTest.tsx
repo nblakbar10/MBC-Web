@@ -14,6 +14,7 @@ import Scanner from "./Scanner";
 export default function RedeemForm() {
     const form = useForm({
         token: '',
+        count: 0
     });
 
     const scannerRef = useRef(null);
@@ -89,6 +90,33 @@ export default function RedeemForm() {
                                 autoComplete="token"
                             />
                             <InputError className="mt-2" message={form.errors.token} />
+                        </div>
+                        <div className="form-control w-full mt-4">
+                            <InputLabel htmlFor="count">Redeem Token Pembayaran</InputLabel>
+                            <TextInput
+                                id="count"
+                                type="number"
+                                className="mt-1 block w-full"
+                                min={0}
+                                max={5}
+                                step={1}
+                                value={form.data.count}
+                                onChange={e => {
+                                    e.currentTarget.value = e.currentTarget.value.replace('0', '');
+                                    const value = parseInt(e.currentTarget.value.length > 1 ? e.currentTarget.value[1] : e.currentTarget.value);
+                                    if (isNaN(value)) {
+                                        form.setData('count', 0);
+                                    } else if (value > 5) {
+                                        form.setData('count', 5);
+                                    } else if (value < 0) {
+                                        form.setData('count', 0);
+                                    } else {
+                                        form.setData('count', value);
+                                    }
+                                }}
+                                required
+                            />
+                            <InputError className="mt-2" message={form.errors.count} />
                         </div>
                         <div className="flex justify-end">
                             <div
