@@ -119,14 +119,12 @@ export default function RedeemForm() {
                             }} width="640" height="480" />
                             {cameraModal ? <Scanner scannerRef={scannerRef}
                                 onDetected={(result: { codeResult: { code: string; }; }) => {
-                                    form.setData('token', result.codeResult.code)
-                                    console.log(result.codeResult.code);
+                                    form.setData('token', result.codeResult.code.slice(1, -1))
                                 }
                                 }
                             />
                                 : null}
                         </div>
-                        <p>{form.data.token}</p>
                     </div>
                 </div>
             </div>

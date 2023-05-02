@@ -269,7 +269,7 @@ class TransactionController extends Controller
     public function redeemForm()
     {
         return Inertia::render(
-            'Admin/Transaction/RedeemForm'
+            'Admin/Transaction/RedeemFormTest'
         );
     }
 
