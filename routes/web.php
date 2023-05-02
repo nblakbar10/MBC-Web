@@ -56,6 +56,7 @@ Route::middleware([
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::middleware(['role:admin|super-admin'])->group(function () {
         Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
+        Route::get('/transaction/redeemFormTest', [TransactionController::class, 'redeemFormTest'])->name('transaction.redeemFormTest');
 
 
         Route::resource('/promo', PromoController::class);

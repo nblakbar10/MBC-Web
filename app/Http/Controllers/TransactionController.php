@@ -273,6 +273,13 @@ class TransactionController extends Controller
         );
     }
 
+    public function redeemFormTest()
+    {
+        return Inertia::render(
+            'Admin/Transaction/RedeemFormTest'
+        );
+    }
+
     public function redeem(Request $request)
     {
         $request->validate([
