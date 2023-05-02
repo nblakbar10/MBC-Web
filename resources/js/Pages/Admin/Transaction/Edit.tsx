@@ -216,7 +216,7 @@ export default function Edit({ transaction }: Props) {
                                                 required
                                                 autoFocus
                                                 autoComplete="ticket_id"
-                                                disabled
+                                                onChange={(e) => form.setData('ticket_id', e.target.value)}
                                             />
                                             <InputError className="mt-2" message={form.errors.ticket_id} />
                                         </div>

@@ -329,6 +329,7 @@ class TransactionController extends Controller
         $transaction = Transaction::find($id);
         $transaction->update([
             'payment_status' => $request->payment_status,
+            'ticket_id' => $request->ticket_id,
             'ticket_status' => $request->ticket_status
         ]);
         return redirect()->route('transaction.index')->banner('Transaction Updated');
