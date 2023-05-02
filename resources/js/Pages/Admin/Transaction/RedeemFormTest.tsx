@@ -92,7 +92,7 @@ export default function RedeemForm() {
                             <InputError className="mt-2" message={form.errors.token} />
                         </div>
                         <div className="form-control w-full mt-4">
-                            <InputLabel htmlFor="count">Redeem Token Pembayaran</InputLabel>
+                            <InputLabel htmlFor="count">Jumlah Tiket Diredeem</InputLabel>
                             <TextInput
                                 id="count"
                                 type="number"
