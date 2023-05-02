@@ -77,9 +77,7 @@ const Scanner = ({
                 // drawingCtx.fillStyle = validated ? 'green' : 'red';
                 // drawingCtx.fillText(`${result.codeResult.code} valid: ${validated}`, 10, 50);
                 drawingCtx.fillText(result.codeResult.code, 10, 20);
-                // if (validated) {
-                //     onDetected(result);
-                // }
+                onDetected(result);
             }
         }
     };
@@ -112,7 +110,7 @@ const Scanner = ({
                 }
             }
         });
-        Quagga.onDetected(errorCheck);
+        Quagga.onDetected(onDetected);
         return () => {
             Quagga.offDetected(errorCheck);
             Quagga.offProcessed(handleProcessed);

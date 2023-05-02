@@ -32,12 +32,9 @@ export default function RedeemForm() {
 
     const [cameraModal, setCameraModal] = React.useState(false);
 
-    const handleCameraClose = () => {
-        setCameraModal(false);
-    };
 
     const handleCameraOpen = () => {
-        setCameraModal(true);
+        setCameraModal(!cameraModal);
     };
 
     const onSubmitHandler = (e: React.FormEvent) => {
@@ -121,7 +118,12 @@ export default function RedeemForm() {
                                 // width: '100%',
                             }} width="640" height="480" />
                             {cameraModal ? <Scanner scannerRef={scannerRef}
-                                onDetected={(result: { codeResult: { code: string; }; }) => form.setData('token', result.codeResult.code)} />
+                                onDetected={(result: { codeResult: { code: string; }; }) => {
+                                    form.setData('token', result.codeResult.code)
+                                    console.log(result.codeResult.code);
+                                }
+                                }
+                            />
                                 : null}
                         </div>
                         <p>{form.data.token}</p>
