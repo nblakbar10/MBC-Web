@@ -26,7 +26,8 @@ class Transaction extends Model
         'payment_link',
         'ticket_id',
         'ticket_status',
-        'ticket_barcode'
+        'ticket_barcode',
+        'reedem_amount'
     ];
 
     protected $casts = [

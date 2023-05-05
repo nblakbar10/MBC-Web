@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('ticket_id')->nullable();
             $table->string('ticket_status')->nullable();
             $table->string('ticket_barcode')->nullable();
+            $table->string('reedem_amount')->nullable();
             $table->timestamps(); //date
             // $table->softDeletes();
         });
