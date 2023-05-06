@@ -315,7 +315,7 @@ class TransactionController extends Controller
                     'ticket_status' => 'Reedeemed for '.$request->redeem_amount.' tickets',
                     'redeem_amount' => $request->redeem_amount
                 ]); 
-                return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. 'has redeemed.'], 200);
+                return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. ' has redeemed.'], 200);
             }else if($check->redeem_amount != 0 || $check->redeem_amount != NULL){
                 if($request->redeem_amount == $check->total_tickets){
                     Transaction::where('external_id', $check->external_id)->update([
