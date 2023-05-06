@@ -317,21 +317,42 @@ class TransactionController extends Controller
                 ]); 
                 return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. ' has redeemed.'], 200);
             }else if($check->redeem_amount != 0 || $check->redeem_amount != NULL){
-                if($request->redeem_amount == $check->total_tickets){
+                if($check->total_tickets == $check->redeem_amount){
+                    return response()->json(['message' => 'Error! All tickets has already reedemed'], 208);
+                }else if($request->redeem_amount == $check->total_tickets && $check->redeem_amount == 0){
                     Transaction::where('external_id', $check->external_id)->update([
                         'ticket_status' => 'Reedeemed for all tickets',
                         'redeem_amount' => $request->redeem_amount
                     ]);
                     return response()->json(['message' => 'Ticket ID Found! All tickets has redeemed.'], 200); 
-                }else if($request->redeem_amount > $check->redeem_amount){
-                    return response()->json(['message' => 'Error! Redeem request was out of total purchased tickets'], 208); 
-                }else if($request->redeem_amount < $check->redeem_amount){
-                    $decrease_redeem_amount = (int)$check->redeem_amount - (int)$request->redeem_amount;
+                    
+                // }else if($request->redeem_amount != 0 && (int)$request->redeem_amount + (int)$check->redeem_amount <= $check->total_tickets){
+                //     $increase_redeem_amount = (int)$check->redeem_amount + (int)$request->redeem_amount;
+                //     Transaction::where('external_id', $check->external_id)->update([
+                //         'ticket_status' => 'Reedeemed for all tickets',
+                //         'redeem_amount' => $increase_redeem_amount
+                //     ]);
+                //     return response()->json(['message' => 'Ticket ID Founaad! '.$request->redeem_amount.' tickets'. ' has redeemed.'], 200);
+
+                // $increase_redeem_amount = (int)$check->redeem_amount + (int)$request->redeem_amount;
+                }else if(((int)$check->redeem_amount + (int)$request->redeem_amount) <= $check->total_tickets){
+                    $increase_redeem_amount = (int)$check->redeem_amount + (int)$request->redeem_amount;
                     Transaction::where('external_id', $check->external_id)->update([
                         'ticket_status' => 'Reedeemed for all tickets',
-                        'redeem_amount' => $decrease_redeem_amount
+                        'redeem_amount' => $increase_redeem_amount
                     ]);
-                    return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. 'has redeemed.'], 200);
+                    return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. ' has redeemed.'], 200);
+                }else if(((int)$check->redeem_amount + (int)$request->redeem_amount) == $check->total_tickets){
+                    return response()->json(['message' => 'Error12! All tickets has already reedemed'], 208);
+                // }else if($request->redeem_amount < $check->redeem_amount){
+                //     $decrease_redeem_amount = (int)$check->redeem_amount - (int)$request->redeem_amount;
+                //     Transaction::where('external_id', $check->external_id)->update([
+                //         'ticket_status' => 'Reedeemed for all tickets',
+                //         'redeem_amount' => $decrease_redeem_amount
+                //     ]);
+                //     return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. 'has redeemed.'], 200);
+                }else if($request->redeem_amount > $check->total_tickets){
+                    return response()->json(['message' => 'Error! Redeem request was out of total purchased tickets'], 208);
                 }
             }
         }else{

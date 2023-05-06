@@ -42,9 +42,10 @@ export default function RedeemForm() {
         e.preventDefault();
         console.log(form.data);
         form.clearErrors();
-        const { token } = form.data;
+        const { token, redeem_amount } = form.data;
         axios.post(route('transaction.redeem'), {
-            token: token
+            token: token,
+            redeem_amount: redeem_amount
         }).then((response) => {
             setRedeemModal({
                 open: true,
