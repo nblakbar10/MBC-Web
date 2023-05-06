@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use App\Models\Ticket;
 use App\Models\Promo;
 use App\Models\Discount;
 use Illuminate\Http\Request;
@@ -280,22 +281,59 @@ class TransactionController extends Controller
         );
     }
 
+    // public function redeem(Request $request)
+    // {
+    //     $request->validate([
+    //         'token' => ['required', 'string', 'size:14'],
+    //         'coupon' => ['required']
+    //     ]);
+    //     $transaction = Transaction::where('ticket_id', $request->token)->get()->first();
+    //     if($transaction){
+    //         if($transaction->ticket_status === 'Reedeemed!'){
+    //             return response()->json(['message' => 'Error! Ticket sudah ditukarkan!'], 200);
+    //         }
+    //         $transaction->update([
+    //             'ticket_status' => 'Reedeemed!'
+    //         ]);
+    //         return response()->json(['message' => 'Ticket ID Found! This ticket has redeemed'], 200); 
+
+    //     }else{
+    //         return  response()->json(['message' => 'Ticket ID Not Found!'], 208);
+    //     }
+    // }
+
     public function redeem(Request $request)
     {
         $request->validate([
             'token' => ['required', 'string', 'size:14'],
-            'coupon' => ['required']
+            'redeem_amount' => ['required']
         ]);
-        $transaction = Transaction::where('ticket_id', $request->token)->get()->first();
-        if($transaction){
-            if($transaction->ticket_status === 'Reedeemed!'){
-                return response()->json(['message' => 'Error! Ticket sudah ditukarkan!'], 200);
+        $check = Transaction::where('ticket_id', $request->token)->get()->first();
+        if($check){
+            if($check->redeem_amount == 0 || $check->redeem_amount == NULL){
+                Transaction::where('external_id', $check->external_id)->update([
+                    'ticket_status' => 'Reedeemed for '.$request->redeem_amount.' tickets',
+                    'redeem_amount' => $request->redeem_amount
+                ]); 
+                return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. 'has redeemed.'], 200);
+            }else if($check->redeem_amount != 0 || $check->redeem_amount != NULL){
+                if($request->redeem_amount == $check->total_tickets){
+                    Transaction::where('external_id', $check->external_id)->update([
+                        'ticket_status' => 'Reedeemed for all tickets',
+                        'redeem_amount' => $request->redeem_amount
+                    ]);
+                    return response()->json(['message' => 'Ticket ID Found! All tickets has redeemed.'], 200); 
+                }else if($request->redeem_amount > $check->redeem_amount){
+                    return response()->json(['message' => 'Error! Redeem request was out of total purchased tickets'], 208); 
+                }else if($request->redeem_amount < $check->redeem_amount){
+                    $decrease_redeem_amount = (int)$check->redeem_amount - (int)$request->redeem_amount;
+                    Transaction::where('external_id', $check->external_id)->update([
+                        'ticket_status' => 'Reedeemed for all tickets',
+                        'redeem_amount' => $decrease_redeem_amount
+                    ]);
+                    return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. 'has redeemed.'], 200);
+                }
             }
-            $transaction->update([
-                'ticket_status' => 'Reedeemed!'
-            ]);
-            return response()->json(['message' => 'Ticket ID Found! This ticket has redeemed'], 200); 
-
         }else{
             return  response()->json(['message' => 'Ticket ID Not Found!'], 208);
         }
