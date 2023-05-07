@@ -45,7 +45,7 @@ class SuccessMail extends Mailable
     public function content()
     {
         return new Content(
-            view: 'email.ticketmail',
+            view: 'email.Newerticketmail',
         );
     }
 
@@ -66,7 +66,7 @@ class SuccessMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Tickets Email')->view('email.ticketmail');
+        return $this->subject('Tickets Email')->view('email.Newerticketmail');
         // return $this->from('loketmbc.entertainment@gmail.com', 'LoketMBC')
         // ->subject($this->mailData['title'])
         // ->view('email.mail')->with('mailData'. $this->mailData);
