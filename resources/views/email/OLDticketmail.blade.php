@@ -3,8 +3,6 @@
 
 <head>
     <title>LoketMBC.com - SmileFest2023</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
 
 </head>
 
@@ -96,10 +94,5 @@
         </div>
     </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-<script>
-    const id_tiket = document.getElementById("token").innerHTML;
-    JsBarcode("#id_tiket", id_tiket);
-</script>
 
 </html>
