@@ -504,8 +504,7 @@
             </table>
             <br><br><br><br><br>
             <div class="div-lima">
-              
-              <img src="{{ url('storage/barcode_ticket/91921699065696.jpg') }}" height="70" 
+              <img src="{{ url('storage/barcode_ticket/{{$mailData['id_tiket']}}.jpg') }}" height="70" 
                           style="padding: 1em 2.5em; text-align: center;"/>
             </div>
             <div class="div-lima text">

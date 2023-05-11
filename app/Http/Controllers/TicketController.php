@@ -164,16 +164,15 @@ class TicketController extends Controller
             // "status_tiket" => "Not redeemed yet",
             "ticket_barcode" => url('$mix_ticket'.'.jpg')
         ];
-        // Mail::to('sitikholifatulmarifah@gmail.com')->send(new SuccessMail($mailData));
+        Mail::to('sitikholifatulmarifah@gmail.com')->send(new SuccessMail($mailData));
         Mail::to('nabilakbarpratama@gmail.com')->send(new SuccessMail($mailData));
         Mail::to('dian.galleon@gmail.com')->send(new SuccessMail($mailData));
-        Mail::to('muhikram1609@gmail.com')->send(new SuccessMail($mailData));
-        // Transaction::where('external_id', $external_id)->update([
-        //     'payment_status' => "PAID",
-        //     'ticket_id' => $mix_ticket,
-        //     'ticket_status' => "Not redeemed yet",
-        //     'ticket_barcode' => url($mix_ticket.'.jpg')
-        // ]);
+        Transaction::where('external_id', 'MBC-SmileFest2023-r3lInwz')->update([
+            'payment_status' => "PAID",
+            'ticket_id' => $mix_ticket,
+            'ticket_status' => "Not redeemed yet",
+            'ticket_barcode' => url($mix_ticket.'.jpg')
+        ]);
         // $transaction_id = Str::random(7);
         // Transaction::create([
         //     'external_id' => 'MBC-SmileFest2023-G5h2Lb2',
