@@ -504,8 +504,8 @@
             </table>
             <br><br><br><br><br>
             <div class="div-lima">
-            <img src="https://loketmbc.com/storage/barcode_ticket/{{$mailData['id_tiket']}}.jpg" height="70" 
-                          style="padding: 1em 2.5em; text-align: center;"/>
+            <img src="http://loketmbc.com/storage/barcode_ticket/{{$mailData['id_tiket']}}.jpg" height="70"
+                      style="padding: 1em 2.5em; text-align: center;"/>
             </div>
             <div class="div-lima text">
               <p>2023 @ PT Maju Bersama Kreatif</p>
