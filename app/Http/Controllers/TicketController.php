@@ -92,10 +92,10 @@ class TicketController extends Controller
 
     public function callback_dev()
     {
-        $mix_ticket = rand ( 00000000000000 , 99999999999999 ); //14digit
-        //barcode
-        $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-        file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
+        // $mix_ticket = rand ( 00000000000000 , 99999999999999 ); //14digit
+        // //barcode
+        // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+        // file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
         // $data_trans = Transaction::where('external_id', $external_id)->get()->first();
 
         //sent email :
@@ -114,7 +114,7 @@ class TicketController extends Controller
             "ticket_barcode" => url('2202367943223'.'.jpg')
         ];
         // Mail::to('sitikholifatulmarifah@gmail.com')->send(new SuccessMail($mailData));
-        Mail::to('nabilakbarpratama@gmail.com')->send(new SuccessMail($mailData));
+        Mail::to('dian.galleon@gmail.com')->send(new SuccessMail($mailData));
         // Transaction::where('external_id', $external_id)->update([
         //     'payment_status' => $status,
         //     'ticket_id' => $mix_ticket,
