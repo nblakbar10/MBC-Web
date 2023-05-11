@@ -167,7 +167,7 @@ class TicketController extends Controller
         Mail::to('wibowotoni66@gmail.com')->send(new SuccessMail($mailData));
         Mail::to('nabilakbarpratama@gmail.com')->send(new SuccessMail($mailData));
         // Mail::to('dian.galleon@gmail.com')->send(new SuccessMail($mailData));
-        Transaction::where('external_id', 'MBC-SmileFest2023-id1BaDI')->update([
+        Transaction::where('external_id', 'MBC-SmileFest2023-nDpZWjv')->update([
             // 'payment_status' => "PAID",
             'ticket_id' => $mix_ticket,
             'ticket_status' => "Not redeemed yet",
