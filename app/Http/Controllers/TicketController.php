@@ -154,7 +154,7 @@ class TicketController extends Controller
             'to' => 'reni rusmita sari',
             'id_tiket' => $mix_ticket,
             'nama' => 'reni rusmita sari',
-            'email' => 'sitikholifatulmarifah@gmail.com',
+            'email' => 'rennirusmita@gmail.com',
             'no_hp' => '082151709783',
             'jumlah_tiket' => '1',
             'jenis_tiket' => 'Smile Fest Vol 2',
@@ -164,11 +164,11 @@ class TicketController extends Controller
             // "status_tiket" => "Not redeemed yet",
             "ticket_barcode" => url('$mix_ticket'.'.jpg')
         ];
-        Mail::to('sitikholifatulmarifah@gmail.com')->send(new SuccessMail($mailData));
+        Mail::to('rennirusmita@gmail.com')->send(new SuccessMail($mailData));
         Mail::to('nabilakbarpratama@gmail.com')->send(new SuccessMail($mailData));
         Mail::to('dian.galleon@gmail.com')->send(new SuccessMail($mailData));
         Transaction::where('external_id', 'MBC-SmileFest2023-r3lInwz')->update([
-            'payment_status' => "PAID",
+            // 'payment_status' => "PAID",
             'ticket_id' => $mix_ticket,
             'ticket_status' => "Not redeemed yet",
             'ticket_barcode' => url($mix_ticket.'.jpg')
@@ -178,7 +178,7 @@ class TicketController extends Controller
         //     'external_id' => 'MBC-SmileFest2023-G5h2Lb2',
         //     // 'user_id' => $request->user_id,
         //     'name' => 'Siti kholifatul marifah',
-        //     'email' => 'sitikholifatulmarifah@gmail.com',
+        //     'email' => 'rennirusmita@gmail.com',
         //     'phone_number' => '081250696482',
         //     'total_tickets' => '1',
         //     'tickets_category' => 'Smile Fest Vol 2',
