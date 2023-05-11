@@ -151,34 +151,34 @@ class TicketController extends Controller
 
         //sent email :
         $mailData = [
-            'to' => 'reni rusmita sari',
-            'id_tiket' => '42743902792153',
-            'nama' => 'reni rusmita sari',
-            'email' => 'rennirusmita@gmail.com',
-            'no_hp' => '082151709783',
-            'jumlah_tiket' => '3',
+            'to' => 'Widya Nurrahmadani',
+            'id_tiket' => $mix_ticket,
+            'nama' => 'Widya Nurrahmadani',
+            'email' => 'wnur6878@gmail.com',
+            'no_hp' => '085248027276',
+            'jumlah_tiket' => '2',
             'jenis_tiket' => 'Smile Fest Vol 2',
-            'total_pembayaran' => 'Rp. 612,000',
+            'total_pembayaran' => 'Rp. 409,500',
             'metode_pembayaran' => 'Transfer Bank (VA)',
             'status_pembayaran' => 'PAID',
             // "status_tiket" => "Not redeemed yet",
-            "ticket_barcode" => url('42743902792153'.'.jpg')
+            "ticket_barcode" => url($mix_ticket.'.jpg')
         ];
-        Mail::to('rennirusmita@gmail.com')->send(new SuccessMail($mailData));
+        Mail::to('wnur6878@gmail.com')->send(new SuccessMail($mailData));
         Mail::to('nabilakbarpratama@gmail.com')->send(new SuccessMail($mailData));
         Mail::to('dian.galleon@gmail.com')->send(new SuccessMail($mailData));
         Transaction::where('external_id', 'MBC-SmileFest2023-r3lInwz')->update([
             // 'payment_status' => "PAID",
-            'ticket_id' => '42743902792153',
+            'ticket_id' => $mix_ticket,
             'ticket_status' => "Not redeemed yet",
-            'ticket_barcode' => url('42743902792153'.'.jpg')
+            'ticket_barcode' => url($mix_ticket.'.jpg')
         ]);
         // $transaction_id = Str::random(7);
         // Transaction::create([
         //     'external_id' => 'MBC-SmileFest2023-G5h2Lb2',
         //     // 'user_id' => $request->user_id,
         //     'name' => 'Siti kholifatul marifah',
-        //     'email' => 'rennirusmita@gmail.com',
+        //     'email' => 'wnur6878@gmail.com',
         //     'phone_number' => '081250696482',
         //     'total_tickets' => '1',
         //     'tickets_category' => 'Smile Fest Vol 2',
