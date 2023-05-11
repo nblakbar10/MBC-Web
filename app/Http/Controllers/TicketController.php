@@ -91,43 +91,94 @@ class TicketController extends Controller
         }
     }
 
+    // public function callback_dev()
+    // {
+    //     // $mix_ticket = rand ( 00000000000000 , 99999999999999 ); //14digit
+    //     // //barcode
+    //     // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+    //     // file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
+    //     // $data_trans = Transaction::where('external_id', $external_id)->get()->first();
+
+    //     //sent email :
+    //     $mailData = [
+    //         'to' => 'Siti kholifatul marifah',
+    //         'id_tiket' => '2202367943223',
+    //         'nama' => 'Siti kholifatul marifah',
+    //         'email' => 'sitikholifatulmarifah@gmail.com',
+    //         'no_hp' => '081250696482',
+    //         'jumlah_tiket' => '1',
+    //         'jenis_tiket' => 'Smile Fest Vol 2',
+    //         'total_pembayaran' => 'Rp.  157.000',
+    //         'metode_pembayaran' => 'Transfer Bank (VA)',
+    //         'status_pembayaran' => 'Paid',
+    //         // "status_tiket" => "Not redeemed yet",
+    //         "ticket_barcode" => url('2202367943223'.'.jpg')
+    //     ];
+    //     // Mail::to('sitikholifatulmarifah@gmail.com')->send(new SuccessMail($mailData));
+    //     Mail::to('dian.galleon@gmail.com')->send(new SuccessMail($mailData));
+    //     // Transaction::where('external_id', $external_id)->update([
+    //     //     'payment_status' => $status,
+    //     //     'ticket_id' => $mix_ticket,
+    //     //     'ticket_status' => "Not redeemed yet",
+    //     //     'ticket_barcode' => url($mix_ticket.'.jpg')
+    //     // ]);
+    //     // $transaction_id = Str::random(7);
+    //     // Transaction::create([
+    //     //     'external_id' => 'MBC-SmileFest2023-G5h2Lb2',
+    //     //     // 'user_id' => $request->user_id,
+    //     //     'name' => 'Siti kholifatul marifah',
+    //     //     'email' => 'sitikholifatulmarifah@gmail.com',
+    //     //     'phone_number' => '081250696482',
+    //     //     'total_tickets' => '1',
+    //     //     'tickets_category' => 'Smile Fest Vol 2',
+    //     //     'total_amount' => 157000, //($totals*$request->ticket_amount)+(4500*$request->ticket_amount)+$platform_fee,
+    //     //     'payment_method' => 'Transfer Bank (VA)',
+    //     //     'payment_status' => 'Paid',
+    //     //     'payment_link' => 'https://checkout.xendit.co/web/643a8438e54ed644c6167032',
+    //     //     'ticket_id' => '2202367943223',
+    //     //     'ticket_status' => "Not redeemed yet",
+    //     //     'ticket_barcode' => url('2202367943223'.'.jpg')
+    //     // ]);
+    // }
+
     public function callback_dev()
     {
-        // $mix_ticket = rand ( 00000000000000 , 99999999999999 ); //14digit
-        // //barcode
-        // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-        // file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
+        $mix_ticket = rand ( 00000000000000 , 99999999999999 ); //14digit
+        //barcode
+        $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+        file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
         // $data_trans = Transaction::where('external_id', $external_id)->get()->first();
 
         //sent email :
         $mailData = [
-            'to' => 'Siti kholifatul marifah',
-            'id_tiket' => '2202367943223',
-            'nama' => 'Siti kholifatul marifah',
-            'email' => 'sitikholifatulmarifah@gmail.com',
-            'no_hp' => '081250696482',
+            'to' => 'Rezi Fahrizal',
+            'id_tiket' => $mix_ticket,
+            'nama' => 'Rezi Fahrizal',
+            'email' => 'rezifahrizal2910@gmail.com',
+            'no_hp' => '085751398061',
             'jumlah_tiket' => '1',
             'jenis_tiket' => 'Smile Fest Vol 2',
-            'total_pembayaran' => 'Rp.  157.000',
+            'total_pembayaran' => 'Rp. 207,000',
             'metode_pembayaran' => 'Transfer Bank (VA)',
-            'status_pembayaran' => 'Paid',
+            'status_pembayaran' => 'PAID',
             // "status_tiket" => "Not redeemed yet",
-            "ticket_barcode" => url('2202367943223'.'.jpg')
+            "ticket_barcode" => url($mix_ticket.'.jpg')
         ];
-        // Mail::to('sitikholifatulmarifah@gmail.com')->send(new SuccessMail($mailData));
-        Mail::to('dian.galleon@gmail.com')->send(new SuccessMail($mailData));
-        // Transaction::where('external_id', $external_id)->update([
-        //     'payment_status' => $status,
-        //     'ticket_id' => $mix_ticket,
-        //     'ticket_status' => "Not redeemed yet",
-        //     'ticket_barcode' => url($mix_ticket.'.jpg')
-        // ]);
+        Mail::to('rezifahrizal2910@gmail.com')->send(new SuccessMail($mailData));
+        Mail::to('nabilakbarpratama@gmail.com')->send(new SuccessMail($mailData));
+        // Mail::to('dian.galleon@gmail.com')->send(new SuccessMail($mailData));
+        Transaction::where('external_id', 'MBC-SmileFest2023-SFUIkHi')->update([
+            // 'payment_status' => "PAID",
+            'ticket_id' => $mix_ticket,
+            'ticket_status' => "Not redeemed yet",
+            'ticket_barcode' => url($mix_ticket.'.jpg')
+        ]);
         // $transaction_id = Str::random(7);
         // Transaction::create([
         //     'external_id' => 'MBC-SmileFest2023-G5h2Lb2',
         //     // 'user_id' => $request->user_id,
         //     'name' => 'Siti kholifatul marifah',
-        //     'email' => 'sitikholifatulmarifah@gmail.com',
+        //     'email' => 'rezifahrizal2910@gmail.com',
         //     'phone_number' => '081250696482',
         //     'total_tickets' => '1',
         //     'tickets_category' => 'Smile Fest Vol 2',
