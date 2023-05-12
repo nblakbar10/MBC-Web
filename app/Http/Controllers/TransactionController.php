@@ -305,7 +305,7 @@ class TransactionController extends Controller
     public function redeem(Request $request)
     {
         $request->validate([
-            'token' => ['required', 'string', 'size:14'],
+            'token' => ['required', 'string', 'min:10'],
             'redeem_amount' => ['required']
         ]);
         $check = Transaction::where('ticket_id', $request->token)->get()->first();
