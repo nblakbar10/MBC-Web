@@ -43,10 +43,10 @@ return new class extends Migration
      *
      * @return void
      */
-    public function down()
-    {
-        Schema::table('transaction', function (Blueprint $table) {
-            $table->dropColumn('redeem_amount');
-        });
-    }
+    // public function down()
+    // {
+    //     Schema::table('transaction', function (Blueprint $table) {
+    //         $table->dropColumn('redeem_amount');
+    //     });
+    // }
 };
