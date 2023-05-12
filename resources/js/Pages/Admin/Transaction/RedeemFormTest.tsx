@@ -11,6 +11,12 @@ import route from "ziggy-js";
 // @ts-ignore
 import Scanner from "./Scanner";
 
+interface dataUser {
+    name: string,
+    email: string,
+    phone: string,
+}
+
 export default function RedeemForm() {
     const form = useForm({
         token: '',
@@ -19,15 +25,25 @@ export default function RedeemForm() {
 
     const scannerRef = useRef(null);
 
-    const [redeemModal, setRedeemModal] = React.useState({
+    const [redeemModal, setRedeemModal] = React.useState<{
+        open: boolean,
+        message: string,
+        data: {
+            name: string,
+            email: string,
+            phone: string,
+        } | {}
+    }>({
         open: false,
-        message: ''
+        message: '',
+        data: {}
     });
 
     const handleClose = () => {
         setRedeemModal({
             open: false,
-            message: ''
+            message: '',
+            data: {}
         });
     };
 
@@ -49,14 +65,16 @@ export default function RedeemForm() {
         }).then((response) => {
             setRedeemModal({
                 open: true,
-                message: response.data.message
+                message: response.data.message,
+                data: response.data.data || {}
             });
             console.log(response.data);
         }).catch((error) => {
             console.log(error);
             setRedeemModal({
                 open: true,
-                message: error.response.data.message
+                message: error.response.data.message,
+                data: {}
             });
         });
     }
@@ -162,6 +180,18 @@ export default function RedeemForm() {
                 <DialogContent className="w-full">
                     <div>
                         <h3 className="font-bold text-lg">{redeemModal.message}</h3>
+                        {/* @ts-ignore */}
+                        {redeemModal.data.name && (
+                            <div className="mt-3">
+                                <p className="text-lg">Data Pemesan :</p>
+                                {/* @ts-ignore */}
+                                <p>name : {redeemModal.data.name}</p>
+                                {/* @ts-ignore */}
+                                <p>email : {redeemModal.data.email}</p>
+                                {/* @ts-ignore */}
+                                <p>no telepon : {redeemModal.data.phone}</p>
+                            </div>
+                        )}
                     </div>
                 </DialogContent>
             </Dialog>

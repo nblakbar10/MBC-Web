@@ -315,7 +315,14 @@ class TransactionController extends Controller
                     'ticket_status' => 'Reedeemed for '.$request->redeem_amount.' tickets',
                     'redeem_amount' => $request->redeem_amount
                 ]); 
-                return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. ' has redeemed.'], 200);
+                return response()->json([
+                        'message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. ' has redeemed.',
+                        'data' => [
+                            'name' => $check->name,
+                            'email' => $check->email,
+                            'phone' => $check->phone_number,
+                        ]
+                    ], 200);
             }else if($check->redeem_amount != 0 || $check->redeem_amount != NULL){
                 if($check->total_tickets == $check->redeem_amount){
                     return response()->json(['message' => 'Error! All tickets has already reedemed'], 208);
@@ -324,8 +331,14 @@ class TransactionController extends Controller
                         'ticket_status' => 'Reedeemed for all tickets',
                         'redeem_amount' => $request->redeem_amount
                     ]);
-                    return response()->json(['message' => 'Ticket ID Found! All tickets has redeemed.'], 200); 
-                    
+                    return response()->json([
+                        'message' => 'Ticket ID Found! All tickets has redeemed.',
+                        'data' => [
+                            'name' => $check->name,
+                            'email' => $check->email,
+                            'phone' => $check->phone_number,
+                        ]
+                    ], 200);
                 // }else if($request->redeem_amount != 0 && (int)$request->redeem_amount + (int)$check->redeem_amount <= $check->total_tickets){
                 //     $increase_redeem_amount = (int)$check->redeem_amount + (int)$request->redeem_amount;
                 //     Transaction::where('external_id', $check->external_id)->update([
@@ -341,7 +354,14 @@ class TransactionController extends Controller
                         'ticket_status' => 'Reedeemed for all tickets',
                         'redeem_amount' => $increase_redeem_amount
                     ]);
-                    return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. ' has redeemed.'], 200);
+                    return response()->json([
+                        'message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'.' has redeemed.',
+                        'data' => [
+                            'name' => $check->name,
+                            'email' => $check->email,
+                            'phone' => $check->phone_number,
+                        ]
+                    ], 200);
                 }else if(((int)$check->redeem_amount + (int)$request->redeem_amount) == $check->total_tickets){
                     return response()->json(['message' => 'Error12! All tickets has already reedemed'], 208);
                 // }else if($request->redeem_amount < $check->redeem_amount){
@@ -370,6 +390,7 @@ class TransactionController extends Controller
     {
         //
         $transaction = Transaction::find($id);
+        // dd($transaction);
         return Inertia::render(
             'Admin/Transaction/Edit',
             ['transaction' => $transaction]
@@ -390,7 +411,8 @@ class TransactionController extends Controller
         $transaction->update([
             'payment_status' => $request->payment_status,
             'ticket_id' => $request->ticket_id,
-            'ticket_status' => $request->ticket_status
+            'ticket_status' => $request->ticket_status,
+            'redeem_amount' => $request->redeem_amount
         ]);
         return redirect()->route('transaction.index')->banner('Transaction Updated');
     }

@@ -46,6 +46,8 @@ export default function Index({ transactions }: Props) {
 
     // }, [pagination]);
 
+    console.log(transactions)
+
     const dataColumns = [
         {
             accessorKey: 'name',
@@ -160,6 +162,10 @@ export default function Index({ transactions }: Props) {
                                                             <tr className='border-b py-3 border-black'>
                                                                 <td className='py-3 text-center'>Tanggal Pembayaran</td>
                                                                 <td className='py-3 text-center'>{row.original.updated_at}</td>
+                                                            </tr>
+                                                            <tr className='border-b py-3 border-black'>
+                                                                <td className='py-3 text-center'>Jumlah Redeem</td>
+                                                                <td className='py-3 text-center'>{row.original.redeem_amount}</td>
                                                             </tr>
                                                             <tr className='border-b py-3 border-black'>
                                                                 <td className='py-3 text-center'>Tiket Id</td>

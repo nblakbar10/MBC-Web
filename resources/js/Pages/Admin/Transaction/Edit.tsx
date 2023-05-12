@@ -207,6 +207,20 @@ export default function Edit({ transaction }: Props) {
                                 <>
                                     <div className="flex flex-col gap-2 p-3">
                                         <div className="form-control w-full mt-4">
+                                            <InputLabel htmlFor="redeem_amount">Jumlah Redeem</InputLabel>
+                                            <TextInput
+                                                id="redeem_amount"
+                                                type="number"
+                                                className="mt-1 block w-full"
+                                                value={form.data.redeem_amount}
+                                                required
+                                                autoFocus
+                                                autoComplete="redeem_amount"
+                                                onChange={(e) => form.setData('redeem_amount', parseInt(e.target.value))}
+                                            />
+                                            <InputError className="mt-2" message={form.errors.redeem_amount} />
+                                        </div>
+                                        <div className="form-control w-full mt-4">
                                             <InputLabel htmlFor="ticket_id">ID Tiket</InputLabel>
                                             <TextInput
                                                 id="ticket_id"

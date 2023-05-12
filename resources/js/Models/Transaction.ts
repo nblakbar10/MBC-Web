@@ -14,6 +14,7 @@ export interface BaseTransactionModel{
     ticket_id?: string;
     ticket_status?: string;
     ticket_barcode?: string;
+    redeem_amount : number;
     created_at: string;
     updated_at: string;
 } 
