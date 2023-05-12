@@ -56,18 +56,17 @@ Route::middleware([
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::middleware(['role:admin|super-admin'])->group(function () {
         Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
-        Route::get('/transaction/redeemFormTest', [TransactionController::class, 'redeemFormTest'])->name('transaction.redeemFormTest');
-
-
-        Route::resource('/promo', PromoController::class);
-        Route::resource('/discount', DiscountController::class);
-        Route::resource('/event', EventController::class);
         Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
-        Route::get('/trasaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
-        Route::put('/transaction/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
         Route::get('/transaction/export', [TransactionController::class, 'exportView'])->name('transaction.export-view');
-        Route::resource('/ticket', TicketController::class);
+
+
         Route::middleware(['role:super-admin'])->group(function () {
+            Route::resource('/promo', PromoController::class);
+            Route::resource('/discount', DiscountController::class);
+            Route::resource('/event', EventController::class);
+            Route::get('/trasaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
+            Route::put('/transaction/update/{id}', [TransactionController::class, 'update'])->name('transaction.update');
+            Route::resource('/ticket', TicketController::class);
             Route::resource('/user', UserController::class);
             // Route::resource('/event', EventController::class);
             // Route::resource('/event-promo', PromoController::class);

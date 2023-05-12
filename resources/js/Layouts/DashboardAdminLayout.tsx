@@ -11,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Dropdown from '@/Components/Jetstream/Dropdown';
 import DropdownLink from '@/Components/Jetstream/DropdownLink';
-import { Head } from '@inertiajs/inertia-react';
+import { Head, InertiaLink } from '@inertiajs/inertia-react';
 
 interface Props {
     title: string;
@@ -118,8 +118,12 @@ export default function DashboardAdminLayout({
                     >
                         <MenuIcon fontSize="large" />
                     </button>
-                    <p className='inline text-3xl bg-[#2EA1DA] text-white py-2'>Admin</p>
-
+                    <InertiaLink
+                        className='inline text-3xl bg-[#2EA1DA] text-white p-2 hover:bg-blue-500 rounded-lg'
+                        href={route('transaction.redeemForm')}
+                    >
+                        Reedeem Tiket
+                    </InertiaLink>
                 </div>
                 <div className="mr-3 relative">
                     <Dropdown
