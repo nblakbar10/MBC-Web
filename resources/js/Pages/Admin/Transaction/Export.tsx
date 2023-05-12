@@ -65,7 +65,7 @@ export default function Index({ transactions }: Props) {
         },
         {
             accessorFn(originalRow) {
-                return originalRow.payment_status === 'PAID' ? (
+                return originalRow.payment_status.toUpperCase() === 'PAID' ? (
                     <>
                         {originalRow.ticket_id}
                     </>
