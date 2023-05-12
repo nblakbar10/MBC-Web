@@ -169,9 +169,9 @@ class TicketController extends Controller
         // Mail::to('dian.galleon@gmail.com')->send(new SuccessMail($mailData));
         Transaction::where('external_id', 'MBC-SmileFest2023-G5h2Lb2')->update([
             // 'payment_status' => "PAID",
-            'ticket_id' => '79904138025363',
+            'ticket_id' => '2202367943223',
             'ticket_status' => "Not redeemed yet",
-            'ticket_barcode' => url('79904138025363'.'.jpg')
+            'ticket_barcode' => url('2202367943223'.'.jpg')
         ]);
         // $transaction_id = Str::random(7);
         // Transaction::create([
