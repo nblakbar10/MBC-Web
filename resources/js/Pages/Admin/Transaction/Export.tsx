@@ -64,6 +64,10 @@ export default function Index({ transactions }: Props) {
             id: 'payment_link',
         },
         {
+            accessorFn : (originalRow: TransactionModel) => originalRow.redeem_amount? originalRow.redeem_amount : 0,
+            header: 'Jumlah Penukaran',
+        },
+        {
             accessorFn(originalRow) {
                 return originalRow.payment_status.toUpperCase() === 'PAID' ? (
                     <>
