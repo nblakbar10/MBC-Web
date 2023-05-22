@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Research\Research;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -65,7 +64,15 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function isAdmin() {
-        return $this->hasAnyRole(['admin','super-admin']);
+    public function isSuperAdmin() {
+        return $this->hasAnyRole(['super-admin']);
+    }
+
+    public function redeemHistory() {
+        return $this->hasMany(RedeemHistory::class);
+    }
+
+    public function userActivity() {
+        return $this->hasMany(UserActivity::class);
     }
 }
