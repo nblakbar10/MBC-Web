@@ -5,7 +5,7 @@ import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
 import Form from './Form';
-import { PromoCreateModel } from '@/Models/Promo';
+import { PromoCreateModel } from '@/Models/TicketType';
 
 
 export default function Create() {

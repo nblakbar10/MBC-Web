@@ -4,8 +4,8 @@ import InputError from '@/Components/Jetstream/InputError';
 import TextInput from '@/Components/Jetstream/TextInput';
 import { InertiaFormProps } from '@inertiajs/inertia-react';
 import { InputLabel } from '@mui/material';
-import { DiscountCreateModel } from '@/Models/Discount';
-import { PromoModel } from '@/Models/Promo';
+import { DiscountCreateModel } from '@/Models/TicketDiscount';
+import { PromoModel } from '@/Models/TicketType';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
     form: InertiaFormProps<DiscountCreateModel>,

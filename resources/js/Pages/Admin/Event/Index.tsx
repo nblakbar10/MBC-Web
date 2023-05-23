@@ -7,56 +7,31 @@ import { InertiaLink } from '@inertiajs/inertia-react';
 import { EventModel } from '@/Models/Event';
 
 interface Props {
-    events?: Array<EventModel>,
+    events: Array<EventModel>,
 }
 
 export default function Index({ events }: Props) {
 
-    if (!events) {
-        events = [
-            {
-                id: 1,
-                name: 'Event 1',
-                eventPromos: [
-                    {
-                        id: 1,
-                        name: 'Event Promo 1',
-                    },
-                ]
-            },
-            {
-                id: 2,
-                name: 'Event 2',
-                eventPromos: [
-                    {
-                        id: 1,
-                        name: 'Event Promo 1',
-                    },
-                ]
-            },
-            {
-                id: 3,
-                name: 'Event 3',
-                eventPromos: [
-                    {
-                        id: 1,
-                        name: 'Event Promo 1',
-                    },
-                ]
-            },
-        ];
-    }
 
     const dataColumns = [
         {
             accessorKey: 'name',
             header: 'Nama Event',
-        },
+        },{
+            accessorKey: 'start_date',
+            header: 'Tanggal Mulai',
+        },{
+            accessorKey: 'end_date',
+            header: 'Tanggal Selesai',
+        }, {
+            accessorKey: 'location',
+            header: 'Lokasi',
+        }
     ] as MRT_ColumnDef<EventModel>[];
     return (
         <DashboardAdminLayout title="Events">
             <div className="py-12">
-                <div className="max-w-5xl mx-auto sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                         <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <div className="flex justify-between">

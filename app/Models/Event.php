@@ -12,28 +12,18 @@ class Event extends Model
     protected $fillable = [
         "name",
         "description",
+        "location",
+        "maximum_buy",
         "start_date",
         "end_date",
-        "location",
-        "latitude",
-        "longitude",
-        "banner",
-        "user_id",
+        "poster_url",
+        "event_map_url",
+        "preview_url",
     ];
 
     public function ticketTypes()
     {
         return $this->hasMany(TicketType::class);
-    }
-
-    public function redeemHistories()
-    {
-        return $this->hasMany(RedeemHistory::class);
-    }
-
-    public function userActivities()
-    {
-        return $this->hasMany(UserActivity::class);
     }
 
     public function transactions()

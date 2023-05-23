@@ -4,7 +4,7 @@ import route from 'ziggy-js';
 
 import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink } from '@inertiajs/inertia-react';
-import { DiscountModel } from '@/Models/Discount';
+import { DiscountModel } from '@/Models/TicketDiscount';
 
 interface Props {
     discounts: Array<DiscountModel>,

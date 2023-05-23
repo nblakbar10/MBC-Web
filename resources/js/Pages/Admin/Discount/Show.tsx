@@ -5,7 +5,7 @@ import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink } from '@inertiajs/inertia-react';
 import { Dialog, DialogContent } from '@mui/material';
-import { DiscountModel } from '@/Models/Discount';
+import { DiscountModel } from '@/Models/TicketDiscount';
 
 interface Props {
     discount: DiscountModel;

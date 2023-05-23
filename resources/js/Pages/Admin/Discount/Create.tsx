@@ -5,8 +5,8 @@ import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
 import Form from './Form';
-import { DiscountCreateModel } from '@/Models/Discount';
-import { PromoModel } from '@/Models/Promo';
+import { DiscountCreateModel } from '@/Models/TicketDiscount';
+import { PromoModel } from '@/Models/TicketType';
 
 interface Props {
     promos: Array<PromoModel>

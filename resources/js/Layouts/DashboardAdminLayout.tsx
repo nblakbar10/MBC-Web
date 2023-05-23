@@ -62,25 +62,22 @@ export default function DashboardAdminLayout({
                 />
             </div>
             <ul className="my-10">
-                <li>
+                {/* <li>
                     <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                         Dashboard
                     </ResponsiveNavLink>
-                </li>
+                </li> */}
                 <li>
                     <ResponsiveNavLink href={route('user.index')} active={route().current('user.index')}>
                         Pengguna
                     </ResponsiveNavLink>
                 </li>
                 <li>
-                    {/* <ResponsiveNavLink href={route('event.index')} active={route().current('event.index')}>
+                    <ResponsiveNavLink href={route('event.index')} active={route().current('event.index')}>
                         Event
-                    </ResponsiveNavLink> */}
-                    <div className="ml-4    ">
-                        Event
-                    </div>
+                    </ResponsiveNavLink>
                 </li>
-                <li>
+                {/* <li>
                     <ResponsiveNavLink href={route('promo.index')} active={route().current('event-promo.index')}>
                         Promo Event
                     </ResponsiveNavLink>
@@ -99,7 +96,7 @@ export default function DashboardAdminLayout({
                     <ResponsiveNavLink href={route('discount.index')} active={route().current('discount.index')}>
                         Discount Tiket
                     </ResponsiveNavLink>
-                </li>
+                </li> */}
             </ul>
         </Box>
     );
@@ -118,12 +115,12 @@ export default function DashboardAdminLayout({
                     >
                         <MenuIcon fontSize="large" />
                     </button>
-                    <InertiaLink
+                    {/* <InertiaLink
                         className='inline text-3xl bg-[#2EA1DA] text-white p-2 hover:bg-blue-500 rounded-lg'
                         href={route('transaction.redeemForm')}
                     >
                         Reedeem Tiket
-                    </InertiaLink>
+                    </InertiaLink> */}
                 </div>
                 <div className="mr-3 relative">
                     <Dropdown

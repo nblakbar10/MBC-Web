@@ -22,7 +22,7 @@ return new class extends Migration
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->string('poster_url');
-            $table->string('event_plan_url');
+            $table->string('event_map_url');
             $table->string('preview_url');
             $table->timestamps();
         });
