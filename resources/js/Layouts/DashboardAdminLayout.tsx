@@ -82,6 +82,11 @@ export default function DashboardAdminLayout({
                         Jenis Tiket
                     </ResponsiveNavLink>
                 </li>
+                <li>
+                    <ResponsiveNavLink href={route('ticket-discount.index')} active={route().current('ticket-discount.index')}>
+                        Discount Tiket
+                    </ResponsiveNavLink>
+                </li>
                 {/* <li>
                     <ResponsiveNavLink href={route('transaction.index')} active={route().current('transaction.index')}>
                         History Transaksi
@@ -92,11 +97,7 @@ export default function DashboardAdminLayout({
                         Export Transaksi
                     </ResponsiveNavLink>
                 </li> */}
-                {/* <li>
-                    <ResponsiveNavLink href={route('discount.index')} active={route().current('discount.index')}>
-                        Discount Tiket
-                    </ResponsiveNavLink>
-                </li> */}
+
             </ul>
         </Box>
     );

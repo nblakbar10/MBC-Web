@@ -4,21 +4,15 @@ import route from 'ziggy-js';
 
 import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink } from '@inertiajs/inertia-react';
-import { TicketTypeModel } from '@/Models/TicketType';
-import { Inertia } from '@inertiajs/inertia';
-import { EventModel } from '@/Models/Event';
+import { TicketDiscountModel } from '@/Models/TicketDiscount';
 import { Dialog, DialogContent } from '@mui/material';
+import { Inertia } from '@inertiajs/inertia';
 
 interface Props {
-    ticketTypes: Array<TicketTypeModel>,
-    events: Array<EventModel>,
+    ticketDiscounts: Array<TicketDiscountModel>,
 }
 
-export default function Index(props: Props) {
-
-    const { ticketTypes, events } = props;
-
-    const [eventId, setEventId] = React.useState<number>(-1);
+export default function Index({ ticketDiscounts }: Props) {
 
     const [deleteId, setDeleteId] = React.useState<number | null>(null);
 
@@ -38,87 +32,56 @@ export default function Index(props: Props) {
         setDeleteId(null);
     };
 
-    useEffect(() => {
-        const url = new URL(route(route().current()!).toString());
-
-        if (eventId !== -1) {
-            url.searchParams.set('event', eventId.toString());
-        } else {
-            url.searchParams.delete('event');
-        }
-
-        Inertia.visit(url.toString(), {
-            preserveState: true,
-            preserveScroll: true,
-            replace: true,
-        })
-
-    }, [eventId]);
+    console.log(ticketDiscounts);
 
     const dataColumns = [
         {
             accessorKey: 'name',
-            header: 'Nama Promo',
+            header: 'Nama Diskon',
+        }, {
+            accessorFn(originalRow) {
+                return originalRow.amount + (originalRow.type === 'percentage' ? '%' : '');
+            },
+            header: 'Besaran',
+        }, {
+            accessorKey: 'minimum_buy',
+            header: 'Minimal Pembelian',
         }, {
             accessorKey: 'stock',
             header: 'Stok',
         }, {
-            accessorKey: 'maximum_buy',
-            header: 'Maksimal Pembelian',
+            accessorKey: 'type',
+            header: 'Tipe',
         }, {
-            accessorFn: (originalRow) => {
-                return `Rp. ${originalRow.price.toLocaleString('id-ID')}`
-            },
-            header: 'Harga',
+            accessorKey: 'ticket_type.name',
+            header: 'Jenis Tiket',
         }, {
-            accessorKey: 'event.name',
+            accessorKey: 'ticket_type.event.name',
             header: 'Event',
         }
 
-    ] as MRT_ColumnDef<TicketTypeModel>[];
+    ] as MRT_ColumnDef<TicketDiscountModel>[];
     return (
-        <DashboardAdminLayout title="Jenis Tiket">
+        <DashboardAdminLayout title="Diskon Tiket">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div className="p-6 sm:px-20 bg-white border-b border-gray-200 flex flex-col gap-5">
-                        <div className='flex gap-3'>
-                            <div className="text-lg md:text-3xl">
-                                Pilih Event
-                            </div>
-                            <div>
-                                <select
-                                    className="w-full border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-                                    name="event"
-                                    id="event"
-                                    onChange={(e) => {
-                                        setEventId(parseInt(e.target.value));
-                                    }}
-                                >
-                                    <option value="-1">Semua Event</option>
-                                    {events.map((event) => (
-                                        <option key={event.id} value={event.id}>
-                                            {event.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
                         <div className="flex justify-between">
                             <div className="mt-8 text-2xl">
-                                Daftar Jenis Tiket {eventId !== -1 ? `Event ${events.find((event) => event.id === eventId)?.name}` : ''}
+                                Daftar Diskon
                             </div>
                             <div className="">
                                 <InertiaLink
-                                    href={route('ticket-type.create')}
+                                    href={route('ticket-discount.create')}
                                     className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
-                                    Tambah Jenis Tiket
+                                    Tambah Diskon
                                 </InertiaLink>
                             </div>
                         </div>
                         <div className="mt-6 text-gray-500">
                             <MaterialReactTable
                                 columns={dataColumns}
-                                data={ticketTypes}
+                                data={ticketDiscounts}
                                 enableColumnActions
                                 enableColumnFilters
                                 enablePagination
@@ -131,7 +94,7 @@ export default function Index(props: Props) {
                                 renderRowActions={({ row }) => (
                                     <div className='flex gap-2'>
                                         <div className="flex items-center justify-center gap-2">
-                                            <InertiaLink href={route('ticket-type.edit', row.original.id)}
+                                            <InertiaLink href={route('ticket-discount.edit', row.original.id)}
                                                 className="bg-yellow-500 text-white hover:bg-yellow-600 py-3 px-5 rounded-lg text-md font-semibold">
                                                 Edit
                                             </InertiaLink>
@@ -170,7 +133,7 @@ export default function Index(props: Props) {
                                 className="bg-red-500 text-white hover:bg-red-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
                                 onClick={
                                     () => {
-                                        Inertia.post(route('ticket-type.destroy', deleteId!), {
+                                        Inertia.post(route('ticket-discount.destroy', deleteId!), {
                                             _method: 'DELETE',
                                         });
                                     }

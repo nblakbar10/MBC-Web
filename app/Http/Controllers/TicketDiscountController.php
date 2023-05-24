@@ -3,7 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\TicketDiscount;
+use App\Models\Event;
+use App\Models\TicketType;
+use App\Models\UserActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class TicketDiscountController extends Controller
 {
@@ -15,6 +22,15 @@ class TicketDiscountController extends Controller
     public function index()
     {
         //
+        $ticketDiscounts = TicketDiscount::with([
+            'ticketType' => function ($query){
+                $query->select('id','name', 'event_id');
+            },'ticketType.event' => function ($query){
+                $query->select('id','name');
+        }])->get();
+        return Inertia::render('Admin/TicketDiscount/Index', [
+            'ticketDiscounts' => $ticketDiscounts,
+        ]);
     }
 
     /**
@@ -25,6 +41,12 @@ class TicketDiscountController extends Controller
     public function create()
     {
         //
+        $events = Event::select('id','name')->get();
+        $ticketTypes = TicketType::select('id','name', 'event_id')->get();
+        return Inertia::render('Admin/TicketDiscount/Create', [
+            'events' => $events,
+            'ticketTypes' => $ticketTypes,
+        ]);
     }
 
     /**
@@ -36,6 +58,25 @@ class TicketDiscountController extends Controller
     public function store(Request $request)
     {
         //
+        return DB::transaction(function () use ($request) {
+            $validated = $request->validate([
+                'name' => 'required',
+                'stock' => 'required|numeric|min:0',
+                'amount' => $request->type == 'percentage' ? 'required|numeric|min:0|max:100' : 'required|numeric|min:0',
+                'minimum_buy' => 'required|numeric|min:0',
+                'type' => 'required|in:percentage,fixed',
+                'ticket_type_id' => 'required',
+
+            ]);
+            $ticketDiscounts = TicketDiscount::create($validated);
+            UserActivity::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Create Ticket Discount ' . 'with Id ' . $ticketDiscounts->id . '.',
+                'latitude' => 0,
+                'longitude' => 0,
+            ]);
+            return redirect()->route('ticket-discount.index')->with('success', 'Ticket Discount has been created successfully!');
+        });
     }
 
     /**
@@ -58,6 +99,14 @@ class TicketDiscountController extends Controller
     public function edit($id)
     {
         //
+        $events = Event::select('id','name')->get();
+        $ticketTypes = TicketType::select('id','name', 'event_id')->get();
+        $ticketDiscount = TicketDiscount::find($id);
+        return Inertia::render('Admin/TicketDiscount/Edit', [
+            'events' => $events,
+            'ticketTypes' => $ticketTypes,
+            'ticketDiscount' => $ticketDiscount,
+        ]);
     }
 
     /**
@@ -70,6 +119,26 @@ class TicketDiscountController extends Controller
     public function update(Request $request, $id)
     {
         //
+        return DB::transaction(function () use ($request, $id) {
+            $validated = $request->validate([
+                'name' => 'required',
+                'stock' => 'required|numeric|min:0',
+                'amount' => $request->type == 'percentage' ? 'required|numeric|min:0|max:100' : 'required|numeric|min:0',
+                'minimum_buy' => 'required|numeric|min:0',
+                'type' => 'required|in:percentage,fixed',
+                'ticket_type_id' => 'required',
+
+            ]);
+            $ticketDiscounts = TicketDiscount::find($id);
+            $ticketDiscounts->update($validated);
+            UserActivity::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Update Ticket Discount ' . 'with Id ' . $ticketDiscounts->id . '.',
+                'latitude' => 0,
+                'longitude' => 0,
+            ]);
+            return redirect()->route('ticket-discount.index')->with('success', 'Ticket Discount has been updated successfully!');
+        });
     }
 
     /**
@@ -81,5 +150,16 @@ class TicketDiscountController extends Controller
     public function destroy($id)
     {
         //
+        return DB::transaction(function () use ($id) {
+            $ticketDiscounts = TicketDiscount::find($id);
+            $ticketDiscounts->delete();
+            UserActivity::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Delete Ticket Discount ' . 'with Id ' . $ticketDiscounts->id . '.',
+                'latitude' => 0,
+                'longitude' => 0,
+            ]);
+            return redirect()->route('ticket-discount.index')->with('success', 'Ticket Discount has been deleted successfully!');
+        });
     }
 }

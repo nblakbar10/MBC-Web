@@ -6,6 +6,7 @@ export interface BaseTicketTypeModel {
     price: number;
     stock: number;
     maximum_buy?: number;
+    event_id: number;
     event?: EventModel;
 }
 

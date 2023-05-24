@@ -1,11 +1,14 @@
+import { TicketTypeModel } from "./TicketType";
+
 export interface BaseTicketDiscountModel {
     id?: number;
     name: string;
-    promo_id: number;
-    minimum_order: number;
-    type: "Percentage" | "Fixed";
-    deduction: number;
-    quota: number;
+    stock: number;
+    amount: number;
+    minimum_buy: number;
+    type: "fixed" | "percentage";
+    ticket_type_id: number
+    ticketType?: TicketTypeModel;
 }
 
 export interface TicketDiscountModel extends BaseTicketDiscountModel {
