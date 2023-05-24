@@ -4,8 +4,9 @@ export interface BaseTicketTypeModel {
     id?: number;
     name: string;
     price: number;
-    stocks: number;
-    event: EventModel;
+    stock: number;
+    maximum_buy?: number;
+    event?: EventModel;
 }
 
 export interface TicketTypeModel extends BaseTicketTypeModel {
@@ -13,5 +14,5 @@ export interface TicketTypeModel extends BaseTicketTypeModel {
 }
 
 export interface TicketTypeCreateModel extends BaseTicketTypeModel {
-
+    event_id: number;
 }

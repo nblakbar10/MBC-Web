@@ -2,6 +2,7 @@
 
 use App\Actions\Fortify\UserProfileController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\TicketTypeController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -40,6 +41,7 @@ Route::get('/token', function () {
 
 Route::prefix('admin')->group(function (){
     Route::resource('event', EventController::class);
+    Route::resource('ticket-type', TicketTypeController::class);
 });
 
 Route::middleware([

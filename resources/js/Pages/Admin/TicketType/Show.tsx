@@ -5,10 +5,10 @@ import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { Inertia } from '@inertiajs/inertia';
 import { InertiaLink } from '@inertiajs/inertia-react';
 import { Dialog, DialogContent } from '@mui/material';
-import { PromoModel } from '@/Models/TicketType';
+import { TicketTypeModel } from '@/Models/TicketType';
 
 interface Props {
-    promo: PromoModel;
+    promo: TicketTypeModel;
 }
 
 export default function Show({ promo }: Props) {
@@ -76,12 +76,8 @@ export default function Show({ promo }: Props) {
                                         <td className='py-3 text-center'>{promo.name}</td>
                                     </tr>
                                     <tr className='border-b py-3 border-black'>
-                                        <td className='py-3 text-center'>Deskripsi Promo</td>
-                                        <td className='py-3 text-center'>{promo.description}</td>
-                                    </tr>
-                                    <tr className='border-b py-3 border-black'>
                                         <td className='py-3 text-center'>Stok Promo</td>
-                                        <td className='py-3 text-center'>{promo.stocks}</td>
+                                        <td className='py-3 text-center'>{promo.stock}</td>
                                     </tr>
                                     <tr className='border-b py-3 border-black'>
                                         <td className='py-3 text-center'>Harga Promo</td>

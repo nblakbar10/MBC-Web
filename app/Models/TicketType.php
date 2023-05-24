@@ -13,6 +13,7 @@ class TicketType extends Model
         "name",
         "stock",
         "price",
+        "maximum_buy",
         "event_id",
     ];
 

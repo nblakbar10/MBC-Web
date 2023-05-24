@@ -77,22 +77,22 @@ export default function DashboardAdminLayout({
                         Event
                     </ResponsiveNavLink>
                 </li>
-                {/* <li>
-                    <ResponsiveNavLink href={route('promo.index')} active={route().current('event-promo.index')}>
-                        Promo Event
+                <li>
+                    <ResponsiveNavLink href={route('ticket-type.index')} active={route().current('ticket-type.index')}>
+                        Jenis Tiket
                     </ResponsiveNavLink>
                 </li>
-                <li>
+                {/* <li>
                     <ResponsiveNavLink href={route('transaction.index')} active={route().current('transaction.index')}>
                         History Transaksi
                     </ResponsiveNavLink>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                     <ResponsiveNavLink href={route('transaction.export-view')} active={route().current('transaction.export-view')}>
                         Export Transaksi
                     </ResponsiveNavLink>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                     <ResponsiveNavLink href={route('discount.index')} active={route().current('discount.index')}>
                         Discount Tiket
                     </ResponsiveNavLink>
@@ -109,8 +109,8 @@ export default function DashboardAdminLayout({
             </Head>
             <Banner />
             <nav className="flex justify-between w-full sticky bg-[#2EA1DA] py-3 px-5">
-                <div className="flex gap-3 max-w-6xl mr-30">
-                    <button className="text-3xl md:ml-20 bg-[#2EA1DA] text-white hover:bg-blue-600 px-3 py-2"
+                <div className="flex gap-3 max-w-6xl">
+                    <button className="text-3xl bg-[#2EA1DA] text-white hover:bg-blue-600 px-3 py-2"
                         onClick={toggleDrawer(true)}
                     >
                         <MenuIcon fontSize="large" />
@@ -122,7 +122,7 @@ export default function DashboardAdminLayout({
                         Reedeem Tiket
                     </InertiaLink> */}
                 </div>
-                <div className="mr-3 relative">
+                <div className="">
                     <Dropdown
                         align="right"
                         width="48"
