@@ -51,7 +51,7 @@ export default function DashboardAdminLayout({
         <Box
             sx={{ width: 250 }}
             role="presentation"
-            onClick={toggleDrawer( false)}
+            onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
             <div className="bg-[#ACA2A2] ">
@@ -67,10 +67,20 @@ export default function DashboardAdminLayout({
                         Dashboard
                     </ResponsiveNavLink>
                 </li> */}
+                <li className='border-t-2'>
+                    <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
+                        <span>Autorisasi</span>
+                    </div>
+                </li>
                 <li>
                     <ResponsiveNavLink href={route('user.index')} active={route().current('user.index')}>
                         Pengguna
                     </ResponsiveNavLink>
+                </li>
+                <li className='border-t-2'>
+                    <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
+                        <span>Fitur Sistem</span>
+                    </div>
                 </li>
                 <li>
                     <ResponsiveNavLink href={route('event.index')} active={route().current('event.index')}>
@@ -87,22 +97,31 @@ export default function DashboardAdminLayout({
                         Diskon Tiket
                     </ResponsiveNavLink>
                 </li>
+                <li className='border-t-2'>
+                    <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
+                        <span>Log Aksi</span>
+                    </div>
+                </li>
                 <li>
                     <ResponsiveNavLink href={route('user-activity.index')} active={route().current('user-activity.index')}>
                         Aktivitas Pengguna
                     </ResponsiveNavLink>
                 </li>
-                {/* <li>
+                <li>
+                    <ResponsiveNavLink href={route('redeem.index')} active={route().current('redeem.index')}>
+                        Riwayat Redeem
+                    </ResponsiveNavLink>
+                </li>
+                <li>
                     <ResponsiveNavLink href={route('transaction.index')} active={route().current('transaction.index')}>
                         History Transaksi
                     </ResponsiveNavLink>
-                </li> */}
-                {/* <li>
+                </li>
+                <li>
                     <ResponsiveNavLink href={route('transaction.export-view')} active={route().current('transaction.export-view')}>
                         Export Transaksi
                     </ResponsiveNavLink>
-                </li> */}
-
+                </li>
             </ul>
         </Box>
     );
@@ -134,9 +153,9 @@ export default function DashboardAdminLayout({
                         width="48"
                         renderTrigger={() => (
                             <button className="flex text-sm text-white border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
-                                <SettingsIcon fontSize="large"/>
+                                <SettingsIcon fontSize="large" />
                             </button>
-                            )
+                        )
                         }
                     >
                         {/* <!-- Account Management --> */}
