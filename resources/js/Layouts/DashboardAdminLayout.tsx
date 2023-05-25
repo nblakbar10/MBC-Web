@@ -84,7 +84,12 @@ export default function DashboardAdminLayout({
                 </li>
                 <li>
                     <ResponsiveNavLink href={route('ticket-discount.index')} active={route().current('ticket-discount.index')}>
-                        Discount Tiket
+                        Diskon Tiket
+                    </ResponsiveNavLink>
+                </li>
+                <li>
+                    <ResponsiveNavLink href={route('user-activity.index')} active={route().current('user-activity.index')}>
+                        Aktivitas Pengguna
                     </ResponsiveNavLink>
                 </li>
                 {/* <li>

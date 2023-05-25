@@ -3,18 +3,35 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserActivity;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UserActivityController extends Controller
 {
+
+    private function getUserActivities(Request $request){
+        $userActivities = UserActivity::with([
+            'user' => function ($query){
+                $query->select('id','name');
+            }
+        ])->whereColumns($request->get('filters'))
+        ->paginate($request->get('perPage') ?? 10);
+        return $userActivities;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $userActivities = $this->getUserActivities($request);
+        return Inertia::render('Admin/UserActivity/Index', [
+            'userActivities' => $userActivities,
+        ]);
     }
 
     /**

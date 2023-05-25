@@ -21,4 +21,19 @@ class UserActivity extends Model
         return $this->belongsTo(User::class);
     }
     
+    public function scopeWhereColumns($query, $filters){
+        if(isset($filters)){
+            forEach(json_decode($filters) as $value) {
+                $key = explode("_",$value->id);
+                if (count($key)>1) {
+                    $query->whereHas($key[0], function($query) use ($value, $key) {
+                        $query->where($key[1], 'like', '%'. $value->value.'%');
+                    });
+                }else {
+                    $query->where($value->id,'like', '%'. $value->value.'%');
+                }
+            }
+        }
+        return $query;
+    }
 }

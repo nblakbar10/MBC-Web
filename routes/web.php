@@ -4,6 +4,7 @@ use App\Actions\Fortify\UserProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TicketDiscountController;
 use App\Http\Controllers\TicketTypeController;
+use App\Http\Controllers\UserActivityController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,6 +45,7 @@ Route::prefix('admin')->group(function (){
     Route::resource('event', EventController::class);
     Route::resource('ticket-type', TicketTypeController::class);
     Route::resource('ticket-discount', TicketDiscountController::class);
+    Route::resource('user-activity', UserActivityController::class);
 });
 
 Route::middleware([
