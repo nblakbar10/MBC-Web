@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('ticket_id');
             $table->string('ticket_status');
             $table->string('ticket_barcode_url');
+            $table->unsignedInteger('redeemed_amount');
             $table->timestamps();
         });
     }

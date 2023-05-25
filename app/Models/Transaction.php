@@ -9,7 +9,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    $fillable = [
+    protected $fillable = [
         "ticket_type_id",
         "name",
         "email",
@@ -25,6 +25,7 @@ class Transaction extends Model
         "ticket_id",
         "ticket_status",
         "ticket_barcode_url",
+        "redeemed_amount",
     ];
 
     public function ticketType()
@@ -42,9 +43,21 @@ class Transaction extends Model
         return $this->hasMany(RedeemHistory::class);
     }
     
-    public function event()
-    {
-        return $this->belongsTo(Event::class);
+
+    public function scopeWhereColumns($query, $filters){
+        if(isset($filters)){
+            forEach(json_decode($filters) as $value) {
+                $key = explode("_",$value->id);
+                if (count($key)>1) {
+                    $query->whereHas($key[0], function($query) use ($value, $key) {
+                        $query->where($key[1], 'like', '%'. $value->value.'%');
+                    });
+                }else {
+                    $query->where($value->id,'like', '%'. $value->value.'%');
+                }
+            }
+        }
+        return $query;
     }
 
     

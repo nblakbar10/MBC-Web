@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Event;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class TransactionController extends Controller
 {
@@ -12,9 +15,47 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        $transaction = Transaction::with([
+            'ticketType' => function ($query) {
+                $query->select('id', 'name');
+            },
+            'ticketType.event' => function ($query) {
+                $query->select('id', 'name');
+            },
+            'ticketDiscounts' => function ($query) {
+                $query->select('id', 'name');
+            },
+        ])->whereColumns($request->get('filters'))
+        ->paginate($request->get('perPage') ?? 10);
+
+        return Inertia::render('Admin/Transaction/Index', [
+            'transactions' => $transaction,
+        ]);
+    }
+
+    public function exportView(Request $request)
+    {
+        $transaction = Transaction::with([
+            'ticketType' => function ($query) {
+                $query->select('id', 'name');
+            },
+            'ticketType.event' => function ($query) {
+                $query->select('id', 'name');
+            },
+            'ticketDiscounts' => function ($query) {
+                $query->select('id', 'name');
+            },
+        ])->whereHas('ticketType.event', function ($query) use ($request) {
+            $query->where('id', $request->get('event_id'));
+        })->get();
+        $events = Event::get(['id', 'name']);
+        return Inertia::render('Admin/Transaction/Export', [
+            'transactions' => $transaction,
+            'events' => $events,
+        ]);
     }
 
     /**

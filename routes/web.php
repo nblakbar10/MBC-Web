@@ -4,6 +4,7 @@ use App\Actions\Fortify\UserProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\TicketDiscountController;
 use App\Http\Controllers\TicketTypeController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserActivityController;
 use App\Http\Controllers\RedeemController;
 use Illuminate\Foundation\Application;
@@ -48,6 +49,8 @@ Route::prefix('admin')->group(function (){
     Route::resource('ticket-discount', TicketDiscountController::class);
     Route::resource('user-activity', UserActivityController::class);
     Route::resource('redeem', RedeemController::class);
+    Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+    Route::get('/transaction/export', [TransactionController::class, 'exportView'])->name('transaction.export-view');
 });
 
 Route::middleware([
