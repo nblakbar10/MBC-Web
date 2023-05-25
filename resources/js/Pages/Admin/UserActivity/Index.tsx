@@ -69,7 +69,6 @@ export default function Index(props: Props) {
 
     ] as MRT_ColumnDef<UserActivityModel>[];
 
-    console.log(props.userActivities);
     return (
         <DashboardAdminLayout title="Aktivitas Pengguna">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">

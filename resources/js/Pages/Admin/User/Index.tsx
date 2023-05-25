@@ -1,6 +1,5 @@
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 import React from 'react';
-import { confirmAlert } from 'react-confirm-alert';
 import route from 'ziggy-js';
 
 import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
