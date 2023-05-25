@@ -166,11 +166,19 @@ export default function Show({ event }: Props) {
             >
                 <DialogContent className="w-full">
                     <div>
-                        <h3 className="font-bold text-lg">Confirm to Delete</h3>
-                        <p className="py-4">Are you sure to do this.</p>
-                        <div className="flex justify-end">
+                        <h3 className="font-bold text-lg">Konfirmasi Aksi</h3>
+                        <p className="py-4">Anda Yakin Menghapus Event?</p>
+                        <div className="flex justify-between gap-3">
                             <button
-                                className="bg-red-500 text-white hover:bg-red-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                className="bg-green-500 text-white hover:bg-green-600 py-3 w-1/3 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                onClick={
+                                    handleClose
+                                }
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className="bg-red-500 text-white hover:bg-red-600 py-3 w-1/3 rounded-lg text-md font-semibold focus:outline-none border-2"
                                 onClick={
                                     () => {
                                         Inertia.post(route('event.destroy', event.id), {

@@ -118,11 +118,11 @@ export default function Index({ ticketDiscounts }: Props) {
             >
                 <DialogContent className="w-full">
                     <div>
-                        <h3 className="font-bold text-lg">Confirm to Delete</h3>
-                        <p className="py-4">Are you sure to Delete Ticket Type.</p>
-                        <div className="flex justify-end gap-3">
+                        <h3 className="font-bold text-lg">Konfirmasi Aksi</h3>
+                        <p className="py-4">Anda Yakin Menghapus Jenis Tiket?</p>
+                        <div className="flex justify-between gap-3">
                             <button
-                                className="bg-green-500 text-white hover:bg-green-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                className="bg-green-500 text-white hover:bg-green-600 py-3 w-1/3  rounded-lg text-md font-semibold focus:outline-none border-2"
                                 onClick={
                                     handleClose
                                 }
@@ -130,7 +130,7 @@ export default function Index({ ticketDiscounts }: Props) {
                                 Cancel
                             </button>
                             <button
-                                className="bg-red-500 text-white hover:bg-red-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                className="bg-red-500 text-white hover:bg-red-600 py-3 w-1/3  rounded-lg text-md font-semibold focus:outline-none border-2"
                                 onClick={
                                     () => {
                                         Inertia.post(route('ticket-discount.destroy', deleteId!), {
