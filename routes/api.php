@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RedeemController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,7 @@ Route::post('/checkout', [TransactionController::class, 'store'])->name('checkou
 
 Route::post('/callback', [TransactionController::class, 'callback']);
 
-Route::post('/redeem', [TransactionController::class, 'redeem'])->name('transaction.redeem');
+Route::post('/redeem', [RedeemController::class, 'store'])->name('redeemAPI.store');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

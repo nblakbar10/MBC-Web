@@ -5,6 +5,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\TicketDiscountController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\UserActivityController;
+use App\Http\Controllers\RedeemController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -46,6 +47,7 @@ Route::prefix('admin')->group(function (){
     Route::resource('ticket-type', TicketTypeController::class);
     Route::resource('ticket-discount', TicketDiscountController::class);
     Route::resource('user-activity', UserActivityController::class);
+    Route::resource('redeem', RedeemController::class);
 });
 
 Route::middleware([
