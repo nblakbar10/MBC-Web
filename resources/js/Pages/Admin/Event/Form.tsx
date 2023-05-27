@@ -73,7 +73,7 @@ export default function Form(props: Props) {
                 <Select
                     id="year"
                     className="mt-1 block w-full"
-                    value={citiesProvince.find(city => city.name === form.data.city)}
+                    value={citiesProvince.find(city => city.name === form.data.city) || { id: '', name: '' }}
                     onChange={e => form.setData('city', e?.name as string)}
                     getOptionValue={option => option.id}
                     getOptionLabel={option => option.name}
