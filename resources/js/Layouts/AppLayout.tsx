@@ -20,7 +20,7 @@ export default function AppLayout({ children, title }: Props) {
             <Banner />
             <div className="min-h-screen bg-white flex flex-col">
                 <nav className="bg-[#262626] flex justify-around">
-                    <div className="flex w-full lg:w-5/6 p-5 gap-10 justify-between">
+                    <div className="flex w-full lg:w-5/6 p-5 lg:px-1 justify-between">
                         <div className="my-auto">
                             <img
                                 src={asset('root', 'assets/images/MBC_HD.png')}
@@ -28,8 +28,8 @@ export default function AppLayout({ children, title }: Props) {
                                 width={200}
                             />
                         </div>
-                        <div className="flex gap-3  px-3">
-                            <form className="hidden lg:block text-md my-auto border-r p-3 px-12">
+                        <div className="flex gap-3 px-1">
+                            <form className="hidden lg:block text-md my-auto border-r p-3 px-6">
                                 <input
                                     className="p-3 rounded-l-lg w-96 leading-relaxed"
                                     placeholder="Cari Event"
@@ -42,7 +42,7 @@ export default function AppLayout({ children, title }: Props) {
                                 </button>
                             </form>
                             <button
-                                className="px-4 rounded-lg hover:bg-gray-700"
+                                className="px-2 rounded-lg hover:bg-gray-700"
                             >
                                 <div className="flex-col text-white">
                                     <EventIcon
