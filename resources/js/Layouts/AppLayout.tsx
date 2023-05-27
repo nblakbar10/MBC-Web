@@ -2,6 +2,7 @@ import Banner from "@/Components/Jetstream/Banner";
 import { asset } from "@/Models/Helper";
 import { Head } from "@inertiajs/inertia-react";
 import React from "react";
+import { Search } from "@mui/icons-material";
 
 interface Props {
     children: React.ReactNode;
@@ -18,13 +19,26 @@ export default function AppLayout({ children, title }: Props) {
             <Banner />
             <div className="min-h-screen bg-white flex flex-col gap-3">
                 <nav className="bg-gray-800 flex justify-center">
-                    <div className="flex w-full lg:w-5/6 p-5">
+                    <div className="flex w-full lg:w-5/6 p-5 justify-around">
                         <div className="">
                             <img
                                 src={asset('root', 'assets/images/MBC_HD.png')}
                                 alt="Logo"
                                 width={200}
                             />
+                        </div>
+                        <div className="my-auto">
+                            <form className="block">
+                                <input
+                                    className="p-2 rounded-l-lg w-96"
+                                >
+                                </input>
+                                <button
+                                    className="p-2 font-mono text-white bg-stone-400 rounded-r-lg hover:bg-stone-600"
+                                >
+                                    <Search />
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </nav>

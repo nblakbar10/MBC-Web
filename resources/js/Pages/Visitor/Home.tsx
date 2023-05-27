@@ -1,8 +1,6 @@
 import AppLayout from "@/Layouts/AppLayout";
 import React from "react";
 import Carousel from 'react-material-ui-carousel'
-import { Paper, Button } from '@mui/material'
-import zIndex from "@mui/material/styles/zIndex";
 import ZoomableImage from "@/Components/ZoomableImage";
 
 export default function Home() {
@@ -104,7 +102,6 @@ export default function Home() {
                                                 title={item.name}
                                                 onChange={() => { }}
                                             />
-
                                         </div>
                                     )
                                 }
