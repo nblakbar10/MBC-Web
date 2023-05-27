@@ -70,7 +70,6 @@ export default function EventsHome() {
                                 onChange={e => setProvinceSelected(e as District)}
                                 getOptionValue={option => option.id}
                                 getOptionLabel={option => option.name}
-                                required
                                 options={provinces}
                             />
                         </div>
@@ -94,7 +93,6 @@ export default function EventsHome() {
                                 onChange={e => setProvinceSelected(e as District)}
                                 getOptionValue={option => option.id}
                                 getOptionLabel={option => option.name}
-                                required
                                 options={provinces}
                             />
                         </div>

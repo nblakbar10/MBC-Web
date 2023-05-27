@@ -33,6 +33,8 @@ export interface NewImageModel extends BaseImageModel { }
 export function getStorageImageUrl(image: BaseImageModel): string | undefined {
     if (image.file != null) {
         return URL.createObjectURL(image.file);
+    } else if (image.path != null && image.disk == 'foreign' ) {
+        return image.path;
     } else if (image.path != null && image.disk != null) {
         return `${asset(image.disk, image.path)}`;
     }

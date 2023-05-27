@@ -51,6 +51,7 @@
     "react-confirm-alert": "^2.0.6",
     "react-dom": "^18.2.0",
     "react-map-interaction": "^2.1.0",
+    "react-material-ui-carousel": "^3.4.2",
     "react-qr-barcode-scanner": "^1.0.6",
     "react-select": "^5.4.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.10/xlsx-0.18.10.tgz",

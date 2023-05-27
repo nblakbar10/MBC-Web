@@ -24,11 +24,19 @@ export default function ZoomableImage<T extends BaseImageModel>(
     
     if (typeof props.img == 'string') {
         const path = props.img;
-        model = {
-            path: path,
-            disk: 'public',
-            file: undefined,
-        } as T;
+        if(path.startsWith('https://')) {
+            model = {
+                path: path,
+                disk: "foreign",
+                file: undefined,
+            } as T;
+        } else {
+            model = {
+                path: path,
+                disk: 'public',
+                file: undefined,
+            } as T;
+        }
     } else {
         model = props.img;
     }
@@ -47,7 +55,7 @@ export default function ZoomableImage<T extends BaseImageModel>(
 
     if (image != undefined) {
         return (
-            <div className="my-3 ml-5 flex justify-center">
+            <div className="flex justify-center">
                 <img
                     src={image}
                     className={className ?? 'object-cover h-80 rounded-lg'}

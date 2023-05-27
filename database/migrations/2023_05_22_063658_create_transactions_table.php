@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreignId('ticket_type_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->dateTime('buy_date');
             $table->dateTime('pay_date');
+            $table->string('city');
             $table->string('payment_method');
             $table->string('payment_status');
             $table->string('payment_link');

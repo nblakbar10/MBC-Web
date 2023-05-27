@@ -2,11 +2,12 @@
 
 use App\Actions\Fortify\UserProfileController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\RedeemController;
 use App\Http\Controllers\TicketDiscountController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserActivityController;
-use App\Http\Controllers\RedeemController;
+use App\Http\Controllers\VisitorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -25,14 +26,14 @@ use App\Http\Controllers\SendEmailController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
 
 // Route::get('/', [DashboardController::class, 'home'])->name('home');
 
@@ -42,6 +43,10 @@ Route::post('/transaction/store',[TransactionController::class, 'store'])->name(
 Route::get('/token', function () {
     return csrf_token(); 
 });
+
+Route::get('/',[VisitorController::class, 'home'])->name('visitor.home');
+Route::get('/event', [VisitorController::class, 'event'])->name('visitor.event');
+Route::get('/event/{id}', [VisitorController::class, 'eventDetail'])->name('visitor.event-detail');
 
 Route::prefix('admin')->group(function (){
     Route::resource('event', EventController::class);
