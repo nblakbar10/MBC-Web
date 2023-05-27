@@ -12,10 +12,11 @@ interface Props {
 
 export default function Home(props: Props) {
     const events = props.events;
+    console.log(events);
     return (
         <AppLayout>
             <div className="flex flex-col gap-3 max-w-full h-auto mb-auto">
-                <div className="bg-amber-50 h-96">
+                <div className="bg-amber-50">
                     <div className="flex justify-center m-auto md:m-0 md:w-full">
                         <div className={`w-5/6 p-5 ${events.length > 0 ? "" : "h-96 mt-32"}`} >
                             <Carousel
