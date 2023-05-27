@@ -7,7 +7,7 @@ import EventIcon from '@mui/icons-material/Event';
 
 interface Props {
     children: React.ReactNode;
-    title? : string;
+    title?: string;
 }
 
 export default function AppLayout({ children, title }: Props) {

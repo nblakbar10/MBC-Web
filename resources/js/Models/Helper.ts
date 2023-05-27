@@ -12,7 +12,7 @@ export function createKey(id: Key | undefined = undefined): Key {
 
 // @ts-ignore
 const ASSET: string = window.LARAVEL_ASSET_URL.replace(/\/$/, '');
-export type Disk = 'root' | 'public';
+export type Disk = 'root' | 'public' | 'foreign';
 
 export function asset(disk: Disk, link: string) {
     if (disk == 'public') {

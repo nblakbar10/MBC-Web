@@ -5,25 +5,20 @@ import DashboardAdminLayout from '@/Layouts/DashboardAdminLayout';
 import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 
 import Form from './Form';
-import { EventCreateModel } from '@/Models/Event';
-import { createNewImageModel } from '@/Models/ImageModel';
+import { TicketTypeCreateModel } from '@/Models/TicketType';
+import { EventModel } from '@/Models/Event';
 
+interface Props {
+    events: Array<EventModel>,
+}
 
-export default function Create() {
-    let form = useForm<EventCreateModel>(
+export default function Create(props: Props) {
+    let form = useForm<TicketTypeCreateModel>(
         {
             name: '',
-            description: '',
-            location: '',
-            maximum_buy: 0,
-            start_date: '',
-            end_date: '',
-            poster_url: "",
-            event_map_url: "",
-            preview_url: "",
-            poster: createNewImageModel(),
-            event_map: createNewImageModel(),
-            preview: createNewImageModel(),
+            stock: 0,
+            price: 0,
+            event_id: 0,
         }
     );
 
@@ -31,7 +26,7 @@ export default function Create() {
         console.log(form.data);
         e.preventDefault();
         form.clearErrors();
-        form.post(route('event.store'), {
+        form.post(route('ticket-type.store'), {
             onError: (errors) => {
                 console.log(errors);
             },
@@ -41,18 +36,16 @@ export default function Create() {
         });
     }
 
-    console.log(form.data);
-
     return (
-        <DashboardAdminLayout title={'Tambah Event'}>
+        <DashboardAdminLayout title={'Tambah Jenis Tiket'}>
             <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg p-3">
+                <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg  p-3">
                     <div className="flex justify-between">
                         <div className="text-2xl">
-                            Tambah Event
+                            Tambah Jenis Tiket Event
                         </div>
                         <button className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
-                            <InertiaLink href={route('event.index')}>
+                            <InertiaLink href={route('ticket-type.index')}>
                                 Kembali
                             </InertiaLink>
                         </button>
@@ -60,6 +53,7 @@ export default function Create() {
                     <form className="flex-col gap-5 py-5" onSubmit={onSubmit}>
                         <Form
                             form={form}
+                            events={props.events}
                             className="my-5 mx-2"
                         />
                         <div className="flex justify-end">

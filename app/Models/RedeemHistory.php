@@ -5,44 +5,39 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class RedeemHistory extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        "ticket_type_id",
-        "name",
-        "email",
-        "phone_number",
-        "ticket_amount",
-        "total_price",
-        "buy_date",
-        "pay_date",
-        "payment_method",
-        "payment_status",
-        "payment_link",
-        "external_id",
-        "ticket_id",
-        "ticket_status",
-        "ticket_barcode_url",
-        "redeemed_amount",
+        "user_id",
+        "transaction_id",
+        "amount",
+        "latitude",
+        "longitude",
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class);
+    }
 
     public function ticketType()
     {
-        return $this->belongsTo(TicketType::class);
+        return $this->hasOneThrough(
+            TicketType::class,
+            Transaction::class,
+            'id', // Foreign key on Transaction table...
+            'id', // Foreign key on TicketType table...
+            'transaction_id', // Local key on RedeemHistory table...
+            'ticket_type_id' // Local key on Transaction table...
+        );
     }
-
-    public function ticketDiscounts()
-    {
-        return $this->belongsToMany(TicketDiscount::class, "transaction_discounts");
-    }
-
-    public function redeemHistories()
-    {
-        return $this->hasMany(RedeemHistory::class);
-    }
-    
 
     public function scopeWhereColumns($query, $filters){
         if(isset($filters)){
@@ -59,6 +54,4 @@ class Transaction extends Model
         }
         return $query;
     }
-
-    
 }

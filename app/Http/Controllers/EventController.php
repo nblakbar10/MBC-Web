@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+use App\Models\Event;
+use App\Models\UserActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class EventController extends Controller
@@ -15,7 +21,9 @@ class EventController extends Controller
     public function index()
     {
         //
+        $events = Event::all();
         return Inertia::render('Admin/Event/Index', [
+            'events' => $events,
         ]);
     }
 
@@ -27,6 +35,8 @@ class EventController extends Controller
     public function create()
     {
         //
+        return Inertia::render('Admin/Event/Create', [
+        ]);
     }
 
     /**
@@ -38,6 +48,49 @@ class EventController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all()); 
+        $request->validate([
+            'name'         => ['required'],
+            'description'  => ['required'],
+            'start_date'   => ['required'],
+            'end_date'     => ['required'],
+            'location'     => ['required'],
+            'maximum_buy'  => ['required'],
+            'poster.file'       => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg'],
+            'event_map.file'    => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg'],
+            'preview.file'      => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg'],
+        ]);
+
+        return DB::transaction(function () use ($request) {
+            $poster = Storage::disk('public')->put('events/posters',  $request->file('poster.file'));
+            $event_map = Storage::disk('public')->put('events/event_maps',  $request->file('event_map.file'));
+            $preview = Storage::disk('public')->put('events/previews',  $request->file('preview.file'));
+
+            $event = Event::create([
+                'name'          => $request->name,
+                'description'   => $request->description,
+                'start_date'    => $request->start_date,
+                'end_date'      => $request->end_date,
+                'location'      => $request->location,
+                'maximum_buy'   => $request->maximum_buy,
+                'poster_url'        => $poster,
+                'event_map_url'     => $event_map,
+                'preview_url'       => $preview,
+            ]);
+
+            $event->save();
+            $user_activity = UserActivity::create([
+                'user_id' => Auth::user()->id,
+                'activity' => 'Create Event ' . $request->name . ' with id ' . $event->id,
+                'latitude' => 0,
+                'longitude' => 0,
+            ]);
+
+            $user_activity->save();
+
+            return redirect()->route('event.index')->with('success', 'Event created.');
+        });
+        
     }
 
     /**
@@ -49,20 +102,9 @@ class EventController extends Controller
     public function show($id)
     {
         //
+        $event = Event::findOrfail($id)->with('ticketTypes')->first();
         return Inertia::render('Admin/Event/Show', [
-            'event' => [
-                'id' => 1,
-                'name' => 'Event 1',
-                'eventPromos' => [
-                    [
-                        'id' => 1,
-                        'name' => 'Promo 1',
-                    ], [
-                        'id' => 2,
-                        'name' => 'Promo 2',
-                    ]
-                ]
-            ]
+            'event' => $event,
         ]);
     }
 
@@ -75,6 +117,11 @@ class EventController extends Controller
     public function edit($id)
     {
         //
+            //
+            $event = Event::findOrfail($id);
+            return Inertia::render('Admin/Event/Edit', [
+                'event' => $event,
+            ]);
     }
 
     /**
@@ -87,6 +134,63 @@ class EventController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'name'         => ['required'],
+            'description'  => ['required'],
+            'start_date'   => ['required'],
+            'end_date'     => ['required'],
+            'location'     => ['required'],
+            'maximum_buy'  => ['required'],
+            'poster.file'       => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
+            'event_map.file'    => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
+            'preview.file'      => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
+        ]);
+
+        return DB::transaction(function () use ($request, $id) {
+            $event = Event::findOrfail($id);
+            $poster = $event->poster_url;
+            $event_map = $event->event_map_url;
+            $preview = $event->preview_url;
+
+            if ($request->hasFile('poster.file')) {
+                Storage::disk('public')->delete($poster);
+                $poster = Storage::disk('public')->put('events/posters',  $request->file('poster.file'));
+            }
+
+            if ($request->hasFile('event_map.file')) {
+                Storage::disk('public')->delete($event_map);
+                $event_map = Storage::disk('public')->put('events/event_maps',  $request->file('event_map.file'));
+            }
+
+            if ($request->hasFile('preview.file')) {
+                Storage::disk('public')->delete($preview);
+                $preview = Storage::disk('public')->put('events/previews',  $request->file('preview.file'));
+            }
+
+            $event->update([
+                'name'          => $request->name,
+                'description'   => $request->description,
+                'start_date'    => $request->start_date,
+                'end_date'      => $request->end_date,
+                'location'      => $request->location,
+                'maximum_buy'   => $request->maximum_buy,
+                'poster_url'        => $poster,
+                'event_map_url'     => $event_map,
+                'preview_url'       => $preview,
+            ]);
+
+            $event->save();
+            $user_activity = UserActivity::create([
+                'user_id' => Auth::user()->id,
+                'activity' => 'Update Event ' . $request->name . ' with id ' . $event->id,
+                'latitude' => 0,
+                'longitude' => 0,
+            ]);
+
+            $user_activity->save();
+
+            return redirect()->route('event.index')->with('success', 'Event updated.');
+        });
     }
 
     /**
@@ -98,5 +202,18 @@ class EventController extends Controller
     public function destroy($id)
     {
         //
+                //
+                $event = Event::findOrfail($id);
+                $event->delete();
+                $user_activity = UserActivity::create([
+                    'user_id' => Auth::user()->id,
+                    'activity' => 'Delete Event ' . $event->name . ' with id ' . $event->id,
+                    'latitude' => 0,
+                    'longitude' => 0,
+                ]);
+    
+                $user_activity->save();
+    
+                return redirect()->route('event.index')->with('success', 'Event deleted.');
     }
 }
