@@ -28,21 +28,21 @@ export default function AppLayout({ children, title }: Props) {
                                 width={200}
                             />
                         </div>
-                        <div className="flex gap-2">
-                            <form className="block text-md my-auto">
+                        <div className="flex gap-3  px-3">
+                            <form className="hidden lg:block text-md my-auto border-r p-3 px-12">
                                 <input
-                                    className="p-2 rounded-l-lg w-96"
+                                    className="p-3 rounded-l-lg w-96 leading-relaxed"
                                     placeholder="Cari Event"
                                 >
                                 </input>
                                 <button
-                                    className="py-2 px-3 text-white bg-stone-400 rounded-r-lg hover:bg-stone-600"
+                                    className="py-3 px-3 text-white bg-stone-400 rounded-r-lg hover:bg-stone-600 leading-relaxed"
                                 >
                                     <SearchIcon/>
                                 </button>
                             </form>
                             <button
-                                className=" px-4 ml-7"
+                                className="px-4 rounded-lg hover:bg-gray-700"
                             >
                                 <div className="flex-col text-white">
                                     <EventIcon
@@ -52,6 +52,7 @@ export default function AppLayout({ children, title }: Props) {
                                 </div>
                             </button>
                         </div>
+
                     </div>
                 </nav>
                 {children}
