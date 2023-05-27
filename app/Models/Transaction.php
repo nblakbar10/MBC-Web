@@ -16,6 +16,7 @@ class Transaction extends Model
         "phone_number",
         "ticket_amount",
         "total_price",
+        "city",
         "buy_date",
         "pay_date",
         "payment_method",

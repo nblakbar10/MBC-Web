@@ -5,6 +5,7 @@ export interface BaseEventModel{
     id?: number;
     name: string;
     description: string;
+    city : string;
     location: string;
     maximum_buy: number;
     start_date: string;

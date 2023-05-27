@@ -55,3 +55,8 @@ export interface Pagination<T> {
         url: string;
     }>;
 }
+
+export interface District {
+    id: string;
+    name: string;
+}

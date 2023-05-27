@@ -14,6 +14,7 @@ export default function Create() {
         {
             name: '',
             description: '',
+            city: '',
             location: '',
             maximum_buy: 0,
             start_date: '',
@@ -40,8 +41,6 @@ export default function Create() {
             }
         });
     }
-
-    console.log(form.data);
 
     return (
         <DashboardAdminLayout title={'Tambah Event'}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 
 import InputError from '@/Components/Jetstream/InputError';
@@ -8,6 +8,8 @@ import { InputLabel } from '@mui/material';
 import { EventCreateModel } from '@/Models/Event';
 import Input from '@/Components/Jetstream/Input';
 import ZoomableImage from '@/Components/ZoomableImage';
+import { District } from '@/Models/Helper';
+import useIndonesiaCityAPI from '@/Hooks/useIndonesianCityAPI';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
     form: InertiaFormProps<EventCreateModel>,
@@ -16,12 +18,19 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
 
 export default function Form(props: Props) {
 
-    let form = props.form;
+    const form = props.form;
+
+    const {
+        provinceSelected,
+        setProvinceSelected,
+        provinces,
+        citiesProvince,
+    } = useIndonesiaCityAPI();
 
     return (
         <div className={`flex-col gap-5 ${props.className}`}>
             <div className="form-control w-full mt-4">
-                <InputLabel htmlFor="name">Name</InputLabel>
+                <InputLabel htmlFor="name">Nama</InputLabel>
                 <TextInput
                     id="name"
                     type="text"
@@ -35,7 +44,7 @@ export default function Form(props: Props) {
                 <InputError className="mt-2" message={form.errors.name} />
             </div>
             <div className="form-control w-full mt-4">
-                <InputLabel htmlFor="description">Description</InputLabel>
+                <InputLabel htmlFor="description">Deskripsi</InputLabel>
                 <TextInput
                     id="description"
                     type="text"
@@ -49,7 +58,30 @@ export default function Form(props: Props) {
                 <InputError className="mt-2" message={form.errors.description} />
             </div>
             <div className="form-control w-full mt-4">
-                <InputLabel htmlFor="location">location</InputLabel>
+                <InputLabel htmlFor="image">Kota/Kabupaten</InputLabel>
+                <label>Provinsi</label>
+                <Select
+                    id="year"
+                    className="mt-1 block w-full"
+                    value={provinceSelected}
+                    onChange={e => setProvinceSelected(e as District)}
+                    getOptionValue={option => option.id}
+                    getOptionLabel={option => option.name}
+                    options={provinces}
+                />
+                <label>Kota/Kabupaten</label>
+                <Select
+                    id="year"
+                    className="mt-1 block w-full"
+                    value={citiesProvince.find(city => city.name === form.data.city)}
+                    onChange={e => form.setData('city', e?.name as string)}
+                    getOptionValue={option => option.id}
+                    getOptionLabel={option => option.name}
+                    options={citiesProvince}
+                />
+            </div>
+            <div className="form-control w-full mt-4">
+                <InputLabel htmlFor="location">Lokasi</InputLabel>
                 <TextInput
                     id="location"
                     type="text"
@@ -63,7 +95,7 @@ export default function Form(props: Props) {
                 <InputError className="mt-2" message={form.errors.location} />
             </div>
             <div className="form-control w-full mt-4">
-                <InputLabel htmlFor="maximum_buy">maximum_buy</InputLabel>
+                <InputLabel htmlFor="maximum_buy">Maksimal Pembelian</InputLabel>
                 <TextInput
                     id="maximum_buy"
                     type="number"

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('description');
+            $table->string('city');
             $table->string('location');
             $table->unsignedInteger('maximum_buy');
             $table->dateTime('start_date');
