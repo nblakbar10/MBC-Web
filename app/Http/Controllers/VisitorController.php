@@ -20,9 +20,9 @@ class VisitorController extends Controller{
         ]);
     }
 
-    public function event(){
-        $events = Event::all();
-        return Inertia::render('Visitor/Event/Index', [
+    public function event(Request $request){
+        $events = Event::visitorFilter($request->all())->paginate(8);
+        return Inertia::render('Visitor/Events', [
             'events' => $events,
         ]);
     }

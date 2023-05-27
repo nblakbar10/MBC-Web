@@ -31,4 +31,23 @@ class Event extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function scopeVisitorFilter($query, $filters){
+        if(isset($filters)){
+            forEach($filters as $key=>$value) {
+                if( $key == "name"){
+                    $query->where('name', $value);
+                }else if( $key == "year"){
+                    $query->whereYear('start_date', $value);
+                }else if( $key == "month"){
+                    $query->whereMonth('start_date', $value);
+                }else if( $key == "city"){
+                    $query->where('city', $value);
+                }else {
+                    continue;
+                }
+            }
+        }
+        return $query;
+    }
 }

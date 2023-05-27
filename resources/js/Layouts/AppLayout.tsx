@@ -1,9 +1,11 @@
 import Banner from "@/Components/Jetstream/Banner";
 import { asset } from "@/Models/Helper";
-import { Head } from "@inertiajs/inertia-react";
+import { Head, InertiaLink, useForm } from "@inertiajs/inertia-react";
 import React from "react";
 import EventIcon from '@mui/icons-material/Event';
 import SearchIcon from "@mui/icons-material/Search";
+import { Inertia } from "@inertiajs/inertia";
+import route from "ziggy-js";
 
 interface Props {
     children: React.ReactNode;
@@ -11,6 +13,27 @@ interface Props {
 }
 
 export default function AppLayout({ children, title }: Props) {
+    const form = useForm({
+        name: '',
+
+    });
+
+    const onSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const url = new URL(route(route().current()!).toString());
+
+        url.searchParams.set('name', form.data.name);
+
+
+        Inertia.visit(route('visitor.event', {
+            name : form.data.name
+        }), {
+            preserveState: true,
+            preserveScroll: true,
+            replace: true,
+        });
+    };
+
     return (
         <>
             <Head  >
@@ -21,12 +44,17 @@ export default function AppLayout({ children, title }: Props) {
             <div className="min-h-screen bg-white flex flex-col">
                 <nav className="bg-[#262626] flex justify-around">
                     <div className="flex w-full lg:w-5/6 p-5 lg:px-1 justify-between">
-                        <div className="my-auto">
-                            <img
-                                src={asset('root', 'assets/images/MBC_HD.png')}
-                                alt="Logo"
-                                width={200}
-                            />
+                        <div className="my-auto mx-4">
+                            <InertiaLink
+                                href={route('visitor.home')}
+                                className="text-white text-2xl font-bold"
+                            >
+                                <img
+                                    src={asset('root', 'assets/images/MBC_HD.png')}
+                                    alt="Logo"
+                                    width={200}
+                                />
+                            </InertiaLink>
                         </div>
                         <div className="flex gap-3 px-1">
                             <form className="hidden sm:block text-md my-auto border-r p-3">
@@ -34,9 +62,12 @@ export default function AppLayout({ children, title }: Props) {
                                     <input
                                         className="w-full appearance-none p-3 rounded-l-lg focus:outline-none xxs:pr-4"
                                         placeholder="Cari Event"
+                                        value={form.data.name}
+                                        onChange={e => form.setData('name', e.target.value)}
                                     >
                                     </input>
                                     <button
+                                        onClick={onSubmit}
                                         className="py-3 px-3 text-white bg-stone-400 rounded-r-lg hover:bg-stone-600 leading-relaxed"
                                     >
                                         <SearchIcon/>
