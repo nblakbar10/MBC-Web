@@ -61,7 +61,7 @@ export default function AppLayout({ children, title }: Props) {
                 {children}
                 <footer className="w-full h-auto bg-[#767171]">
                     <div className="container flex justify-center m-auto p-3 mt-8 mb-5">
-                        <div className="object-cover object-center rounded-xl shadow-md h-auto">
+                        <div className="object-cover object-center rounded-xl ">
                             <img
                                 src={asset('root', 'assets/images/MBC_HD.png')}
                                 className="justify-center"
