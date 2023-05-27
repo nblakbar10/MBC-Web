@@ -21,7 +21,7 @@ export default function AppLayout({ children, title }: Props) {
             <div className="min-h-screen bg-white flex flex-col">
                 <nav className="flex w-full bg-[#262626] p-5 pl-20">
                     <div className="flex justify-around m-auto p-3 w-full md:w-5/6">
-                        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                             {/* <!-- logo --> */}
                             <div className="flex items-center justify-center">
                                 <img
@@ -31,11 +31,11 @@ export default function AppLayout({ children, title }: Props) {
                                 />
                             </div>
                             {/* <!-- search bar --> */}
-                            <div className="flex items-center justify-between ">
-                                <div className="flex border-2 rounded ">
+                            <div className="flex items-center justify-center  ">
+                                <div className="flex rounded ">
                                     <input type="text" className="px-4 py-2 w-80" placeholder="Search..."/>
-                                    <button className="flex items-center justify-center px-4 border-l">
-                                        <svg className="w-6 h-6 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                                    <button className="flex items-center justify-center px-4 border-l bg-[#7E7B73]">
+                                        <svg className="w-6 h-6 text-[#FFFFFF]" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 24 24">
                                             <path
                                                 d="M16.32 14.9l5.39 5.4a1 1 0 0 1-1.42 1.4l-5.38-5.38a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z" />
@@ -44,24 +44,27 @@ export default function AppLayout({ children, title }: Props) {
                                 </div>
                             </div>
                             {/* <!-- event icon --> */}
-                            <div className="flex items-center justify-center ">
-                            <button className="flex text-sm text-white border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
-                                <EventIcon fontSize="large"/>
-                            </button>
-                            <div className="h-300 min-h-[2em] w-0.5 bg-[#767171]"></div>
-                            </div>
+                            <div className="flex items-center justify-center gap-3">
+                                <button className="flex text-sm text-white border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                                    <EventIcon fontSize="large"/>
+                                </button>
+                                <div className="h-300 min-h-[2em] w-0.5 bg-[#767171]">
+                                    <span className="text-md text-[#FFFFFF]">Event</span>
+                                </div>
 
-                            <div className="flex items-center justify-center gap-1">
-                                <PrimaryButton
-                                    type="button"
-                                    className="inline-block rounded bg-[#FFFFFF] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[#262626]">
-                                    Success
-                                </PrimaryButton>
-                                <PrimaryButton
-                                    type="button"
-                                    className="inline-block rounded-full border-2 border-[#FFFFFF] bg-[#262626] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[#FFFFFF] ">
-                                    Danger
-                                </PrimaryButton>
+                                {/* <!-- button login --> */}
+                                {/* <div className="">
+                                    <button
+                                        type="button"
+                                        className="inline-block rounded-[10px] bg-[#FFFFFF] mr-2 px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[#262626]">
+                                        Success
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="inline-block rounded-[10px] border-2 border-[#FFFFFF] bg-[#262626] px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-[#FFFFFF] ">
+                                        Danger
+                                    </button>
+                                </div> */}
                             </div>
                         </div>
                     </div>
