@@ -59,17 +59,36 @@ export default function AppLayout({ children, title }: Props) {
                     </div>
                 </nav>
                 {children}
-                <footer className="w-full h-60 bg-[#767171]">
-                    <div className="container flex justify-center m-auto p-3 mt-8 ">
+                <footer className="w-full h-auto bg-[#767171]">
+                    <div className="container flex justify-center m-auto p-3 mt-8 mb-5">
                         <div className="object-cover object-center rounded-xl shadow-md h-auto">
                             <img
                                 src={asset('root', 'assets/images/MBC_HD.png')}
                                 className="justify-center"
                                 width={200}
-
                             />
                         </div>
                     </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 ">
+                        <div className="flex flex-col items-center justify-center">
+                            <p className="text-base font-bold text-[#FFFFFF] break-normal">About Us</p>
+                            <p className="text-base text-center text-[#FFFFFF] p-5">Lorem ipsum dolor sitptatibus impedit numquam aliquid eum animi dignissimos fuga, atque, labore laborum? Maxime magni obcaecati labore perferendis deleniti enim dignissimos?</p>
+                        </div>
+                        <div className="flex flex-col items-center justify-center">
+                            <p className="text-base font-bold text-[#FFFFFF] break-normal">Help</p>
+                            <p className="text-base text-center text-[#FFFFFF] p-5">Lorem ipsum dolor sitptatibus impedit numquam aliquid eum animi dignissimos fuga, atque, labore laborum? Maxime magni obcaecati labore perferendis deleniti enim dignissimos?</p>
+                        </div>
+                        <div className="flex flex-col items-center justify-center">
+                            <p className="text-base font-bold text-[#FFFFFF] break-normal">Contact Us</p>
+                            <p className="text-base text-center text-[#FFFFFF] p-5">Lorem ipsum dolor sitptatibus impedit numquam aliquid eum animi dignissimos fuga, atque, labore laborum? Maxime magni obcaecati labore perferendis deleniti enim dignissimos?</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-col items-center justify-center border-t-2 my-2 p-2">
+
+                            <p className="text-sm text-center font-bold text-[#FFFFFF] break-normal">© 2023 CV. Maju Bersama Creative. All Rights Reserved.</p>
+
+                    </div>
+
                 </footer>
             </div >
         </>
