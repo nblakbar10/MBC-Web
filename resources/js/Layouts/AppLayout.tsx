@@ -29,18 +29,21 @@ export default function AppLayout({ children, title }: Props) {
                             />
                         </div>
                         <div className="flex gap-3 px-1">
-                            <form className="hidden lg:block text-md my-auto border-r p-3 px-6">
-                                <input
-                                    className="p-3 rounded-l-lg w-96 leading-relaxed"
-                                    placeholder="Cari Event"
-                                >
-                                </input>
-                                <button
-                                    className="py-3 px-3 text-white bg-stone-400 rounded-r-lg hover:bg-stone-600 leading-relaxed"
-                                >
-                                    <SearchIcon/>
-                                </button>
+                            <form className="hidden sm:block text-md my-auto border-r p-3">
+                                <div className="relative flex w-auto grow rounded text-gray-400 focus-within:text-gray-600">
+                                    <input
+                                        className="w-full appearance-none p-3 rounded-l-lg focus:outline-none xxs:pr-4"
+                                        placeholder="Cari Event"
+                                    >
+                                    </input>
+                                    <button
+                                        className="py-3 px-3 text-white bg-stone-400 rounded-r-lg hover:bg-stone-600 leading-relaxed"
+                                    >
+                                        <SearchIcon/>
+                                    </button>
+                                </div>
                             </form>
+
                             <button
                                 className="px-2 rounded-lg hover:bg-gray-700"
                             >
