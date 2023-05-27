@@ -61,10 +61,26 @@ export default function Events(props: Props) {
         e.preventDefault();
         const url = new URL(route(route().current()!).toString());
 
-        url.searchParams.set('name', form.data.name);
-        url.searchParams.set('year', form.data.year);
-        url.searchParams.set('month', form.data.month);
-        url.searchParams.set('city', form.data.city);
+        url.searchParams.delete('city');
+        url.searchParams.delete('month');
+        url.searchParams.delete('year');
+        url.searchParams.delete('name');
+
+        if (form.data.city !== "") {
+            url.searchParams.set('city', form.data.city);
+        }
+        if (form.data.month !== "") {
+            url.searchParams.set('month', form.data.month);
+        }
+        if (form.data.year !== "") {
+            url.searchParams.set('year', form.data.year);
+        }
+        if (form.data.name !== "") {
+            url.searchParams.set('name', form.data.name);
+        }
+
+        url.searchParams.set('page', (pagination.pageIndex + 1).toString());
+        url.searchParams.set('perPage', pagination.pageSize.toString());
 
         Inertia.visit(url.toString(), {
             preserveState: true,

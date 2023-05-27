@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Event extends Model
 {
@@ -36,13 +37,17 @@ class Event extends Model
         if(isset($filters)){
             forEach($filters as $key=>$value) {
                 if( $key == "name"){
-                    $query->where('name', $value);
+                    $query->where(DB::raw('lower(name)'),'like', '%' . strtolower($value) . '%');
                 }else if( $key == "year"){
                     $query->whereYear('start_date', $value);
                 }else if( $key == "month"){
-                    $query->whereMonth('start_date', $value);
+                    if($value != 0){
+                        $query->whereMonth('start_date', $value);
+                    }else{
+                        continue;
+                    }
                 }else if( $key == "city"){
-                    $query->where('city', $value);
+                    $query->where('city','like', '%' . $value . '%');
                 }else {
                     continue;
                 }

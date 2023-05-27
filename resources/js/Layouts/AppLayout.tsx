@@ -26,7 +26,7 @@ export default function AppLayout({ children, title }: Props) {
 
 
         Inertia.visit(route('visitor.event', {
-            name : form.data.name
+            name: form.data.name
         }), {
             preserveState: true,
             preserveScroll: true,
@@ -70,27 +70,29 @@ export default function AppLayout({ children, title }: Props) {
                                         onClick={onSubmit}
                                         className="py-3 px-3 text-white bg-stone-400 rounded-r-lg hover:bg-stone-600 leading-relaxed"
                                     >
-                                        <SearchIcon/>
+                                        <SearchIcon />
                                     </button>
                                 </div>
                             </form>
-
                             <button
                                 className="px-2 rounded-lg hover:bg-gray-700"
                             >
-                                <div className="flex-col text-white">
-                                    <EventIcon
-                                        fontSize="large"
-                                    />
-                                    <p className="text-sm ">Events</p>
-                                </div>
+                                <InertiaLink
+                                    href={route('visitor.event')}
+                                >
+                                    <div className="flex-col text-white">
+                                        <EventIcon
+                                            fontSize="large"
+                                        />
+                                        <p className="text-sm ">Events</p>
+                                    </div>
+                                </InertiaLink>
                             </button>
                         </div>
-
                     </div>
-                </nav>
+                </nav >
                 {children}
-                <footer className="w-full h-auto bg-[#767171]">
+                < footer className="w-full h-auto bg-[#767171]" >
                     <div className="container flex justify-center m-auto p-3 mt-8 mb-5">
                         <div className="object-cover object-center rounded-xl ">
                             <img
@@ -116,11 +118,11 @@ export default function AppLayout({ children, title }: Props) {
                     </div>
                     <div className="flex flex-col items-center justify-center border-t-2 my-2 p-2">
 
-                            <p className="text-sm text-center font-bold text-[#FFFFFF] break-normal">© 2023 CV. Maju Bersama Creative. All Rights Reserved.</p>
+                        <p className="text-sm text-center font-bold text-[#FFFFFF] break-normal">© 2023 CV. Maju Bersama Creative. All Rights Reserved.</p>
 
                     </div>
 
-                </footer>
+                </footer >
             </div >
         </>
     );
