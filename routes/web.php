@@ -8,6 +8,7 @@ use App\Http\Controllers\TicketDiscountController;
 use App\Http\Controllers\TicketTypeController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserActivityController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitorController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
