@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef } from 'react';
 import Select from 'react-select';
 
 import InputError from '@/Components/Jetstream/InputError';
@@ -10,6 +10,7 @@ import Input from '@/Components/Jetstream/Input';
 import ZoomableImage from '@/Components/ZoomableImage';
 import { District } from '@/Models/Helper';
 import useIndonesiaCityAPI from '@/Hooks/useIndonesianCityAPI';
+import { Editor } from '@tinymce/tinymce-react';
 
 interface Props extends React.HTMLAttributes<HTMLElement> {
     form: InertiaFormProps<EventCreateModel>,
@@ -19,6 +20,7 @@ interface Props extends React.HTMLAttributes<HTMLElement> {
 export default function Form(props: Props) {
 
     const form = props.form;
+    const editorRef = useRef(null);
 
     const {
         provinceSelected,
@@ -26,7 +28,6 @@ export default function Form(props: Props) {
         provinces,
         citiesProvince,
     } = useIndonesiaCityAPI();
-
     return (
         <div className={`flex-col gap-5 ${props.className}`}>
             <div className="form-control w-full mt-4">
@@ -45,16 +46,33 @@ export default function Form(props: Props) {
             </div>
             <div className="form-control w-full mt-4">
                 <InputLabel htmlFor="description">Deskripsi</InputLabel>
-                <TextInput
-                    id="description"
-                    type="text"
-                    className="mt-1 block w-full"
-                    value={form.data.description}
-                    onChange={e => form.setData('description', e.currentTarget.value)}
-                    required
-                    autoFocus
-                    autoComplete="description"
+                <Editor
+                    // @ts-ignore
+                    onInit={(evt, editor) => editorRef.current = editor}
+                    initialValue={form.data.description}
+                    init={{
+                        height: 500,
+                        menubar: false,
+                        plugins: [
+                            'autolink', 'codesample', 'link', 'lists', 'media',
+                            'powerpaste', 'table', 'image', 'quickbars', 'help', 'fullscreen'
+                        ],
+                        toolbar: 'undo redo | formatselect blocks | ' +
+                            'bold italic backcolor | alignleft aligncenter ' +
+                            'alignright alignjustify | bullist numlist outdent indent | ' +
+                            'removeformat quickbars table | link lists autoresize | help',
+                        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                    }}
                 />
+                <div className='flex justify-end my-3'>
+                    <button
+                        // @ts-ignore
+                        onClick={() => form.setData('description', editorRef.current?.getContent())}
+                        className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold"
+                    >
+                        Save
+                    </button>
+                </div>
                 <InputError className="mt-2" message={form.errors.description} />
             </div>
             <div className="form-control w-full mt-4">
@@ -156,7 +174,7 @@ export default function Form(props: Props) {
                 <InputError className="mt-2" message={form.errors.poster} />
                 <ZoomableImage
                     img={form.data.poster ? form.data.poster : form.data.poster_url}
-                    onChange={(_) => {} }
+                    onChange={(_) => { }}
                     title="Gambar Yang Diinputkan"
                 />
             </div>
@@ -179,7 +197,7 @@ export default function Form(props: Props) {
                 <InputError className="mt-2" message={form.errors.event_map} />
                 <ZoomableImage
                     img={form.data.event_map ? form.data.event_map : form.data.event_map_url}
-                    onChange={(_) => {} }
+                    onChange={(_) => { }}
                     title="Gambar Yang Diinputkan"
                 />
             </div>
@@ -201,8 +219,8 @@ export default function Form(props: Props) {
                 />
                 <InputError className="mt-2" message={form.errors.preview} />
                 <ZoomableImage
-                    img={form.data.preview ? form.data.preview : form.data.preview_url }
-                    onChange={(_) => {} }
+                    img={form.data.preview ? form.data.preview : form.data.preview_url}
+                    onChange={(_) => { }}
                     title="Gambar Yang Diinputkan"
                 />
             </div>

@@ -9,6 +9,8 @@ import { EventModel } from '@/Models/Event';
 import MaterialReactTable, { MRT_ColumnDef } from 'material-react-table';
 import { TicketTypeModel } from '@/Models/TicketType';
 import ZoomableImage from '@/Components/ZoomableImage';
+import parse from 'html-react-parser';
+
 
 interface Props {
     event: EventModel;
@@ -28,7 +30,7 @@ export default function Show({ event }: Props) {
 
     return (
         <DashboardAdminLayout title={`${event.name}`}>
-            <div className="py-10 max-w-7xl mx-auto sm:px-6 lg:px-8">      
+            <div className="py-10 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-md sm:rounded-lg">
                     <div className="p-6 bg-white border-b border-gray-200">
                         <div className='flex justify-between mb-2'>
@@ -78,10 +80,6 @@ export default function Show({ event }: Props) {
                                         <td className='py-3 text-center'>{event.name}</td>
                                     </tr>
                                     <tr className='py-3'>
-                                        <td className='py-3 text-center'>Deskripsi Event</td>
-                                        <td className='py-3 text-center'>{event.description}</td>
-                                    </tr>
-                                    <tr className='py-3'>
                                         <td className='py-3 text-center'>Lokasi</td>
                                         <td className='py-3 text-center'>{event.location}</td>
                                     </tr>
@@ -99,13 +97,13 @@ export default function Show({ event }: Props) {
                                     </tr>
                                 </tbody>
                             </table>
-                            <div className='grid grid-cols-1 lg:grid-cols-3 mt-3'>
+                            <div className='grid grid-cols-1 lg:grid-cols-3 mt-3 gap-3'>
                                 <div>
                                     <label className='flex justify-center font-bold'>Poster</label>
                                     <ZoomableImage
                                         img={event.poster_url}
                                         title={"Peta"}
-                                        onChange={_ => {}}
+                                        onChange={_ => { }}
                                     />
                                 </div>
                                 <div>
@@ -113,7 +111,7 @@ export default function Show({ event }: Props) {
                                     <ZoomableImage
                                         img={event.event_map_url}
                                         title={"Peta"}
-                                        onChange={_ => {}}
+                                        onChange={_ => { }}
                                     />
                                 </div>
                                 <div>
@@ -121,8 +119,18 @@ export default function Show({ event }: Props) {
                                     <ZoomableImage
                                         img={event.preview_url}
                                         title={"Preview"}
-                                        onChange={_ => {}}
+                                        onChange={_ => { }}
                                     />
+                                </div>
+                            </div>
+                            <div className='flex flex-col'>
+                                <div className='text-2xl font-semibold my-4'>
+                                    Deskripsi Event
+                                </div>
+                                <div
+                                    className='prose border-2 border-gray-200 p-3'
+                                >
+                                    {parse(event.description)}
                                 </div>
                             </div>
                         </div>
