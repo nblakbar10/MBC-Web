@@ -64,7 +64,7 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/user/profile', [UserProfileController::class, 'show'])->name('profile.show');
-    // Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::middleware(['role:admin|super-admin'])->group(function () {
         // Route::get('/transaction/redeemForm', [TransactionController::class, 'redeemForm'])->name('transaction.redeemForm');
         // Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
