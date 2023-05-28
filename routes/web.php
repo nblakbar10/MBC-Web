@@ -1,6 +1,7 @@
 <?php
 
 use App\Actions\Fortify\UserProfileController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RedeemController;
 use App\Http\Controllers\TicketDiscountController;
