@@ -6,9 +6,9 @@ import InputLabel from "./Jetstream/InputLabel";
 import TextInput from "./Jetstream/TextInput";
 
 import route from "ziggy-js";
-import { PromoModel } from "@/Models/Promo";
+import { TicketTypeModel } from "@/Models/TicketType";
 import InputError from "./Jetstream/InputError";
-import { DiscountModel } from "@/Models/Discount";
+import { TicketDiscountModel } from "@/Models/TicketDiscount";
 import { max } from "lodash";
 
 interface Props {
@@ -17,37 +17,34 @@ interface Props {
     closeHandler: () => void;
     setXenditLinkHandler: (link: string) => void;
     price?: number;
-    promo: PromoModel | null;
-    discounts: Array<DiscountModel>
+    ticketType: TicketTypeModel | null;
+    discounts: Array<TicketDiscountModel>
+    adminFee: number;
 }
 
 
-export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, promo, discounts }: Props) {
+export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, ticketType, discounts, adminFee }: Props) {
     const form = useForm({
         name: '',
         email: '',
         phone_number: '',
         ticket_amount: 0,
         payment_method: 'Transfer Bank (VA)',
-        promo_id: promo?.id,
+        ticketType_id: ticketType?.id,
         total_price: 0,
     });
 
 
-    const adminFee = 2500;
-
-    console.log(discounts);
-
-    const [filteredDiscount, setFilteredDiscount] = React.useState<DiscountModel>();
+    const [filteredDiscount, setFilteredDiscount] = React.useState<TicketDiscountModel>();
     useEffect(() => {
-        // form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount) + adminFee!);
-        form.setData('total_price', ((promo?.price || 0) * form.data.ticket_amount));
-        setFilteredDiscount(discounts.filter(discount => discount.minimum_order <= form.data.ticket_amount).sort((a, b) => b.minimum_order - a.minimum_order)[0]);
+        // form.setData('total_price', ((ticketType?.price || 0) * form.data.ticket_amount) + adminFee!);
+        form.setData('total_price', ((ticketType?.price || 0) * form.data.ticket_amount));
+        setFilteredDiscount(discounts.filter(discount => discount.minimum_buy <= form.data.ticket_amount).sort((a, b) => b.minimum_buy - a.minimum_buy)[0]);
     }, [form.data.ticket_amount]);
 
     useEffect(() => {
-        form.setData('promo_id', promo?.id);
-    }, [promo])
+        form.setData('ticketType_id', ticketType?.id);
+    }, [ticketType])
 
 
     const onSubmitHandler = (e: React.FormEvent) => {
@@ -102,7 +99,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                     />
                 </div>
                 <div className="text-lg text-center">
-                    {promo?.name}
+                    {ticketType?.name}
                 </div>
                 <form className="flex flex-col gap-5 mx-5">
                     <div className="form-control w-full mt-4">
@@ -201,14 +198,14 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                         <tr>
                                             <td className="text-lg pr-10">Harga per Tiket</td>
                                             <td>Rp. {(
-                                                filteredDiscount && promo ? (
-                                                    filteredDiscount.type === 'Percentage' ?
-                                                        promo.price - (promo!.price *
-                                                            (filteredDiscount.deduction / 100)
+                                                filteredDiscount && ticketType ? (
+                                                    filteredDiscount.type === 'percentage' ?
+                                                        ticketType.price - (ticketType!.price *
+                                                            (filteredDiscount.amount / 100)
                                                         ) :
-                                                        promo.price - filteredDiscount.deduction
+                                                        ticketType.price - filteredDiscount.amount
                                                 ) :
-                                                    promo?.price || 0
+                                                    ticketType?.price || 0
                                             ).toLocaleString() || 0}</td>
                                         </tr>
                                         <tr>
@@ -220,14 +217,14 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                             <td>Rp. {(
                                                 (
                                                     (
-                                                        filteredDiscount && promo ? (
-                                                            filteredDiscount.type === 'Percentage' ?
-                                                                promo.price - (promo!.price *
-                                                                    (filteredDiscount.deduction / 100)
+                                                        filteredDiscount && ticketType ? (
+                                                            filteredDiscount.type === 'percentage' ?
+                                                                ticketType.price - (ticketType!.price *
+                                                                    (filteredDiscount.amount / 100)
                                                                 ) :
-                                                                promo.price - filteredDiscount.deduction
+                                                                ticketType.price - filteredDiscount.amount
                                                         ) :
-                                                            promo?.price || 0
+                                                            ticketType?.price || 0
                                                     ) * form.data.ticket_amount
                                                 ) +
                                                 (adminFee * form.data.ticket_amount)
@@ -239,14 +236,14 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                         <td>Rp. {(
                                             (
                                                 (
-                                                    filteredDiscount && promo ? (
-                                                        filteredDiscount.type === 'Percentage' ?
-                                                            promo.price - (promo!.price *
-                                                                (filteredDiscount.deduction / 100)
+                                                    filteredDiscount && ticketType ? (
+                                                        filteredDiscount.type === 'percentage' ?
+                                                            ticketType.price - (ticketType!.price *
+                                                                (filteredDiscount.amount / 100)
                                                             ) :
-                                                            promo.price - filteredDiscount.deduction
+                                                            ticketType.price - filteredDiscount.amount
                                                     ) :
-                                                        promo?.price || 0
+                                                        ticketType?.price || 0
                                                 ) * form.data.ticket_amount
                                             ) +
                                             (adminFee * form.data.ticket_amount) + 
@@ -256,14 +253,14 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                                         (
                                                             (
                                                                 (
-                                                                    filteredDiscount && promo ? (
-                                                                        filteredDiscount.type === 'Percentage' ?
-                                                                            promo.price - (promo!.price *
-                                                                                (filteredDiscount.deduction / 100)
+                                                                    filteredDiscount && ticketType ? (
+                                                                        filteredDiscount.type === 'percentage' ?
+                                                                            ticketType.price - (ticketType!.price *
+                                                                                (filteredDiscount.amount / 100)
                                                                             ) :
-                                                                            promo.price - filteredDiscount.deduction
+                                                                            ticketType.price - filteredDiscount.amount
                                                                     ) :
-                                                                        promo?.price || 0
+                                                                        ticketType?.price || 0
                                                                 ) * form.data.ticket_amount
                                                             ) +
                                                             (adminFee * form.data.ticket_amount)
@@ -273,14 +270,14 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                                             (
                                                                 (
                                                                     (
-                                                                        filteredDiscount && promo ? (
-                                                                            filteredDiscount.type === 'Percentage' ?
-                                                                                promo.price - (promo!.price *
-                                                                                    (filteredDiscount.deduction / 100)
+                                                                        filteredDiscount && ticketType ? (
+                                                                            filteredDiscount.type === 'percentage' ?
+                                                                                ticketType.price - (ticketType!.price *
+                                                                                    (filteredDiscount.amount / 100)
                                                                                 ) :
-                                                                                promo.price - filteredDiscount.deduction
+                                                                                ticketType.price - filteredDiscount.amount
                                                                         ) :
-                                                                            promo?.price || 0
+                                                                            ticketType?.price || 0
                                                                     ) * form.data.ticket_amount
                                                                 ) +
                                                                 (adminFee * form.data.ticket_amount)

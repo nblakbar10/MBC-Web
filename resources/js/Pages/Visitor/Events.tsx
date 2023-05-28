@@ -173,13 +173,14 @@ export default function Events(props: Props) {
                                             <div className="flex flex-col gap-3 w-full">
                                                 <ZoomableImage
                                                     className="w-full h-40 object-cover rounded-t-2xl"
-                                                    img={item.poster_url}
+                                                    img={item.preview_url}
                                                     title={item.name}
                                                     onChange={() => { }}
                                                 />
                                                 <div className="flex flex-col gap-3 px-5">
                                                     <div className="text-2xl ">{item.name}</div>
-                                                    <div className="text-md text-gray-700">{item.start_date}</div>
+                                                    <div className="text-md text-gray-700">Mulai {new Date(item.start_date).toLocaleDateString("id") + '-' + new Date(item.end_date).toLocaleTimeString("id")}</div>
+                                                    <div className="text-md text-gray-700">Selesai {new Date(item.end_date).toLocaleDateString("id") + '-' + new Date(item.start_date).toLocaleTimeString("id")}</div>
                                                     <div className="flex justify-center border-t-2 my-2">
                                                         <InertiaLink
                                                             href={route('visitor.event-detail', item.id)}

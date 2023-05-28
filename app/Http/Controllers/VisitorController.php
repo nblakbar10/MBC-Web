@@ -28,8 +28,8 @@ class VisitorController extends Controller{
     }
 
     public function eventDetail($id){
-        $event = Event::find($id);
-        return Inertia::render('Visitor/Event/Detail', [
+        $event = Event::with('ticketTypes.ticketDiscounts')->find($id);
+        return Inertia::render('Visitor/EventDetail', [
             'event' => $event,
         ]);
     }

@@ -41,10 +41,11 @@ export default function Index(props: Props) {
     useEffect(() => {
         const url = new URL(route(route().current()!).toString());
 
-        if (eventId !== -1) {
+        if (eventId !== -1 && eventId !== 0) {
             url.searchParams.set('event', eventId.toString());
         } else {
             url.searchParams.delete('event');
+            if (eventId === -1) return;
         }
 
         Inertia.visit(url.toString(), {
@@ -94,7 +95,8 @@ export default function Index(props: Props) {
                                         setEventId(parseInt(e.target.value));
                                     }}
                                 >
-                                    <option value="-1">Semua Event</option>
+                                    <option value="-1">Pilih Event</option>
+                                    <option value="0">Semua Event</option>
                                     {events.map((event) => (
                                         <option key={event.id} value={event.id}>
                                             {event.name}
@@ -105,7 +107,7 @@ export default function Index(props: Props) {
                         </div>
                         <div className="flex justify-between">
                             <div className="mt-8 text-2xl">
-                                Daftar Jenis Tiket {eventId !== -1 ? `Event ${events.find((event) => event.id === eventId)?.name}` : ''}
+                                Daftar Jenis Tiket {eventId !== -1 && eventId !== 0 ? `Event ${events.find((event) => event.id === eventId)?.name}` : ''}
                             </div>
                             <div className="">
                                 <InertiaLink

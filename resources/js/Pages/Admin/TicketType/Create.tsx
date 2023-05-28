@@ -17,6 +17,7 @@ export default function Create(props: Props) {
         {
             name: '',
             stock: 0,
+            fee: 0,
             price: 0,
             event_id: 0,
         }

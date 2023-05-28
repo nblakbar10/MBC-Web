@@ -64,7 +64,7 @@ export default function Home(props: Props) {
                                             <div className=" rounded-2xl">
                                                 <ZoomableImage
                                                     className="w-full h-1/3  xl:h-[45rem] 2xl:h-[55rem] object-cover rounded-2xl"
-                                                    img={item.poster_url}
+                                                    img={item.preview_url}
                                                     title={item.name}
                                                     onChange={() => { }}
                                                 />
@@ -93,7 +93,7 @@ export default function Home(props: Props) {
                                             <div className="flex flex-col gap-3 w-full">
                                                 <ZoomableImage
                                                     className="w-full h-40 object-cover rounded-t-2xl"
-                                                    img={item.poster_url}
+                                                    img={item.preview_url}
                                                     title={item.name}
                                                     onChange={() => { }}
                                                 />

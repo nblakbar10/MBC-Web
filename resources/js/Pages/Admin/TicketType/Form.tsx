@@ -70,6 +70,20 @@ export default function Form(props: Props) {
                 <InputError className="mt-2" message={form.errors.price} />
             </div>
             <div className="form-control w-full mt-4">
+                <InputLabel htmlFor="fee">Pajak</InputLabel>
+                <TextInput
+                    id="fee"
+                    type="text"
+                    className="mt-1 block w-full"
+                    value={form.data.fee}
+                    onChange={e => form.setData('fee', Number(e.currentTarget.value))}
+                    required
+                    autoFocus
+                    autoComplete="fee"
+                />
+                <InputError className="mt-2" message={form.errors.fee} />
+            </div>
+            <div className="form-control w-full mt-4">
                 <InputLabel htmlFor="maximum_buy">Maksimum Pembelian</InputLabel>
                 <TextInput
                     id="maximum_buy"

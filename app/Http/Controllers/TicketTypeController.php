@@ -62,6 +62,7 @@ class TicketTypeController extends Controller
             $validated = $request->validate([
                 'name' => 'required|max:255|string',
                 'price' => 'required|numeric',
+                'fee' => 'required|numeric',
                 'stock' => 'required|numeric',
                 'maximum_buy' => 'required|numeric',
                 'event_id' => 'required|numeric|exists:events,id',
@@ -125,6 +126,7 @@ class TicketTypeController extends Controller
             $validated = $request->validate([
                 'name' => 'required|max:255|string',
                 'price' => 'required|numeric',
+                'fee' => 'required|numeric',
                 'stock' => 'required|numeric',
                 'maximum_buy' => 'required|numeric',
                 'event_id' => 'required|numeric|exists:events,id',

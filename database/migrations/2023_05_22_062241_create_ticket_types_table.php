@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedInteger('price');
             $table->unsignedInteger('stock');
+            $table->unsignedInteger('fee');
             $table->unsignedInteger('maximum_buy');
             $table->foreignId('event_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

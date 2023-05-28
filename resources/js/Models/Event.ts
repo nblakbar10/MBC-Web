@@ -13,7 +13,7 @@ export interface BaseEventModel{
     poster_url: string;
     event_map_url: string;
     preview_url: string;
-    ticketTypes?: TicketTypeModel[];
+    ticket_types?: TicketTypeModel[];
 }
 
 export interface EventModel extends BaseEventModel {
