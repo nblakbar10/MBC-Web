@@ -104,7 +104,7 @@ class EventController extends Controller
     public function show($id)
     {
         //
-        $event = Event::findOrfail($id)->with('ticketTypes')->first();
+        $event = Event::with('ticketTypes')->findOrfail($id);
         return Inertia::render('Admin/Event/Show', [
             'event' => $event,
         ]);

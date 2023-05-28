@@ -68,6 +68,7 @@ export default function Form(props: Props) {
                     <button
                         // @ts-ignore
                         onClick={() => form.setData('description', editorRef.current?.getContent())}
+                        type="button"
                         className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold"
                     >
                         Save
