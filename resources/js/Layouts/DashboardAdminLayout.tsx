@@ -77,6 +77,11 @@ export default function DashboardAdminLayout({
                         Pengguna
                     </ResponsiveNavLink>
                 </li>
+                <li>
+                    <ResponsiveNavLink href={route('user-activity.index')} active={route().current('user-activity.index')}>
+                        Aktivitas Pengguna
+                    </ResponsiveNavLink>
+                </li>
                 <li className='border-t-2'>
                     <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
                         <span>Fitur Sistem</span>
@@ -106,11 +111,6 @@ export default function DashboardAdminLayout({
                     <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
                         <span>Log Aksi</span>
                     </div>
-                </li>
-                <li>
-                    <ResponsiveNavLink href={route('user-activity.index')} active={route().current('user-activity.index')}>
-                        Aktivitas Pengguna
-                    </ResponsiveNavLink>
                 </li>
                 <li>
                     <ResponsiveNavLink href={route('redeem.index')} active={route().current('redeem.index')}>
