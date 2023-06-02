@@ -427,11 +427,10 @@
               <tr>
                 <td>
                   <div class="text" style="padding: 0 3em; text-align: center;">
-                    <h2>Pembayaran Tiket Berhasil</h2>
-                    <p>Selamat, pembayaran tiketmu telah berhasil!, berikut data detail untuk tiketmu yang dapat
-                      di-redeem
-                      ketika
-                      konser akan berlangsung.</p>
+                    <h2>Hallo, {{$mailData['to']}}</h2>
+                    <p>Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
+                    ketika pembayaran anda telah kami terima.</p>
+                    <p>Berikut detail data pemesanan anda yang kami terima:</p>
                   </div>
                 </td>
               </tr>
@@ -439,62 +438,55 @@
           </td>
         </tr><!-- end tr -->
         <tr>
-          <td class="bg_white" style="padding: 2.5em; margin-top: 0.75rem;">
+          <td class="bg_white" style="padding: 2.5em;">
             <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
               <tr>
                 <td class="">
-                  <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: rgb(255, 255, 255);">
-                    <h3><a href="{{asset('storage/barcode_ticket/'.$mailData['id_tiket'].'.jpg')}}">Klik disini untuk melihat
-                      barcode tiketmu.</a></h3>
-                  </div>
-                  <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
+                <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: rgb(255, 255, 255);">
+                    <h3>Berikut detail data pemesanan anda yang kami terima:</a></h3>
+                  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style=" margin-right: 0.75rem">
                     <tr>
-                      <td valign="top" width="50%" style="padding-top: 20px;">
+                      <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem; border: solid;">
                         <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
                           <tr>
-                            <td class="text-services" style="text-align: left;">ID Tiket</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-services" style="text-align: left;">{{$mailData['id_tiket']}}</td>
+                            <td class="text-services" style="text-align: left;  ">Nama</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['nama']}}</td>
                           </tr>
                           <tr>
-                            <td class="text-services" style="text-align: left;">Nama</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-services" style="text-align: left;">{{$mailData['nama']}}</td>
+                            <td class="text-services" style="text-align: left; ">No.HP</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['no_hp']}}</td>
                           </tr>
                           <tr>
-                            <td class="text-services" style="text-align: left;">Email</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-services" style="text-align: left;">{{$mailData['email']}}</td>
+                            <td class="text-services" style="text-align: left; ">Email</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['email']}}</td>
                           </tr>
                           <tr>
-                            <td class="text-services" style="text-align: left;">No. HP</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-services" style="text-align: left;">{{$mailData['no_hp']}}</td>
+                            <td class="text-services" style="text-align: left; ">Jumlah Tiket</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['jumlah_tiket']}}</td>
                           </tr>
                           <tr>
-                            <td class="text-services" style="text-align: left;">Jumlah Tiket</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-services" style="text-align: left;">{{$mailData['jumlah_tiket']}}</td>
+                            <td class="text-services" style="text-align: left; ">Jenis Tiket</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['jenis_tiket']}}</td>
                           </tr>
                           <tr>
-                            <td class="text-services" style="text-align: left;">Jenis Tiket</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-services" style="text-align: left;">{{$mailData['jenis_tiket']}}</td>
+                            <td class="text-services" style="text-align: left; ">Total Pembelian</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['total_pembelian']}}</td>
                           </tr>
                           <tr>
-                            <td class="text-services" style="text-align: left;">Total Pembelian</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-services" style="text-align: left;">{{$mailData['total_pembayaran']}}</td>
+                            <td class="text-services" style="text-align: left; ">Metode Pembayaran</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['metode_pembayaran']}}</td>
                           </tr>
                           <tr>
-                            <td class="text-services" style="text-align: left;">Metode Pembayaran</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-services" style="text-align: left;">{{$mailData['metode_pembayaran']}}</td>
-                          </tr>
-                          <tr>
-                            <td class="text-services" style="text-align: left;">Status Pembayaran</td>
-                            <td class="text-md px-3">:</td>
-                            <td class="text-services" style="text-align: left;">{{$mailData['status_pembayaran']}}</td>
+                            <td class="text-services" style="text-align: left; ">Status Pembayaran</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['status_pembayaran']}}</td>
                           </tr>
                         </table>
                       </td>
@@ -503,10 +495,10 @@
                 </td>
               </tr><!-- end: tr -->
             </table>
-            <br><br><br><br><br>
+            <br>
             <div class="div-lima">
             <img src="http://loketmbc.com/storage/barcode_ticket/{{$mailData['id_tiket']}}.jpg" height="70"
-                      style="padding: 1em 2.5em; text-align: center;"/>
+                      style="padding: 0.75em; text-align: center; width: 80%;"/>
             </div>
             <div class="div-lima text">
               <p style="text-align: center;">2023 @ PT Maju Bersama Kreatif</p>
@@ -515,6 +507,7 @@
         </tr><!-- end:tr -->
         <!-- 1 Column Text + Button : END -->
       </table>
+
     </div>
   </>
 </body>
