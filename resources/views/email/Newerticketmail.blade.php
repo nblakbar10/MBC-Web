@@ -398,6 +398,7 @@
         margin-left: 0.75rem;
         margin-right: 0.75rem;
     }
+
   </style>
 
 
@@ -414,14 +415,14 @@
         style="margin: auto;">
         <tr>
           <td class="bg_white logo"
-            style="padding: 1em 2.5em; text-align: center; background-color: rgba(100, 100, 100, .5);">
+            style="padding: 1em 2.5em; text-align: center; background-color: #262626;">
             <img src="https://loketmbc.com/assets/images/MBC_HD.png"
               style="width: 10rem; height: 3.5rem; margin-left: 0.75rem;margin-right: 0.75rem;" />
           </td>
         </tr><!-- end tr -->
         <tr>
           <td valign="middle" class="hero"
-            style="background-image: url(images/bg_1.jpg); background-size: cover; height: 400px;">
+            style="background-size: cover; height: 200px; background-color: #767171;">
             <table>
               <tr>
                 <td>
@@ -438,18 +439,18 @@
           </td>
         </tr><!-- end tr -->
         <tr>
-          <td class="bg_white">
-            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+          <td class="bg_white" style="padding: 2.5em; margin-top: 0.75rem;">
+            <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
               <tr>
-                <td class="bg_white email-section">
-                  <div class="heading-section" style="text-align: center; padding: 0 30px;">
-                    <h2><a href="{{asset('storage/barcode_ticket/'.$mailData['id_tiket'].'.jpg')}}">Klik disini untuk melihat
-                      barcode tiketmu.</a></h2>
+                <td class="">
+                  <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: rgb(255, 255, 255);">
+                    <h3><a href="{{asset('storage/barcode_ticket/'.$mailData['id_tiket'].'.jpg')}}">Klik disini untuk melihat
+                      barcode tiketmu.</a></h3>
                   </div>
-                  <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <table role="presentation" cellpadding="0" cellspacing="0" width="100%">
                     <tr>
                       <td valign="top" width="50%" style="padding-top: 20px;">
-                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                        <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
                           <tr>
                             <td class="text-services" style="text-align: left;">ID Tiket</td>
                             <td class="text-md px-3">:</td>
@@ -508,7 +509,7 @@
                       style="padding: 1em 2.5em; text-align: center;"/>
             </div>
             <div class="div-lima text">
-              <p>2023 @ PT Maju Bersama Kreatif</p>
+              <p style="text-align: center;">2023 @ PT Maju Bersama Kreatif</p>
             </div>
           </td>
         </tr><!-- end:tr -->

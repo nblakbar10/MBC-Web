@@ -20,7 +20,7 @@ class TicketController extends Controller
     {
         $tickets = Ticket::all();
         // $transactions = Transaction::all();
-        // dd($transactions);  
+        // dd($transactions);
         return Inertia::render('Admin/Ticket/Index', [
             'tickets' => $tickets,
         ]);
@@ -143,40 +143,40 @@ class TicketController extends Controller
 
     public function callback_dev()
     {
-        // $mix_ticket = rand ( 00000000000000 , 99999999999999 ); //14digit
+        $mix_ticket = rand ( 00000000000000 , 99999999999999 ); //14digit
         // //barcode
         // $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
         // file_put_contents(public_path('storage/barcode_ticket/').$mix_ticket.'.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
         // // $data_trans = Transaction::where('external_id', $external_id)->get()->first();
 
         // //sent email :
-        // $mailData = [
-        //     'to' => 'Rezi Fahrizal',
-        //     'id_tiket' => $mix_ticket,
-        //     'nama' => 'Rezi Fahrizal',
-        //     'email' => 'rezifahrizal2910@gmail.com',
-        //     'no_hp' => '085751398061',
-        //     'jumlah_tiket' => '1',
-        //     'jenis_tiket' => 'Smile Fest Vol 2',
-        //     'total_pembayaran' => 'Rp. 207,000',
-        //     'metode_pembayaran' => 'Transfer Bank (VA)',
-        //     'status_pembayaran' => 'PAID',
-        //     // "status_tiket" => "Not redeemed yet",
-        //     "ticket_barcode" => url($mix_ticket.'.jpg')
-        // ];
+        $mailData = [
+            'to' => 'Rezi Fahrizal',
+            'id_tiket' => $mix_ticket,
+            'nama' => 'Rezi Fahrizal',
+            'email' => 'muhikram1609@gmail.com',
+            'no_hp' => '085751398061',
+            'jumlah_tiket' => '1',
+            'jenis_tiket' => 'Smile Fest Vol 2',
+            'total_pembayaran' => 'Rp. 207,000',
+            'metode_pembayaran' => 'Transfer Bank (VA)',
+            'status_pembayaran' => 'PAID',
+            // "status_tiket" => "Not redeemed yet",
+            "ticket_barcode" => url($mix_ticket.'.jpg')
+        ];
         // Mail::to('rezifahrizal2910@gmail.com')->send(new SuccessMail($mailData));
-        // Mail::to('nabilakbarpratama@gmail.com')->send(new SuccessMail($mailData));
+        Mail::to('muhikram1609@gmail.com')->send(new SuccessMail($mailData));
         // Mail::to('dian.galleon@gmail.com')->send(new SuccessMail($mailData));
 
         // Transaction::where('external_id', 'MBC-SmileFest2023-lpsXXoS')->update([
-        Transaction::where('email', 'tohirpradana@gmail.com')->update([
+        // Transaction::where('email', 'muhikram1609@gmail.com')->update([
 
-            // 'payment_status' => "PAID",
-            'external_id' => 'MBC-SmileFest2023-lpsXXoS',
-            'ticket_id' => '79904138025363',
-            'ticket_status' => "Not redeemed yet",
-            'ticket_barcode' => url('79904138025363'.'.jpg')
-        ]);
+        //     // 'payment_status' => "PAID",
+        //     'external_id' => 'MBC-SmileFest2023-lpsXXoS',
+        //     'ticket_id' => '79904138025363',
+        //     'ticket_status' => "Not redeemed yet",
+        //     'ticket_barcode' => url('79904138025363'.'.jpg')
+        // ]);
         // $transaction_id = Str::random(7);
         // Transaction::create([
         //     'external_id' => 'MBC-SmileFest2023-G5h2Lb2',
@@ -207,7 +207,7 @@ class TicketController extends Controller
     //         Ticket::where('external_id', $check->external_id)->update([
     //             'ticket_status' => 'Reedeemed!'
     //         ]);
-    //         return redirect()->route('ticket.index')->banner('Ticket ID Found! This ticket has redeemed'); 
+    //         return redirect()->route('ticket.index')->banner('Ticket ID Found! This ticket has redeemed');
 
     //     }else{
     //         return redirect()->route('ticket.index')->banner('Ticket ID Not Found!');
@@ -223,16 +223,16 @@ class TicketController extends Controller
                     'ticket_status' => 'Reedeemed for '.$request->redeem_amount.' tickets',
                     'redeem_amount' => $request->redeem_amount
                 ]);
-                return redirect()->route('ticket.index')->banner('Ticket ID Found! '.$request->redeem_amount.' tickets'. 'has redeemed.'); 
+                return redirect()->route('ticket.index')->banner('Ticket ID Found! '.$request->redeem_amount.' tickets'. 'has redeemed.');
             }else if($check->redeem_amount != 0 || $check->redeem_amount != NULL){
                 if($request->redeem_amount == $check->total_tickets){
                     Ticket::where('external_id', $check->external_id)->update([
                         'ticket_status' => 'Reedeemed for all tickets',
                         'redeem_amount' => $request->redeem_amount
                     ]);
-                    return redirect()->route('ticket.index')->banner('Ticket ID Found! All tickets has redeemed.'); 
+                    return redirect()->route('ticket.index')->banner('Ticket ID Found! All tickets has redeemed.');
                 }else if($request->redeem_amount > $check->redeem_amount){
-                    return redirect()->route('ticket.index')->banner('Error! Redeem request was out of total purchased tickets'); 
+                    return redirect()->route('ticket.index')->banner('Error! Redeem request was out of total purchased tickets');
                 }else if($request->redeem_amount < $check->redeem_amount){
                     $decrease_redeem_amount = (int)$check->redeem_amount - (int)$request->redeem_amount;
                     Ticket::where('external_id', $check->external_id)->update([
