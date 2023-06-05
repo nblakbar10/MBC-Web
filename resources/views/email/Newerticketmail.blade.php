@@ -443,7 +443,7 @@
                   <div class="text" style=" padding: 0 3em; text-align: center;">
                     <h2 style="color: #ffffff;">Hallo, {{$mailData['to']}}</h2>
                     <p style="color: #ffffff;">Selamat, pembayaran tiketmu telah berhasil!</p>
-
+                    <p style="color: #ffffff;">Tiket dapat di-redeem ketika konser akan berlangsung.</p>
                   </div>
                 </td>
               </tr>
@@ -457,10 +457,7 @@
                 <td class="">
                 <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: #ffffff;">
                     {{-- 767171 --}}
-                    <h3>Berikut data detail untuk tiketmu yang dapat
-                      di-redeem
-                      ketika
-                      konser akan berlangsung:</a></h3>
+                    <h3>Berikut data tiket yang telah dipesan:</a></h3>
                   <table class="solid" role="presentation" border="2" cellpadding="1" cellspacing="0" width="100%" style=" margin-right: 0.75rem; ">
                     <tr>
                       <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem;">
@@ -522,6 +519,7 @@
             <img src="http://loketmbc.com/storage/barcode_ticket/10815561681972.jpg" height="70"
                       style="padding: 0.75em; text-align: center; width: 80%;"/>
             </div>
+            <br><br>
             <div class="div-lima text">
               <p style="text-align: center;">2023 @ PT Maju Bersama Kreatif</p>
             </div>
