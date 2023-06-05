@@ -403,12 +403,12 @@
         border-color:rgb(0, 0, 0)
     }
     table, th, td  {
-    border: 4px solid black;
+    border: 10px solid black;
     border-collapse: collapse;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     }
     th, td {
     margin-top: 20px;
@@ -463,9 +463,9 @@
                 <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: #ffffff;">
                     {{-- 767171 --}}
                     <h3>Berikut detail data pemesanan anda yang kami terima:</a></h3>
-                  <table class="solid" role="presentation" border="1" cellpadding="0" cellspacing="0" width="100%" style=" margin-right: 0.75rem; ">
+                  <table class="solid" role="presentation" border="5" cellpadding="0" cellspacing="0" width="100%" style=" margin-right: 0.75rem; ">
                     <tr>
-                      <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem; border: solid;">
+                      <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem;">
                         <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
                           <tr>
                             <td class="text-services" style="text-align: left;  ">Nama</td>
