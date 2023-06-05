@@ -442,8 +442,7 @@
                 <td>
                   <div class="text" style=" padding: 0 3em; text-align: center;">
                     <h2 style="color: #ffffff;">Hallo, {{$mailData['to']}}</h2>
-                    <p style="color: #ffffff;">Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
-                    ketika pembayaran anda telah kami terima.</p>
+                    <p style="color: #ffffff;">Selamat, pembayaran tiketmu telah berhasil!</p>
 
                   </div>
                 </td>
@@ -458,7 +457,10 @@
                 <td class="">
                 <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: #ffffff;">
                     {{-- 767171 --}}
-                    <h3>Berikut detail data pemesanan anda yang kami terima:</a></h3>
+                    <h3>Berikut data detail untuk tiketmu yang dapat
+                      di-redeem
+                      ketika
+                      konser akan berlangsung:</a></h3>
                   <table class="solid" role="presentation" border="2" cellpadding="1" cellspacing="0" width="100%" style=" margin-right: 0.75rem; ">
                     <tr>
                       <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem;">
