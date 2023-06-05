@@ -403,7 +403,7 @@
         border-color:rgb(0, 0, 0)
     }
     table, th, td  {
-    border: 3px solid black;
+    border: 5px solid black;
     border-collapse: collapse;
     }
     /* th, td {
@@ -425,7 +425,7 @@
     </div>
     <div style="max-width: 800px; margin: 0 auto;" class="email-container">
       <!-- BEGIN BODY -->
-      <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+      <table align="center" role="presentation" cellspacing="0" cellpadding="0"  width="100%"
         style="margin: auto;">
         <tr>
           <td class="bg_white logo"
