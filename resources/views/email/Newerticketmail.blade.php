@@ -476,7 +476,7 @@
                           <tr>
                             <td class="text-services" style="text-align: left; ">Total Pembelian</td>
                             <td class="text-md">:</td>
-                            <td class="text-services" style="text-align: left; ">{{$mailData['total_pembelian']}}</td>
+                            <td class="text-services" style="text-align: left; "></td>
                           </tr>
                           <tr>
                             <td class="text-services" style="text-align: left; ">Metode Pembayaran</td>
