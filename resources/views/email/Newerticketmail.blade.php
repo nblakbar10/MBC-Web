@@ -403,19 +403,19 @@
         border-color:rgb(0, 0, 0)
     }
     table, th, td  {
-    border: 1px solid black;
+    border: 4px solid black;
     border-collapse: collapse;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 10px;
     }
-    /* th, td {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    } */
+    th, td {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    }
 
   </style>
 
