@@ -434,8 +434,8 @@
               <tr>
                 <td>
                   <div class="text" style=" padding: 0 3em; text-align: center;">
-                    <h2 style="color: #000000;">Hallo, {{$mailData['to']}}</h2>
-                    <p style="color: #000000;">Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
+                    <h2>Hallo, {{$mailData['to']}}</h2>
+                    <p>Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
                     ketika pembayaran anda telah kami terima.</p>
 
                   </div>
