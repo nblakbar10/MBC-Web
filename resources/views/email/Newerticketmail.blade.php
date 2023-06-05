@@ -519,7 +519,7 @@
             <img src="http://loketmbc.com/storage/barcode_ticket/10815561681972.jpg" height="70"
                       style="padding: 0.75em; text-align: center; width: 80%;"/>
             </div>
-            <br><br>
+            <br><br><br>
             <div class="div-lima text">
               <p style="text-align: center;">2023 @ PT Maju Bersama Kreatif</p>
             </div>
