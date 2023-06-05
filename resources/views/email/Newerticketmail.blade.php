@@ -179,16 +179,6 @@
       color: #f3a333;
     }
 
-    table, th, td  {
-    border: 1px solid black;
-    border-collapse: collapse;
-    }
-    th, td {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    }
 
     /*LOGO*/
 
@@ -410,7 +400,22 @@
     .solid {
         border-style: solid;
         border-width: 5px;
-        border-color:rgb(0, 0, 0)}
+        border-color:rgb(0, 0, 0)
+    }
+    table, th, td  {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    }
+    /* th, td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    } */
 
   </style>
 
@@ -451,7 +456,7 @@
           </td>
         </tr><!-- end tr -->
         <tr>
-          <td class="bg_white" style="padding: 1em; text-align: center; background-color: #ffffff;">
+          <td class="bg_white" style="padding: 0.5em; text-align: center; background-color: #ffffff;">
             <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
               <tr>
                 <td class="">
