@@ -403,7 +403,7 @@
         border-color:rgb(0, 0, 0)
     }
     table, th, td  {
-    border: 10px solid black;
+    border: 3px solid black;
     border-collapse: collapse;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -468,7 +468,14 @@
                       <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem;">
                         <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
                           <tr>
-                            <td class="text-services" style="text-align: left;  ">Nama</td>
+                            <td class="text-services"
+                            style=
+                            "text-align: left;
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+                            margin-left: 20px;
+                            margin-right: 20px;"
+                            >Nama</td>
                             <td class="text-md">:</td>
                             <td class="text-services" style="text-align: left; ">{{$mailData['nama']}}</td>
                           </tr>
