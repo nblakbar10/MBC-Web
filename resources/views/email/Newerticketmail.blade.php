@@ -400,7 +400,8 @@
     }
     p.solid {
         border-style: solid;
-        border-width: 1px;}
+        border-width: 1px;
+        border-color:rgb(0, 0, 0)}
 
   </style>
 
@@ -445,7 +446,8 @@
             <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
               <tr>
                 <td class="">
-                <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: #767171;">
+                <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: #ffffff;">
+                    {{-- 767171 --}}
                     <h3>Berikut detail data pemesanan anda yang kami terima:</a></h3>
                   <table class="solid" role="presentation" cellpadding="0" cellspacing="0" width="100%" style=" margin-right: 0.75rem border: 5px solid black;">
                     <tr>
