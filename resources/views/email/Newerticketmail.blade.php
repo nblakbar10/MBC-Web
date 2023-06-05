@@ -437,7 +437,7 @@
                     <h2 style="color: #000000;">Hallo, {{$mailData['to']}}</h2>
                     <p style="color: #000000;">Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
                     ketika pembayaran anda telah kami terima.</p>
-                    <p style="color: #000000;">Berikut detail data pemesanan anda yang kami terima:</p>
+
                   </div>
                 </td>
               </tr>
@@ -445,7 +445,7 @@
           </td>
         </tr><!-- end tr -->
         <tr>
-          <td class="bg_white" style="padding: 2.5em; text-align: center; background-color: #ffffff;">
+          <td class="bg_white" style="padding: 2.5em; text-align: center; background-color: #767171;">
             <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
               <tr>
                 <td class="">
