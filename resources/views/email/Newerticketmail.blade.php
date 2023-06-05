@@ -405,17 +405,13 @@
     table, th, td  {
     border: 3px solid black;
     border-collapse: collapse;
+    }
+    /* th, td {
     margin-top: 20px;
     margin-bottom: 20px;
     margin-left: 20px;
     margin-right: 20px;
-    }
-    th, td {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    }
+    } */
 
   </style>
 
@@ -463,19 +459,12 @@
                 <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: #ffffff;">
                     {{-- 767171 --}}
                     <h3>Berikut detail data pemesanan anda yang kami terima:</a></h3>
-                  <table class="solid" role="presentation" border="5" cellpadding="0" cellspacing="0" width="100%" style=" margin-right: 0.75rem; ">
+                  <table class="solid" role="presentation" border="3" cellpadding="1" cellspacing="0" width="100%" style=" margin-right: 0.75rem; ">
                     <tr>
                       <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem;">
                         <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
                           <tr>
-                            <td class="text-services"
-                            style=
-                            "text-align: left;
-                            margin-top: 20px;
-                            margin-bottom: 20px;
-                            margin-left: 20px;
-                            margin-right: 20px;"
-                            >Nama</td>
+                            <td class="text-services"style="text-align: left;">Nama</td>
                             <td class="text-md">:</td>
                             <td class="text-services" style="text-align: left; ">{{$mailData['nama']}}</td>
                           </tr>
