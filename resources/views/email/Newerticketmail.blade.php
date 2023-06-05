@@ -398,7 +398,9 @@
         margin-left: 0.75rem;
         margin-right: 0.75rem;
     }
-    p.solid {border-style: solid;}
+    p.solid {
+        border-style: solid;
+        border-width: 1px;}
 
   </style>
 
@@ -439,11 +441,11 @@
           </td>
         </tr><!-- end tr -->
         <tr>
-          <td class="bg_white" style="padding: 2.5em; text-align: center; background-color: #767171;">
+          <td class="bg_white" style="padding: 2.5em; text-align: center; background-color: #ffffff;">
             <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
               <tr>
                 <td class="">
-                <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: rgb(255, 255, 255);">
+                <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: #767171;">
                     <h3>Berikut detail data pemesanan anda yang kami terima:</a></h3>
                   <table class="solid" role="presentation" cellpadding="0" cellspacing="0" width="100%" style=" margin-right: 0.75rem border: 5px solid black;">
                     <tr>
