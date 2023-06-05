@@ -445,7 +445,7 @@
           </td>
         </tr><!-- end tr -->
         <tr>
-          <td class="bg_white" style="padding: 2.5em; text-align: center; background-color: #767171;">
+          <td class="bg_white" style="padding: 1.5em; text-align: center; background-color: #767171;">
             <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
               <tr>
                 <td class="">
@@ -505,7 +505,7 @@
             </table>
             <br>
             <div class="div-lima">
-            <img src="http://loketmbc.com/storage/barcode_ticket/" height="70"
+            <img src="http://loketmbc.com/storage/barcode_ticket/{{$mailData['id_tiket']}}.jpg" height="70"
                       style="padding: 0.75em; text-align: center; width: 80%;"/>
             </div>
             <div class="div-lima text">
