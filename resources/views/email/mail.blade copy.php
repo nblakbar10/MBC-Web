@@ -179,6 +179,7 @@
       color: #f3a333;
     }
 
+    table {}
 
     /*LOGO*/
 
@@ -397,21 +398,6 @@
         margin-left: 0.75rem;
         margin-right: 0.75rem;
     }
-    .solid {
-        border-style: solid;
-        border-width: 5px;
-        border-color:rgb(0, 0, 0)
-    }
-    table, th, td  {
-    border: 5px solid black;
-    border-collapse: collapse;
-    }
-    /* th, td {
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    } */
 
   </style>
 
@@ -425,7 +411,7 @@
     </div>
     <div style="max-width: 800px; margin: 0 auto;" class="email-container">
       <!-- BEGIN BODY -->
-      <table align="center" role="presentation" cellspacing="0" cellpadding="0"  width="100%"
+      <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
         style="margin: auto;">
         <tr>
           <td class="bg_white logo"
@@ -440,11 +426,11 @@
             <table>
               <tr>
                 <td>
-                  <div class="text" style=" padding: 0 3em; text-align: center;">
-                    <h2 style="color: #ffffff;">Hallo, {{$mailData['to']}}</h2>
-                    <p style="color: #ffffff;">Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
+                  <div class="text" style="padding: 0 3em; text-align: center;">
+                    <h2>Hallo, {{$mailData['to']}}</h2>
+                    <p>Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
                     ketika pembayaran anda telah kami terima.</p>
-
+                    <p>Berikut detail data pemesanan anda yang kami terima:</p>
                   </div>
                 </td>
               </tr>
@@ -452,19 +438,18 @@
           </td>
         </tr><!-- end tr -->
         <tr>
-          <td class="bg_white" style="padding: 0.5em; text-align: center; background-color: #ffffff;">
+          <td class="bg_white" style="padding: 2.5em;">
             <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
               <tr>
                 <td class="">
-                <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: #ffffff;">
-                    {{-- 767171 --}}
+                <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: rgb(255, 255, 255);">
                     <h3>Berikut detail data pemesanan anda yang kami terima:</a></h3>
-                  <table class="solid" role="presentation" border="2" cellpadding="1" cellspacing="0" width="100%" style=" margin-right: 0.75rem; ">
+                  <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style=" margin-right: 0.75rem">
                     <tr>
-                      <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem;">
+                      <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem; border: solid;">
                         <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
                           <tr>
-                            <td class="text-services"style="text-align: left;">Nama</td>
+                            <td class="text-services" style="text-align: left;  ">Nama</td>
                             <td class="text-md">:</td>
                             <td class="text-services" style="text-align: left; ">{{$mailData['nama']}}</td>
                           </tr>
@@ -505,13 +490,16 @@
                           </tr>
                         </table>
                       </td>
-                      <a href="{{$mailData['link']}}">Klik disini untuk untuk melakukan pembayaran</a>
                     </tr>
                   </table>
                 </td>
               </tr><!-- end: tr -->
             </table>
-            <br><br><br>
+            <br>
+            <div class="div-lima">
+            <img src="http://loketmbc.com/storage/barcode_ticket/{{$mailData['id_tiket']}}.jpg" height="70"
+                      style="padding: 0.75em; text-align: center; width: 80%;"/>
+            </div>
             <div class="div-lima text">
               <p style="text-align: center;">2023 @ PT Maju Bersama Kreatif</p>
             </div>
