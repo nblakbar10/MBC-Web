@@ -77,7 +77,7 @@
                     <div>
                     <a href="{{$mailData['link']}}">Klik disini untuk untuk melakukan pembayaran</a>
                     </div>
-                    
+
                 </div>
 
             </div>
