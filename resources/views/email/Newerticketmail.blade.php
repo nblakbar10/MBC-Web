@@ -505,7 +505,7 @@
                           </tr>
                         </table>
                       </td>
-                      <a href="{{$mailData['link']}}">Klik disini untuk untuk melakukan pembayaran</a>
+                      <a href="">Klik disini untuk untuk melakukan pembayaran</a>
                     </tr>
                   </table>
                 </td>
