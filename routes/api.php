@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\RedeemController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +24,22 @@ Route::post('/callback', [TransactionController::class, 'callback']);
 
 Route::post('/redeem', [RedeemController::class, 'store'])->name('redeemAPI.store');
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::get('/event', [EventController::class, 'getData'])->name('api.events');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+    ])->group(function () {
+        Route::middleware(['role:admin|super-admin'])->group(function () {
+            Route::get('/transaction', [TransactionController::class, 'getData'])->name('api.transactions');
+            Route::get('/redeem', [RedeemController::class, 'getData'])->name('api.redeemHistories');
+            Route::middleware(['role:super-admin'])->group(function () {
+                Route::get('/user-activity', [UserActivity::class, 'getData'])->name('api.userActivities');
+            });
+        });
 });
+
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     return $request->user();
+// });

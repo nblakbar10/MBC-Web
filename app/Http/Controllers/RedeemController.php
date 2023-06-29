@@ -35,6 +35,22 @@ class RedeemController extends Controller
         ]);
     }
 
+    public function getData(Request $request){
+        $redeemHistories = RedeemHistory::with([
+            'user' => function ($query) {
+                $query->select('id', 'name');
+            },
+            'transaction' => function ($query) {
+                $query->select('id', 'ticket_type_id', 'name','ticket_id');
+            },
+            'transaction.ticketType' => function ($query) {
+                $query->select('id', 'name');
+            },
+        ])->whereColumns($request->get('filters'))
+        ->paginate($request->get('perPage') ?? 10);
+        return response()->json($redeemHistories);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

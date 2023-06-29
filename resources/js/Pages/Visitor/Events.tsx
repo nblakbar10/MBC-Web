@@ -21,27 +21,8 @@ export default function Events(props: Props) {
     const { events } = props;
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
-        pageSize: 10,
+        pageSize: 8,
     });
-
-    useEffect(() => {
-        const url = new URL(route(route().current()!).toString());
-
-        url.searchParams.set('page', (pagination.pageIndex + 1).toString());
-        url.searchParams.set('perPage', pagination.pageSize.toString());
-
-        Inertia.visit(url.toString(), {
-            preserveState: true,
-            preserveScroll: true,
-            data: {
-                page: pagination.pageIndex + 1,
-                perPage: pagination.pageSize,
-            },
-            only: ["transactions"],
-            replace: true,
-        })
-
-    }, [pagination]);
 
     const {
         provinceSelected,
@@ -78,9 +59,6 @@ export default function Events(props: Props) {
         if (form.data.name !== "") {
             url.searchParams.set('name', form.data.name);
         }
-
-        url.searchParams.set('page', (pagination.pageIndex + 1).toString());
-        url.searchParams.set('perPage', pagination.pageSize.toString());
 
         Inertia.visit(url.toString(), {
             preserveState: true,
@@ -169,7 +147,7 @@ export default function Events(props: Props) {
                             <>
                                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 p-1">
                                     {events.data.map((item, i) => (
-                                        <div className="flex justify-center rounded-2xl border-2 shadow-md">
+                                        <div className="flex justify-center rounded-2xl border-2 shadow-md" key={item.id}>
                                             <div className="flex flex-col gap-3 w-full">
                                                 <ZoomableImage
                                                     className="w-full h-40 object-cover rounded-t-2xl"

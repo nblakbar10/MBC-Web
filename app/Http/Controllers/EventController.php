@@ -27,6 +27,11 @@ class EventController extends Controller
         ]);
     }
 
+    public function getData(Request $request){
+        $events = Event::visitorFilter($request->all())->paginate($request->get('perPage') ?? 8);
+        return response()->json($events);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

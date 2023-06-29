@@ -2,11 +2,12 @@ import DashboardAdminLayout from "@/Layouts/DashboardAdminLayout";
 import { Inertia } from "@inertiajs/inertia";
 import MaterialReactTable, { MRT_ColumnDef } from "material-react-table";
 import { ColumnFiltersState, PaginationState } from '@tanstack/react-table';
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import route from "ziggy-js";
 import { Pagination } from "@/Models/Helper";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import { TransactionModel } from "@/Models/Transaction";
+import useFilterPagination from "@/Hooks/useFilterPagination";
 
 interface Props {
     transactions: Pagination<TransactionModel>,
@@ -14,34 +15,17 @@ interface Props {
 
 export default function Index(props: Props) {
 
-    const { transactions } = props;
+    const [dataState, setDataState] = useState(props.transactions);
 
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: 10,
-    });
-
-    useEffect(() => {
-        const url = new URL(route(route().current()!).toString());
-
-        url.searchParams.set('page', (pagination.pageIndex + 1).toString());
-        url.searchParams.set('perPage', pagination.pageSize.toString());
-        url.searchParams.set('columnFilters', JSON.stringify(columnFilters ?? []));
-
-        Inertia.visit(url.toString(), {
-            preserveState: true,
-            preserveScroll: true,
-            data: {
-                page: pagination.pageIndex + 1,
-                perPage: pagination.pageSize,
-                columnFilters: JSON.stringify(columnFilters),
-            },
-            only: ["transactions"],
-            replace: true,
-        })
-
-    }, [pagination, columnFilters]);
+    const {
+        pagination,
+        setPagination,
+        columnFilters,
+        setColumnFilters,
+    } = useFilterPagination<TransactionModel>(
+        setDataState,
+        'transactions'
+    );
 
     const dataColumns = [
         {
@@ -92,7 +76,7 @@ export default function Index(props: Props) {
                         <div className="mt-6 text-gray-500">
                             <MaterialReactTable
                                 columns={dataColumns}
-                                data={transactions.data}
+                                data={dataState.data}
                                 enableColumnActions
                                 enableColumnFilters
                                 enablePagination
@@ -107,7 +91,7 @@ export default function Index(props: Props) {
                                         setColumnFilters(value);
                                         setPagination({ ...pagination, pageIndex: 0 });
                                     }}
-                                rowCount={transactions.total}
+                                rowCount={dataState.total}
                                 onPaginationChange={setPagination}
                                 state={{ pagination, columnFilters }}
                                 renderDetailPanel={({ row }) => (
@@ -185,3 +169,4 @@ export default function Index(props: Props) {
         </DashboardAdminLayout>
     );
 }
+

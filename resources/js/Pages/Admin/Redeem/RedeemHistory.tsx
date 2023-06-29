@@ -7,6 +7,7 @@ import route from "ziggy-js";
 import { Pagination } from "@/Models/Helper";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import { RedeemHistoryModel } from "@/Models/RedeemHistory";
+import useFilterPagination from "@/Hooks/useFilterPagination";
 
 interface Props {
     //
@@ -15,34 +16,17 @@ interface Props {
 
 export default function Index(props: Props) {
 
-    const { redeemHistories } = props;
+    const [dataState, setDataState] = useState(props.redeemHistories);
 
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: 10,
-    });
-
-    useEffect(() => {
-        const url = new URL(route(route().current()!).toString());
-
-        url.searchParams.set('page', (pagination.pageIndex + 1).toString());
-        url.searchParams.set('perPage', pagination.pageSize.toString());
-        url.searchParams.set('columnFilters', JSON.stringify(columnFilters ?? []));
-
-        Inertia.visit(url.toString(), {
-            preserveState: true,
-            preserveScroll: true,
-            data: {
-                page: pagination.pageIndex + 1,
-                perPage: pagination.pageSize,
-                columnFilters: JSON.stringify(columnFilters),
-            },
-            only: ["redeemHistories"],
-            replace: true,
-        })
-
-    }, [pagination, columnFilters]);
+    const {
+        pagination,
+        setPagination,
+        columnFilters,
+        setColumnFilters,
+    } = useFilterPagination<RedeemHistoryModel>(
+        setDataState,
+        'redeemHistories'
+    );
 
     const dataColumns = [
         {
@@ -95,7 +79,7 @@ export default function Index(props: Props) {
                         <div className="mt-6 text-gray-500">
                             <MaterialReactTable
                                 columns={dataColumns}
-                                data={redeemHistories.data}
+                                data={dataState.data}
                                 enableColumnActions
                                 enableColumnFilters
                                 enablePagination
@@ -110,7 +94,7 @@ export default function Index(props: Props) {
                                         setColumnFilters(value);
                                         setPagination({ ...pagination, pageIndex: 0 });
                                     }}
-                                rowCount={redeemHistories.total}
+                                rowCount={dataState.total}
                                 onPaginationChange={setPagination}
                                 state={{ pagination, columnFilters}}
                             />

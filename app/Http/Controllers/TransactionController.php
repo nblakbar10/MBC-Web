@@ -36,6 +36,24 @@ class TransactionController extends Controller
         ]);
     }
 
+    public function getData(Request $request)
+    {
+        $transaction = Transaction::with([
+            'ticketType' => function ($query) {
+                $query->select('id', 'name');
+            },
+            'ticketType.event' => function ($query) {
+                $query->select('id', 'name');
+            },
+            'ticketDiscounts' => function ($query) {
+                $query->select('id', 'name');
+            },
+        ])->whereColumns($request->get('filters'))
+        ->paginate($request->get('perPage') ?? 10);
+
+        return response()->json($transaction);
+    }
+
     public function exportView(Request $request)
     {
         $transaction = Transaction::with([

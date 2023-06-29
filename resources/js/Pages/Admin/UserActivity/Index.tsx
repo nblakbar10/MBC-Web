@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import route from "ziggy-js";
 import { Pagination } from "@/Models/Helper";
 import { InertiaLink } from "@inertiajs/inertia-react";
+import useFilterPagination from "@/Hooks/useFilterPagination";
 
 interface Props {
     //
@@ -15,37 +16,17 @@ interface Props {
 
 export default function Index(props: Props) {
 
-    const { userActivities } = props;
+    const [dataState, setDataState] = useState(props.userActivities);
 
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-    const [globalFilter, setGlobalFilter] = useState('');
-    const [pagination, setPagination] = useState<PaginationState>({
-        pageIndex: 0,
-        pageSize: 10,
-    });
-
-    useEffect(() => {
-        const url = new URL(route(route().current()!).toString());
-
-        url.searchParams.set('page', (pagination.pageIndex + 1).toString());
-        url.searchParams.set('perPage', pagination.pageSize.toString());
-        url.searchParams.set('columnFilters', JSON.stringify(columnFilters ?? []));
-        url.searchParams.set('globalFilter', globalFilter ?? '');
-
-        Inertia.visit(url.toString(), {
-            preserveState: true,
-            preserveScroll: true,
-            data: {
-                page: pagination.pageIndex + 1,
-                perPage: pagination.pageSize,
-                columnFilters: JSON.stringify(columnFilters),
-                globalFilter: globalFilter,
-            },
-            only: ["userActivities"],
-            replace: true,
-        })
-
-    }, [pagination, columnFilters, globalFilter]);
+    const {
+        pagination,
+        setPagination,
+        columnFilters,
+        setColumnFilters,
+    } = useFilterPagination<UserActivityModel>(
+        setDataState,
+        'userActivities'
+    );
 
     const dataColumns = [
         {
@@ -89,7 +70,7 @@ export default function Index(props: Props) {
                         <div className="mt-6 text-gray-500">
                             <MaterialReactTable
                                 columns={dataColumns}
-                                data={userActivities.data}
+                                data={dataState.data}
                                 enableColumnActions
                                 enableColumnFilters
                                 enablePagination
@@ -104,9 +85,9 @@ export default function Index(props: Props) {
                                         setColumnFilters(value);
                                         setPagination({ ...pagination, pageIndex: 0 });
                                     }}
-                                rowCount={userActivities.total}
+                                rowCount={dataState.total}
                                 onPaginationChange={setPagination}
-                                state={{ pagination, columnFilters, globalFilter }}
+                                state={{ pagination, columnFilters}}
                             />
                         </div>
                     </div>
