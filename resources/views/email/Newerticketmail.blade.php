@@ -516,7 +516,7 @@
             </table>
             <br>
             <div class="div-lima">
-            <img src="http://loketmbc.com/storage/barcode_ticket/10815561681972.jpg" height="70"
+            <img src="http://loketmbc.com/storage/barcode_ticket/{{$mailData['id_tiket']}}.jpg" height="70"
                       style="padding: 0.75em; text-align: center; width: 80%;"/>
             </div>
             <br><br><br>
