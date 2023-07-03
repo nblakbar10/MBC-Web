@@ -442,8 +442,9 @@
                 <td>
                   <div class="text" style=" padding: 0 3em; text-align: center;">
                     <h2 style="color: #ffffff;">Hallo, {{$mailData['to']}}</h2>
-                    <p style="color: #ffffff;">Selamat, pembayaran tiketmu telah berhasil!</p>
-                    <p style="color: #ffffff;">Tiket dapat di-redeem ketika konser akan berlangsung.</p>
+                    <p style="color: #ffffff;">Proses booking tiket anda telah berhasil! Anda akan menerima bukti konfirmasi pembelian tiket
+                    ketika pembayaran anda telah kami terima.</p>
+
                   </div>
                 </td>
               </tr>
@@ -457,60 +458,56 @@
                 <td class="">
                 <div class="heading-section" style="text-align: center; padding: 0 10px; background-color: #ffffff;">
                     {{-- 767171 --}}
-                    <h3>Berikut data tiket yang telah dipesan:</a></h3>
+                    <h3>Berikut detail data pemesanan anda yang kami terima:</a></h3>
                   <table class="solid" role="presentation" border="2" cellpadding="1" cellspacing="0" width="100%" style=" margin-right: 0.75rem; ">
                     <tr>
                       <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem;">
                         <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
-                            <tr>
-                                <td class="text-services" style="text-align: left;">ID Tiket</td>
-                                <td class="text-md px-3">:</td>
-                                <td class="text-services" style="text-align: left;">{{$mailData['id_tiket']}}</td>
-                              </tr>
-                              <tr>
-                                <td class="text-services" style="text-align: left;">Nama</td>
-                                <td class="text-md px-3">:</td>
-                                <td class="text-services" style="text-align: left;">{{$mailData['nama']}}</td>
-                              </tr>
-                              <tr>
-                                <td class="text-services" style="text-align: left;">Email</td>
-                                <td class="text-md px-3">:</td>
-                                <td class="text-services" style="text-align: left;">{{$mailData['email']}}</td>
-                              </tr>
-                              <tr>
-                                <td class="text-services" style="text-align: left;">No. HP</td>
-                                <td class="text-md px-3">:</td>
-                                <td class="text-services" style="text-align: left;">{{$mailData['no_hp']}}</td>
-                              </tr>
-                              <tr>
-                                <td class="text-services" style="text-align: left;">Jumlah Tiket</td>
-                                <td class="text-md px-3">:</td>
-                                <td class="text-services" style="text-align: left;">{{$mailData['jumlah_tiket']}}</td>
-                              </tr>
-                              <tr>
-                                <td class="text-services" style="text-align: left;">Jenis Tiket</td>
-                                <td class="text-md px-3">:</td>
-                                <td class="text-services" style="text-align: left;">{{$mailData['jenis_tiket']}}</td>
-                              </tr>
-                              <tr>
-                                <td class="text-services" style="text-align: left;">Total Pembelian</td>
-                                <td class="text-md px-3">:</td>
-                                <td class="text-services" style="text-align: left;">{{$mailData['total_pembayaran']}}</td>
-                              </tr>
-                              <tr>
-                                <td class="text-services" style="text-align: left;">Metode Pembayaran</td>
-                                <td class="text-md px-3">:</td>
-                                <td class="text-services" style="text-align: left;">{{$mailData['metode_pembayaran']}}</td>
-                              </tr>
-                              <tr>
-                                <td class="text-services" style="text-align: left;">Status Pembayaran</td>
-                                <td class="text-md px-3">:</td>
-                                <td class="text-services" style="text-align: left;">{{$mailData['status_pembayaran']}}</td>
-                              </tr>
+                          <tr>
+                            <td class="text-services"style="text-align: left;">Nama</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['nama']}}</td>
+                          </tr>
+                          <tr>
+                            <td class="text-services" style="text-align: left; ">No.HP</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['no_hp']}}</td>
+                          </tr>
+                          <tr>
+                            <td class="text-services" style="text-align: left; ">Email</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['email']}}</td>
+                          </tr>
+                          <tr>
+                            <td class="text-services" style="text-align: left; ">Jumlah Tiket</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['jumlah_tiket']}}</td>
+                          </tr>
+                          <tr>
+                            <td class="text-services" style="text-align: left; ">Jenis Tiket</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['jenis_tiket']}}</td>
+                          </tr>
+                          <tr>
+                            <td class="text-services" style="text-align: left; ">Total Pembelian</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; "></td>
+                          </tr>
+                          <tr>
+                            <td class="text-services" style="text-align: left; ">Metode Pembayaran</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['metode_pembayaran']}}</td>
+                          </tr>
+                          <tr>
+                            <td class="text-services" style="text-align: left; ">Status Pembayaran</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['status_pembayaran']}}</td>
+                          </tr>
                         </table>
                       </td>
                     </tr>
-                  </table>
+                </table>
+                <a href="">Klik disini untuk untuk melakukan pembayaran</a>
                 </td>
               </tr><!-- end: tr -->
             </table>
