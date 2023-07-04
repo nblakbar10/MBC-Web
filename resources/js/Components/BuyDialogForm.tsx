@@ -93,7 +93,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
             <DialogContent className="w-full" >
                 <div className="flex justify-center">
                     <img
-                        src={asset('root', 'assets/images/Smile Fest Post-07.png')}
+                        src={asset('root', 'assets/images/MBC_HD.png')}
                         alt="Logo"
                         width={300}
                     />
@@ -246,7 +246,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                                         ticketType?.price || 0
                                                 ) * form.data.ticket_amount
                                             ) +
-                                            (adminFee * form.data.ticket_amount) + 
+                                            (adminFee * form.data.ticket_amount) +
                                             (
                                                 form.data.payment_method === 'Transfer Bank (VA)' ? 4500 :
                                                     form.data.payment_method === 'DANA' ? (
@@ -284,7 +284,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                                             ) * 0.007
                                                         ) : 0
                                             )
-                                            
+
                                         ).toLocaleString()}</td>
                                     </tr>
                                 </table>
