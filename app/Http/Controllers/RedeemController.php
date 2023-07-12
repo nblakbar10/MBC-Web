@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\RedeemHistory;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -72,21 +73,19 @@ class RedeemController extends Controller
      */
     public function store(Request $request)
     {
-        //TO-DO : FIX REDEEM LOGIC
-        // Legacy code from last iteration
         $request->validate([
-            'token' => ['required', 'string', 'min:10'],
+            'token' => ['required', 'string', 'min:10'], #need to change as ticket_id, not token
             'redeem_amount' => ['required']
         ]);
         $check = Transaction::where('ticket_id', $request->token)->get()->first();
         if($check){
             if($check->redeem_amount == 0 || $check->redeem_amount == NULL){
                 Transaction::where('external_id', $check->external_id)->update([
-                    'ticket_status' => 'Reedeemed for '.$request->redeem_amount.' tickets',
-                    'redeem_amount' => $request->redeem_amount
+                    'ticket_status' => 'Reedeemed for '.$request->redeemed_amount.' tickets',
+                    'redeem_amount' => $request->redeemed_amount
                 ]); 
                 return response()->json([
-                        'message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. ' has redeemed.',
+                        'message' => 'Ticket ID Found! '.$request->redeemed_amount.' tickets'. ' has redeemed.',
                         'data' => [
                             'name' => $check->name,
                             'email' => $check->email,
@@ -96,10 +95,10 @@ class RedeemController extends Controller
             }else if($check->redeem_amount != 0 || $check->redeem_amount != NULL){
                 if($check->total_tickets == $check->redeem_amount){
                     return response()->json(['message' => 'Error! All tickets has already reedemed'], 208);
-                }else if($request->redeem_amount == $check->total_tickets && $check->redeem_amount == 0){
+                }else if($request->redeemed_amount == $check->total_tickets && $check->redeem_amount == 0){
                     Transaction::where('external_id', $check->external_id)->update([
                         'ticket_status' => 'Reedeemed for all tickets',
-                        'redeem_amount' => $request->redeem_amount
+                        'redeem_amount' => $request->redeemed_amount
                     ]);
                     return response()->json([
                         'message' => 'Ticket ID Found! All tickets has redeemed.',
@@ -109,39 +108,23 @@ class RedeemController extends Controller
                             'phone' => $check->phone_number,
                         ]
                     ], 200);
-                // }else if($request->redeem_amount != 0 && (int)$request->redeem_amount + (int)$check->redeem_amount <= $check->total_tickets){
-                //     $increase_redeem_amount = (int)$check->redeem_amount + (int)$request->redeem_amount;
-                //     Transaction::where('external_id', $check->external_id)->update([
-                //         'ticket_status' => 'Reedeemed for all tickets',
-                //         'redeem_amount' => $increase_redeem_amount
-                //     ]);
-                //     return response()->json(['message' => 'Ticket ID Founaad! '.$request->redeem_amount.' tickets'. ' has redeemed.'], 200);
-
-                // $increase_redeem_amount = (int)$check->redeem_amount + (int)$request->redeem_amount;
-                }else if(((int)$check->redeem_amount + (int)$request->redeem_amount) <= $check->total_tickets){
-                    $increase_redeem_amount = (int)$check->redeem_amount + (int)$request->redeem_amount;
+                }else if(((int)$check->redeem_amount + (int)$request->redeemed_amount) <= $check->total_tickets){
+                    $increase_redeem_amount = (int)$check->redeem_amount + (int)$request->redeemed_amount;
                     Transaction::where('external_id', $check->external_id)->update([
                         'ticket_status' => 'Reedeemed for all tickets',
                         'redeem_amount' => $increase_redeem_amount
                     ]);
                     return response()->json([
-                        'message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'.' has redeemed.',
+                        'message' => 'Ticket ID Found! '.$request->redeemed_amount.' tickets'.' has redeemed.',
                         'data' => [
                             'name' => $check->name,
                             'email' => $check->email,
                             'phone' => $check->phone_number,
                         ]
                     ], 200);
-                }else if(((int)$check->redeem_amount + (int)$request->redeem_amount) == $check->total_tickets){
+                }else if(((int)$check->redeem_amount + (int)$request->redeemed_amount) == $check->total_tickets){
                     return response()->json(['message' => 'Error12! All tickets has already reedemed'], 208);
-                // }else if($request->redeem_amount < $check->redeem_amount){
-                //     $decrease_redeem_amount = (int)$check->redeem_amount - (int)$request->redeem_amount;
-                //     Transaction::where('external_id', $check->external_id)->update([
-                //         'ticket_status' => 'Reedeemed for all tickets',
-                //         'redeem_amount' => $decrease_redeem_amount
-                //     ]);
-                //     return response()->json(['message' => 'Ticket ID Found! '.$request->redeem_amount.' tickets'. 'has redeemed.'], 200);
-                }else if($request->redeem_amount > $check->total_tickets){
+                }else if($request->redeemed_amount > $check->total_tickets){
                     return response()->json(['message' => 'Error! Redeem request was out of total purchased tickets'], 208);
                 }
             }

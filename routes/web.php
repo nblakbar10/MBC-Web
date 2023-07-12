@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use App\Http\Controllers\SendEmailController;
-
+use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +37,9 @@ Route::get('/',[VisitorController::class, 'home'])->name('visitor.home');
 Route::get('/event', [VisitorController::class, 'event'])->name('visitor.event');
 Route::get('/event/{id}', [VisitorController::class, 'eventDetail'])->name('visitor.event-detail');
 Route::post('/transaction/store',[TransactionController::class, 'store'])->name('transaction.store');
+Route::post('/callback', [TransactionController::class, 'callback']);
+
+
 
 Route::middleware([
     'auth:sanctum',
