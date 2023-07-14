@@ -61,7 +61,7 @@ export default function Home(props: Props) {
                                 {
                                     events.length > 0 ? (
                                         events.map((item, i) =>
-                                            <div className=" rounded-2xl">
+                                            <div className=" rounded-2xl" key={i}>
                                                 <ZoomableImage
                                                     className="w-full h-1/3  xl:h-[45rem] 2xl:h-[55rem] object-cover rounded-2xl"
                                                     img={item.preview_url}
@@ -89,7 +89,7 @@ export default function Home(props: Props) {
                             {events.length > 0 ? (
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
                                     {events.map((item, i) => (
-                                        <div className="flex justify-center rounded-2xl border-2 shadow-md">
+                                        <div className="flex justify-center rounded-2xl border-2 shadow-md" key={i}>
                                             <div className="flex flex-col gap-3 w-full">
                                                 <ZoomableImage
                                                     className="w-full h-40 object-cover rounded-t-2xl"
