@@ -65,7 +65,7 @@ export default function Home({ promos, discounts }: Props) {
         setTabValue(newValue);
     };
     console.log(discounts);
-    
+
     const handleSelectPromo = (newValue: PromoModel) => {
         setSelectedPromo(newValue);
     }

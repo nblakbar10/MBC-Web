@@ -54,7 +54,7 @@ export default function DashboardAdminLayout({
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
-            <div className="bg-[#ACA2A2] ">
+            <div className="bg-[#262626] ">
                 <img
                     className="h-20 p-4 px-2 ml-10"
                     src={asset('root', 'assets/images/MBC_HD.png')}
@@ -138,9 +138,9 @@ export default function DashboardAdminLayout({
                 <link rel="icon" type="image/svg+xml" href={asset('root', 'assets/images/Icon-MBC.JPG')} />
             </Head>
             <Banner />
-            <nav className="flex justify-between w-full sticky bg-[#2EA1DA] py-3 px-5">
+            <nav className="flex justify-between w-full sticky bg-[#D73337] py-3 px-5">
                 <div className="flex gap-3 max-w-6xl">
-                    <button className="text-3xl bg-[#2EA1DA] text-white hover:bg-blue-600 px-3 py-2"
+                    <button className="text-3xl bg-[#D73337] text-white hover:bg-[#A22528] px-3 py-2"
                         onClick={toggleDrawer(true)}
                     >
                         <MenuIcon fontSize="large" />
