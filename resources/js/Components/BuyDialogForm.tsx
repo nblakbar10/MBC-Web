@@ -90,16 +90,18 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
     return (
         <Dialog open={open} onClose={closeHandler} sx={{ borderRadius: 2 }} maxWidth="sm" fullWidth>
-            <DialogContent className="w-full" >
-                <div className="flex justify-center">
+            <DialogContent className="w-full " >
+            <div className="border-[#262626] border-2">
+                <div className="flex justify-center bg-[#262626] py-3 px-5">
                     <img
                         src={asset('root', 'assets/images/MBC_HD.png')}
                         alt="Logo"
-                        width={300}
+                        width={200}
                     />
                 </div>
-                <div className="text-lg text-center">
-                    {ticketType?.name}
+
+                <div className="text-lg text-center p-2 mt-4 ">
+                    <p className="font-semibold text-2xl">{ticketType?.name}</p>
                 </div>
                 <form className="flex flex-col gap-5 mx-5">
                     <div className="form-control w-full mt-4">
@@ -185,7 +187,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                         <InputError className="mt-2" message={form.errors["payment_method"]} />
                     </div>
                     <div className="flex flex-col ">
-                        <div className="flex justify-start mt-4 ">
+                        <div className="flex justify-center mt-4 ">
                             <div className="">
                                 <table className="table-auto font-light">
                                     <thead className="text-2xl">
@@ -300,7 +302,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                     ) : (
                         <button
                             onClick={onSubmitHandler}
-                            className="bg-pink-400 hover:bg-pink-600 rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
+                            className="bg-[#D73337] hover:bg-[#D73337] rounded-md text-xl px-10 py-2 my-3 font-bold text-white"
                             disabled={form.processing}
                         >
                             Beli Tiket
@@ -320,6 +322,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                         </div>
                     </div>
                 )}
+            </div>
             </DialogContent>
 
         </Dialog >
