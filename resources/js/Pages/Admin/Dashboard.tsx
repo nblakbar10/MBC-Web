@@ -11,7 +11,7 @@ export default function Dashboard(props: Props) {
 		<DashboardAdminLayout
 			title="Dashboard"
 		>
-<div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
 				<div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
 					<div className="max-w-7xl">
 						<div className="grid grid-cols-1 lg:grid-cols-3 p-3 gap-10 justify-around">
