@@ -102,18 +102,18 @@ export default function AppLayout({ children, title }: Props) {
                             />
                         </div>
                     </div>
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 ">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 p-5 ">
                         <div className="flex flex-col items-center justify-center">
-                            <p className="text-base font-bold text-[#FFFFFF] break-normal">About Us</p>
-                            <p className="text-base text-center text-[#FFFFFF] p-5">Lorem ipsum dolor sitptatibus impedit numquam aliquid eum animi dignissimos fuga, atque, labore laborum? Maxime magni obcaecati labore perferendis deleniti enim dignissimos?</p>
+                            <p className="text-base font-bold text-[#FFFFFF] break-normal ">About Us</p>
+                            <p className="text-base text-justify text-[#FFFFFF] p-5">Lorem ipsum dolor sitptatibus impedit numquam aliquid eum animi dignissimos fuga, atque, labore laborum? Maxime magni obcaecati labore perferendis deleniti enim dignissimos?</p>
                         </div>
-                        <div className="flex flex-col items-center justify-center">
+                        {/* <div className="flex flex-col items-center justify-center">
                             <p className="text-base font-bold text-[#FFFFFF] break-normal">Help</p>
                             <p className="text-base text-center text-[#FFFFFF] p-5">Lorem ipsum dolor sitptatibus impedit numquam aliquid eum animi dignissimos fuga, atque, labore laborum? Maxime magni obcaecati labore perferendis deleniti enim dignissimos?</p>
-                        </div>
+                        </div> */}
                         <div className="flex flex-col items-center justify-center">
                             <p className="text-base font-bold text-[#FFFFFF] break-normal">Contact Us</p>
-                            <p className="text-base text-center text-[#FFFFFF] p-5">Lorem ipsum dolor sitptatibus impedit numquam aliquid eum animi dignissimos fuga, atque, labore laborum? Maxime magni obcaecati labore perferendis deleniti enim dignissimos?</p>
+                            <p className="text-base text-justify text-[#FFFFFF] p-5">Lorem ipsum dolor sitptatibus impedit numquam aliquid eum animi dignissimos fuga, atque, labore laborum? Maxime magni obcaecati labore perferendis deleniti enim dignissimos?</p>
                         </div>
                     </div>
                     <div className="flex flex-col items-center justify-center border-t-2 my-2 p-2">
