@@ -171,6 +171,7 @@ export default function Show({ event }: Props) {
                     </div>
                 </div>
             </div>
+            {/* <= Statistik Event => */}
             <div className="py-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div className="bg-white overflow-hidden shadow-md sm:rounded-lg">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
@@ -186,7 +187,7 @@ export default function Show({ event }: Props) {
                                         <div className="max-w-7xl">
                                             <div className="grid grid-cols-1 lg:grid-cols-3 p-3 gap-10 justify-around">
                                                 <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                                    <div className='basis-  4/5 bg-[#D73337] px-10 py-5 rounded-t-lg text-center'>
+                                                    <div className='basis-  4/5 bg-[#4FA7A0] px-10 py-5 rounded-t-lg text-center'>
                                                         <div className="text-lg font-semibold mb-2">Total Terbayar</div>
                                                         <div className="text-2xl font-extrabold">
                                                             <div className="stat-value">0 Pembelian</div>
