@@ -10,6 +10,7 @@ import { EventModel } from '@/Models/Event';
 
 interface Props {
     events: Array<EventModel>,
+    event_id: number,
 }
 
 export default function Create(props: Props) {
@@ -19,12 +20,12 @@ export default function Create(props: Props) {
             stock: 0,
             fee: 0,
             price: 0,
-            event_id: 0,
+            event_id: props.event_id || 0,
+            event: props.events.find(event => event.id === props.event_id),
         }
     );
 
     function onSubmit(e: React.FormEvent) {
-        console.log(form.data);
         e.preventDefault();
         form.clearErrors();
         form.post(route('ticket-type.store'), {
@@ -45,10 +46,10 @@ export default function Create(props: Props) {
                         <div className="text-2xl">
                             Tambah Jenis Tiket Event
                         </div>
-                        <button className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
-                            <InertiaLink href={route('ticket-type.index')}>
-                                Kembali
-                            </InertiaLink>
+                        <button className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold"
+                            onClick={() => window.history.back()}
+                        >
+                           Kembali
                         </button>
                     </div>
                     <form className="flex-col gap-5 py-5" onSubmit={onSubmit}>
