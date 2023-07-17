@@ -59,7 +59,7 @@ export default function Index(props: Props) {
     const dataColumns = [
         {
             accessorKey: 'name',
-            header: 'Nama Promo',
+            header: 'Jenis Tiket',
         }, {
             accessorKey: 'stock',
             header: 'Stok',
@@ -158,7 +158,7 @@ export default function Index(props: Props) {
                 <DialogContent className="w-full">
                     <div>
                         <h3 className="font-bold text-lg">Konfirmasi Aksi</h3>
-                        <p className="py-4">Anda Yakin Menghapus Diskon Tiket?</p>
+                        <p className="py-4">Anda Yakin Menghapus Jenis Tiket?</p>
                         <div className="flex justify-between gap-3">
                             <button
                                 className="bg-green-500 text-white hover:bg-green-600 py-3 w-1/3 rounded-lg text-md font-semibold focus:outline-none border-2"
