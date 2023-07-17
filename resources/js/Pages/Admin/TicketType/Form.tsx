@@ -23,8 +23,6 @@ export default function Form(props: Props) {
         ...events.map(event => ({ label: event.name, value: event.id }))
     ]
 
-    console.log(form.data)
-
     return (
         <div className={`flex-col gap-5 ${props.className}`}>
             <div className="form-control w-full mt-4">
@@ -59,7 +57,7 @@ export default function Form(props: Props) {
                 <InputLabel htmlFor="price">Harga Tiket</InputLabel>
                 <TextInput
                     id="price"
-                    type="text"
+                    type="number"
                     className="mt-1 block w-full"
                     value={form.data.price}
                     onChange={e => form.setData('price', Number(e.currentTarget.value))}
@@ -73,7 +71,7 @@ export default function Form(props: Props) {
                 <InputLabel htmlFor="fee">Pajak</InputLabel>
                 <TextInput
                     id="fee"
-                    type="text"
+                    type="number"
                     className="mt-1 block w-full"
                     value={form.data.fee}
                     onChange={e => form.setData('fee', Number(e.currentTarget.value))}
@@ -87,7 +85,7 @@ export default function Form(props: Props) {
                 <InputLabel htmlFor="maximum_buy">Maksimum Pembelian</InputLabel>
                 <TextInput
                     id="maximum_buy"
-                    type="text"
+                    type="number"
                     className="mt-1 block w-full"
                     value={form.data.maximum_buy}
                     onChange={e => form.setData('maximum_buy', Number(e.currentTarget.value))}
