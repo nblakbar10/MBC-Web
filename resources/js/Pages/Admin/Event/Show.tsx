@@ -107,7 +107,7 @@ export default function Show({ event }: Props) {
 
     return (
         <DashboardAdminLayout title={`${event.name}`}>
-            <div className="py-10 max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div className="py-10 max-w-7xl mx-auto sm:px-6 md:px-6 lg:px-6 xl:px-6">
                 <div className="bg-white overflow-hidden shadow-md sm:rounded-lg">
                     <div className="p-6 bg-white border-b border-gray-200 flex flex-col gap-3">
                         <div className='border-b-cyan-200'>
@@ -281,7 +281,7 @@ export default function Show({ event }: Props) {
 
                                 <div className="grid grid-cols-1 lg:grid-cols-3 p-3 gap-10 justify-around">
                                     <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                        <div className='basis-  4/5 bg-[#4FA7A0] px-10 py-5 rounded-t-lg text-center'>
+                                        <div className='basis-  4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
                                             <div className="text-lg font-semibold mb-2">Total Terbayar</div>
                                             <div className="text-2xl font-extrabold">
                                                 <div className="stat-value">0 Pembelian</div>
@@ -301,7 +301,7 @@ export default function Show({ event }: Props) {
                                         </div>
                                     </div>
                                     <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                        <div className='basis-  4/5 bg-[#D73337] px-10 py-5 rounded-t-lg text-center'>
+                                        <div className='basis-  4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
                                             <div className="text-lg font-semibold mb-2">Dana</div>
                                             <div className="text-2xl font-extrabold">
                                                 <div className="stat-value">0 Pembelian</div>
@@ -321,7 +321,7 @@ export default function Show({ event }: Props) {
                                         </div>
                                     </div>
                                     <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                        <div className='basis-  4/5 bg-[#D73337] px-10 py-5 rounded-t-lg text-center'>
+                                        <div className='basis-  4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
                                             <div className="text-lg font-semibold mb-2">Transfer VA Bank</div>
                                             <div className="text-2xl font-extrabold">
                                                 <div className="stat-value">0 Pembelian</div>
@@ -341,7 +341,7 @@ export default function Show({ event }: Props) {
                                         </div>
                                     </div>
                                     <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                        <div className='basis-  4/5 bg-[#D73337] px-10 py-5 rounded-t-lg text-center'>
+                                        <div className='basis-  4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
                                             <div className="text-lg font-semibold mb-2">Terbayar dan Tidak Terbayar</div>
                                             <div className="text-2xl font-extrabold">
                                                 <div className="stat-value">0 Pembelian</div>
@@ -360,7 +360,7 @@ export default function Show({ event }: Props) {
                                         </div>
                                     </div>
                                     <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                        <div className='basis-4/5 bg-[#D73337] px-10 py-5 rounded-t-lg text-center'>
+                                        <div className='basis-4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
                                             <div className="text-lg font-semibold mb-2">PENDING</div>
                                             <div className="text-2xl font-extrabold">
                                                 <div className="stat-value">0 Pembelian</div>
@@ -379,7 +379,7 @@ export default function Show({ event }: Props) {
                                         </div>
                                     </div>
                                     <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                        <div className='basis-4/5 bg-[#D73337] px-10 py-5 rounded-t-lg text-center'>
+                                        <div className='basis-4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
                                             <div className="text-lg font-semibold mb-2">Expired</div>
                                             <div className="text-2xl font-extrabold">
                                                 <div className="stat-value">0 Pembelian</div>

@@ -12,8 +12,8 @@ export default function Dashboard(props: Props) {
 		<DashboardAdminLayout
 			title="Dashboard"
 		>
-            <div className="max-w-7xl mx-auto sm:px-6 md:px-6 lg:px-6 xl:px-6 py-12 ">
-				<div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
+            <div className="max-w-7xl mx-auto sm:px-6 md:px-6 lg:px-5 xl:px-6 py-12 ">
+				{/* <div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4"> */}
 					<div className="max-w-7xl">
 						<div className="grid grid-cols-1 lg:grid-cols-4 p-3 gap-10 justify-around">
 							<div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
@@ -38,7 +38,7 @@ export default function Dashboard(props: Props) {
 
 							<div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
 								<div className='basis-  4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
-									<div className="text-lg font-semibold mb-2">Total Tiket yang Terjual</div>
+									<div className="text-lg font-semibold mb-2">Total Tiket Event yang Terjual</div>
 									<div className="text-2xl font-extrabold">
 										<div className="stat-value">0 Tiket</div>
 									</div>
@@ -96,7 +96,7 @@ export default function Dashboard(props: Props) {
 
 						</div>
 
-					</div>
+					{/* </div> */}
 				</div>
                 <div className="max-w-7xl mx-auto sm:px-6 md:px-6 lg:px-6 py-12 ">
                     <div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">

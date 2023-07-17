@@ -187,6 +187,9 @@ export default function DashboardAdminLayout({
                     {sideBar()}
                 </Drawer>
             </React.Fragment>
+            {/* <div className='w-full'> */}
+                {/* <div className="bg-gradient-to-r from-[#FFA6A8]"> */}
+            {/* </div> */}
             {children}
         </div >
     );
