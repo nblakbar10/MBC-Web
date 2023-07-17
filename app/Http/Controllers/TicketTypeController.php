@@ -40,12 +40,14 @@ class TicketTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+        $event_id = intval($request->event_id) ?? null;
         $events = Event::get(['id', 'name']);
         return Inertia::render('Admin/TicketType/Create', [
             'events' => $events,
+            'event_id' => $event_id,
         ]);
     }
 
