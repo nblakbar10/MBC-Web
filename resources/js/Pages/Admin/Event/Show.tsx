@@ -12,9 +12,20 @@ import ZoomableImage from '@/Components/ZoomableImage';
 import parse from 'html-react-parser';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
+interface EventShowProps extends EventModel{
+    transaction_count: [
+        string : number,
+    ],
+    transaction_total: [
+        string : number,
+    ],
+    ticket_total: [
+        string : number,
+    ],
+}
 
 interface Props {
-    event: EventModel;
+    event: EventShowProps;
 }
 
 interface TabPanelProps {
@@ -105,6 +116,22 @@ export default function Show({ event }: Props) {
         setDeleteId(null);
     };
 
+    const [eventData, setEventData] = React.useState<EventShowProps>(event);
+
+    useEffect(() => {
+        const res = fetch(route('api.transactionTicketTypes'), {
+            method: 'GET',
+        }).then(res => res.json()).then(res => {
+            console.log(res);
+            // setEventData({
+            //     ...eventData,
+            //     transaction_count: res.transaction_count,
+            //     transaction_total: res.transaction_total,
+            //     ticket_total: res.ticket_total,
+            // });
+        });
+    }, []);
+
     return (
         <DashboardAdminLayout title={`${event.name}`}>
             <div className="py-10 max-w-7xl mx-auto sm:px-6 md:px-6 lg:px-6 xl:px-6">
@@ -113,8 +140,8 @@ export default function Show({ event }: Props) {
                         <div className='border-b-cyan-200  '>
                             <Tabs value={tabValue} onChange={handleTabChange} aria-label="basic tabs example">
                                 <Tab label="Data Event" {...a11yProps(0)} />
-                                <Tab label="Jenis Tiket Event" {...a11yProps(1)} />
-                                <Tab label="Statistik" {...a11yProps(2)} />
+                                <Tab label="Statistik" {...a11yProps(1)} />
+                                <Tab label="Jenis Tiket Event" {...a11yProps(2)} />
                             </Tabs>
                         </div>
                         <div className='flex justify-between '>
@@ -135,7 +162,7 @@ export default function Show({ event }: Props) {
                                     className="bg-yellow-500 w-full text-white hover:bg-yellow-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
                                 >
                                     <InertiaLink
-                                        href={route('event.edit', event.id)}
+                                        href={route('event.edit', eventData.id)}
                                     >
                                         Edit
                                     </InertiaLink>
@@ -207,7 +234,7 @@ export default function Show({ event }: Props) {
                                     <div>
                                         <label className='flex justify-center font-bold '>Poster</label>
                                         <ZoomableImage
-                                            img={event.poster_url}
+                                            img={eventData.poster_url}
                                             title={"Peta"}
                                             onChange={_ => { }}
                                         />
@@ -215,7 +242,7 @@ export default function Show({ event }: Props) {
                                     <div>
                                         <label className='flex justify-center font-bold '>Peta</label>
                                         <ZoomableImage
-                                            img={event.event_map_url}
+                                            img={eventData.event_map_url}
                                             title={"Peta"}
                                             onChange={_ => { }}
                                         />
@@ -223,7 +250,7 @@ export default function Show({ event }: Props) {
                                     <div>
                                         <label className='flex justify-center font-bold '>Preview</label>
                                         <ZoomableImage
-                                            img={event.preview_url}
+                                            img={eventData.preview_url}
                                             title={"Preview"}
                                             onChange={_ => { }}
                                         />
@@ -238,13 +265,14 @@ export default function Show({ event }: Props) {
                                     <div
                                         className='w-full border-2 border-gray-200 p-3 rounded-lg '
                                     >
-                                        {parse(event.description)}
+                                        {parse(eventData.description)}
                                     </div>
                                 </div>
                                 </div>
                             </div>
                         </div>
                         </CustomTabPanel>
+
                         <CustomTabPanel value={tabValue} index={1}>
                             <div className='flex flex-col gap-3'>
                             <div className="bg-[#ffffff] shadow-neutral-700 shadow-sm sm:rounded-lg p-4">
@@ -433,6 +461,68 @@ export default function Show({ event }: Props) {
                             </div>
                         </div>
                         </CustomTabPanel>
+                        {/* TODO : Make Graph */}
+                        <CustomTabPanel value={tabValue} index={2}>
+                            <div className='flex flex-col gap-3'>
+                                <div className='flex justify-between pb-2'>
+                                    <div className="text-lg md:text-2xl">
+                                        Jenis Tiket Event
+                                    </div>
+                                    <div className="">
+                                        <InertiaLink
+                                            href={route('ticket-type.create', {
+                                                event_id: eventData.id.toString()
+                                            })}
+                                            className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">
+                                            Tambah Jenis Tiket
+                                        </InertiaLink>
+                                    </div>
+                                </div>
+                                <MaterialReactTable
+                                    columns={ticketTypeColumns}
+                                    data={eventData.ticket_types!}
+                                    enableColumnActions
+                                    enableColumnFilters
+                                    enablePagination
+                                    enableSorting
+                                    enableBottomToolbar
+                                    enableTopToolbar
+                                    enableRowActions
+                                    enableRowNumbers
+                                    muiTableBodyRowProps={{ hover: false }}
+                                    enableExpanding
+                                    enableExpandAll 
+                                    initialState={{
+                                        expanded: true,
+                                    }}
+                                    renderDetailPanel={({ row }) => {
+                                        return (
+                                            <div className='flex flex-col gap-3'>
+                                                {row.original.name}
+                                            </div>
+                                        )
+                                    }}
+                                    renderRowActions={({ row }) => (
+                                        <div className='flex gap-2'>
+                                            <div className="flex items-center justify-center gap-2">
+                                                <InertiaLink href={route('ticket-type.edit', row.original.id)}
+                                                    className="bg-yellow-500 text-white hover:bg-yellow-600 py-3 px-5 rounded-lg text-md font-semibold">
+                                                    Edit
+                                                </InertiaLink>
+                                            </div>
+                                            <div
+                                                className="bg-red-500 text-white hover:bg-red-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2"
+                                                onClick={() => {
+                                                    setDeleteId(row.original.id);
+                                                }}
+                                            >
+                                                Delete
+                                            </div>
+                                        </div>
+                                    )}
+                                />
+                            </div>
+                        </CustomTabPanel>
                     </div>
                 </div>
             </div >
@@ -455,7 +545,7 @@ export default function Show({ event }: Props) {
                                 className="bg-red-500 text-white hover:bg-red-600 py-3 w-1/3 rounded-lg text-md font-semibold focus:outline-none border-2"
                                 onClick={
                                     () => {
-                                        Inertia.post(route('event.destroy', event.id), {
+                                        Inertia.post(route('event.destroy', eventData.id), {
                                             _method: 'DELETE',
                                         });
                                     }

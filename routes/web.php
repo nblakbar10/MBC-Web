@@ -38,6 +38,7 @@ Route::get('/event', [VisitorController::class, 'event'])->name('visitor.event')
 Route::get('/event/{id}', [VisitorController::class, 'eventDetail'])->name('visitor.event-detail');
 Route::post('/transaction/store',[TransactionController::class, 'store'])->name('transaction.store');
 Route::post('/callback', [TransactionController::class, 'callback']);
+Route::get('/transaction-ticket-type', [TransactionController::class, 'getTransactionByTicketTypeBetweenDatesGroupByDay'])->name('transactionTicketTypes');
 
 
 

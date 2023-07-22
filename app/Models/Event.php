@@ -55,4 +55,16 @@ class Event extends Model
         }
         return $query;
     }
+
+    public function scopeWithTicketTypeTransactionBetweenDates($query, $start_date, $end_date){
+        return $query->with([
+            'ticketTypes' => function($query) use ($start_date, $end_date){
+                $query->with([
+                    'transactions' => function($query) use ($start_date, $end_date){
+                        $query->whereBetween('created_at', [$start_date, $end_date]);
+                    }
+                ]);
+            }
+        ]);
+    }
 }

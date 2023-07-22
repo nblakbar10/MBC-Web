@@ -42,6 +42,4 @@ class TicketType extends Model
     {
         return $this->hasMany(UserActivity::class);
     }
-    
-    
 }

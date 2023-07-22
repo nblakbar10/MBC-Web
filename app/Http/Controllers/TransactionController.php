@@ -114,6 +114,7 @@ class TransactionController extends Controller
                 'name' => 'required',
                 'email' => ['required', 'email'],
                 'phone_number' => ['required', 'string', 'max:255', 'regex:(08)'],
+                'city' => ['required', 'string', 'max:255'],
                 'ticket_amount' => ['required', 'numeric', 'max:5', 'min:1'],
                 // 'ticket_type_id' => ['required' , 'numeric'],
                 'payment_method' => 'required',
@@ -182,7 +183,7 @@ class TransactionController extends Controller
                     "phone_number" => $request->phone_number,
                     "ticket_amount" => $request->ticket_amount,
                     "total_price" => (int)$totals+7500+(int)$platform_fee, 
-                    "city" => $get_event_city,
+                    "city" => $request->city,
                     "buy_date" => $now,
                     "pay_date" => '',
                     "payment_method" => $request->payment_method,
@@ -226,7 +227,7 @@ class TransactionController extends Controller
                     "phone_number" => $request->phone_number,
                     "ticket_amount" => $request->ticket_amount,
                     "total_price" => (int)$totals+7500+(int)$platform_fee, 
-                    "city" => $get_event_city,
+                    "city" => $request->city,
                     "buy_date" => $now,
                     "pay_date" => '',
                     "payment_method" => $request->payment_method,
@@ -271,7 +272,7 @@ class TransactionController extends Controller
                     "phone_number" => $request->phone_number,
                     "ticket_amount" => $request->ticket_amount,
                     "total_price" => (int)$totals+7500+(int)$platform_fee, 
-                    "city" => $get_event_city,
+                    "city" => $request->city,
                     "buy_date" => $now,
                     "pay_date" => '',
                     "payment_method" => $request->payment_method,
@@ -408,5 +409,45 @@ class TransactionController extends Controller
                 'ticket_barcode' => $restore_stocks
             ]);
         }
+    }
+
+    public function getTransactionByTicketTypeBetweenDatesGroupByDay(Request $request)
+    {
+        $start_date = $request->get('start_date') ?? Carbon::now()->subDays(7)->format('Y-m-d');
+        $end_date = $request->get('end_date') ?? Carbon::now()->format('Y-m-d');
+        $ticket_type_id = $request->get('ticket_type_id') ?? 1;
+
+        $transaction_count = Transaction::where('ticket_type_id', $ticket_type_id)
+            ->whereBetween('pay_date', [$start_date, $end_date])
+            ->selectRaw('DATE(pay_date) as date, count(*) as count')
+            ->groupBy('date')
+            ->get();
+
+        $transaction_total = Transaction::where('ticket_type_id', $ticket_type_id)
+            ->whereBetween('pay_date', [$start_date, $end_date])
+            ->selectRaw('DATE(pay_date) as date, sum(total_price) as total')
+            ->groupBy('date')
+            ->get();
+        
+        $ticket_total = Transaction::where('ticket_type_id', $ticket_type_id)
+            ->whereBetween('pay_date', [$start_date, $end_date])
+            ->selectRaw('DATE(pay_date) as date, sum(ticket_amount) as total')
+            ->groupBy('date')
+            ->get();
+
+        return response()->json([
+            'transaction_count' => [
+                'labels' => $transaction_count->pluck('date'),
+                'data' => $transaction_count->pluck('count'),
+            ],
+            'transaction_total' => [
+                'labels' => $transaction_total->pluck('date'),
+                'data' => $transaction_total->pluck('total'),
+            ],
+            'ticket_total' => [
+                'labels' => $ticket_total->pluck('date'),
+                'data' => $ticket_total->pluck('total'),
+            ],
+        ]);
     }
 }
