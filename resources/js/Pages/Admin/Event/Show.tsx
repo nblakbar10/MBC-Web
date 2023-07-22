@@ -118,7 +118,7 @@ export default function Show({ event }: Props) {
                             </Tabs>
                         </div>
                         <div className='flex justify-between '>
-                            <div className="text-lg md:text-3xl mt-2 ">
+                            <div className="text-lg md:text-3xl mt-2 font-mono ">
                                 Detail Event
                             </div>
                             <div className="flex flex-col md:flex-row gap-3">
@@ -192,8 +192,8 @@ export default function Show({ event }: Props) {
                                         <td className="whitespace-nowrap px-6 py-4">{event.end_date}</td>
 
                                         </tr>
-                                        <tr className="border-b dark:border-neutral-500">
-                                        <td className="whitespace-nowrap px-6 py-4 font-medium">4</td>
+                                        <tr className=" dark:border-neutral-500">
+                                        <td className="whitespace-nowrap px-6 py-4 font-medium">5</td>
                                         <td className="whitespace-nowrap px-6 py-4">Maksimum Pembelian</td>
                                         <td className="whitespace-nowrap px-6 py-4">{event.maximum_buy}</td>
 
