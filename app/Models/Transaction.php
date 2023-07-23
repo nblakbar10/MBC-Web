@@ -34,9 +34,8 @@ class Transaction extends Model
         return $this->belongsTo(TicketType::class);
     }
 
-    public function ticketDiscounts()
-    {
-        return $this->belongsToMany(TicketDiscount::class, "transaction_discounts");
+    public function transactionDiscounts(){
+        return $this->belongsToMany(TicketDiscount::class, 'transaction_discounts', 'transaction_id', 'ticket_discount_id');
     }
 
     public function redeemHistories()

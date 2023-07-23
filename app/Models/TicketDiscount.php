@@ -25,6 +25,6 @@ class TicketDiscount extends Model
 
     public function transactions()
     {
-        return $this->belongsToMany(Transaction::class, "transaction_discounts");
+        return $this->belongsToMany(Transaction::class, "transaction_discounts", "ticket_discount_id", "transaction_id");
     }
 }

@@ -11,7 +11,7 @@ class TransactionDiscount extends Model
 
     protected $fillable = [
         "transaction_id",
-        "user_id",
+        "ticket_discount_id",
 
     ];
 

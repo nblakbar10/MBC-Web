@@ -25,16 +25,21 @@ export default function Index(props: Props) {
     } = useFilterPagination<TransactionModel>(
         setDataState,
         'transactions'
-    );
-
+        );
+    
     const dataColumns = [
         {
             accessorKey: 'name',
             header: 'Nama Pembeli',
         }, {
-            accessorKey: 'ticketType.name',
+            accessorKey: 'ticket_type.name',
             header: 'Jenis Tiket',
-        }, {
+        },
+        {
+            accessorKey: 'ticket_type.event.name',
+            header: 'Event',
+        },
+        {
             accessorKey: 'payment_method',
             header: 'Metode Pembayaran',
         }, {
@@ -43,7 +48,14 @@ export default function Index(props: Props) {
         }, {
             accessorKey: 'ticket_id',
             header: 'Tiket Id',
-        }, {
+        },
+        {
+            header: 'Diskon Tiket',
+            accessorFn(originalRow) {
+                return originalRow.transaction_discounts && originalRow.transaction_discounts?.length > 0 ? originalRow.transaction_discounts[0].name : 'Tidak Ada Diskon';
+            }
+        },
+        {
             accessorFn(originalRow) {
                 return new Date(originalRow.buy_date).toLocaleDateString("id") + '-' + new Date(originalRow.buy_date).toLocaleTimeString("id");
             },
@@ -58,7 +70,7 @@ export default function Index(props: Props) {
 
     return (
         <DashboardAdminLayout title="Riwayat Transaksi">
-            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
+            <div className=" mx-auto sm:mx-6 lg:mx-8 mt-6">
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div className="p-6 sm:px-20 bg-white border-b border-gray-200 flex flex-col gap-5">
                         <div className="flex justify-between">
@@ -96,15 +108,6 @@ export default function Index(props: Props) {
                                 state={{ pagination, columnFilters }}
                                 renderDetailPanel={({ row }) => (
                                     <>
-                                        <div className='flex'>
-                                            <InertiaLink
-                                                href={route('transaction.edit', row.original.id)}
-                                            >
-                                                <button className='bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-10 rounded-lg text-lg font-semibold '>
-                                                    Edit
-                                                </button>
-                                            </InertiaLink>
-                                        </div>
                                         <table className='w-full'>
                                             <thead>
                                                 <tr className='border-b py-3 border-black'>

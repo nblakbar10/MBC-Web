@@ -35,17 +35,17 @@ class TransactionController extends Controller
         //
         $transaction = Transaction::with([
             'ticketType' => function ($query) {
-                $query->select('id', 'name');
+                $query->select('id', 'name', 'event_id');
             },
             'ticketType.event' => function ($query) {
                 $query->select('id', 'name');
             },
-            'ticketDiscounts' => function ($query) {
-                $query->select('id', 'name');
+            'transactionDiscounts' => function ($query) {
+                $query->select('ticket_discounts.id','ticket_discounts.name');
             },
         ])->whereColumns($request->get('filters'))
         ->paginate($request->get('perPage') ?? 10);
-
+        
         return Inertia::render('Admin/Transaction/Index', [
             'transactions' => $transaction,
         ]);
@@ -55,31 +55,31 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::with([
             'ticketType' => function ($query) {
-                $query->select('id', 'name');
+                $query->select('id', 'name', 'event_id');
             },
             'ticketType.event' => function ($query) {
                 $query->select('id', 'name');
             },
-            'ticketDiscounts' => function ($query) {
-                $query->select('id', 'name');
+            'transactionDiscounts' => function ($query) {
+                $query->select('ticket_discounts.id','ticket_discounts.name');
             },
         ])->whereColumns($request->get('filters'))
         ->paginate($request->get('perPage') ?? 10);
-
+        
         return response()->json($transaction);
     }
 
     public function exportView(Request $request)
     {
         $transaction = Transaction::with([
-            'ticketType' => function ($query) {
-                $query->select('id', 'name');
+             'ticketType' => function ($query) {
+                $query->select('id', 'name', 'event_id');
             },
             'ticketType.event' => function ($query) {
                 $query->select('id', 'name');
             },
-            'ticketDiscounts' => function ($query) {
-                $query->select('id', 'name');
+            'transactionDiscounts' => function ($query) {
+                $query->select('ticket_discounts.id','ticket_discounts.name');
             },
         ])->whereHas('ticketType.event', function ($query) use ($request) {
             $query->where('id', $request->get('event_id'));

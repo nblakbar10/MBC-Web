@@ -22,8 +22,8 @@ export interface BaseTransactionModel{
     redeemed_amount : number;
     created_at: string;
     updated_at: string;
-    ticketType?: TicketTypeModel;
-    ticketDiscounts? : Array<TicketDiscountModel>;
+    ticket_type?: TicketTypeModel;
+    transaction_discounts?: TicketDiscountModel[];
 } 
 
 export interface TransactionModel extends BaseTransactionModel {
