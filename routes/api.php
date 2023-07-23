@@ -26,7 +26,7 @@ Route::post('/redeem', [RedeemController::class, 'store'])->name('redeemAPI.stor
 
 Route::get('/event', [EventController::class, 'getData'])->name('api.events');
 
-Route::get('/transaction-ticket-type', [TransactionController::class, 'getTransactionByTicketTypeBetweenDatesGroupByDay'])->name('api.transactionTicketTypes');
+Route::get('/transaction-ticket-type', [TransactionController::class, 'getTransactionByTicketTypeBetweenDatesGroupByDay'])->name('api.ticketTypeTransaction');
 
 Route::middleware([
     'auth:sanctum',

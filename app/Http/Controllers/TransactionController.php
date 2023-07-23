@@ -413,26 +413,31 @@ class TransactionController extends Controller
 
     public function getTransactionByTicketTypeBetweenDatesGroupByDay(Request $request)
     {
-        $start_date = $request->get('start_date') ?? Carbon::now()->subDays(7)->format('Y-m-d');
+        $start_date = $request->get('start_date') ?? Carbon::now()->subDays(11)->format('Y-m-d');
         $end_date = $request->get('end_date') ?? Carbon::now()->format('Y-m-d');
         $ticket_type_id = $request->get('ticket_type_id') ?? 1;
+
+        // TODO : Make IGNORE not paid transaction
 
         $transaction_count = Transaction::where('ticket_type_id', $ticket_type_id)
             ->whereBetween('pay_date', [$start_date, $end_date])
             ->selectRaw('DATE(pay_date) as date, count(*) as count')
             ->groupBy('date')
+            ->orderBy('date')
             ->get();
 
         $transaction_total = Transaction::where('ticket_type_id', $ticket_type_id)
             ->whereBetween('pay_date', [$start_date, $end_date])
             ->selectRaw('DATE(pay_date) as date, sum(total_price) as total')
             ->groupBy('date')
+            ->orderBy('date')
             ->get();
         
         $ticket_total = Transaction::where('ticket_type_id', $ticket_type_id)
             ->whereBetween('pay_date', [$start_date, $end_date])
             ->selectRaw('DATE(pay_date) as date, sum(ticket_amount) as total')
             ->groupBy('date')
+            ->orderBy('date')
             ->get();
 
         return response()->json([

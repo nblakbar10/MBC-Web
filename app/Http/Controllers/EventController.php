@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Transaction;
 use App\Models\UserActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -110,8 +111,13 @@ class EventController extends Controller
     {
         //
         $event = Event::with('ticketTypes')->findOrfail($id);
+        $transaction = Transaction::select('id', 'ticket_type_id', 'ticket_amount', 'total_price', 'payment_method', 'payment_status')
+        ->whereHas('ticketType', function ($query) use ($id) {
+            $query->where('event_id', $id)->select('id');
+        })->get();
         return Inertia::render('Admin/Event/Show', [
             'event' => $event,
+            'transactions' => $transaction,
         ]);
     }
 
