@@ -368,10 +368,10 @@ export default function Show({ event, transactions }: Props) {
                                         Statistik Penjualan Tiket
                                     </div>
 
-                                    <div className="grid grid-cols-1 lg:grid-cols-3 p-3 gap-10 justify-around">
+                                    <div className="grid grid-cols-1 p-3 gap-10 justify-around">
 
                                         <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white col-span-3">
-                                            <div className='basis-  4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
+                                            <div className='basis-  4/5 bg-[#36E051] px-10 py-5 rounded-t-lg text-center'>
                                                 <div className="text-lg font-semibold mb-2">Total Terbayar</div>
                                                 <div className="text-2xl font-extrabold">
                                                     <div className="stat-value">{paidTransaction.length} Pembelian</div>
@@ -390,128 +390,132 @@ export default function Show({ event, transactions }: Props) {
                                                 {/* </InertiaLink > */}
                                             </div>
                                         </div>
-                                        <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                            <div className='basis-  4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
-                                                <div className="text-lg font-semibold mb-2">Dana</div>
-                                                <div className="text-2xl font-extrabold">
-                                                    <div className="stat-value">{Dana.length} Pembelian</div>
-                                                    <div className="stat-value">{totalIncome(Dana).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>
-                                                    <div className="stat-value">{totalTicketCount(Dana)} Tiket</div>
+                                    </div>
+                                        {/* <div className="sm:px-6 md:px-6 lg:px-3 xl:px-6"> */}
+                                            <div className='grid lg:grid-cols-3 sm:grid-cols-1 p-3 gap-10 justify-around'>
+                                                <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                                                    <div className='basis-  4/5 bg-[#3684E0] px-10 py-5 rounded-t-lg text-center'>
+                                                        <div className="text-lg font-semibold mb-2">Dana</div>
+                                                        <div className="text-2xl font-extrabold">
+                                                            <div className="stat-value">{Dana.length} Pembelian</div>
+                                                            <div className="stat-value">{totalIncome(Dana).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>
+                                                            <div className="stat-value">{totalTicketCount(Dana)} Tiket</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='h-8'>
+                                                        {/* <InertiaLink href={route("transaction.index")}> */}
+                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                                                            More Info
+                                                            <span className="text-black border-black">
+                                                                <ArrowForwardIcon />
+                                                            </span>
+                                                        </p>
+                                                        {/* </InertiaLink > */}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className='h-8'>
-                                                {/* <InertiaLink href={route("transaction.index")}> */}
-                                                <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                    More Info
-                                                    <span className="text-black border-black">
-                                                        <ArrowForwardIcon />
-                                                    </span>
-                                                </p>
-                                                {/* </InertiaLink > */}
-                                            </div>
-                                        </div>
-                                        <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                            <div className='basis-  4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
-                                                <div className="text-lg font-semibold mb-2">Transfer VA Bank</div>
-                                                <div className="text-2xl font-extrabold">
-                                                    <div className="stat-value">{TransferVABank.length} Pembelian</div>
-                                                    <div className="stat-value">{totalIncome(TransferVABank).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>
-                                                    <div className="stat-value">{totalTicketCount(TransferVABank)} Tiket</div>
-                                                </div>
-                                            </div>
-                                            <div className='h-8'>
-                                                {/* <InertiaLink href={route("transaction.index")}> */}
-                                                <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                    More Info
-                                                    <span className="text-black border-black">
-                                                        <ArrowForwardIcon />
-                                                    </span>
-                                                </p>
-                                                {/* </InertiaLink > */}
-                                            </div>
-                                        </div>
-                                        <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                            <div className='basis-  4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
-                                                <div className="text-lg font-semibold mb-2">QRIS</div>
-                                                <div className="text-2xl font-extrabold">
-                                                    <div className="stat-value">{QRIS.length} Pembelian</div>
-                                                    <div className="stat-value">{totalIncome(QRIS).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>
-                                                    <div className="stat-value">{totalTicketCount(QRIS)} Tiket</div>
-                                                </div>
-                                            </div>
-                                            <div className='h-8'>
-                                                {/* <InertiaLink href={route("transaction.index")}> */}
-                                                <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                    More Info
-                                                    <span className="text-black border-black">
-                                                        <ArrowForwardIcon />
-                                                    </span>
-                                                </p>
-                                                {/* </InertiaLink > */}
-                                            </div>
-                                        </div>
-                                        <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                            <div className='basis-  4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
-                                                <div className="text-lg font-semibold mb-2">Terbayar dan Tidak Terbayar</div>
-                                                <div className="text-2xl font-extrabold">
-                                                    <div className="stat-value">{allTransactions.length} Pembelian</div>
-                                                    <div className="stat-value">{totalTicketCount(allTransactions)} Tiket</div>
-                                                </div>
-                                            </div>
-                                            <div className='h-8'>
-                                                {/* <InertiaLink href={route("transaction.index")}> */}
-                                                <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                    More Info
-                                                    <span className="text-black border-black">
-                                                        <ArrowForwardIcon />
-                                                    </span>
-                                                </p>
-                                                {/* </InertiaLink > */}
-                                            </div>
-                                        </div>
-                                        <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                            <div className='basis-4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
-                                                <div className="text-lg font-semibold mb-2">PENDING</div>
-                                                <div className="text-2xl font-extrabold">
-                                                    <div className="stat-value">{pendingTransaction.length} Pembelian</div>
-                                                    <div className="stat-value">{totalTicketCount(pendingTransaction)} Tiket</div>
-                                                </div>
-                                            </div>
-                                            <div className='h-8'>
-                                                {/* <InertiaLink href={route("transaction.index")}> */}
-                                                <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                    More Info
-                                                    <span className="text-black border-black">
-                                                        <ArrowForwardIcon />
-                                                    </span>
-                                                </p>
-                                                {/* </InertiaLink > */}
-                                            </div>
-                                        </div>
-                                        <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
-                                            <div className='basis-4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
-                                                <div className="text-lg font-semibold mb-2">Expired</div>
-                                                <div className="text-2xl font-extrabold">
-                                                    <div className="stat-value">{expiredTransaction.length} Pembelian</div>
-                                                    <div className="stat-value">{totalTicketCount(expiredTransaction)} Tiket</div>
-                                                </div>
-                                            </div>
-                                            <div className='h-8'>
-                                                {/* <InertiaLink href={route("transaction.index")}> */}
-                                                <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                    More Info
-                                                    <span className="text-black border-black">
-                                                        <ArrowForwardIcon />
-                                                    </span>
-                                                </p>
-                                                {/* </InertiaLink > */}
-                                            </div>
-                                            {/* <= graph area => */}
-                                            {/* <div className="max-w-7xl mx-auto sm:px-6 md:px-6 lg:px-6 py-12">
-                                            <div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
-                                            </div>
-                                        </div> */}
 
+                                                <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                                                    <div className='basis-  4/5 bg-[#2EA1DA] px-10 py-5 rounded-t-lg text-center'>
+                                                        <div className="text-lg font-semibold mb-2">Transfer VA Bank</div>
+                                                        <div className="text-2xl font-extrabold">
+                                                            <div className="stat-value">{TransferVABank.length} Pembelian</div>
+                                                            <div className="stat-value">{totalIncome(TransferVABank).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>
+                                                            <div className="stat-value">{totalTicketCount(TransferVABank)} Tiket</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='h-8'>
+                                                        {/* <InertiaLink href={route("transaction.index")}> */}
+                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                                                            More Info
+                                                            <span className="text-black border-black">
+                                                                <ArrowForwardIcon />
+                                                            </span>
+                                                        </p>
+                                                        {/* </InertiaLink > */}
+                                                    </div>
+                                                </div>
+                                                <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                                                    <div className='basis-  4/5 bg-[#E03636] px-10 py-5 rounded-t-lg text-center'>
+                                                        <div className="text-lg font-semibold mb-2">QRIS</div>
+                                                        <div className="text-2xl font-extrabold">
+                                                            <div className="stat-value">{QRIS.length} Pembelian</div>
+                                                            <div className="stat-value">{totalIncome(QRIS).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>
+                                                            <div className="stat-value">{totalTicketCount(QRIS)} Tiket</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='h-8'>
+                                                        {/* <InertiaLink href={route("transaction.index")}> */}
+                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                                                            More Info
+                                                            <span className="text-black border-black">
+                                                                <ArrowForwardIcon />
+                                                            </span>
+                                                        </p>
+                                                        {/* </InertiaLink > */}
+                                                    </div>
+                                                </div>
+                                                <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                                                    <div className='basis-  4/5 bg-[#7736E0] px-10 py-5 rounded-t-lg text-center'>
+                                                        <div className="text-lg font-semibold mb-2">Terbayar dan Tidak Terbayar</div>
+                                                        <div className="text-2xl font-extrabold">
+                                                            <div className="stat-value">{allTransactions.length} Pembelian</div>
+                                                            <div className="stat-value">{totalTicketCount(allTransactions)} Tiket</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='h-8'>
+                                                        {/* <InertiaLink href={route("transaction.index")}> */}
+                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                                                            More Info
+                                                            <span className="text-black border-black">
+                                                                <ArrowForwardIcon />
+                                                            </span>
+                                                        </p>
+                                                        {/* </InertiaLink > */}
+                                                    </div>
+                                                </div>
+                                                <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                                                    <div className='basis-4/5 bg-[#E0A636] px-10 py-5 rounded-t-lg text-center'>
+                                                        <div className="text-lg font-semibold mb-2">Status Transaksi Tiket Pending</div>
+                                                        <div className="text-2xl font-extrabold">
+                                                            <div className="stat-value">{pendingTransaction.length} Pembelian</div>
+                                                            <div className="stat-value">{totalTicketCount(pendingTransaction)} Tiket</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='h-8'>
+                                                        {/* <InertiaLink href={route("transaction.index")}> */}
+                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                                                            More Info
+                                                            <span className="text-black border-black">
+                                                                <ArrowForwardIcon />
+                                                            </span>
+                                                        </p>
+                                                        {/* </InertiaLink > */}
+                                                    </div>
+                                                </div>
+                                                <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
+                                                    <div className='basis-4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
+                                                        <div className="text-lg font-semibold mb-2">Status Transaksi Tiket Expired</div>
+                                                        <div className="text-2xl font-extrabold">
+                                                            <div className="stat-value">{expiredTransaction.length} Pembelian</div>
+                                                            <div className="stat-value">{totalTicketCount(expiredTransaction)} Tiket</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className='h-8'>
+                                                        {/* <InertiaLink href={route("transaction.index")}> */}
+                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
+                                                            More Info
+                                                            <span className="text-black border-black">
+                                                                <ArrowForwardIcon />
+                                                            </span>
+                                                        </p>
+                                                        {/* </InertiaLink > */}
+                                                    </div>
+                                                {/* <= graph area => */}
+                                                {/* <div className="max-w-7xl mx-auto sm:px-6 md:px-6 lg:px-6 py-12">
+                                                <div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
+                                                </div>
+                                            </div> */}
+                                            {/* </div> */}
                                         </div>
                                     </div>
                                 </div>
