@@ -211,7 +211,7 @@ class TransactionController extends Controller
                         'no_hp' => $request->phone_number,
                         'email' => $request->email,
                         'jumlah_tiket' => $request->ticket_amount,
-                        'jenis_tiket' => $request->tickets_category,
+                        'jenis_tiket' => $ticket_type_data->name,
                         'total_pembelian' => (int)$totals + 7500 + $total_ticket_fees, #(int)$platform_fee,
                         'metode_pembayaran' => $request->payment_method,
                         'status_pembayaran' => $response->status,
@@ -379,6 +379,7 @@ class TransactionController extends Controller
             $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
             file_put_contents(public_path('storage/barcode_ticket/') . $mix_ticket . '.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
             $data_trans = Transaction::where('external_id', $external_id)->get()->first();
+            $data_ticket_type = TicketType::where('id',$data_trans->ticket_type_id)->pluck('name')->first();
 
             //sent email :
             $mailData = [
@@ -388,7 +389,7 @@ class TransactionController extends Controller
                 'email' => $data_trans->email,
                 'no_hp' => $data_trans->phone_number,
                 'jumlah_tiket' => $data_trans->total_tickets,
-                'jenis_tiket' => $data_trans->tickets_category,
+                'jenis_tiket' => $data_ticket_type,
                 'total_pembayaran' => $data_trans->total_amount,
                 'metode_pembayaran' => $data_trans->payment_method,
                 'status_pembayaran' => $status, //direct from xendit
