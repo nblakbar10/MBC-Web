@@ -22,9 +22,7 @@ class UserSeeder extends Seeder
             'phone_number' => '081234567890',
             'email_verified_at' => now(),      
             'remember_token' => '1234567890',
-        // ])->assignRole('super-admin');
-        ])->assignRole('admin');
-
+        ])->assignRole('super-admin');
 
     }
 }
