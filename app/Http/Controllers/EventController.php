@@ -113,7 +113,7 @@ class EventController extends Controller
     {
         //
         $event = Event::with('ticketTypes')->findOrfail($id);
-        $transaction = Transaction::select('id', 'ticket_type_id', 'ticket_amount', 'total_price', 'payment_method', 'payment_status')
+        $transaction = Transaction::select('id', 'ticket_type_id', 'ticket_amount', 'total_price', 'base_price', 'payment_method', 'payment_status')
         ->whereHas('ticketType', function ($query) use ($id) {
             $query->where('event_id', $id)->select('id');
         })->get();
