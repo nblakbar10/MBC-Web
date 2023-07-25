@@ -14,10 +14,10 @@ class TransactionSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        // Transaction::factory()
-        //     ->count(100)
-        //     ->create();
-    }
+    // public function run()
+    // {
+    //     // Transaction::factory()
+    //     //     ->count(100)
+    //     //     ->create();
+    // }
 }
