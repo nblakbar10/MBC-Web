@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('total_price');
             $table->foreignId('ticket_type_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->dateTime('buy_date');
-            $table->dateTime('pay_date');
+            $table->dateTime('pay_date')->nullable();
             $table->string('city');
             $table->string('payment_method');
             $table->string('payment_status');
