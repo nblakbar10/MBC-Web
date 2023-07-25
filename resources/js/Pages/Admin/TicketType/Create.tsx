@@ -7,6 +7,7 @@ import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 import Form from './Form';
 import { TicketTypeCreateModel } from '@/Models/TicketType';
 import { EventModel } from '@/Models/Event';
+import InputError from '@/Components/Jetstream/InputError';
 
 interface Props {
     events: Array<EventModel>,
@@ -27,15 +28,29 @@ export default function Create(props: Props) {
 
     function onSubmit(e: React.FormEvent) {
         e.preventDefault();
-        form.clearErrors();
-        form.post(route('ticket-type.store'), {
-            onError: (errors) => {
-                console.log(errors);
-            },
-            onSuccess: () => {
-                console.log('success');
-            }
-        });
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                form.setData({
+                    ...form.data,
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                });
+            });
+            form.clearErrors();
+            form.post(route('ticket-type.store'), {
+                onError: (errors) => {
+                    console.log(errors);
+                },
+                onSuccess: () => {
+                    console.log('success');
+                }
+            });
+        } else {
+            form.setError('latitude', 'Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!');
+            form.setError('longitude', 'Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!');
+            alert('Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!');
+            return;
+        }
     }
 
     return (
@@ -56,6 +71,14 @@ export default function Create(props: Props) {
                         <Form
                             form={form}
                             events={props.events}
+                            className="my-5 mx-2"
+                        />
+                        <InputError
+                            message={form.errors.latitude ? "Lokasi Koordinat Lintang (Latitude) tidak diketahui, Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!" : ""}
+                            className="my-5 mx-2"
+                        />
+                        <InputError
+                            message={form.errors.longitude ? "Lokasi Koordinat Bujur (Longitude) tidak diketahui, Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!" : ""}
                             className="my-5 mx-2"
                         />
                         <div className="flex justify-end">

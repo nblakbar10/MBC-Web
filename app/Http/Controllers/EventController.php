@@ -66,6 +66,8 @@ class EventController extends Controller
             'poster.file'       => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg'],
             'event_map.file'    => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg'],
             'preview.file'      => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg'],
+            'latitude'          => ['required','numeric'],
+            'longitude'         => ['required', 'numeric'],
         ]);
 
         return DB::transaction(function () use ($request) {
@@ -90,8 +92,8 @@ class EventController extends Controller
             $user_activity = UserActivity::create([
                 'user_id' => Auth::user()->id,
                 'activity' => 'Create Event ' . $request->name . ' with id ' . $event->id,
-                'latitude' => 0,
-                'longitude' => 0,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
             ]);
 
             $user_activity->save();
@@ -158,7 +160,12 @@ class EventController extends Controller
             'poster.file'       => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
             'event_map.file'    => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
             'preview.file'      => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
+            'latitude'          => ['required', 'numeric'],
+            'longitude'         => ['required', 'numeric'],
+
         ]);
+
+        dd($request->all());
 
         return DB::transaction(function () use ($request, $id) {
             $event = Event::findOrfail($id);
@@ -198,8 +205,8 @@ class EventController extends Controller
             $user_activity = UserActivity::create([
                 'user_id' => Auth::user()->id,
                 'activity' => 'Update Event ' . $request->name . ' with id ' . $event->id,
-                'latitude' => 0,
-                'longitude' => 0,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
             ]);
 
             $user_activity->save();

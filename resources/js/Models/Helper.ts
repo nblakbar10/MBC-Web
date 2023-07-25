@@ -60,3 +60,8 @@ export interface District {
     id: string;
     name: string;
 }
+
+export interface GeoTrackAble{
+    latitude?: number;
+    longitude?: number;
+}

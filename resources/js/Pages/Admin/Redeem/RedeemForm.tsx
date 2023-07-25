@@ -20,7 +20,9 @@ interface dataUser {
 export default function RedeemForm() {
     const form = useForm({
         token: '',
-        redeem_amount: 0
+        redeem_amount: 0,
+        latitude: undefined as unknown as number,
+        longitude: undefined as unknown as number,
     });
 
     const scannerRef = useRef(null);
@@ -56,27 +58,40 @@ export default function RedeemForm() {
 
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log(form.data);
-        form.clearErrors();
-        const { token, redeem_amount } = form.data;
-        axios.post(route('redeemAPI.store'), {
-            token: token,
-            redeem_amount: redeem_amount
-        }).then((response) => {
-            setRedeemModal({
-                open: true,
-                message: response.data.message,
-                data: response.data.data || {}
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                form.setData({
+                    ...form.data,
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                });
             });
-            console.log(response.data);
-        }).catch((error) => {
-            console.log(error);
-            setRedeemModal({
-                open: true,
-                message: error.response.data.message,
-                data: {}
+            form.clearErrors();
+            const { token, redeem_amount } = form.data;
+            axios.post(route('redeemAPI.store'), {
+                token: token,
+                redeem_amount: redeem_amount
+            }).then((response) => {
+                setRedeemModal({
+                    open: true,
+                    message: response.data.message,
+                    data: response.data.data || {}
+                });
+                console.log(response.data);
+            }).catch((error) => {
+                console.log(error);
+                setRedeemModal({
+                    open: true,
+                    message: error.response.data.message,
+                    data: {}
+                });
             });
-        });
+        } else {
+            form.setError('latitude', 'Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!');
+            form.setError('longitude', 'Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!');
+            alert('Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!');
+            return;
+        }
     }
 
     return (
@@ -137,6 +152,14 @@ export default function RedeemForm() {
                             />
                             <InputError className="mt-2" message={form.errors.redeem_amount} />
                         </div>
+                        <InputError
+                            message={form.errors.latitude ? "Lokasi Koordinat Lintang (Latitude) tidak diketahui, Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!" : ""}
+                            className="my-5 mx-2"
+                        />
+                        <InputError
+                            message={form.errors.longitude ? "Lokasi Koordinat Bujur (Longitude) tidak diketahui, Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!" : ""}
+                            className="my-5 mx-2"
+                        />
                         <div className="flex justify-end">
                             <div
                                 className="bg-sky-500 text-white hover:bg-sky-600 py-3 px-5 rounded-lg text-md font-semibold m-5 mt-10 w-1/2 text-center"

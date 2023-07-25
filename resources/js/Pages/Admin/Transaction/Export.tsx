@@ -97,7 +97,7 @@ export default function Index({ transactions, events }: Props) {
         },
         {
             accessorFn(originalRow) {
-                return originalRow.ticketDiscounts?.map((discount) => discount.name).join(', ');
+                return originalRow.transaction_discounts?.map((discount) => discount.name).join(', ');
             },
             header: 'Diskon Tiket',
         }

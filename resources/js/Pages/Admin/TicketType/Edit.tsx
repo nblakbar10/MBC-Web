@@ -7,6 +7,7 @@ import { InertiaLink, useForm } from '@inertiajs/inertia-react';
 import Form from './Form';
 import { TicketTypeCreateModel } from '@/Models/TicketType';
 import { EventModel } from '@/Models/Event';
+import InputError from '@/Components/Jetstream/InputError';
 
 
 interface Props {
@@ -25,18 +26,32 @@ export default function Edit(props: Props) {
 
     function onSubmit(e: React.FormEvent) {
         e.preventDefault();
-        form.clearErrors();
-        // php does'nt support PUT so...
-        // @ts-ignore
-        form.data._method = 'PUT';
-        form.post(route('ticket-type.update', ticketType.id), {
-            onError: (errors) => {
-                console.log(errors);
-            },
-            onSuccess: () => {
-                console.log('success');
-            }
-        });
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                form.setData({
+                    ...form.data,
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                });
+            });
+            form.clearErrors();
+            // php does'nt support PUT so...
+            // @ts-ignore
+            form.data._method = 'PUT';
+            form.post(route('ticket-type.update', ticketType.id), {
+                onError: (errors) => {
+                    console.log(errors);
+                },
+                onSuccess: () => {
+                    console.log('success');
+                }
+            });
+        } else {
+            form.setError('latitude', 'Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!');
+            form.setError('longitude', 'Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!');
+            alert('Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!');
+            return;
+        }
     }
 
     return (
@@ -61,6 +76,14 @@ export default function Edit(props: Props) {
                             form={form}
                             events={props.events}
                             className="my-5"
+                        />
+                        <InputError
+                            message={form.errors.latitude ? "Lokasi Koordinat Lintang (Latitude) tidak diketahui, Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!" : ""}
+                            className="my-5 mx-2"
+                        />
+                        <InputError
+                            message={form.errors.longitude ? "Lokasi Koordinat Bujur (Longitude) tidak diketahui, Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!" : ""}
+                            className="my-5 mx-2"
                         />
                         <button
                             className="bg-yellow-500 text-white hover:bg-yellow-600 py-3 px-5 rounded-lg text-md font-semibold focus:outline-none border-2 w-full"

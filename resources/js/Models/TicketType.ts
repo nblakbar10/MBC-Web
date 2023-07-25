@@ -1,4 +1,5 @@
 import { EventModel } from "./Event";
+import { GeoTrackAble } from "./Helper";
 import { TicketDiscountModel } from "./TicketDiscount";
 
 export interface BaseTicketTypeModel {
@@ -17,6 +18,6 @@ export interface TicketTypeModel extends BaseTicketTypeModel {
     id: number;
 }
 
-export interface TicketTypeCreateModel extends BaseTicketTypeModel {
+export interface TicketTypeCreateModel extends BaseTicketTypeModel, GeoTrackAble {
     event_id: number;
 }

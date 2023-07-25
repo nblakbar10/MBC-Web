@@ -1,3 +1,4 @@
+import { GeoTrackAble } from "./Helper";
 import { NewImageModel } from "./ImageModel";
 import { TicketTypeModel } from "./TicketType";
 
@@ -20,7 +21,7 @@ export interface EventModel extends BaseEventModel {
     id: number;
 }
 
-export interface EventCreateModel extends BaseEventModel {
+export interface EventCreateModel extends BaseEventModel, GeoTrackAble{
     poster: NewImageModel;
     event_map: NewImageModel;
     preview: NewImageModel;

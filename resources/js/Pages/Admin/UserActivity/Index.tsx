@@ -32,7 +32,7 @@ export default function Index(props: Props) {
         {
             accessorKey: 'user.name',
             header: 'Nama Pengguna',
-        },{
+        }, {
             accessorKey: 'activity',
             header: 'Aktivitas',
         }, {
@@ -83,11 +83,12 @@ export default function Index(props: Props) {
                                 onColumnFiltersChange={
                                     (value) => {
                                         setColumnFilters(value);
-                                        setPagination({ ...pagination, pageIndex: 0 });
                                     }}
                                 rowCount={dataState.total}
-                                onPaginationChange={setPagination}
-                                state={{ pagination, columnFilters}}
+                                onPaginationChange={(value) => {
+                                    setPagination(value);
+                                }}
+                                state={{ pagination, columnFilters }}
                             />
                         </div>
                     </div>

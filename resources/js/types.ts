@@ -1,3 +1,5 @@
+import { GeoTrackAble } from "./Models/Helper";
+
 type DateTime = string;
 
 export type Nullable<T> = T | null;
@@ -18,7 +20,7 @@ export interface BaseUser{
   roles?: Array<Role>;
 }
 
-export interface NewUser extends BaseUser {
+export interface NewUser extends BaseUser, GeoTrackAble {
   password?: string
 }
 
