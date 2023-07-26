@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('email');
             $table->string('phone_number');
             $table->unsignedInteger('ticket_amount');
-            $table->unsignedInteger('total_price');
-            $table->unsignedInteger('base_price');
+            $table->unsignedDouble('total_price');
+            $table->unsignedDouble('base_price');
             $table->foreignId('ticket_type_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->dateTime('buy_date');
             $table->string('pay_date')->nullable();
