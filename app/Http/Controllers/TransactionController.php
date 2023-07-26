@@ -158,7 +158,7 @@ class TransactionController extends Controller
                     $totals += $ticket_type_data->price * $request->ticket_amount;
                 }
 
-                $platform_fee = 2500 * $request->ticket_amount;
+                // $platform_fee = 2500 * $request->ticket_amount;
 
                 $now = new DateTime();
 
@@ -166,18 +166,20 @@ class TransactionController extends Controller
                 $secret_key = 'Basic ' . config('xendit.key_auth');
                 $transaction_id = Str::random(7);
                 $get_event_data_by_id = TicketType::where('id', $request->ticketType_id)->pluck('id')->first();
+                $get_event_ticket_fees = TicketType::where('id', $request->ticketType_id)->pluck('fee')->first();
                 $get_event_name = Event::where('id', $get_event_data_by_id)->pluck('name')->first();
-                $get_event_city = Event::where('id', $get_event_data_by_id)->pluck('city')->first();
+                // $get_event_city = Event::where('id', $get_event_data_by_id)->pluck('city')->first();
 
                 $external_id = $get_event_name . $transaction_id;
 
                 if ($check_payment_methods == 'Transfer Bank (VA)') {
+                    $total_ticket_fees = $get_event_ticket_fees * $request->ticket_amount;
                     $data_request = Http::withHeaders([
                         'Authorization' => $secret_key,
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
                         'name' => $request->name,
-                        'amount' => (int)$totals + 7500 + (int)$platform_fee,
+                        'amount' => (int)$totals + 7500 + $total_ticket_fees, #(int)$platform_fee,
                         'payment_methods' => ['BNI', 'BRI', 'BSI', 'BJB', 'MANDIRI', 'PERMATA']
                     ]);
                     $response = $data_request->object();
@@ -188,7 +190,8 @@ class TransactionController extends Controller
                         "email" => $request->email,
                         "phone_number" => $request->phone_number,
                         "ticket_amount" => $request->ticket_amount,
-                        "total_price" => (int)$totals + 7500 + (int)$platform_fee,
+                        "total_price" => (int)$totals + 7500 + $total_ticket_fees, #(int)$platform_fee,
+                        "base_price" => $ticket_type_data->price * $request->ticket_amount,
                         "city" => $request->city,
                         "buy_date" => $now,
                         "pay_date" => '',
@@ -208,19 +211,20 @@ class TransactionController extends Controller
                         'no_hp' => $request->phone_number,
                         'email' => $request->email,
                         'jumlah_tiket' => $request->ticket_amount,
-                        'jenis_tiket' => $request->tickets_category,
-                        'total_pembelian' => (int)$totals + 7500 + (int)$platform_fee,
+                        'jenis_tiket' => $ticket_type_data->name,
+                        'total_pembelian' => (int)$totals + 7500 + $total_ticket_fees, #(int)$platform_fee,
                         'metode_pembayaran' => $request->payment_method,
                         'status_pembayaran' => $response->status,
                         'link' => $response->invoice_url
                     ];
                     Mail::to($request->email)->send(new NotifyMail($mailData));
                 } else if ($check_payment_methods == 'DANA') {
+                    $total_ticket_fees = $get_event_ticket_fees * $request->ticket_amount;
                     $data_request = Http::withHeaders([
                         'Authorization' => $secret_key,
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
-                        'amount' => (int)$totals + ((int)$totals * (2 / 100)) + (int)$platform_fee,
+                        'amount' => (int)$totals + ((int)$totals * (2 / 100)), #(int)$platform_fee,
                         'payment_methods' => ['DANA']
                     ]);
                     $response = $data_request->object();
@@ -231,7 +235,8 @@ class TransactionController extends Controller
                         "email" => $request->email,
                         "phone_number" => $request->phone_number,
                         "ticket_amount" => $request->ticket_amount,
-                        "total_price" => (int)$totals + 7500 + (int)$platform_fee,
+                        "total_price" => (int)$totals + ((int)$totals * (2 / 100)) + $total_ticket_fees, #7500, #(int)$platform_fee,
+                        "base_price" => $ticket_type_data->price * $request->ticket_amount,
                         "city" => $request->city,
                         "buy_date" => $now,
                         "pay_date" => '',
@@ -253,18 +258,19 @@ class TransactionController extends Controller
                         'email' => $request->email,
                         'jumlah_tiket' => $request->ticket_amount,
                         'jenis_tiket' => $ticket_type_data->name,
-                        'total_pembelian' => (int)$totals + ((int)$totals * (2 / 100)) + (int)$platform_fee,
+                        'total_pembelian' => (int)$totals + ((int)$totals * (2 / 100)) + $total_ticket_fees, #(int)$platform_fee,
                         'metode_pembayaran' => $request->payment_method,
                         'status_pembayaran' => $response->status,
                         'link' => $response->invoice_url
                     ];
                     Mail::to($request->email)->send(new NotifyMail($mailData));
                 } else if ($check_payment_methods == 'QRIS') {
+                    $total_ticket_fees = $get_event_ticket_fees * $request->ticket_amount;
                     $data_request = Http::withHeaders([
                         'Authorization' => $secret_key,
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
-                        'amount' => (int)$totals + ((int)$totals * (1 / 100)) + (int)$platform_fee,
+                        'amount' => (int)$totals + ((int)$totals * (2 / 100)) + $total_ticket_fees, #(int)$platform_fee,
                         'payment_methods' => ['QRIS']
                     ]);
                     $response = $data_request->object();
@@ -275,7 +281,8 @@ class TransactionController extends Controller
                         "email" => $request->email,
                         "phone_number" => $request->phone_number,
                         "ticket_amount" => $request->ticket_amount,
-                        "total_price" => (int)$totals + 7500 + (int)$platform_fee,
+                        "base_price" => $ticket_type_data->price * $request->ticket_amount,
+                        "total_price" => (int)$totals + ((int)$totals * (2 / 100)) + $total_ticket_fees, #7500, # (int)$platform_fee,
                         "city" => $request->city,
                         "buy_date" => $now,
                         "pay_date" => '',
@@ -296,7 +303,7 @@ class TransactionController extends Controller
                         'email' => $request->email,
                         'jumlah_tiket' => $request->ticket_amount,
                         'jenis_tiket' => $ticket_type_data->name,
-                        'total_pembelian' => (int)$totals + ((int)$totals * (1 / 100)) + (int)$platform_fee,
+                        'total_pembelian' => (int)$totals + ((int)$totals * (2 / 100)) + $total_ticket_fees, #(int)$platform_fee,
                         'metode_pembayaran' => $request->payment_method,
                         'status_pembayaran' => $response->status,
                         'link' => $response->invoice_url
@@ -372,6 +379,7 @@ class TransactionController extends Controller
             $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
             file_put_contents(public_path('storage/barcode_ticket/') . $mix_ticket . '.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
             $data_trans = Transaction::where('external_id', $external_id)->get()->first();
+            $data_ticket_type = TicketType::where('id',$data_trans->ticket_type_id)->pluck('name')->first();
 
             //sent email :
             $mailData = [
@@ -381,7 +389,7 @@ class TransactionController extends Controller
                 'email' => $data_trans->email,
                 'no_hp' => $data_trans->phone_number,
                 'jumlah_tiket' => $data_trans->total_tickets,
-                'jenis_tiket' => $data_trans->tickets_category,
+                'jenis_tiket' => $data_ticket_type,
                 'total_pembayaran' => $data_trans->total_amount,
                 'metode_pembayaran' => $data_trans->payment_method,
                 'status_pembayaran' => $status, //direct from xendit
