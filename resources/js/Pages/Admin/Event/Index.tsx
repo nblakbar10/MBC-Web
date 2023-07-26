@@ -35,10 +35,10 @@ export default function Index({ events }: Props) {
                     <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                         <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
                             <div className="flex justify-between">
-                                <div className="mt-8 text-2xl">
+                                <div className="mt-4 text-2xl font-semibold">
                                     Events
                                 </div>
-                                <div className="">
+                                <div className="mt-4">
                                     <InertiaLink
                                         href={route('event.create')}
                                         className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">

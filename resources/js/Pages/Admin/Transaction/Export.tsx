@@ -112,9 +112,9 @@ export default function Index({ transactions, events }: Props) {
 
     return (
         <DashboardAdminLayout title="Export Transaksi">
-            <div className="py-12 max-w-7xl mx-auto">
-                <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg p-3">
-                    <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
+            <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
+            <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                    <div className="p-6 sm:px-20 bg-white border-b border-gray-200 flex flex-col">
                         <div className='flex gap-3'>
                             <div className="text-lg md:text-3xl">
                                 Pilih Event
@@ -138,10 +138,10 @@ export default function Index({ transactions, events }: Props) {
                             </div>
                         </div>
                         <div className="flex justify-between">
-                            <div className="mt-8 text-2xl">
+                            <div className="mt-8 text-2xl font-semibold">
                                 Export Transaksi Tiket
                             </div>
-                            <div className="">
+                            <div className="mt-8">
                                 <button
                                     onClick={handleExportAll}
                                     className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">

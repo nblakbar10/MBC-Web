@@ -81,7 +81,7 @@ export default function Index(props: Props) {
         <DashboardAdminLayout title="Jenis Tiket">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div className="p-6 sm:px-20 bg-white border-b border-gray-200 flex flex-col gap-5">
+                    <div className="p-6 sm:px-20 bg-white border-b border-gray-200 flex flex-col ">
                         <div className='flex gap-3'>
                             <div className="text-lg md:text-3xl">
                                 Pilih Event
@@ -95,7 +95,7 @@ export default function Index(props: Props) {
                                         setEventId(parseInt(e.target.value));
                                     }}
                                 >
-                                    <option value="-1">Pilih Event</option>
+                                    {/* <option value="-1">---</option> */}
                                     <option value="0">Semua Event</option>
                                     {events.map((event) => (
                                         <option key={event.id} value={event.id}>
@@ -106,10 +106,10 @@ export default function Index(props: Props) {
                             </div>
                         </div>
                         <div className="flex justify-between">
-                            <div className="mt-8 text-2xl">
+                            <div className="mt-8 text-2xl font-semibold">
                                 Daftar Jenis Tiket {eventId !== -1 && eventId !== 0 ? `Event ${events.find((event) => event.id === eventId)?.name}` : ''}
                             </div>
-                            <div className="">
+                            <div className="mt-8">
                                 <InertiaLink
                                     href={route('ticket-type.create')}
                                     className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">

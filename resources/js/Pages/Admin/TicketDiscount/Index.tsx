@@ -65,12 +65,12 @@ export default function Index({ ticketDiscounts }: Props) {
         <DashboardAdminLayout title="Diskon Tiket">
             <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-6">
                 <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div className="p-6 sm:px-20 bg-white border-b border-gray-200 flex flex-col gap-5">
+                    <div className="p-6 sm:px-20 bg-white border-b border-gray-200 flex flex-col ">
                         <div className="flex justify-between">
-                            <div className="mt-8 text-2xl">
+                            <div className="mt-4 text-2xl font-semibold">
                                 Daftar Diskon
                             </div>
-                            <div className="">
+                            <div className="mt-4">
                                 <InertiaLink
                                     href={route('ticket-discount.create')}
                                     className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold">

@@ -25,10 +25,10 @@ export default function Show(props: Props) {
 
     return (
         <DashboardAdminLayout title={`Pengguna ${user.name}`}>
-            <div className="py-12 max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div className="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                    <div className="p-6 sm:px-20 bg-white border-b border-gray-200">
-                        <div className="flex flex-col gap-3 shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+            <div className="py-10 mx-auto sm:px-6 md:px-6 lg:px-6 xl:px-6">
+                <div className="bg-white sm:rounded-lg">
+                    <div className="p-6 bg-[#ffffff] border-b border-gray-200 flex flex-col gap-3 sm:rounded-lg">
+                        <div className='border-b-cyan-200  '>
                             <div className='flex justify-between'>
                                 <div className="text-lg md:text-3xl">
                                     Data Profil
@@ -62,32 +62,41 @@ export default function Show(props: Props) {
                                     </div>
                                 </div>
                             </div>
-                            <table className='w-full'>
-                                <thead>
-                                    <tr className='border-b py-3 border-black'>
-                                        <th className=''>Properti</th>
-                                        <th className=''>Keterangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr className='border-b py-3 border-black'>
-                                        <td className='py-3 text-center'>Nama</td>
-                                        <td className='py-3 text-center'>{user.name}</td>
-                                    </tr>
-                                    <tr className='border-b py-3 border-black'>
-                                        <td className='py-3 text-center'>Email</td>
-                                        <td className='py-3 text-center'>{user.email}</td>
-                                    </tr>
-                                    <tr className='border-b py-3 border-black'>
-                                        <td className='py-3 text-center'>No Telepon</td>
-                                        <td className='py-3 text-center'>{user.phone_number}</td>
-                                    </tr>
-                                    <tr className='border-b py-3 border-black'>
-                                        <td className='py-3 text-center'>Status</td>
-                                        <td className='py-3 text-center'>{user.roles.map((role) => role.name).join(', ')}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        </div>
+                        <div className="bg-white shadow-sm shadow-neutral-700 sm:rounded-lg mt-4">
+                            <div className='overflow-x-auto'>
+                                <table className='min-w-full text-left text-sm font-light'>
+                                    <thead className='border-b font-medium dark:border-neutral-500'>
+                                        <tr>
+                                            <th scope="col" className="px-6 py-4">No</th>
+                                            <th scope="col" className="px-6 py-4">Properti</th>
+                                            <th scope="col" className="px-6 py-4">Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className='justify-center'>
+                                        <tr className='border-b dark:border-neutral-500'>
+                                            <td className="whitespace-nowrap px-6 py-4 font-medium">1</td>
+                                            <td className='whitespace-nowrap px-6 py-4'>Nama</td>
+                                            <td className='whitespace-nowrap px-6 py-4'>{user.name}</td>
+                                        </tr>
+                                        <tr className='border-b dark:border-neutral-500'>
+                                            <td className="whitespace-nowrap px-6 py-4 font-medium">2</td>
+                                            <td className='whitespace-nowrap px-6 py-4'>Email</td>
+                                            <td className='whitespace-nowrap px-6 py-4'>{user.email}</td>
+                                        </tr>
+                                        <tr className='border-b dark:border-neutral-500'>
+                                            <td className="whitespace-nowrap px-6 py-4 font-medium">3</td>
+                                            <td className='whitespace-nowrap px-6 py-4'>No Telepon</td>
+                                            <td className='whitespace-nowrap px-6 py-4'>{user.phone_number}</td>
+                                        </tr>
+                                        <tr className='border-b dark:border-neutral-500'>
+                                            <td className="whitespace-nowrap px-6 py-4 font-medium">4</td>
+                                            <td className='whitespace-nowrap px-6 py-4'>Status</td>
+                                            <td className='whitespace-nowrap px-6 py-4'>{user.roles.map((role) => role.name).join(', ')}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

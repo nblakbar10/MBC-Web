@@ -364,7 +364,7 @@ export default function Show({ event, transactions }: Props) {
                         <CustomTabPanel value={tabValue} index={1}>
                             <div className='flex flex-col gap-3'>
                                 <div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
-                                    <div className="text-lg md:text-2xl text-center">
+                                    <div className="text-lg md:text-2xl text-center font-bold">
                                         Statistik Penjualan Tiket
                                     </div>
 
@@ -523,12 +523,51 @@ export default function Show({ event, transactions }: Props) {
                         </CustomTabPanel>
                         {/* TODO : Make Graph */}
                         <CustomTabPanel value={tabValue} index={2}>
-                            <div className='flex flex-col gap-3'>
-                                <div className='flex justify-between pb-2'>
-                                    <div className="text-lg md:text-2xl">
+                        <div className="bg-white shadow-sm shadow-neutral-700 overflow-hidden sm:rounded-lg p-4">
+                            <div className=''>
+                                <div className='flex justify-between mb-4'>
+                                    <div className="mt-6 text-center text-lg md:text-2xl font-bold ">
                                         Jenis Tiket Event
                                     </div>
+                                <div className='my-auto overflow-auto flex gap-3'>
+                                    <InertiaLink
+                                        href={route('ticket-type.create', {
+                                            event_id: eventData.id.toString()
+                                        })}
+                                        className="bg-blue-500 text-white hover:bg-blue-600 py-3 mt-6 px-5 rounded-lg text-md font-semibold my-auto">
+                                        Tambah Jenis Tiket
+                                    </InertiaLink>
+                                    <form className="flex justify-between gap-2">
+                                        <div className="form-control w-full ">
+                                            <label htmlFor="start">Mulai tanggal</label>
+                                            <input
+                                                id="start"
+                                                className="mt-1 block w-full"
+                                                value={dateTicketTypeFilterForm.data.start}
+                                                type="date"
+                                                onChange={e => {
+                                                    dateTicketTypeFilterForm.setData('start', e.currentTarget.value);
+                                                }}
+                                                autoComplete="date"
+                                            />
+                                        </div>
+                                        <div className="form-control w-full ">
+                                            <label htmlFor="end">Akhir tanggal</label>
+                                            <input
+                                                id="end"
+                                                className="mt-1 block w-full"
+                                                value={dateTicketTypeFilterForm.data.end}
+                                                type="date"
+                                                onChange={e => {
+                                                    dateTicketTypeFilterForm.setData('end', e.currentTarget.value);
+                                                }}
+                                                autoComplete="date"
+                                            />
+                                        </div>
+                                    </form>
                                 </div>
+                                </div>
+                            </div>
                                 <MaterialReactTable
                                     columns={ticketTypeColumns}
                                     data={eventData.ticket_types!}
@@ -546,47 +585,47 @@ export default function Show({ event, transactions }: Props) {
                                     initialState={{
                                         expanded: true,
                                     }}
-                                    renderTopToolbarCustomActions={() => {
-                                        return (
-                                            <div className='my-auto flex gap-3'>
-                                                <InertiaLink
-                                                    href={route('ticket-type.create', {
-                                                        event_id: eventData.id.toString()
-                                                    })}
-                                                    className="bg-blue-500 text-white hover:bg-blue-600 py-3 px-5 rounded-lg text-md font-semibold my-auto">
-                                                    Tambah Jenis Tiket
-                                                </InertiaLink>
-                                                <form className="flex justify-between gap-2">
-                                                    <div className="form-control w-full ">
-                                                        <label htmlFor="start">Mulai tanggal</label>
-                                                        <input
-                                                            id="start"
-                                                            className="mt-1 block w-full"
-                                                            value={dateTicketTypeFilterForm.data.start}
-                                                            type="date"
-                                                            onChange={e => {
-                                                                dateTicketTypeFilterForm.setData('start', e.currentTarget.value);
-                                                            }}
-                                                            autoComplete="date"
-                                                        />
-                                                    </div>
-                                                    <div className="form-control w-full ">
-                                                        <label htmlFor="end">Akhir tanggal</label>
-                                                        <input
-                                                            id="end"
-                                                            className="mt-1 block w-full"
-                                                            value={dateTicketTypeFilterForm.data.end}
-                                                            type="date"
-                                                            onChange={e => {
-                                                                dateTicketTypeFilterForm.setData('end', e.currentTarget.value);
-                                                            }}
-                                                            autoComplete="date"
-                                                        />
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        )
-                                    }}
+                                    // renderTopToolbarCustomActions={() => {
+                                    //     return (
+                                    //         <div className='my-auto overflow-auto flex gap-3'>
+                                    //             <InertiaLink
+                                    //                 href={route('ticket-type.create', {
+                                    //                     event_id: eventData.id.toString()
+                                    //                 })}
+                                    //                 className="bg-blue-500 text-white hover:bg-blue-600 py-3 mt-6 px-5 rounded-lg text-md font-semibold my-auto">
+                                    //                 Tambah Jenis Tiket
+                                    //             </InertiaLink>
+                                    //             <form className="flex justify-between gap-2">
+                                    //                 <div className="form-control w-full ">
+                                    //                     <label htmlFor="start">Mulai tanggal</label>
+                                    //                     <input
+                                    //                         id="start"
+                                    //                         className="mt-1 block w-full"
+                                    //                         value={dateTicketTypeFilterForm.data.start}
+                                    //                         type="date"
+                                    //                         onChange={e => {
+                                    //                             dateTicketTypeFilterForm.setData('start', e.currentTarget.value);
+                                    //                         }}
+                                    //                         autoComplete="date"
+                                    //                     />
+                                    //                 </div>
+                                    //                 <div className="form-control w-full ">
+                                    //                     <label htmlFor="end">Akhir tanggal</label>
+                                    //                     <input
+                                    //                         id="end"
+                                    //                         className="mt-1 block w-full"
+                                    //                         value={dateTicketTypeFilterForm.data.end}
+                                    //                         type="date"
+                                    //                         onChange={e => {
+                                    //                             dateTicketTypeFilterForm.setData('end', e.currentTarget.value);
+                                    //                         }}
+                                    //                         autoComplete="date"
+                                    //                     />
+                                    //                 </div>
+                                    //             </form>
+                                    //         </div>
+                                    //     )
+                                    // }}
                                     renderDetailPanel={({ row }) => {
                                         return (
                                             <>
@@ -603,7 +642,7 @@ export default function Show({ event, transactions }: Props) {
                                                                         },
                                                                         title: {
                                                                             display: true,
-                                                                            text: 'Grafik Jumlah Tiket ' + row.original.name,
+                                                                            text: 'Grafik Jumlah Penjualan Tiket ' + row.original.name,
                                                                         },
                                                                     },
                                                                 }}
@@ -713,7 +752,8 @@ export default function Show({ event, transactions }: Props) {
                                         </div>
                                     )}
                                 />
-                            </div>
+                            {/* </div> */}
+                        </div>
                         </CustomTabPanel>
                     </div>
                 </div>
