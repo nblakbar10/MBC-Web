@@ -229,6 +229,7 @@ class TransactionController extends Controller
                         'payment_methods' => ['DANA']
                     ]);
                     $response = $data_request->object();
+                    dd($response);
 
                     Transaction::create([
                         "ticket_type_id" => $request->ticketType_id,
@@ -390,9 +391,9 @@ class TransactionController extends Controller
                 'nama' => $data_trans->name,
                 'email' => $data_trans->email,
                 'no_hp' => $data_trans->phone_number,
-                'jumlah_tiket' => $data_trans->total_tickets,
+                'jumlah_tiket' => $data_trans->ticket_amount,
                 'jenis_tiket' => $data_ticket_type,
-                'total_pembayaran' => $data_trans->total_amount,
+                'total_pembayaran' => $data_trans->total_price,
                 'metode_pembayaran' => $data_trans->payment_method,
                 'status_pembayaran' => $status, //direct from xendit
                 "status_tiket" => "SUCCESS, READY TO REDEEM",
