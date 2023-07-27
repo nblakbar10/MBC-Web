@@ -2,7 +2,7 @@ import TextInput from "@/Components/Jetstream/TextInput";
 import ZoomableImage from "@/Components/ZoomableImage";
 import useIndonesiaCityAPI from "@/Hooks/useIndonesianCityAPI";
 import AppLayout from "@/Layouts/AppLayout";
-import { District, Pagination as PaginationModel } from "@/Models/Helper";
+import { District, Pagination as PaginationModel, asset } from "@/Models/Helper";
 import Select from 'react-select';
 import React, { useEffect, useState } from "react";
 import { InertiaLink, useForm } from "@inertiajs/inertia-react";
@@ -149,12 +149,11 @@ export default function Events(props: Props) {
                                     {events.data.map((item, i) => (
                                         <div className="flex justify-center rounded-2xl border-2 shadow-md" key={item.id}>
                                             <div className="flex flex-col gap-3 w-full">
-                                                <ZoomableImage
-                                                    className="w-full h-40 object-cover rounded-t-2xl"
-                                                    img={item.preview_url}
-                                                    title={item.name}
-                                                    onChange={() => { }}
-                                                />
+                                                <div className="flex justify-center">
+                                                    <InertiaLink href={route('visitor.event-detail', item.id)}>
+                                                        <img className="w-full object-cover rounded-2xl" src={asset('public', item.preview_url)} alt="" />
+                                                    </InertiaLink>
+                                                </div>
                                                 <div className="flex flex-col gap-3 px-5">
                                                     <div className="text-2xl ">{item.name}</div>
                                                     <div className="text-md text-gray-700">Mulai {new Date(item.start_date).toLocaleDateString("id") + '-' + new Date(item.end_date).toLocaleTimeString("id")}</div>

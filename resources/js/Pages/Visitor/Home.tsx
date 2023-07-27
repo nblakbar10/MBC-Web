@@ -5,6 +5,7 @@ import ZoomableImage from "@/Components/ZoomableImage";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import route from "ziggy-js";
 import { EventModel } from "@/Models/Event";
+import { asset } from "@/Models/Helper";
 
 interface Props {
     events: EventModel[];
@@ -91,12 +92,11 @@ export default function Home(props: Props) {
                                     {events.map((item, i) => (
                                         <div className="flex justify-center rounded-2xl border-2 shadow-md" key={i}>
                                             <div className="flex flex-col gap-3 w-full">
-                                                <ZoomableImage
-                                                    className="w-full h-40 object-cover rounded-t-2xl"
-                                                    img={item.preview_url}
-                                                    title={item.name}
-                                                    onChange={() => { }}
-                                                />
+                                                <div className="flex justify-center">
+                                                    <InertiaLink href={route('visitor.event-detail', item.id)}>
+                                                        <img className="w-full object-cover rounded-2xl" src={asset('public', item.preview_url)} alt="" />
+                                                    </InertiaLink>
+                                                </div>
                                                 <div className="flex flex-col gap-3 px-5">
                                                     <div className="text-2xl ">{item.name}</div>
                                                     <div className="text-md text-gray-700">Mulai {new Date(item.start_date).toLocaleDateString("id") + '-' + new Date(item.end_date).toLocaleTimeString("id")}</div>
