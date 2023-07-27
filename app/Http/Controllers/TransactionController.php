@@ -224,6 +224,7 @@ class TransactionController extends Controller
                         'Authorization' => $secret_key,
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
+                        'name' => $request->name,
                         'amount' => $totals + (($totals / 100) * 2), #(int)$platform_fee,
                         'payment_methods' => ['DANA']
                     ]);
@@ -270,6 +271,7 @@ class TransactionController extends Controller
                         'Authorization' => $secret_key,
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
+                        'name' => $request->name,
                         'amount' => $totals + (($totals / 100) * 2) + $total_ticket_fees, #(int)$platform_fee,
                         'payment_methods' => ['QRIS']
                     ]);
