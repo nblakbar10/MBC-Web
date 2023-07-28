@@ -368,68 +368,59 @@ class TransactionController extends Controller
     }
 
     public function callback() //update data payment, save data ticket, sent email
-    // {
-    //     $data = request()->all();
-
-    //     $status = $data['status'];
-    //     $external_id = $data['external_id'];
-    //     if ($status == 'PAID') {
-    //         $mix_ticket = rand(00000000000000, 99999999999999); //14digit
-
-    //         $now = new DateTime();
-
-    //         //barcode
-    //         $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
-    //         file_put_contents(public_path('storage/barcode_ticket/') . $mix_ticket . '.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
-    //         $data_trans = Transaction::where('external_id', $external_id)->get()->first();
-    //         $data_ticket_type = TicketType::where('id',$data_trans->ticket_type_id)->pluck('name')->first();
-
-    //         //sent email :
-    //         $mailData = [
-    //             'to' => $data_trans->name,
-    //             'id_tiket' => $mix_ticket,
-    //             'nama' => $data_trans->name,
-    //             'email' => $data_trans->email,
-    //             'no_hp' => $data_trans->phone_number,
-    //             'jumlah_tiket' => $data_trans->ticket_amount,
-    //             'jenis_tiket' => $data_ticket_type,
-    //             'total_pembayaran' => $data_trans->total_price,
-    //             'metode_pembayaran' => $data_trans->payment_method,
-    //             'status_pembayaran' => $status, //direct from xendit
-    //             "status_tiket" => "SUCCESS, READY TO REDEEM",
-    //             "ticket_barcode_url" => url($mix_ticket . '.jpg')
-    //         ];
-    //         Mail::to($data_trans->email)->send(new SuccessMail($mailData));
-
-    //         Transaction::where('external_id', $external_id)->update([
-    //             'payment_status' => $status,
-    //             'ticket_id' => $mix_ticket,
-    //             'ticket_status' => "SUCCESS, READY TO REDEEM",
-    //             'ticket_barcode_url' => url($mix_ticket . '.jpg'),
-    //             'pay_date' => $now,
-    //         ]);
-    //     } else if ($status == 'EXPIRED') {
-    //         Transaction::where('external_id', $external_id)->update([
-    //             'payment_status' => $status,
-    //             'ticket_id' => "",
-    //             'ticket_status' => "",
-    //             'ticket_barcode_url' => ""
-    //         ]);
-    //         $restore_stocks = Transaction::where('external_id', $external_id)->pluck('total_tickets')->first();
-    //         $get_ticket_type_id = Transaction::where('external_id', $external_id)->pluck('ticket_type_id')->first();
-    //         TicketType::where('id', $get_ticket_type_id)->update([
-    //             'stock' => $restore_stocks
-    //         ]);
-    //     }
-    // }
     {
-        Transaction::where('external_id', 'TESTING46jfu6I')->update([
-            'payment_status' => 'sukses',
-            'ticket_id' => '992091928392',
-            'ticket_status' => "SUCCESS, READY TO REDEEM",
-            'ticket_barcode_url' => url('992091928392' . '.jpg'),
-            'pay_date' => '10',
-        ]);
+        $data = request()->all();
+
+        $status = $data['status'];
+        $external_id = $data['external_id'];
+        if ($status == 'PAID') {
+            $mix_ticket = rand(00000000000000, 99999999999999); //14digit
+
+            $now = new DateTime();
+
+            //barcode
+            $generator = new Picqer\Barcode\BarcodeGeneratorPNG();
+            file_put_contents(public_path('storage/barcode_ticket/') . $mix_ticket . '.jpg', $generator->getBarcode($mix_ticket, $generator::TYPE_CODABAR));
+            $data_trans = Transaction::where('external_id', $external_id)->get()->first();
+            $data_ticket_type = TicketType::where('id',$data_trans->ticket_type_id)->pluck('name')->first();
+
+            //sent email :
+            $mailData = [
+                'to' => $data_trans->name,
+                'id_tiket' => $mix_ticket,
+                'nama' => $data_trans->name,
+                'email' => $data_trans->email,
+                'no_hp' => $data_trans->phone_number,
+                'jumlah_tiket' => $data_trans->ticket_amount,
+                'jenis_tiket' => $data_ticket_type,
+                'total_pembayaran' => $data_trans->total_price,
+                'metode_pembayaran' => $data_trans->payment_method,
+                'status_pembayaran' => $status, //direct from xendit
+                "status_tiket" => "SUCCESS, READY TO REDEEM",
+                "ticket_barcode_url" => url($mix_ticket . '.jpg')
+            ];
+            Mail::to($data_trans->email)->send(new SuccessMail($mailData));
+
+            Transaction::where('external_id', $external_id)->update([
+                'payment_status' => $status,
+                'ticket_id' => $mix_ticket,
+                'ticket_status' => "SUCCESS, READY TO REDEEM",
+                'ticket_barcode_url' => url($mix_ticket . '.jpg'),
+                'pay_date' => $now,
+            ]);
+        } else if ($status == 'EXPIRED') {
+            Transaction::where('external_id', $external_id)->update([
+                'payment_status' => $status,
+                'ticket_id' => "",
+                'ticket_status' => "",
+                'ticket_barcode_url' => ""
+            ]);
+            $restore_stocks = Transaction::where('external_id', $external_id)->pluck('total_tickets')->first();
+            $get_ticket_type_id = Transaction::where('external_id', $external_id)->pluck('ticket_type_id')->first();
+            TicketType::where('id', $get_ticket_type_id)->update([
+                'stock' => $restore_stocks
+            ]);
+        }
     }
 
     public function getTransactionByTicketTypeBetweenDatesGroupByDay(Request $request)
