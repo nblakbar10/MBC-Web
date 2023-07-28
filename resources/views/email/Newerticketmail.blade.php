@@ -462,7 +462,12 @@
                     <tr>
                       <td valign="top" style="width: 80% padding-top: 10px; margin-right: 0.75rem;">
                         <table role="presentation" cellspacing="0" cellpadding="0" width="100%">
-                          <tr>
+                            <tr>
+                            <td class="text-services"style="text-align: left;">ID</td>
+                            <td class="text-md">:</td>
+                            <td class="text-services" style="text-align: left; ">{{$mailData['id_tiket']}}</td>
+                            </tr>
+                            <tr>
                             <td class="text-services"style="text-align: left;">Nama</td>
                             <td class="text-md">:</td>
                             <td class="text-services" style="text-align: left; ">{{$mailData['nama']}}</td>
