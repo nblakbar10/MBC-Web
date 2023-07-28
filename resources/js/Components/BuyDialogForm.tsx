@@ -182,7 +182,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                 id="ticket_amount"
                                 type="number"
                                 className="mt-1 block w-full"
-                                min={0}
+                                min={1}
                                 max={5}
                                 step={1}
                                 value={form.data.ticket_amount}
@@ -190,11 +190,11 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                     e.currentTarget.value = e.currentTarget.value.replace('0', '');
                                     const value = parseInt(e.currentTarget.value.length > 1 ? e.currentTarget.value[1] : e.currentTarget.value);
                                     if (isNaN(value)) {
-                                        form.setData('ticket_amount', 0);
+                                        form.setData('ticket_amount', 1);
                                     } else if (value > 5) {
                                         form.setData('ticket_amount', 5);
-                                    } else if (value < 0) {
-                                        form.setData('ticket_amount', 0);
+                                    } else if (value < 1) {
+                                        form.setData('ticket_amount', 1);
                                     } else {
                                         form.setData('ticket_amount', value);
                                     }

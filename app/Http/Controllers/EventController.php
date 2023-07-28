@@ -165,8 +165,6 @@ class EventController extends Controller
 
         ]);
 
-        dd($request->all());
-
         return DB::transaction(function () use ($request, $id) {
             $event = Event::findOrfail($id);
             $poster = $event->poster_url;

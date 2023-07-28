@@ -13,6 +13,7 @@ interface Props {
 
 export default function Home(props: Props) {
     const events = props.events;
+    console.log(events);
     return (
         <AppLayout>
             <div className="flex flex-col gap-3 max-w-full h-auto mb-auto">
@@ -61,15 +62,20 @@ export default function Home(props: Props) {
 
                                 {
                                     events.length > 0 ? (
-                                        events.map((item, i) =>
-                                            <div className=" rounded-2xl" key={i}>
-                                                <ZoomableImage
-                                                    className="w-full h-1/3  xl:h-[45rem] 2xl:h-[55rem] object-cover rounded-2xl"
-                                                    img={item.preview_url}
-                                                    title={item.name}
-                                                    onChange={() => { }}
-                                                />
-                                            </div>
+                                        events.map((item, i) => {
+                                            console.log(item);
+                                            return (
+                                                <div className=" rounded-2xl" key={i}>
+                                                    <InertiaLink href={route('visitor.event-detail', item.id)}>
+                                                        <img
+                                                            className="w-full h-1/3  xl:h-[45rem] 2xl:h-[55rem] object-cover rounded-2xl"
+                                                            src={asset('public', item.preview_url)}
+                                                            alt=""
+                                                        />
+                                                    </InertiaLink>
+                                                </div>
+                                            )
+                                        }
                                         )
                                     ) : (
                                         <div className="flex justify-center">
@@ -94,7 +100,7 @@ export default function Home(props: Props) {
                                             <div className="flex flex-col gap-3 w-full">
                                                 <div className="flex justify-center">
                                                     <InertiaLink href={route('visitor.event-detail', item.id)}>
-                                                        <img className="w-full object-cover rounded-2xl" src={asset('public', item.preview_url)} alt="" />
+                                                        <img className="w-full object-cover rounded-t-2xl" src={asset('public', item.preview_url)} alt="" />
                                                     </InertiaLink>
                                                 </div>
                                                 <div className="flex flex-col gap-3 px-5">
