@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('activity');
-            $table->decimal('latitude', 14, 10);
-            $table->decimal('longitude', 14, 10);
+            $table->decimal('latitude', 14, 10)->nullable();
+            $table->decimal('longitude', 14, 10)->nullable();
             $table->timestamps();
         });
     }

@@ -229,7 +229,6 @@ class TransactionController extends Controller
                         'payment_methods' => ['DANA']
                     ]);
                     $response = $data_request->object();
-                    dd($response);
 
                     Transaction::create([
                         "ticket_type_id" => $request->ticketType_id,

@@ -68,8 +68,8 @@ class TicketTypeController extends Controller
                 'stock' => 'required|numeric',
                 'maximum_buy' => 'required|numeric',
                 'event_id' => 'required|numeric|exists:events,id',
-                'latitude' => ['required', 'numeric'],
-                'longitude' => ['required', 'numeric'],
+                // 'latitude' => ['required', 'numeric'],
+                // 'longitude' => ['required', 'numeric'],
             ]);
 
             $ticketType = TicketType::create($validated);
@@ -134,8 +134,8 @@ class TicketTypeController extends Controller
                 'stock' => 'required|numeric',
                 'maximum_buy' => 'required|numeric',
                 'event_id' => 'required|numeric|exists:events,id',
-                'latitude' => ['required', 'numeric'],
-                'longitude' => ['required', 'numeric'],
+                // 'latitude' => ['required', 'numeric'],
+                // 'longitude' => ['required', 'numeric'],
             ]);
 
             $ticketType = TicketType::find($id);

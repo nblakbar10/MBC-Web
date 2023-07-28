@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('transaction_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedInteger('amount');
-            $table->decimal('latitude', 14, 10);
-            $table->decimal('longitude', 14, 10);
+            $table->decimal('latitude', 14, 10)->nullable();
+            $table->decimal('longitude', 14, 10)->nullable();
             $table->timestamps();
         });
     }

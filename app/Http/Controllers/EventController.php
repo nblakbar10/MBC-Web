@@ -66,8 +66,8 @@ class EventController extends Controller
             'poster.file'       => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg'],
             'event_map.file'    => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg'],
             'preview.file'      => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg'],
-            'latitude'          => ['required','numeric'],
-            'longitude'         => ['required', 'numeric'],
+            // 'latitude'          => ['required','numeric'],
+            // 'longitude'         => ['required', 'numeric'],
         ]);
 
         return DB::transaction(function () use ($request) {
@@ -160,8 +160,8 @@ class EventController extends Controller
             'poster.file'       => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
             'event_map.file'    => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
             'preview.file'      => ['image', 'mimes:jpeg,png,jpg,gif,svg'],
-            'latitude'          => ['required', 'numeric'],
-            'longitude'         => ['required', 'numeric'],
+            // 'latitude'          => ['required', 'numeric'],
+            // 'longitude'         => ['required', 'numeric'],
 
         ]);
 

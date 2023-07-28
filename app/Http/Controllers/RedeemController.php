@@ -86,8 +86,8 @@ class RedeemController extends Controller
         $request->validate([
             'token' => ['required', 'string', 'min:10'], #need to change as ticket_id, not token
             'redeem_amount' => ['required'],
-            'latitude' => ['required', 'numeric'],
-            'longitude' => ['required', 'numeric'],
+            // 'latitude' => ['required', 'numeric'],
+            // 'longitude' => ['required', 'numeric'],
         ]);
         $check = Transaction::where('ticket_id', $request->token)->get()->first();
         if ($check) {

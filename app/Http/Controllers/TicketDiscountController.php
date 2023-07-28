@@ -66,8 +66,8 @@ class TicketDiscountController extends Controller
                 'minimum_buy' => 'required|numeric|min:0',
                 'type' => 'required|in:percentage,fixed',
                 'ticket_type_id' => 'required',
-                'latitude' => ['required', 'numeric'],
-                'longitude' => ['required', 'numeric'],
+                // 'latitude' => ['required', 'numeric'],
+                // 'longitude' => ['required', 'numeric'],
 
             ]);
             $ticketDiscounts = TicketDiscount::create($validated);
@@ -129,8 +129,8 @@ class TicketDiscountController extends Controller
                 'minimum_buy' => 'required|numeric|min:0',
                 'type' => 'required|in:percentage,fixed',
                 'ticket_type_id' => 'required',
-                'latitude' => ['required', 'numeric'],
-                'longitude' => ['required', 'numeric'],
+                // 'latitude' => ['required', 'numeric'],
+                // 'longitude' => ['required', 'numeric'],
 
             ]);
             $ticketDiscounts = TicketDiscount::find($id);
