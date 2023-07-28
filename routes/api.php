@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/checkout', [TransactionController::class, 'store'])->name('checkout');
 
 Route::post('/callback', [TransactionController::class, 'callback']);
+Route::post('/callback_dev', [TransactionController::class, 'callback_dev']);
 
 Route::post('/redeem', [RedeemController::class, 'store'])->name('redeemAPI.store');
 

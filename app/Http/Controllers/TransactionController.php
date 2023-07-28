@@ -412,7 +412,7 @@ class TransactionController extends Controller
             Transaction::where('external_id', $external_id)->update([
                 'payment_status' => $status,
                 'ticket_id' => "",
-                'ticket_status' => "Tidak Valid",
+                'ticket_status' => "Invalid",
                 'ticket_barcode' => ""
             ]);
             $restore_stocks = Transaction::where('external_id', $external_id)->pluck('total_tickets')->first();
@@ -467,4 +467,16 @@ class TransactionController extends Controller
             ],
         ]);
     }
+
+    public function callback_dev() //update data payment, save data ticket, sent email
+    {
+        Transaction::where('external_id', 'TESTING46jfu6I')->update([
+            'payment_status' => 'sukses',
+            'ticket_id' => '992091928392',
+            'ticket_status' => "SUCCESS, READY TO REDEEM",
+            'ticket_barcode' => url('992091928392' . '.jpg'),
+            'pay_date' => '10',
+        ]);
+    }
+    
 }
