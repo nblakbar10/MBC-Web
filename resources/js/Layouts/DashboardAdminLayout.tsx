@@ -58,7 +58,7 @@ export default function DashboardAdminLayout({
                 <InertiaLink href={route('dashboard')}>
                     <img
                         className="h-20 p-4 px-2 ml-10"
-                        src={asset('root', 'assets/images/MBC_HD.png')}
+                        src="https://loketmbc.com/assets/images/MBC_HD.png"
                         alt="Logo"
                     />
                 </InertiaLink>

@@ -50,7 +50,7 @@ export default function AppLayout({ children, title }: Props) {
                                 className="text-white text-2xl font-bold"
                             >
                                 <img
-                                    src={asset('root', 'assets/images/MBC_HD.png')}
+                                    src="https://loketmbc.com/assets/images/MBC_HD.png"
                                     alt="Logo"
                                     width={200}
                                 />

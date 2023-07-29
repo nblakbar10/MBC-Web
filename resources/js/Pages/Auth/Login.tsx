@@ -35,7 +35,7 @@ export default function Login() {
           <div className=" rounded-lg bg-white shadow-lg dark:bg-neutral-800">
             <div className="p-5 md:mx-6 md:p-12">
               <img className="mx-auto w-48"
-                src={asset('root', 'assets/images/MBC_HD.png')}
+                src="https://loketmbc.com/assets/images/MBC_HD.png"
                 alt="logo" />
               <h4 className="mt-1 mb-12 pb-1 p-4 text-xl text-center font-semibold">
 
