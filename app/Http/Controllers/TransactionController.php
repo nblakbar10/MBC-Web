@@ -229,7 +229,6 @@ class TransactionController extends Controller
                         'payment_methods' => ['DANA']
                     ]);
                     $response = $data_request->object();
-                    dd($response);
 
                     Transaction::create([
                         "ticket_type_id" => $request->ticketType_id,
@@ -397,7 +396,7 @@ class TransactionController extends Controller
                 'metode_pembayaran' => $data_trans->payment_method,
                 'status_pembayaran' => $status, //direct from xendit
                 "status_tiket" => "SUCCESS, READY TO REDEEM",
-                "ticket_barcode" => url($mix_ticket . '.jpg')
+                "ticket_barcode_url" => url($mix_ticket . '.jpg')
             ];
             Mail::to($data_trans->email)->send(new SuccessMail($mailData));
 
@@ -405,20 +404,20 @@ class TransactionController extends Controller
                 'payment_status' => $status,
                 'ticket_id' => $mix_ticket,
                 'ticket_status' => "SUCCESS, READY TO REDEEM",
-                'ticket_barcode' => url($mix_ticket . '.jpg'),
+                'ticket_barcode_url' => url($mix_ticket . '.jpg'),
                 'pay_date' => $now,
             ]);
         } else if ($status == 'EXPIRED') {
             Transaction::where('external_id', $external_id)->update([
                 'payment_status' => $status,
                 'ticket_id' => "",
-                'ticket_status' => "Tidak Valid",
-                'ticket_barcode' => ""
+                'ticket_status' => "",
+                'ticket_barcode_url' => ""
             ]);
             $restore_stocks = Transaction::where('external_id', $external_id)->pluck('total_tickets')->first();
             $get_ticket_type_id = Transaction::where('external_id', $external_id)->pluck('ticket_type_id')->first();
             TicketType::where('id', $get_ticket_type_id)->update([
-                'ticket_barcode' => $restore_stocks
+                'stock' => $restore_stocks
             ]);
         }
     }
@@ -467,4 +466,16 @@ class TransactionController extends Controller
             ],
         ]);
     }
+
+    public function callback_dev() //update data payment, save data ticket, sent email
+    {
+        Transaction::where('external_id', 'TESTING46jfu6I')->update([
+            'payment_status' => 'sukses',
+            'ticket_id' => '992091928392',
+            'ticket_status' => "SUCCESS, READY TO REDEEM",
+            'ticket_barcode_url' => url('992091928392' . '.jpg'),
+            'pay_date' => '10',
+        ]);
+    }
+    
 }
