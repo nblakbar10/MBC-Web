@@ -49,11 +49,10 @@ export default function AppLayout({ children, title }: Props) {
                                 href={route('visitor.home')}
                                 className="text-white text-2xl font-bold"
                             >
-                                <img className="w-200"
-                                    src="https://loketmbc.com/assets/images/MBC_HD.png"
+                                <img
+                                    src={asset('root', 'assets/images/MBC_HD.png')}
                                     alt="Logo"
                                     width={200}
-                                    height={100}
                                 />
                             </InertiaLink>
                         </div>
