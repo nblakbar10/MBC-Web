@@ -26,7 +26,7 @@ export default function CheckOutModal({ open, closeHandler, xenditLink }: Props)
                     />
                 </div>
                 <div className="text-xl font-bold">
-                    Konfirmasi Pembayaran Anda
+                    Konfirmasi Email Transaksi Anda
                 </div>
                 <div className="text-md from-neutral-500 my-10">
                     Silahkan memilih tombol "Selanjutnya" untuk melakukan pembayaran
