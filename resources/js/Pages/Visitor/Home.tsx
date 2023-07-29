@@ -96,11 +96,11 @@ export default function Home(props: Props) {
                             {events.length > 0 ? (
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5">
                                     {events.map((item, i) => (
-                                        <div className="flex justify-center rounded-lg border-2 shadow-md" key={i}>
+                                        <div className="flex justify-center rounded-2xl border-2 shadow-md" key={i}>
                                             <div className="flex flex-col gap-3 w-full">
-                                                <div className="flex justify-center">
+                                                <div className="flex justify-center rounded-t-2xl">
                                                     <InertiaLink href={route('visitor.event-detail', item.id)}>
-                                                        <img className="w-full object-cover rounded-t-lg" src={asset('public', item.preview_url)} alt="" />
+                                                        <img className="w-full object-cover " src={asset('public', item.preview_url)} alt="" />
                                                     </InertiaLink>
                                                 </div>
                                                 <div className="flex flex-col gap-3 px-5">
