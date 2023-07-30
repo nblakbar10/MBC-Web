@@ -315,8 +315,10 @@ class TransactionController extends Controller
                 $ticket_type_data->stock = (int)$ticket_type_data->stock - (int)$request->ticket_amount;
                 $ticket_type_data->save();
 
-                return response('', 409)
-                    ->header('X-Inertia-Location', $response->invoice_url);
+                #disable due to anticipate for email not found 
+                // return response('', 409)
+                //     ->header('X-Inertia-Location', $response->invoice_url); 
+                return Inertia::render('Visitor/CheckOutModal');
             }
         );
     }
