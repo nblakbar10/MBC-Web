@@ -43,9 +43,7 @@ class TransactionController extends Controller
             'transactionDiscounts' => function ($query) {
                 $query->select('ticket_discounts.id', 'ticket_discounts.name');
             },
-        ])->whereColumns($request->get('filters'))
-            ->paginate($request->get('perPage') ?? 10);
-
+        ])->get();
         return Inertia::render('Admin/Transaction/Index', [
             'transactions' => $transaction,
         ]);

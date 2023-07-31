@@ -16,7 +16,7 @@ class RedeemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         //
         $redeemHistories = RedeemHistory::with([
@@ -29,8 +29,7 @@ class RedeemController extends Controller
             'transaction.ticketType' => function ($query) {
                 $query->select('id', 'name');
             },
-        ])->whereColumns($request->get('filters'))
-            ->paginate($request->get('perPage') ?? 10);
+        ])->get();
         return Inertia::render('Admin/Redeem/RedeemHistory', [
             'redeemHistories' => $redeemHistories,
         ]);

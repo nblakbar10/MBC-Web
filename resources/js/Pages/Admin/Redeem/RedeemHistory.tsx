@@ -11,22 +11,10 @@ import useFilterPagination from "@/Hooks/useFilterPagination";
 
 interface Props {
     //
-    redeemHistories: Pagination<RedeemHistoryModel>,
+    redeemHistories: RedeemHistoryModel[],
 }
 
-export default function Index(props: Props) {
-
-    const [dataState, setDataState] = useState(props.redeemHistories);
-
-    const {
-        pagination,
-        setPagination,
-        columnFilters,
-        setColumnFilters,
-    } = useFilterPagination<RedeemHistoryModel>(
-        setDataState,
-        'redeemHistories'
-    );
+export default function Index({ redeemHistories }: Props) {
 
     const dataColumns = [
         {
@@ -79,7 +67,7 @@ export default function Index(props: Props) {
                         <div className="mt-6 text-gray-500">
                             <MaterialReactTable
                                 columns={dataColumns}
-                                data={dataState.data}
+                                data={redeemHistories}
                                 enableColumnActions
                                 enableColumnFilters
                                 enablePagination
@@ -89,14 +77,6 @@ export default function Index(props: Props) {
                                 enableTopToolbar
                                 enableRowNumbers
                                 muiTableBodyRowProps={{ hover: false }}
-                                onColumnFiltersChange={
-                                    (value) => {
-                                        setColumnFilters(value);
-                                        setPagination({ ...pagination, pageIndex: 0 });
-                                    }}
-                                rowCount={dataState.total}
-                                onPaginationChange={setPagination}
-                                state={{ pagination, columnFilters}}
                             />
                         </div>
                     </div>

@@ -10,13 +10,14 @@ use Inertia\Inertia;
 class UserActivityController extends Controller
 {
 
-    private function getUserActivities(Request $request){
+    private function getUserActivities(Request $request)
+    {
         $userActivities = UserActivity::with([
-            'user' => function ($query){
-                $query->select('id','name');
+            'user' => function ($query) {
+                $query->select('id', 'name');
             }
         ])->whereColumns($request->get('filters'))
-        ->paginate($request->get('perPage') ?? 10);
+            ->paginate($request->get('perPage') ?? 10);
         return $userActivities;
     }
 
@@ -25,10 +26,14 @@ class UserActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         //
-        $userActivities = $this->getUserActivities($request);
+        $userActivities = UserActivity::with([
+            'user' => function ($query) {
+                $query->select('id', 'name');
+            }
+        ])->get();
         return Inertia::render('Admin/UserActivity/Index', [
             'userActivities' => $userActivities,
         ]);
