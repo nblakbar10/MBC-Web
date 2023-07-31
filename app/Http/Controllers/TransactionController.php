@@ -424,6 +424,47 @@ class TransactionController extends Controller
         }
     }
 
+    public function getTransactionBetweenDatesGroupByDay(Request $request)
+    {
+        $start_date = $request->get('start_date') ?? Carbon::now()->subDays(11)->format('Y-m-d');
+        $end_date = $request->get('end_date') ?? Carbon::now()->format('Y-m-d');
+
+        // TODO : Make IGNORE not paid transaction
+
+        $transaction_count = Transaction::whereBetween('pay_date', [$start_date, $end_date])
+            ->selectRaw('DATE(pay_date) as date, count(*) as count')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        $transaction_total = Transaction::whereBetween('pay_date', [$start_date, $end_date])
+            ->selectRaw('DATE(pay_date) as date, sum(total_price) as total')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        $ticket_total = Transaction::whereBetween('pay_date', [$start_date, $end_date])
+            ->selectRaw('DATE(pay_date) as date, sum(ticket_amount) as total')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        return response()->json([
+            'transaction_count' => [
+                'labels' => $transaction_count->pluck('date'),
+                'data' => $transaction_count->pluck('count'),
+            ],
+            'transaction_total' => [
+                'labels' => $transaction_total->pluck('date'),
+                'data' => $transaction_total->pluck('total'),
+            ],
+            'ticket_total' => [
+                'labels' => $ticket_total->pluck('date'),
+                'data' => $ticket_total->pluck('total'),
+            ],
+        ]);
+    }
+
     public function getTransactionByTicketTypeBetweenDatesGroupByDay(Request $request)
     {
         $start_date = $request->get('start_date') ?? Carbon::now()->subDays(11)->format('Y-m-d');

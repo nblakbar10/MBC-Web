@@ -399,7 +399,7 @@ export default function Show({ event, transactions }: Props) {
                                                         <div className="text-2xl font-extrabold">
                                                             <div className="stat-value">{Dana.length} Pembelian</div>
                                                             <div className="stat-value">{totalIncome(Dana).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>
-                                                            <div className="stat-value">{totalTicketCount(Dana)} Tiket</div>
+                                                            <div className="stat-value">{totalTicketCount(  Dana)} Tiket</div>
                                                         </div>
                                                     </div>
                                                     <div className='h-8'>

@@ -24,6 +24,7 @@ class TransactionFactory extends Factory
             "phone_number" => $this->faker->phoneNumber(),
             "ticket_amount" => $this->faker->numberBetween(1, 5),
             "total_price" => $this->faker->numberBetween(10000, 5000000),
+            "base_price" => $this->faker->numberBetween(10000, 5000000),
             "city" => $this->faker->city(),
             "buy_date" => $this->faker->dateTimeBetween('-10 days', 'now'),
             "pay_date" => $this->faker->dateTimeBetween('-10 days', 'now'),

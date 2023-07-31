@@ -29,6 +29,8 @@ Route::get('/event', [EventController::class, 'getData'])->name('api.events');
 
 Route::get('/transaction-ticket-type', [TransactionController::class, 'getTransactionByTicketTypeBetweenDatesGroupByDay'])->name('api.ticketTypeTransaction');
 
+Route::get('/transaction-date-all', [TransactionController::class, 'getTransactionBetweenDatesGroupByDay'])->name('api.transactionDateAll');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
