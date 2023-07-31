@@ -221,7 +221,7 @@ export default function Dashboard({
                                             ))}
                                         </tbody>
                                     </table>
-                                d</div>
+                                </div>
                             </div>
                         </div>
                     </div>
