@@ -15,7 +15,6 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $totalTicket = Transaction::sum('ticket_amount');
-        // dont know why sum return string but it must be converted to int
         $totalPrice = Transaction::sum('base_price');
         $totalUser = User::count();
         $totalEvent = Event::count();
