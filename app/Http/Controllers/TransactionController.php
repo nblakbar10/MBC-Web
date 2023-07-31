@@ -316,7 +316,9 @@ class TransactionController extends Controller
                 #disable due to anticipate for email not found 
                 // return response('', 409)
                 //     ->header('X-Inertia-Location', $response->invoice_url); 
-                return Inertia::render('Visitor/CheckOutModal');
+
+                // NOTE : for testing purpose, change to your own url
+                return response("https://www.facebook.com", 200);
             }
         );
     }

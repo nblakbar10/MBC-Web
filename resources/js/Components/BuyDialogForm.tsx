@@ -11,6 +11,7 @@ import { TicketTypeModel } from "@/Models/TicketType";
 import InputError from "./Jetstream/InputError";
 import { TicketDiscountModel } from "@/Models/TicketDiscount";
 import useIndonesiaCityAPI from "@/Hooks/useIndonesianCityAPI";
+import axios from "axios";
 
 interface Props {
     open: boolean;
@@ -59,15 +60,27 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
     const onSubmitHandler = (e: React.FormEvent) => {
         form.clearErrors();
         e.preventDefault();
-        form.post(route('transaction.store'), {
-            preserveScroll: true,
-            onSuccess: () => {
-                closeHandler();
-            },
-            onError: () => {
-                console.log(form.errors);
-            }
-        });
+        axios.post(route('transaction.store'), form.data)
+            .then(response => {
+                if (response.status === 200) {
+                    console.log(response.data);
+                    setXenditLinkHandler(response.data);
+                    checkOutOpenHandler();
+                }
+            })
+            .catch(error => {
+                console.log(error.response.data.errors);
+            })
+
+        // form.post(route('transaction.store'), {
+        //     preserveScroll: true,
+        //     onSuccess: () => {
+        //         closeHandler();
+        //     },
+        //     onError: () => {
+        //         console.log(form.errors);
+        //     }
+        // });
 
 
         // const onSubmitHandler = (e: React.FormEvent) => {

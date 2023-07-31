@@ -12,7 +12,9 @@ interface Props {
 export default function CheckOutModal({ open, closeHandler, xenditLink }: Props) {
 
     const onCheckoutHandler = () => {
-        console.log('checkout', xenditLink);
+    
+        window.open(xenditLink, '_blank');
+        closeHandler();
     }
 
     return (
