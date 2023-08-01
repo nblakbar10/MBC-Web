@@ -121,7 +121,6 @@ class TransactionController extends Controller
                     'phone_number' => ['required', 'string', 'max:255', 'regex:(08)'],
                     'city' => ['required', 'string', 'max:255'],
                     'ticket_amount' => ['required', 'numeric', 'max:5', 'min:1'],
-                    // 'ticket_type_id' => ['required' , 'numeric'],
                     'payment_method' => 'required',
                 ]);
 
@@ -156,7 +155,6 @@ class TransactionController extends Controller
                     $totals += $ticket_type_data->price * $request->ticket_amount;
                 }
 
-                // $platform_fee = 2500 * $request->ticket_amount;
 
                 $now = new DateTime();
 
@@ -166,7 +164,6 @@ class TransactionController extends Controller
                 $get_event_data_by_id = TicketType::where('id', $request->ticketType_id)->pluck('id')->first();
                 $get_event_ticket_fees = TicketType::where('id', $request->ticketType_id)->pluck('fee')->first();
                 $get_event_name = Event::where('id', $get_event_data_by_id)->pluck('name')->first();
-                // $get_event_city = Event::where('id', $get_event_data_by_id)->pluck('city')->first();
 
                 $external_id = $get_event_name . $transaction_id;
 
@@ -223,7 +220,7 @@ class TransactionController extends Controller
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
                         'name' => $request->name,
-                        'amount' => $totals + (($totals / 100) * 2), #(int)$platform_fee,
+                        'amount' => $totals + (($totals / 100) * 2),
                         'payment_methods' => ['DANA']
                     ]);
                     $response = $data_request->object();
@@ -234,7 +231,7 @@ class TransactionController extends Controller
                         "email" => $request->email,
                         "phone_number" => $request->phone_number,
                         "ticket_amount" => $request->ticket_amount,
-                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees, #7500, #(int)$platform_fee,
+                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         "base_price" => $ticket_type_data->price * $request->ticket_amount,
                         "city" => $request->city,
                         "buy_date" => $now,
@@ -257,7 +254,7 @@ class TransactionController extends Controller
                         'email' => $request->email,
                         'jumlah_tiket' => $request->ticket_amount,
                         'jenis_tiket' => $ticket_type_data->name,
-                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees, #(int)$platform_fee,
+                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         'metode_pembayaran' => $request->payment_method,
                         'status_pembayaran' => $response->status,
                         'link' => $response->invoice_url
@@ -270,7 +267,7 @@ class TransactionController extends Controller
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
                         'name' => $request->name,
-                        'amount' => $totals + (($totals / 100) * 2) + $total_ticket_fees, #(int)$platform_fee,
+                        'amount' => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         'payment_methods' => ['QRIS']
                     ]);
                     $response = $data_request->object();
@@ -282,7 +279,7 @@ class TransactionController extends Controller
                         "phone_number" => $request->phone_number,
                         "ticket_amount" => $request->ticket_amount,
                         "base_price" => $ticket_type_data->price * $request->ticket_amount,
-                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees, #7500, # (int)$platform_fee,
+                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         "city" => $request->city,
                         "buy_date" => $now,
                         "pay_date" => '',
@@ -303,7 +300,7 @@ class TransactionController extends Controller
                         'email' => $request->email,
                         'jumlah_tiket' => $request->ticket_amount,
                         'jenis_tiket' => $ticket_type_data->name,
-                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees, #(int)$platform_fee,
+                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         'metode_pembayaran' => $request->payment_method,
                         'status_pembayaran' => $response->status,
                         'link' => $response->invoice_url
