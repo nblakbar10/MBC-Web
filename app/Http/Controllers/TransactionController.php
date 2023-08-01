@@ -306,16 +306,13 @@ class TransactionController extends Controller
                         'link' => $response->invoice_url
                     ];
                     Mail::to($request->email)->send(new NotifyMail($mailData));
+                }else{
+                    return  response()->json(['message' => 'Transaction failed!'], 208);
                 }
                 $ticket_type_data->stock = (int)$ticket_type_data->stock - (int)$request->ticket_amount;
                 $ticket_type_data->save();
-
-                #disable due to anticipate for email not found 
-                // return response('', 409)
-                //     ->header('X-Inertia-Location', $response->invoice_url); 
-
-                // NOTE : for testing purpose, change to your own url
-                return response("https://www.facebook.com", 200);
+                
+                return  response()->json(['message' => 'Transaction Success!'], 200);
             }
         );
     }

@@ -134,7 +134,7 @@ class RedeemController extends Controller
                         ]
                     ], 200);
                 } else if (((int)$check->redeem_amount + (int)$request->redeemed_amount) == $check->total_tickets) {
-                    return response()->json(['message' => 'Error12! All tickets has already reedemed'], 208);
+                    return response()->json(['message' => 'Error! All tickets has already reedemed'], 208);
                 } else if ($request->redeemed_amount > $check->total_tickets) {
                     return response()->json(['message' => 'Error! Redeem request was out of total purchased tickets'], 208);
                 }
