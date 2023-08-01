@@ -307,12 +307,12 @@ class TransactionController extends Controller
                     ];
                     Mail::to($request->email)->send(new NotifyMail($mailData));
                 }else{
-                    return  response()->json(['message' => 'Transaction failed!'], 208);
+                    return response()->json(['message' => 'Transaction failed!'], 208);
                 }
                 $ticket_type_data->stock = (int)$ticket_type_data->stock - (int)$request->ticket_amount;
                 $ticket_type_data->save();
-                
-                return  response()->json(['message' => 'Transaction Success!'], 200);
+
+                return response()->json(['message' => 'Transaction Success!'], 200);
             }
         );
     }
