@@ -11,13 +11,13 @@ import { TicketTypeModel } from "@/Models/TicketType";
 import InputError from "./Jetstream/InputError";
 import { TicketDiscountModel } from "@/Models/TicketDiscount";
 import useIndonesiaCityAPI from "@/Hooks/useIndonesianCityAPI";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 interface Props {
     open: boolean;
     checkOutOpenHandler: () => void;
     closeHandler: () => void;
-    setXenditLinkHandler: (link: string) => void;
+    setResponseBuyHandler: (link: AxiosResponse) => void;
     price?: number;
     ticketType: TicketTypeModel | null;
     discounts: Array<TicketDiscountModel>
@@ -25,7 +25,7 @@ interface Props {
 }
 
 
-export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, ticketType, discounts, adminFee }: Props) {
+export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setResponseBuyHandler, price, ticketType, discounts, adminFee }: Props) {
     const form = useForm({
         name: '',
         email: '',
@@ -62,11 +62,10 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         e.preventDefault();
         axios.post(route('transaction.store'), form.data)
             .then(response => {
-                if (response.status === 200) {
-                    console.log(response.data);
-                    setXenditLinkHandler(response.data);
-                    checkOutOpenHandler();
-                }
+                console.log(response);
+                setResponseBuyHandler(response);
+                checkOutOpenHandler();
+
             })
             .catch(error => {
                 console.log(error.response.data.errors);
@@ -104,7 +103,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         //         })
         //         .then(data => {
         //             if (!paymentError) {
-        //                 setXenditLinkHandler(data);
+        //                 setResponseBuyHandler(data);
         //                 checkOutOpenHandler();
         //             }
         //         });
