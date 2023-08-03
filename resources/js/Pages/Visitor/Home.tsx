@@ -13,10 +13,7 @@ interface Props {
 }
 
 export default function Home(props: Props) {
-    // @ts-ignore
-    const events = Array.from(props.events);
-    console.log(events);
-    console.log(events.length);
+    const events = Object.values(props.events);
     return (
         <AppLayout>
             <div className="flex flex-col gap-3 max-w-full h-auto mb-auto">
@@ -66,7 +63,6 @@ export default function Home(props: Props) {
                                 {
                                     events.length > 0 ? (
                                         events.map((item, i) => {
-                                            console.log(item);
                                             return (
                                                 <div className=" rounded-2xl" key={i}>
                                                     <InertiaLink href={route('visitor.event-detail', item.id)}>
