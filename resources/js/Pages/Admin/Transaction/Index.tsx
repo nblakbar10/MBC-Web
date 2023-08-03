@@ -10,22 +10,10 @@ import { TransactionModel } from "@/Models/Transaction";
 import useFilterPagination from "@/Hooks/useFilterPagination";
 
 interface Props {
-    transactions: Pagination<TransactionModel>,
+    transactions: TransactionModel[],
 }
 
-export default function Index(props: Props) {
-
-    const [dataState, setDataState] = useState(props.transactions);
-
-    const {
-        pagination,
-        setPagination,
-        columnFilters,
-        setColumnFilters,
-    } = useFilterPagination<TransactionModel>(
-        setDataState,
-        'transactions'
-        );
+export default function Index({ transactions }: Props) {
 
     const dataColumns = [
         {
@@ -88,7 +76,7 @@ export default function Index(props: Props) {
                         <div className="mt-6 text-gray-500">
                             <MaterialReactTable
                                 columns={dataColumns}
-                                data={dataState.data}
+                                data={transactions}
                                 enableColumnActions
                                 enableColumnFilters
                                 enablePagination
@@ -98,14 +86,6 @@ export default function Index(props: Props) {
                                 enableTopToolbar
                                 enableRowNumbers
                                 muiTableBodyRowProps={{ hover: false }}
-                                onColumnFiltersChange={
-                                    (value) => {
-                                        setColumnFilters(value);
-                                        setPagination({ ...pagination, pageIndex: 0 });
-                                    }}
-                                rowCount={dataState.total}
-                                onPaginationChange={setPagination}
-                                state={{ pagination, columnFilters }}
                                 renderDetailPanel={({ row }) => (
                                     <>
                                         <table className='w-full'>

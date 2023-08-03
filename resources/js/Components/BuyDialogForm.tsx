@@ -11,12 +11,13 @@ import { TicketTypeModel } from "@/Models/TicketType";
 import InputError from "./Jetstream/InputError";
 import { TicketDiscountModel } from "@/Models/TicketDiscount";
 import useIndonesiaCityAPI from "@/Hooks/useIndonesianCityAPI";
+import axios, { AxiosResponse } from "axios";
 
 interface Props {
     open: boolean;
     checkOutOpenHandler: () => void;
     closeHandler: () => void;
-    setXenditLinkHandler: (link: string) => void;
+    setResponseBuyHandler: (link: AxiosResponse) => void;
     price?: number;
     ticketType: TicketTypeModel | null;
     discounts: Array<TicketDiscountModel>
@@ -24,7 +25,7 @@ interface Props {
 }
 
 
-export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setXenditLinkHandler, price, ticketType, discounts, adminFee }: Props) {
+export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler, setResponseBuyHandler, price, ticketType, discounts, adminFee }: Props) {
     const form = useForm({
         name: '',
         email: '',
@@ -59,15 +60,26 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
     const onSubmitHandler = (e: React.FormEvent) => {
         form.clearErrors();
         e.preventDefault();
-        form.post(route('transaction.store'), {
-            preserveScroll: true,
-            onSuccess: () => {
-                closeHandler();
-            },
-            onError: () => {
-                console.log(form.errors);
-            }
-        });
+        axios.post(route('transaction.store'), form.data)
+            .then(response => {
+                console.log(response);
+                setResponseBuyHandler(response);
+                checkOutOpenHandler();
+
+            })
+            .catch(error => {
+                console.log(error.response.data.errors);
+            })
+
+        // form.post(route('transaction.store'), {
+        //     preserveScroll: true,
+        //     onSuccess: () => {
+        //         closeHandler();
+        //     },
+        //     onError: () => {
+        //         console.log(form.errors);
+        //     }
+        // });
 
 
         // const onSubmitHandler = (e: React.FormEvent) => {
@@ -91,7 +103,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         //         })
         //         .then(data => {
         //             if (!paymentError) {
-        //                 setXenditLinkHandler(data);
+        //                 setResponseBuyHandler(data);
         //                 checkOutOpenHandler();
         //             }
         //         });

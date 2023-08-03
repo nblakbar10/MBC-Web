@@ -10,6 +10,7 @@ export interface BaseTransactionModel{
     phone_number: string;
     ticket_amount: number;
     total_price: number;
+    base_price: number;
     buy_date: string;
     pay_date: string;
     payment_method: string;

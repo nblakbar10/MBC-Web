@@ -43,9 +43,7 @@ class TransactionController extends Controller
             'transactionDiscounts' => function ($query) {
                 $query->select('ticket_discounts.id', 'ticket_discounts.name');
             },
-        ])->whereColumns($request->get('filters'))
-            ->paginate($request->get('perPage') ?? 10);
-
+        ])->get();
         return Inertia::render('Admin/Transaction/Index', [
             'transactions' => $transaction,
         ]);
@@ -123,7 +121,6 @@ class TransactionController extends Controller
                     'phone_number' => ['required', 'string', 'max:255', 'regex:(08)'],
                     'city' => ['required', 'string', 'max:255'],
                     'ticket_amount' => ['required', 'numeric', 'max:5', 'min:1'],
-                    // 'ticket_type_id' => ['required' , 'numeric'],
                     'payment_method' => 'required',
                 ]);
 
@@ -158,7 +155,6 @@ class TransactionController extends Controller
                     $totals += $ticket_type_data->price * $request->ticket_amount;
                 }
 
-                // $platform_fee = 2500 * $request->ticket_amount;
 
                 $now = new DateTime();
 
@@ -168,7 +164,6 @@ class TransactionController extends Controller
                 $get_event_data_by_id = TicketType::where('id', $request->ticketType_id)->pluck('id')->first();
                 $get_event_ticket_fees = TicketType::where('id', $request->ticketType_id)->pluck('fee')->first();
                 $get_event_name = Event::where('id', $get_event_data_by_id)->pluck('name')->first();
-                // $get_event_city = Event::where('id', $get_event_data_by_id)->pluck('city')->first();
 
                 $external_id = $get_event_name . $transaction_id;
 
@@ -225,7 +220,7 @@ class TransactionController extends Controller
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
                         'name' => $request->name,
-                        'amount' => $totals + (($totals / 100) * 2), #(int)$platform_fee,
+                        'amount' => $totals + (($totals / 100) * 2),
                         'payment_methods' => ['DANA']
                     ]);
                     $response = $data_request->object();
@@ -236,7 +231,7 @@ class TransactionController extends Controller
                         "email" => $request->email,
                         "phone_number" => $request->phone_number,
                         "ticket_amount" => $request->ticket_amount,
-                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees, #7500, #(int)$platform_fee,
+                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         "base_price" => $ticket_type_data->price * $request->ticket_amount,
                         "city" => $request->city,
                         "buy_date" => $now,
@@ -259,7 +254,7 @@ class TransactionController extends Controller
                         'email' => $request->email,
                         'jumlah_tiket' => $request->ticket_amount,
                         'jenis_tiket' => $ticket_type_data->name,
-                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees, #(int)$platform_fee,
+                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         'metode_pembayaran' => $request->payment_method,
                         'status_pembayaran' => $response->status,
                         'link' => $response->invoice_url
@@ -272,7 +267,7 @@ class TransactionController extends Controller
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
                         'name' => $request->name,
-                        'amount' => $totals + (($totals / 100) * 2) + $total_ticket_fees, #(int)$platform_fee,
+                        'amount' => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         'payment_methods' => ['QRIS']
                     ]);
                     $response = $data_request->object();
@@ -284,7 +279,7 @@ class TransactionController extends Controller
                         "phone_number" => $request->phone_number,
                         "ticket_amount" => $request->ticket_amount,
                         "base_price" => $ticket_type_data->price * $request->ticket_amount,
-                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees, #7500, # (int)$platform_fee,
+                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         "city" => $request->city,
                         "buy_date" => $now,
                         "pay_date" => '',
@@ -305,18 +300,19 @@ class TransactionController extends Controller
                         'email' => $request->email,
                         'jumlah_tiket' => $request->ticket_amount,
                         'jenis_tiket' => $ticket_type_data->name,
-                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees, #(int)$platform_fee,
+                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         'metode_pembayaran' => $request->payment_method,
                         'status_pembayaran' => $response->status,
                         'link' => $response->invoice_url
                     ];
                     Mail::to($request->email)->send(new NotifyMail($mailData));
+                }else{
+                    return response()->json(['message' => 'Transaction failed!'], 208);
                 }
                 $ticket_type_data->stock = (int)$ticket_type_data->stock - (int)$request->ticket_amount;
                 $ticket_type_data->save();
 
-                return response('', 409)
-                    ->header('X-Inertia-Location', $response->invoice_url);
+                return response()->json(['message' => 'Transaction Success!'], 200);
             }
         );
     }
@@ -420,6 +416,47 @@ class TransactionController extends Controller
                 'stock' => $restore_stocks
             ]);
         }
+    }
+
+    public function getTransactionBetweenDatesGroupByDay(Request $request)
+    {
+        $start_date = $request->get('start_date') ?? Carbon::now()->subDays(11)->format('Y-m-d');
+        $end_date = $request->get('end_date') ?? Carbon::now()->format('Y-m-d');
+
+        // TODO : Make IGNORE not paid transaction
+
+        $transaction_count = Transaction::whereBetween('pay_date', [$start_date, $end_date])
+            ->selectRaw('DATE(pay_date) as date, count(*) as count')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        $transaction_total = Transaction::whereBetween('pay_date', [$start_date, $end_date])
+            ->selectRaw('DATE(pay_date) as date, sum(total_price) as total')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        $ticket_total = Transaction::whereBetween('pay_date', [$start_date, $end_date])
+            ->selectRaw('DATE(pay_date) as date, sum(ticket_amount) as total')
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get();
+
+        return response()->json([
+            'transaction_count' => [
+                'labels' => $transaction_count->pluck('date'),
+                'data' => $transaction_count->pluck('count'),
+            ],
+            'transaction_total' => [
+                'labels' => $transaction_total->pluck('date'),
+                'data' => $transaction_total->pluck('total'),
+            ],
+            'ticket_total' => [
+                'labels' => $ticket_total->pluck('date'),
+                'data' => $ticket_total->pluck('total'),
+            ],
+        ]);
     }
 
     public function getTransactionByTicketTypeBetweenDatesGroupByDay(Request $request)

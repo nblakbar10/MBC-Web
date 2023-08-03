@@ -16,7 +16,7 @@ class RedeemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         //
         $redeemHistories = RedeemHistory::with([
@@ -29,8 +29,7 @@ class RedeemController extends Controller
             'transaction.ticketType' => function ($query) {
                 $query->select('id', 'name');
             },
-        ])->whereColumns($request->get('filters'))
-            ->paginate($request->get('perPage') ?? 10);
+        ])->get();
         return Inertia::render('Admin/Redeem/RedeemHistory', [
             'redeemHistories' => $redeemHistories,
         ]);
@@ -135,7 +134,7 @@ class RedeemController extends Controller
                         ]
                     ], 200);
                 } else if (((int)$check->redeem_amount + (int)$request->redeemed_amount) == $check->total_tickets) {
-                    return response()->json(['message' => 'Error12! All tickets has already reedemed'], 208);
+                    return response()->json(['message' => 'Error! All tickets has already reedemed'], 208);
                 } else if ($request->redeemed_amount > $check->total_tickets) {
                     return response()->json(['message' => 'Error! Redeem request was out of total purchased tickets'], 208);
                 }

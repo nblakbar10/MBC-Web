@@ -92,7 +92,7 @@ const totalTicketCount = (transactions: Array<TransactionModel>) => {
 
 const totalIncome = (transactions: Array<TransactionModel>) => {
     if (transactions.length === 0) return 0;
-    return transactions.map(transaction => transaction.total_price).reduce((prev, next) => prev + next);
+    return transactions.map(transaction => transaction.base_price).reduce((prev, next) => prev + next);
 }
 
 export default function Show({ event, transactions }: Props) {
@@ -105,35 +105,15 @@ export default function Show({ event, transactions }: Props) {
 
     const expiredTransaction = transactions.filter(transaction => transaction.payment_status === 'EXPIRED');
 
-    const [netTransaction, setNetTransaction] = React.useState<Array<TransactionModel>>([]);
-
-
-    useEffect(() => {
-        setNetTransaction(
-            paidTransaction.map((transaction) => {
-                if (transaction.payment_method === 'Transfer Bank (VA)') {
-                    transaction.total_price -= 4500;
-                } else if (transaction.payment_method === 'DANA') {
-                    transaction.total_price -= Math.round(((transaction.total_price - (transaction.ticket_amount * (transaction.ticket_type?.fee || 1))) * 0.02) / 1000) * 1000;
-                } else if (transaction.payment_method === 'QRIS') {
-                    transaction.total_price -= Math.round(((transaction.total_price - (transaction.ticket_amount * (transaction.ticket_type?.fee || 1))) * 0.01) / 1000) * 1000;
-                }
-                return transaction;
-            })
-        )
-    }, [
-        transactions
-    ]);
-
-    const Dana = netTransaction.filter(
+    const Dana = paidTransaction.filter(
         (transaction) => transaction.payment_method === 'DANA'
     );
 
-    const TransferVABank = netTransaction.filter(
+    const TransferVABank = paidTransaction.filter(
         (transaction) => transaction.payment_method === 'Transfer Bank (VA)'
     );
 
-    const QRIS = netTransaction.filter(
+    const QRIS = paidTransaction.filter(
         (transaction) => transaction.payment_method === 'QRIS'
     );
 
@@ -399,7 +379,7 @@ export default function Show({ event, transactions }: Props) {
                                                         <div className="text-2xl font-extrabold">
                                                             <div className="stat-value">{Dana.length} Pembelian</div>
                                                             <div className="stat-value">{totalIncome(Dana).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>
-                                                            <div className="stat-value">{totalTicketCount(Dana)} Tiket</div>
+                                                            <div className="stat-value">{totalTicketCount(  Dana)} Tiket</div>
                                                         </div>
                                                     </div>
                                                     <div className='h-8'>
