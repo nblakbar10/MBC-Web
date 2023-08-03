@@ -142,7 +142,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                             <InputError className="mt-2" message={form.errors["name"]} />
                         </div>
                         <div className="form-control w-full mt-4">
-                            <InputLabel htmlFor="email">Email</InputLabel>
+                            <InputLabel htmlFor="email">Email (Aktif)</InputLabel>
                             <TextInput
                                 id="email"
                                 type="email"

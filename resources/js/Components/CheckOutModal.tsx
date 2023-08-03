@@ -42,6 +42,12 @@ function onSuccessModal({ open, closeHandler, response }: Props) {
             <div className="text-md from-neutral-500 my-10">
                 Silahkan Cek Email Anda Untuk Melakukan Pembayaran
             </div>
+            <div className="text-md from-neutral-500 my-5">
+                Catatan :Transaksi Hanya Dapat Dilakukan Dengan Email Aktif.
+            </div>
+            <div className="text-md from-neutral-500 ">
+                Silahkan Mengisi Kembali Form Pembayaran Apabila Tidak Mendapat Link Pembayaran.
+            </div>
             <div className="flex flex-col md:flex-row gap-3 justify-around">
                 <button
                     className="bg-[#2EA1DA] hover:bg-blue-500 text-xl text-white font-bold py-3 px-7 rounded-lg"
