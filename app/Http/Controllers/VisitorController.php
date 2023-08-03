@@ -14,8 +14,7 @@ use Inertia\Inertia;
 class VisitorController extends Controller{
 
     public function home(){
-        $events = Event::all()->sortByDesc('created_at')->take(8)->toArray();
-        // dd($events);
+        $events = Event::all()->sortByDesc('created_at')->take(8)->all();
         return Inertia::render('Visitor/Home', [
             'events' => $events,
         ]);
