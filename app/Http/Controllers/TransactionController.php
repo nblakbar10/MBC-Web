@@ -120,7 +120,7 @@ class TransactionController extends Controller
                     'email' => ['required', 'email'],
                     'phone_number' => ['required', 'string', 'max:255', 'regex:(08)'],
                     'city' => ['required', 'string', 'max:255'],
-                    'ticket_amount' => ['required', 'numeric', 'max:5', 'min:1'],
+                    'ticket_amount' => ['required', 'numeric', 'min:1'],
                     'payment_method' => 'required',
                 ]);
 

@@ -69,6 +69,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
             })
             .catch(error => {
                 console.log(error.response.data.errors);
+                form.setError(error.response.data.errors);
             })
 
         // form.post(route('transaction.store'), {
@@ -187,6 +188,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                 getOptionLabel={option => option.name}
                                 options={citiesProvince}
                             />
+                            <InputError className="mt-2" message={form.errors["city"]} />
                         </div>
                         <div className="form-control w-full mt-4">
                             <InputLabel htmlFor="ticket_amount">Jumlah Tiket</InputLabel>
