@@ -37,10 +37,10 @@ function onSuccessModal({ open, closeHandler, response }: Props) {
                 />
             </div>
             <div className="text-justify mr-4 ml-4">
-                <div className="text-xl font-bold">
+                <div className="text-xl text-center font-bold">
                     Konfirmasi Email Transaksi Anda
                 </div>
-                <div className="text-md from-neutral-500 my-5">
+                <div className="text-md text-center from-neutral-500 my-5">
                     Silahkan Cek Email Anda Untuk Melakukan Pembayaran
                 </div>
                 <div className="text-sm from-neutral-500">
