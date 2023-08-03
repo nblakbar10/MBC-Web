@@ -46,7 +46,7 @@ function onSuccessModal({ open, closeHandler, response }: Props) {
                 Catatan :Transaksi Hanya Dapat Dilakukan Dengan Email Aktif.
             </div>
             <div className="text-md from-neutral-500 ">
-                Silahkan Mengisi Kembali Form Pembayaran Apabila Tidak Mendapat Link Pembayaran.
+                Silahkan Mengisi Kembali Form Pembayaran, Apabila Tidak Mendapat Link Pembayaran.
             </div>
             <div className="flex flex-col md:flex-row gap-3 justify-around">
                 <button
