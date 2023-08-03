@@ -1,7 +1,6 @@
 import AppLayout from "@/Layouts/AppLayout";
 import React from "react";
 import Carousel from 'react-material-ui-carousel'
-import ZoomableImage from "@/Components/ZoomableImage";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import route from "ziggy-js";
 import { EventModel } from "@/Models/Event";
