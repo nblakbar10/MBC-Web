@@ -48,7 +48,7 @@ function onSuccessModal({ open, closeHandler, response }: Props) {
                         Catatan :Transaksi Hanya Dapat Dilakukan Dengan Email Aktif.
                     </div>
                     <div className="text-xs from-neutral-500 ">
-                        Apabila Tidak Mendapat Link Pembayaran, Silahkan Mengisi Kembali Form Pembayaran Anda dan Mengecek <span className="font bold">Spam</span> Atau <span className="font bold">Sampah Email</span>Jika Email Yang Dimasukkan Dirasa Benar.
+                        Apabila Tidak Mendapat Link Pembayaran, Silahkan Mengisi Kembali Form Pembayaran Anda dan Mengecek <span className="font-bold">Spam</span> Atau <span className="font-bold">Sampah Email</span>Jika Email Yang Dimasukkan Dirasa Benar.
                     </div>
                 </div>
             </div>
