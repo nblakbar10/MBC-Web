@@ -7,13 +7,14 @@ import { EventModel } from "@/Models/Event";
 import { asset } from "@/Models/Helper";
 
 interface Props {
-    events: EventModel[];
+    events: {
+        "string" : EventModel
+    };
 }
 
 export default function Home(props: Props) {
-    const events = props.events;
-    console.log(events);
-    console.log(events.length);
+    // @ts-ignore
+    const events = Array.from(props.events);
     return (
         <AppLayout>
             <div className="flex flex-col gap-3 max-w-full h-auto mb-auto">
