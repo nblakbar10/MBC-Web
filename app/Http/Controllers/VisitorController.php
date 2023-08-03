@@ -15,6 +15,7 @@ class VisitorController extends Controller{
 
     public function home(){
         $events = Event::all()->sortByDesc('created_at')->take(8);
+        dd($events);
         return Inertia::render('Visitor/Home', [
             'events' => $events,
         ]);
