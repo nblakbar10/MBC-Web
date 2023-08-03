@@ -15,6 +15,8 @@ interface Props {
 export default function Home(props: Props) {
     // @ts-ignore
     const events = Array.from(props.events);
+    console.log(events);
+    console.log(events.length);
     return (
         <AppLayout>
             <div className="flex flex-col gap-3 max-w-full h-auto mb-auto">
