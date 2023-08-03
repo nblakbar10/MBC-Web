@@ -66,7 +66,7 @@ function onFailedModal({ open, closeHandler, response }: Props) {
             <div className="flex justify-center my-5">
                 <img
                     className="rounded-full w-3/5"
-                    src={asset('root', 'assets/images/checkout-icon.jpg')}
+                    src={asset('root', 'assets/images/checkout-failed-icon')}
                     alt="check"
                 />
             </div>
