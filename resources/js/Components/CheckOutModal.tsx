@@ -43,11 +43,13 @@ function onSuccessModal({ open, closeHandler, response }: Props) {
                 <div className="text-md text-center from-neutral-500 my-5">
                     Silahkan Cek Email Anda Untuk Melakukan Pembayaran
                 </div>
-                <div className="text-xs from-neutral-500">
-                    Catatan :Transaksi Hanya Dapat Dilakukan Dengan Email Aktif.
-                </div>
-                <div className="text-xs from-neutral-500 ">
-                    Apabila Tidak Mendapat Link Pembayaran, Silahkan Mengisi Kembali Form Pembayaran Anda dan Mengecek Spam Atau Sampah Email Jika Email Yang Dimasukkan Dirasa Benar.
+                <div className="text-justify mr-4 ml-4">
+                    <div className="text-xs from-neutral-500">
+                        Catatan :Transaksi Hanya Dapat Dilakukan Dengan Email Aktif.
+                    </div>
+                    <div className="text-xs from-neutral-500 ">
+                        Apabila Tidak Mendapat Link Pembayaran, Silahkan Mengisi Kembali Form Pembayaran Anda dan Mengecek Spam Atau Sampah Email Jika Email Yang Dimasukkan Dirasa Benar.
+                    </div>
                 </div>
             </div>
             <div className="flex flex-col md:flex-row gap-3 justify-around">
