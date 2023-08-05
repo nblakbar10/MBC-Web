@@ -14,8 +14,8 @@ class DashboardController extends Controller
     //
     public function index(Request $request)
     {
-        $totalTicket = Transaction::where('payment_status', 'PAID')->count();
-        $totalPrice = Transaction::where('payment_status', 'PAID')->sum('total_price');
+        $totalTicket = Transaction::where('payment_status', 'PAID')->get()->count();
+        $totalPrice = Transaction::where('payment_status', 'PAID')->get()->sum('total_price');
         $totalUser = User::count();
         $totalEvent = Event::count();
         $latestUserActivities = UserActivity::with([
@@ -23,7 +23,7 @@ class DashboardController extends Controller
                 $query->select('id', 'name', 'email');
             }
         ])->orderBy('created_at', 'desc')->limit(5)->get();
-        $transactionCount = Transaction::where('payment_status', 'PAID')->count();
+        $transactionCount = Transaction::where('payment_status', 'PAID')->get()->count();
         return Inertia::render('Admin/Dashboard', [
             'totalTicket' => $totalTicket,
             'totalPrice' => intval($totalPrice),
