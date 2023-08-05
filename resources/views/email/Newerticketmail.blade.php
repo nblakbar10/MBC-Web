@@ -430,7 +430,7 @@
         <tr>
           <td class="bg_white logo"
             style="padding: 1em 2.5em; text-align: center; background-color: #262626;">
-            <img src="https://loketmbc.com/assets/images/MBC_HD.png"
+            <img src="https://loketmbc.com/assets/images/MBC_HD.jpg"
               style="width: 10rem; height: 3.5rem; margin-left: 0.75rem;margin-right: 0.75rem;" />
           </td>
         </tr><!-- end tr -->

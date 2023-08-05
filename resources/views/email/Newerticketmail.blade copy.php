@@ -415,7 +415,7 @@
         <tr>
           <td class="bg_white logo"
             style="padding: 1em 2.5em; text-align: center; background-color: rgba(100, 100, 100, .5);">
-            <img src="https://loketmbc.com/assets/images/MBC_HD.png"
+            <img src="https://loketmbc.com/assets/images/MBC_HD.jpg"
               style="width: 10rem; height: 3.5rem; margin-left: 0.75rem;margin-right: 0.75rem;" />
           </td>
         </tr><!-- end tr -->
@@ -505,7 +505,7 @@
             <br><br><br><br><br>
             <div class="div-lima">
               <!-- nanti gambar barcodenya ditaro disini ya , ganti aja tag SVGnya-->
-              <img src="http://loketmbc.com/storage/barcode_ticket/2202367943223.jpg" height="70" 
+              <img src="http://loketmbc.com/storage/barcode_ticket/2202367943223.jpg" height="70"
                           style="padding: 1em 2.5em; text-align: center;"/>
             </div>
             <div class="div-lima text">

@@ -50,7 +50,7 @@ export default function AppLayout({ children, title }: Props) {
                                 className="text-white text-2xl font-bold"
                             >
                                 <img
-                                    src={asset('root', 'assets/images/MBC_HD.png')}
+                                    src={asset('root', 'assets/images/MBC_HD.jpg')}
                                     alt="Logo"
                                     width={200}
                                 />
