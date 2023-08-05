@@ -360,14 +360,6 @@ export default function Show({ event, transactions }: Props) {
                                                 </div>
                                             </div>
                                             <div className='h-8'>
-                                                {/* <InertiaLink href={route("transaction.index")}> */}
-                                                <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                    More Info
-                                                    <span className="text-black border-black ">
-                                                        <ArrowForwardIcon />
-                                                    </span>
-                                                </p>
-                                                {/* </InertiaLink > */}
                                             </div>
                                         </div>
                                     </div>
