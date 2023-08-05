@@ -118,7 +118,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                 <div className="border-[#262626] border-2">
                     <div className="flex justify-center bg-[#262626] py-3 px-5">
                         <img
-                            src={asset('root', 'assets/images/MBC_HD.png')}
+                            src={asset('root', 'assets/images/MBC_HD.jpg')}
                             alt="Logo"
                             width={200}
                         />

@@ -25,7 +25,7 @@ export default function AppLayout({ children, title }: Props) {
                             {/* <!-- logo --> */}
                             <div className="flex items-center justify-center">
                                 <img
-                                    src={asset('root', 'assets/images/MBC_HD.png')}
+                                    src={asset('root', 'assets/images/MBC_HD.jpg')}
                                     alt="Logo"
                                     width={200}
                                 />

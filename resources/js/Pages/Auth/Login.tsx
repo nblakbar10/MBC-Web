@@ -32,7 +32,7 @@ export default function Login() {
       <Head title="login" />
       <div className="flex justify-center">
         <div className="flex h-full items-center justify-center text-neutral-800 dark:text-neutral-200">
-          <div className=" rounded-lg bg-white shadow-lg dark:bg-neutral-800">
+          <div className=" rounded-lg bg-white shadow-lg dark:bg-[#262626]">
             <div className="p-5 md:mx-6 md:p-12">
               <img className="mx-auto w-48"
                 src={asset('root', 'assets/images/MBC_HD.png')}

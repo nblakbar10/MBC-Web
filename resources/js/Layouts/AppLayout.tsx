@@ -96,7 +96,7 @@ export default function AppLayout({ children, title }: Props) {
                     <div className="container flex justify-center m-auto p-3 mt-8 mb-5">
                         <div className="object-cover object-center rounded-xl ">
                             <img
-                                src={asset('root', 'assets/images/MBC_HD.png')}
+                                src={asset('root', 'assets/images/MBC_HD(1).png')}
                                 className="justify-center"
                                 width={200}
                             />
