@@ -24,7 +24,6 @@ class DashboardController extends Controller
             }
         ])->orderBy('created_at', 'desc')->limit(5)->get();
         $transactionCount = Transaction::where('payment_status', 'success')->count();
-        dd(Transaction::all());
         return Inertia::render('Admin/Dashboard', [
             'totalTicket' => $totalTicket,
             'totalPrice' => intval($totalPrice),
