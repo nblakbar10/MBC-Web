@@ -127,13 +127,14 @@ class TransactionController extends Controller
                 $check_user_ticket_limit = Transaction::where(['phone_number' => $request->phone_number, 'email' => $request->email])->pluck('ticket_amount');
                 $data = array_sum($check_user_ticket_limit->toArray());
                 $maximum_ticket = $data + $request->ticket_amount;
+                // $ticket_buy_limit = TicketType::where('id', $request->ticketType_id)->
 
                 $ticket_type_data = TicketType::find($request->ticketType_id);
                 if ((int)$request->ticket_amount > (int)$ticket_type_data->stock) {
                     throw ValidationException::withMessages(['Tiket yang tersedia tidak cukup dengan jumlah yang ingin anda beli']);
                 }
-                if ($maximum_ticket > 5) {
-                    throw ValidationException::withMessages(['Sisa Tiket yang dapat anda beli hanya sebanyak ' . (5 - $data) . ' Tiket lagi!']);
+                if ($maximum_ticket > $ticket_type_data->maximum_buy) { #default value: 5, but now as maximum from tables
+                    throw ValidationException::withMessages(['Sisa Tiket yang dapat anda beli hanya sebanyak ' . ($ticket_type_data->maximum_buy - $data) . ' Tiket lagi!']);
                 }
 
                 //count all total transactions (include discount)
