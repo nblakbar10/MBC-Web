@@ -90,14 +90,20 @@ export default function DashboardAdminLayout({
                         </>
                     )
                 }
+                <li className='border-t-2'>
+                    <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
+                        <span>Fitur Sistem</span>
+                    </div>
+                </li>
+                <li>
+                    <ResponsiveNavLink href={route('redeem.create')} active={route().current('redeem.create')}>
+                        Redeem Tiket
+                    </ResponsiveNavLink>
+                </li>
                 {
                     (page.props.user.roles[0].name == 'super-admin' || page.props.user.roles[0].name == 'admin') && (
                         <>
-                            <li className='border-t-2'>
-                                <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
-                                    <span>Fitur Sistem</span>
-                                </div>
-                            </li>
+
                             <li>
                                 <ResponsiveNavLink href={route('event.index')} active={route().current('event.index')}>
                                     Event
@@ -113,11 +119,7 @@ export default function DashboardAdminLayout({
                                     Diskon Tiket
                                 </ResponsiveNavLink>
                             </li>
-                            <li>
-                                <ResponsiveNavLink href={route('redeem.create')} active={route().current('redeem.create')}>
-                                    Redeem Tiket
-                                </ResponsiveNavLink>
-                            </li>
+                            
                         </>
                     )
                 }
