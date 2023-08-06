@@ -31,7 +31,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
         email: '',
         city: '',
         phone_number: '',
-        ticket_amount: 1,
+        ticket_amount: 0,
         payment_method: 'Transfer Bank (VA)',
         ticketType_id: ticketType?.id,
         total_price: 0,
@@ -39,8 +39,6 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
 
 
     const [filteredDiscount, setFilteredDiscount] = React.useState<TicketDiscountModel>();
-
-    const maxBuy = Math.min(ticketType?.maximum_buy || 0, ticketType?.stock || 0)
     useEffect(() => {
         // form.setData('total_price', ((ticketType?.price || 0) * form.data.ticket_amount) + adminFee!);
         form.setData('total_price', ((ticketType?.price || 0) * form.data.ticket_amount));
@@ -71,7 +69,6 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
             })
             .catch(error => {
                 console.log(error.response.data.errors);
-                form.setError(error.response.data.errors);
             })
 
         // form.post(route('transaction.store'), {
@@ -190,7 +187,6 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                 getOptionLabel={option => option.name}
                                 options={citiesProvince}
                             />
-                            <InputError className="mt-2" message={form.errors["city"]} />
                         </div>
                         <div className="form-control w-full mt-4">
                             <InputLabel htmlFor="ticket_amount">Jumlah Tiket</InputLabel>
@@ -199,15 +195,16 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
                                 type="number"
                                 className="mt-1 block w-full"
                                 min={1}
-                                max={maxBuy}
+                                max={5}
                                 step={1}
                                 value={form.data.ticket_amount}
                                 onChange={e => {
-                                    const value = parseInt(e.currentTarget.value);
+                                    e.currentTarget.value = e.currentTarget.value.replace('0', '');
+                                    const value = parseInt(e.currentTarget.value.length > 1 ? e.currentTarget.value[1] : e.currentTarget.value);
                                     if (isNaN(value)) {
                                         form.setData('ticket_amount', 1);
-                                    } else if (value > maxBuy) {
-                                        form.setData('ticket_amount', maxBuy);
+                                    } else if (value > 5) {
+                                        form.setData('ticket_amount', 5);
                                     } else if (value < 1) {
                                         form.setData('ticket_amount', 1);
                                     } else {

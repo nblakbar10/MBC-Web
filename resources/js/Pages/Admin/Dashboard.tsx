@@ -72,7 +72,7 @@ export default function Dashboard({
     }, [dateTicketTypeFilterForm.data.start, dateTicketTypeFilterForm.data.end]);
 
     console.log(transactionData);
-    
+
     return (
         <DashboardAdminLayout
             title="Dashboard"
@@ -93,9 +93,9 @@ export default function Dashboard({
                                 <div className='h-8'>
                                     {/* <InertiaLink href={route("transaction.index")}> */}
                                     <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                        More Info
+
                                         <span className="text-black border-black ">
-                                            <ArrowForwardIcon />
+
                                         </span>
                                     </p>
                                     {/* </InertiaLink > */}
@@ -110,14 +110,7 @@ export default function Dashboard({
                                     </div>
                                 </div>
                                 <div className='h-8'>
-                                    {/* <InertiaLink href={route("transaction.index")}> */}
-                                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                        More Info
-                                        <span className="text-black border-black">
-                                            <ArrowForwardIcon />
-                                        </span>
-                                    </p>
-                                    {/* </InertiaLink > */}
+
                                 </div>
                             </div>
                         </div>
@@ -130,33 +123,18 @@ export default function Dashboard({
                                     </div>
                                 </div>
                                 <div className='h-8'>
-                                    {/* <InertiaLink href={route("transaction.index")}> */}
-                                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                        More Info
-                                        <span className="text-black border-black">
-                                            <ArrowForwardIcon />
-                                        </span>
-                                    </p>
-                                    {/* </InertiaLink > */}
+
                                 </div>
                             </div>
                             <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
                                 <div className='basis-4/5 bg-[#E05E36] px-10 py-5 rounded-t-lg text-center'>
-                                    <div className="text-lg font-semibold mb-2">Total Penjualan yang Terjual </div>
+                                    <div className="text-lg font-semibold mb-2">Total Transaksi Tiket yang Terjual </div>
                                     <div className="text-2xl font-extrabold">
                                         <div className="">{totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</div>
 
                                     </div>
                                 </div>
                                 <div className='h-8'>
-                                    {/* <InertiaLink href={route("transaction.index")}> */}
-                                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                        More Info
-                                        <span className="text-black border-black">
-                                            <ArrowForwardIcon />
-                                        </span>
-                                    </p>
-                                    {/* </InertiaLink > */}
                                 </div>
                             </div>
                             <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
@@ -167,14 +145,7 @@ export default function Dashboard({
                                     </div>
                                 </div>
                                 <div className='h-8'>
-                                    {/* <InertiaLink href={route("transaction.index")}> */}
-                                    <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                        More Info
-                                        <span className="text-black border-black">
-                                            <ArrowForwardIcon />
-                                        </span>
-                                    </p>
-                                    {/* </InertiaLink > */}
+
                                 </div>
                             </div>
                         </div>

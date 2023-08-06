@@ -97,7 +97,7 @@
     <div class="div-satu">
         <div class="div-dua">
             <div class="div-tiga">
-                <img src="https://loketmbc.com/assets/images/MBC_HD.png"
+                <img src="https://loketmbc.com/assets/images/MBC_HD.jpg"
                     style="width: 10rem; height: 3.5rem; margin-left: 0.75rem;margin-right: 0.75rem;" />
             </div>
 

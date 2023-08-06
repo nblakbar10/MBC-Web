@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Role;
@@ -65,6 +65,12 @@ class UserController extends Controller
             foreach ($validated['roles'] as $role) {
                 $user->assignRole($role['id']);
             }
+
+            UserActivity::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Create User ' . $user->name . ' with role ' . $user->roles->implode('name', ', '),
+            ]);
+
             return redirect()->route('user.index')->banner('New User Created Successfully');
         });
     }
@@ -133,6 +139,12 @@ class UserController extends Controller
             }
             $user->syncRoles($validated['roles']??[]);
             $user->save();
+
+            UserActivity::create([
+                'user_id' => auth()->user()->id,
+                'activity' => 'Update User ' . $user->name . ' with role ' . $user->roles->implode('name', ', '),
+            ]);
+
             return redirect()->route('user.show',$id)->banner('User Updated Successfully');
         });
     }
@@ -148,6 +160,12 @@ class UserController extends Controller
         //
         $user = User::findOrFail($id);
         $user->delete();
+
+        UserActivity::create([
+            'user_id' => auth()->user()->id,
+            'activity' => 'Delete User ' . $user->name . ' with role ' . $user->roles->implode('name', ', '),
+        ]);
+        
         return redirect()->route('user.index')->banner('User Deleted Successfully');
     }
 }

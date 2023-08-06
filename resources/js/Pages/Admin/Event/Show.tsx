@@ -360,14 +360,6 @@ export default function Show({ event, transactions }: Props) {
                                                 </div>
                                             </div>
                                             <div className='h-8'>
-                                                {/* <InertiaLink href={route("transaction.index")}> */}
-                                                <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                    More Info
-                                                    <span className="text-black border-black ">
-                                                        <ArrowForwardIcon />
-                                                    </span>
-                                                </p>
-                                                {/* </InertiaLink > */}
                                             </div>
                                         </div>
                                     </div>
@@ -383,14 +375,6 @@ export default function Show({ event, transactions }: Props) {
                                                         </div>
                                                     </div>
                                                     <div className='h-8'>
-                                                        {/* <InertiaLink href={route("transaction.index")}> */}
-                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                            More Info
-                                                            <span className="text-black border-black">
-                                                                <ArrowForwardIcon />
-                                                            </span>
-                                                        </p>
-                                                        {/* </InertiaLink > */}
                                                     </div>
                                                 </div>
 
@@ -404,14 +388,6 @@ export default function Show({ event, transactions }: Props) {
                                                         </div>
                                                     </div>
                                                     <div className='h-8'>
-                                                        {/* <InertiaLink href={route("transaction.index")}> */}
-                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                            More Info
-                                                            <span className="text-black border-black">
-                                                                <ArrowForwardIcon />
-                                                            </span>
-                                                        </p>
-                                                        {/* </InertiaLink > */}
                                                     </div>
                                                 </div>
                                                 <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
@@ -424,14 +400,6 @@ export default function Show({ event, transactions }: Props) {
                                                         </div>
                                                     </div>
                                                     <div className='h-8'>
-                                                        {/* <InertiaLink href={route("transaction.index")}> */}
-                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                            More Info
-                                                            <span className="text-black border-black">
-                                                                <ArrowForwardIcon />
-                                                            </span>
-                                                        </p>
-                                                        {/* </InertiaLink > */}
                                                     </div>
                                                 </div>
                                                 <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
@@ -443,14 +411,6 @@ export default function Show({ event, transactions }: Props) {
                                                         </div>
                                                     </div>
                                                     <div className='h-8'>
-                                                        {/* <InertiaLink href={route("transaction.index")}> */}
-                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                            More Info
-                                                            <span className="text-black border-black">
-                                                                <ArrowForwardIcon />
-                                                            </span>
-                                                        </p>
-                                                        {/* </InertiaLink > */}
                                                     </div>
                                                 </div>
                                                 <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
@@ -462,14 +422,6 @@ export default function Show({ event, transactions }: Props) {
                                                         </div>
                                                     </div>
                                                     <div className='h-8'>
-                                                        {/* <InertiaLink href={route("transaction.index")}> */}
-                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                            More Info
-                                                            <span className="text-black border-black">
-                                                                <ArrowForwardIcon />
-                                                            </span>
-                                                        </p>
-                                                        {/* </InertiaLink > */}
                                                     </div>
                                                 </div>
                                                 <div className="rounded-lg flex-col shadow-sm shadow-neutral-700 flex-1 border-neutral-400 text-white">
@@ -481,14 +433,6 @@ export default function Show({ event, transactions }: Props) {
                                                         </div>
                                                     </div>
                                                     <div className='h-8'>
-                                                        {/* <InertiaLink href={route("transaction.index")}> */}
-                                                        <p className="text-lg font-semibold text-dark-100 text-center text-[#000000]">
-                                                            More Info
-                                                            <span className="text-black border-black">
-                                                                <ArrowForwardIcon />
-                                                            </span>
-                                                        </p>
-                                                        {/* </InertiaLink > */}
                                                     </div>
                                                 {/* <= graph area => */}
                                                 {/* <div className="max-w-7xl mx-auto sm:px-6 md:px-6 lg:px-6 py-12">

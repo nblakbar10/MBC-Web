@@ -9,6 +9,7 @@ import { EventModel } from "@/Models/Event";
 import { TicketTypeModel } from "@/Models/TicketType";
 import parse from 'html-react-parser';
 import ZoomableImage from "@/Components/ZoomableImage";
+import { AxiosResponse } from "axios";
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -48,7 +49,6 @@ interface Props {
 }
 
 export default function Home({ event }: Props) {
-    console.log(event);
     const [openForm, setOpenForm] = useState(false);
     // const handleOpenForm = () => setOpenForm(true);
     // const handleCloseForm = () => setOpenForm(false);
@@ -57,7 +57,7 @@ export default function Home({ event }: Props) {
     const handleOpenCheckOut = () => setOpenCheckOut(true);
     const handleCloseCheckOut = () => setOpenCheckOut(false);
 
-    const [xenditLink, setXenditLink] = useState<string>("");
+    const [reponseBuy, setResponseBuy] = useState<AxiosResponse>({} as AxiosResponse);
 
     const [selectedTicketType, setSelectedTicketType] = useState<TicketTypeModel | null>(null);
 
@@ -188,7 +188,7 @@ export default function Home({ event }: Props) {
                 open={openForm}
                 closeHandler={removeSelectedPromo}
                 checkOutOpenHandler={handleOpenCheckOut}
-                setXenditLinkHandler={setXenditLink}
+                setResponseBuyHandler={setResponseBuy}
                 adminFee={selectedTicketType ? selectedTicketType.fee : 0}
                 ticketType={selectedTicketType}
                 discounts={
@@ -196,7 +196,7 @@ export default function Home({ event }: Props) {
                         ? selectedTicketType.ticket_discounts : []
                 }
             />
-            <CheckOutModal open={openCheckOut} closeHandler={handleCloseCheckOut} xenditLink={xenditLink} />
+            <CheckOutModal open={openCheckOut} closeHandler={handleCloseCheckOut} response={reponseBuy} />
         </AppLayout>
     )
 }

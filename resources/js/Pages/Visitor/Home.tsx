@@ -1,19 +1,19 @@
 import AppLayout from "@/Layouts/AppLayout";
 import React from "react";
 import Carousel from 'react-material-ui-carousel'
-import ZoomableImage from "@/Components/ZoomableImage";
 import { InertiaLink } from "@inertiajs/inertia-react";
 import route from "ziggy-js";
 import { EventModel } from "@/Models/Event";
 import { asset } from "@/Models/Helper";
 
 interface Props {
-    events: EventModel[];
+    events: {
+        "string" : EventModel
+    };
 }
 
 export default function Home(props: Props) {
-    const events = props.events;
-    console.log(events);
+    const events = Object.values(props.events);
     return (
         <AppLayout>
             <div className="flex flex-col gap-3 max-w-full h-auto mb-auto">
@@ -63,7 +63,6 @@ export default function Home(props: Props) {
                                 {
                                     events.length > 0 ? (
                                         events.map((item, i) => {
-                                            console.log(item);
                                             return (
                                                 <div className=" rounded-2xl" key={i}>
                                                     <InertiaLink href={route('visitor.event-detail', item.id)}>

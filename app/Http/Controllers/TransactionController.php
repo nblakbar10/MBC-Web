@@ -120,21 +120,21 @@ class TransactionController extends Controller
                     'email' => ['required', 'email'],
                     'phone_number' => ['required', 'string', 'max:255', 'regex:(08)'],
                     'city' => ['required', 'string', 'max:255'],
-                    'ticket_amount' => ['required', 'numeric', 'max:5', 'min:1'],
-                    // 'ticket_type_id' => ['required' , 'numeric'],
+                    'ticket_amount' => ['required', 'numeric', 'min:1'],
                     'payment_method' => 'required',
                 ]);
 
                 $check_user_ticket_limit = Transaction::where(['phone_number' => $request->phone_number, 'email' => $request->email])->pluck('ticket_amount');
                 $data = array_sum($check_user_ticket_limit->toArray());
                 $maximum_ticket = $data + $request->ticket_amount;
+                // $ticket_buy_limit = TicketType::where('id', $request->ticketType_id)->
 
                 $ticket_type_data = TicketType::find($request->ticketType_id);
                 if ((int)$request->ticket_amount > (int)$ticket_type_data->stock) {
                     throw ValidationException::withMessages(['Tiket yang tersedia tidak cukup dengan jumlah yang ingin anda beli']);
                 }
-                if ($maximum_ticket > 5) {
-                    throw ValidationException::withMessages(['Sisa Tiket yang dapat anda beli hanya sebanyak ' . (5 - $data) . ' Tiket lagi!']);
+                if ($maximum_ticket > $ticket_type_data->maximum_buy) { #default value: 5, but now as maximum from tables
+                    throw ValidationException::withMessages(['Sisa Tiket yang dapat anda beli hanya sebanyak ' . ($ticket_type_data->maximum_buy - $data) . ' Tiket lagi!']);
                 }
 
                 //count all total transactions (include discount)
@@ -156,7 +156,6 @@ class TransactionController extends Controller
                     $totals += $ticket_type_data->price * $request->ticket_amount;
                 }
 
-                // $platform_fee = 2500 * $request->ticket_amount;
 
                 $now = new DateTime();
 
@@ -166,7 +165,6 @@ class TransactionController extends Controller
                 $get_event_data_by_id = TicketType::where('id', $request->ticketType_id)->pluck('id')->first();
                 $get_event_ticket_fees = TicketType::where('id', $request->ticketType_id)->pluck('fee')->first();
                 $get_event_name = Event::where('id', $get_event_data_by_id)->pluck('name')->first();
-                // $get_event_city = Event::where('id', $get_event_data_by_id)->pluck('city')->first();
 
                 $external_id = $get_event_name . $transaction_id;
 
@@ -223,7 +221,7 @@ class TransactionController extends Controller
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
                         'name' => $request->name,
-                        'amount' => $totals + (($totals / 100) * 2), #(int)$platform_fee,
+                        'amount' => $totals + (($totals / 100) * 2),
                         'payment_methods' => ['DANA']
                     ]);
                     $response = $data_request->object();
@@ -234,7 +232,7 @@ class TransactionController extends Controller
                         "email" => $request->email,
                         "phone_number" => $request->phone_number,
                         "ticket_amount" => $request->ticket_amount,
-                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees, #7500, #(int)$platform_fee,
+                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         "base_price" => $ticket_type_data->price * $request->ticket_amount,
                         "city" => $request->city,
                         "buy_date" => $now,
@@ -257,7 +255,7 @@ class TransactionController extends Controller
                         'email' => $request->email,
                         'jumlah_tiket' => $request->ticket_amount,
                         'jenis_tiket' => $ticket_type_data->name,
-                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees, #(int)$platform_fee,
+                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         'metode_pembayaran' => $request->payment_method,
                         'status_pembayaran' => $response->status,
                         'link' => $response->invoice_url
@@ -270,7 +268,7 @@ class TransactionController extends Controller
                     ])->post('https://api.xendit.co/v2/invoices', [
                         'external_id' => $external_id,
                         'name' => $request->name,
-                        'amount' => $totals + (($totals / 100) * 2) + $total_ticket_fees, #(int)$platform_fee,
+                        'amount' => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         'payment_methods' => ['QRIS']
                     ]);
                     $response = $data_request->object();
@@ -282,7 +280,7 @@ class TransactionController extends Controller
                         "phone_number" => $request->phone_number,
                         "ticket_amount" => $request->ticket_amount,
                         "base_price" => $ticket_type_data->price * $request->ticket_amount,
-                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees, #7500, # (int)$platform_fee,
+                        "total_price" => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         "city" => $request->city,
                         "buy_date" => $now,
                         "pay_date" => '',
@@ -303,22 +301,19 @@ class TransactionController extends Controller
                         'email' => $request->email,
                         'jumlah_tiket' => $request->ticket_amount,
                         'jenis_tiket' => $ticket_type_data->name,
-                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees, #(int)$platform_fee,
+                        'total_pembelian' => $totals + (($totals / 100) * 2) + $total_ticket_fees,
                         'metode_pembayaran' => $request->payment_method,
                         'status_pembayaran' => $response->status,
                         'link' => $response->invoice_url
                     ];
                     Mail::to($request->email)->send(new NotifyMail($mailData));
+                }else{
+                    return response()->json(['message' => 'Transaction failed!'], 208);
                 }
                 $ticket_type_data->stock = (int)$ticket_type_data->stock - (int)$request->ticket_amount;
                 $ticket_type_data->save();
 
-                #disable due to anticipate for email not found 
-                // return response('', 409)
-                //     ->header('X-Inertia-Location', $response->invoice_url); 
-
-                // NOTE : for testing purpose, change to your own url
-                return response("https://www.facebook.com", 200);
+                return response()->json(['message' => 'Transaction Success!'], 200);
             }
         );
     }

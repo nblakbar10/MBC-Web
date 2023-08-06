@@ -91,7 +91,7 @@ export default function BuyDialogForm({ open, checkOutOpenHandler, closeHandler,
             <DialogContent className="w-full" >
                 <div className="flex justify-center">
                     <img
-                        src={asset('root', 'assets/images/MBC_HD.png')}
+                        src={asset('root', 'assets/images/MBC_HD.jpg')}
                         alt="Logo"
                         width={300}
                     />

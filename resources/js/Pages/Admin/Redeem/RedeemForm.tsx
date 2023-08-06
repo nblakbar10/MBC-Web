@@ -20,7 +20,7 @@ interface dataUser {
 export default function RedeemForm() {
     const form = useForm({
         token: '',
-        redeem_amount: 0,
+        redeemed_amount: 0,
         latitude: undefined as unknown as number,
         longitude: undefined as unknown as number,
     });
@@ -67,10 +67,10 @@ export default function RedeemForm() {
                 });
             });
             form.clearErrors();
-            const { token, redeem_amount } = form.data;
+            const { token, redeemed_amount } = form.data;
             axios.post(route('redeemAPI.store'), {
                 token: token,
-                redeem_amount: redeem_amount
+                redeemed_amount: redeemed_amount
             }).then((response) => {
                 setRedeemModal({
                     open: true,
@@ -126,31 +126,27 @@ export default function RedeemForm() {
                             <InputError className="mt-2" message={form.errors.token} />
                         </div>
                         <div className="form-control w-full mt-4">
-                            <InputLabel htmlFor="redeem_amount">Jumlah Tiket Diredeem</InputLabel>
+                            <InputLabel htmlFor="redeemed_amount">Jumlah Tiket Diredeem</InputLabel>
                             <TextInput
-                                id="redeem_amount"
+                                id="redeemed_amount"
                                 type="number"
                                 className="mt-1 block w-full"
-                                min={0}
-                                max={5}
+                                min={1}
                                 step={1}
-                                value={form.data.redeem_amount}
+                                value={form.data.redeemed_amount}
                                 onChange={e => {
-                                    e.currentTarget.value = e.currentTarget.value.replace('0', '');
-                                    const value = parseInt(e.currentTarget.value.length > 1 ? e.currentTarget.value[1] : e.currentTarget.value);
+                                    const value = parseInt(e.currentTarget.value);
                                     if (isNaN(value)) {
-                                        form.setData('redeem_amount', 0);
-                                    } else if (value > 5) {
-                                        form.setData('redeem_amount', 5);
+                                        form.setData('redeemed_amount', 0);
                                     } else if (value < 0) {
-                                        form.setData('redeem_amount', 0);
+                                        form.setData('redeemed_amount', 0);
                                     } else {
-                                        form.setData('redeem_amount', value);
+                                        form.setData('redeemed_amount', value);
                                     }
                                 }}
                                 required
                             />
-                            <InputError className="mt-2" message={form.errors.redeem_amount} />
+                            <InputError className="mt-2" message={form.errors.redeemed_amount} />
                         </div>
                         <InputError
                             message={form.errors.latitude ? "Lokasi Koordinat Lintang (Latitude) tidak diketahui, Anda Harus Mengaktifkan Geolocation Pada Browser Anda!!!" : ""}
@@ -188,9 +184,10 @@ export default function RedeemForm() {
                                 // width: '100%',
                             }} width="640" height="480" />
                             {cameraModal ? <Scanner scannerRef={scannerRef}
-                                onDetected={(result: { codeResult: { code: string; }; }) => {
-                                    form.setData('token', result.codeResult.code.slice(1, -1))
-                                }
+                                onDetected={
+                                    (result: { codeResult: { code: string; }; }) => {
+                                        form.setData('token', result.codeResult.code.slice(1, -1))
+                                    }
                                 }
                             />
                                 : null}

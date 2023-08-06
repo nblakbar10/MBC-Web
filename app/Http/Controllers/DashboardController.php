@@ -14,9 +14,8 @@ class DashboardController extends Controller
     //
     public function index(Request $request)
     {
-        $totalTicket = Transaction::sum('ticket_amount');
-        // dont know why sum return string but it must be converted to int
-        $totalPrice = Transaction::sum('base_price');
+        $totalTicket = Transaction::where('payment_status', 'PAID')->get()->count();
+        $totalPrice = Transaction::where('payment_status', 'PAID')->get()->sum('total_price');
         $totalUser = User::count();
         $totalEvent = Event::count();
         $latestUserActivities = UserActivity::with([
@@ -24,7 +23,7 @@ class DashboardController extends Controller
                 $query->select('id', 'name', 'email');
             }
         ])->orderBy('created_at', 'desc')->limit(5)->get();
-        $transactionCount = Transaction::count();
+        $transactionCount = Transaction::where('payment_status', 'PAID')->get()->count();
         return Inertia::render('Admin/Dashboard', [
             'totalTicket' => $totalTicket,
             'totalPrice' => intval($totalPrice),
