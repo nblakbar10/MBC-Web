@@ -12,13 +12,16 @@ import route from "ziggy-js";
 import { Stack, Pagination } from "@mui/material";
 import { EventModel } from "@/Models/Event";
 import { PaginationState } from "@tanstack/react-table";
+import axios from "axios";
 
 interface Props {
     events: PaginationModel<EventModel>;
 }
 
 export default function Events(props: Props) {
-    const { events } = props;
+
+    const [events, setEvents] = useState<PaginationModel<EventModel>>(props.events);
+
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
         pageSize: 8,
@@ -37,6 +40,50 @@ export default function Events(props: Props) {
         month: '',
         city: '',
     });
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+            const params: {
+                page: number,
+                city?: string,
+                month?: string,
+                year?: string,
+                name?: string,
+            } = {
+                page: pagination.pageIndex + 1,
+            }
+            if (form.data.city !== "") {
+                params.city = form.data.city;
+            }
+            if (form.data.month !== "") {
+                params.month = form.data.month;
+            }
+            if (form.data.year !== "") {
+                params.year = form.data.year;
+            }
+            if (form.data.name !== "") {
+                params.name = form.data.name;
+            }
+            axios.get(route('api.visitorEvents', params),
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '',
+                    },
+                }).then((response) => {
+                    setEvents(response.data as PaginationModel<EventModel>);
+                }
+                ).catch((error) => {
+                    console.log(error);
+                });
+            
+        };
+        fetchEvents();
+    }, [JSON.stringify(pagination), JSON.stringify(form.data)]);
+
+
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();

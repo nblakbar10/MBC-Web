@@ -4,6 +4,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\RedeemController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserActivity;
+use App\Http\Controllers\VisitorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +27,8 @@ Route::post('/callback_dev', [TransactionController::class, 'callback_dev']);
 Route::post('/redeem', [RedeemController::class, 'store'])->name('redeemAPI.store');
 
 Route::get('/event', [EventController::class, 'getData'])->name('api.events');
+
+Route::get('/visitor-event', [VisitorController::class, 'getEvent'])->name('api.visitorEvents');
 
 Route::get('/transaction-ticket-type', [TransactionController::class, 'getTransactionByTicketTypeBetweenDatesGroupByDay'])->name('api.ticketTypeTransaction');
 

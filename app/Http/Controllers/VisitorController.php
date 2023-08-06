@@ -21,10 +21,15 @@ class VisitorController extends Controller{
     }
 
     public function event(Request $request){
-        $events = Event::visitorFilter($request->all())->paginate(8);
+        $events = Event::visitorFilter($request->all())->paginate(1);
         return Inertia::render('Visitor/Events', [
             'events' => $events,
         ]);
+    }
+
+    public function getEvent(Request $request){
+        $events = Event::visitorFilter($request->all())->paginate(1);
+        return response()->json($events);
     }
 
     public function eventDetail($id){
