@@ -69,46 +69,58 @@ export default function DashboardAdminLayout({
                         Dashboard
                     </ResponsiveNavLink>
                 </li> */}
-                <li className='border-t-2'>
-                    <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
-                        <span>Autorisasi</span>
-                    </div>
-                </li>
-                <li>
-                    <ResponsiveNavLink href={route('user.index')} active={route().current('user.index')}>
-                        Pengguna
-                    </ResponsiveNavLink>
-                </li>
-                <li>
-                    <ResponsiveNavLink href={route('user-activity.index')} active={route().current('user-activity.index')}>
-                        Aktivitas Pengguna
-                    </ResponsiveNavLink>
-                </li>
-                <li className='border-t-2'>
-                    <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
-                        <span>Fitur Sistem</span>
-                    </div>
-                </li>
-                <li>
-                    <ResponsiveNavLink href={route('event.index')} active={route().current('event.index')}>
-                        Event
-                    </ResponsiveNavLink>
-                </li>
-                <li>
-                    <ResponsiveNavLink href={route('ticket-type.index')} active={route().current('ticket-type.index')}>
-                        Jenis Tiket
-                    </ResponsiveNavLink>
-                </li>
-                <li>
-                    <ResponsiveNavLink href={route('ticket-discount.index')} active={route().current('ticket-discount.index')}>
-                        Diskon Tiket
-                    </ResponsiveNavLink>
-                </li>
-                <li>
-                    <ResponsiveNavLink href={route('redeem.create')} active={route().current('redeem.create')}>
-                        Redeem Tiket
-                    </ResponsiveNavLink>
-                </li>
+                {
+                    page.props.user.roles[0].name == 'super-admin' && (
+                        <>
+                            <li className='border-t-2'>
+                                <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
+                                    <span>Autorisasi</span>
+                                </div>
+                            </li>
+                            <li>
+                                <ResponsiveNavLink href={route('user.index')} active={route().current('user.index')}>
+                                    Pengguna
+                                </ResponsiveNavLink>
+                            </li>
+                            <li>
+                                <ResponsiveNavLink href={route('user-activity.index')} active={route().current('user-activity.index')}>
+                                    Aktivitas Pengguna
+                                </ResponsiveNavLink>
+                            </li>
+                        </>
+                    )
+                }
+                {
+                    (page.props.user.roles[0].name == 'super-admin' || page.props.user.roles[0].name == 'admin') && (
+                        <>
+                            <li className='border-t-2'>
+                                <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
+                                    <span>Fitur Sistem</span>
+                                </div>
+                            </li>
+                            <li>
+                                <ResponsiveNavLink href={route('event.index')} active={route().current('event.index')}>
+                                    Event
+                                </ResponsiveNavLink>
+                            </li>
+                            <li>
+                                <ResponsiveNavLink href={route('ticket-type.index')} active={route().current('ticket-type.index')}>
+                                    Jenis Tiket
+                                </ResponsiveNavLink>
+                            </li>
+                            <li>
+                                <ResponsiveNavLink href={route('ticket-discount.index')} active={route().current('ticket-discount.index')}>
+                                    Diskon Tiket
+                                </ResponsiveNavLink>
+                            </li>
+                            <li>
+                                <ResponsiveNavLink href={route('redeem.create')} active={route().current('redeem.create')}>
+                                    Redeem Tiket
+                                </ResponsiveNavLink>
+                            </li>
+                        </>
+                    )
+                }
                 <li className='border-t-2'>
                     <div className="flex justify-between items-center text-md text-gray-400 px-4 py-2">
                         <span>Log Aksi</span>
@@ -190,7 +202,7 @@ export default function DashboardAdminLayout({
                 </Drawer>
             </React.Fragment>
             {/* <div className='w-full'> */}
-                {/* <div className="bg-gradient-to-r from-[#FFA6A8]"> */}
+            {/* <div className="bg-gradient-to-r from-[#FFA6A8]"> */}
             {/* </div> */}
             {children}
         </div >
