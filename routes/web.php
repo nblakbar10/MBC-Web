@@ -30,13 +30,13 @@ use App\Models\Transaction;
 
 
 Route::get('/token', function () {
-    return csrf_token(); 
+    return csrf_token();
 });
 
-Route::get('/',[VisitorController::class, 'home'])->name('visitor.home');
+Route::get('/', [VisitorController::class, 'home'])->name('visitor.home');
 Route::get('/event', [VisitorController::class, 'event'])->name('visitor.event');
 Route::get('/event/{id}', [VisitorController::class, 'eventDetail'])->name('visitor.event-detail');
-Route::post('/transaction/store',[TransactionController::class, 'store'])->name('transaction.store');
+Route::post('/transaction/store', [TransactionController::class, 'store'])->name('transaction.store');
 Route::post('/callback', [TransactionController::class, 'callback']);
 Route::post('/callback_dev', [TransactionController::class, 'callback_dev']);
 Route::get('/transaction-ticket-type', [TransactionController::class, 'getTransactionByTicketTypeBetweenDatesGroupByDay'])->name('transactionTicketTypes');
@@ -47,24 +47,24 @@ Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
-    ])->group(function () {
-        Route::get('/user/profile', [UserProfileController::class, 'show'])->name('profile.show');
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-        Route::middleware(['role:admin|super-admin'])->group(function () {
-            Route::prefix('admin')->group(function (){
+])->group(function () {
+    Route::get('/user/profile', [UserProfileController::class, 'show'])->name('profile.show');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::middleware(['role:admin|super-admin|admin-redeem'])->group(function () {
+        Route::prefix('admin')->group(function () {
+            Route::resource('redeem', RedeemController::class);
+            Route::get('/transaction/export', [TransactionController::class, 'exportView'])->name('transaction.export-view');
+            Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
+            Route::middleware(['role:admin|super-admin'])->group(function () {
                 Route::resource('event', EventController::class);
                 Route::resource('ticket-type', TicketTypeController::class);
                 Route::resource('ticket-discount', TicketDiscountController::class);
-                Route::resource('redeem', RedeemController::class);
-                Route::get('/transaction', [TransactionController::class, 'index'])->name('transaction.index');
-                Route::get('/transaction/export', [TransactionController::class, 'exportView'])->name('transaction.export-view');
                 // Route::get('/transaction/success', [TransactionController::class]);
             });
             Route::middleware(['role:super-admin'])->group(function () {
                 Route::resource('/user', UserController::class);
                 Route::resource('user-activity', UserActivityController::class);
+            });
         });
     });
 });
-
-
