@@ -80,7 +80,13 @@ export default function Events(props: Props) {
                 });
             
         };
-        fetchEvents();
+
+        const timer = setTimeout(() => {
+            fetchEvents();
+        }, 5000);
+
+        return () => clearTimeout(timer);
+
     }, [JSON.stringify(pagination), JSON.stringify(form.data)]);
 
 
