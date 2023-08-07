@@ -13,6 +13,8 @@ import { Stack, Pagination } from "@mui/material";
 import { EventModel } from "@/Models/Event";
 import { PaginationState } from "@tanstack/react-table";
 import axios from "axios";
+import ReactLoading from 'react-loading';
+import { set } from "lodash";
 
 interface Props {
     events: PaginationModel<EventModel>;
@@ -21,6 +23,7 @@ interface Props {
 export default function Events(props: Props) {
 
     const [events, setEvents] = useState<PaginationModel<EventModel>>(props.events);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const [pagination, setPagination] = useState<PaginationState>({
         pageIndex: 0,
@@ -78,12 +81,14 @@ export default function Events(props: Props) {
                 ).catch((error) => {
                     console.log(error);
                 });
-            
+
         };
 
+        setIsLoading(true);
         const timer = setTimeout(() => {
             fetchEvents();
-        }, 5000);
+            setIsLoading(false);
+        }, 3000);
 
         return () => clearTimeout(timer);
 
@@ -196,52 +201,61 @@ export default function Events(props: Props) {
                         <div className="text-3xl font-bold">
                             Events
                         </div>
-                        {events.data.length > 0 ? (
-                            <>
-                                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 p-1">
-                                    {events.data.map((item, i) => (
-                                        <div className="flex justify-center rounded-2xl border-2 shadow-md" key={item.id}>
-                                            <div className="flex flex-col gap-3 w-full">
-                                                <div className="flex justify-center">
-                                                    <InertiaLink href={route('visitor.event-detail', item.id)}>
-                                                        <img className="w-full object-cover rounded-t-2xl" src={asset('public', item.preview_url)} alt="" />
-                                                    </InertiaLink>
-                                                </div>
-                                                <div className="flex flex-col gap-3 px-5">
-                                                    <div className="text-2xl ">{item.name}</div>
-                                                    <div className="text-md text-gray-700">Mulai {new Date(item.start_date).toLocaleDateString("id") + '-' + new Date(item.end_date).toLocaleTimeString("id")}</div>
-                                                    <div className="text-md text-gray-700">Selesai {new Date(item.end_date).toLocaleDateString("id") + '-' + new Date(item.start_date).toLocaleTimeString("id")}</div>
-                                                    <div className="flex justify-center border-t-2 my-2">
-                                                        <InertiaLink
-                                                            href={route('visitor.event-detail', item.id)}
-                                                            className="bg-gray-700 text-white rounded-full px-4 py-2 my-3 hover:bg-gray-500">
-                                                            Buy Ticket
-                                                        </InertiaLink>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ))}
+                        {isLoading ? (
+                            <div className="text-center text-black text-lg flex flex-col mx-auto gap-3">
+                                <div className='flex justify-center'>
+                                    <ReactLoading color="#51B3AA" type='spin' />
                                 </div>
-                                <div className="flex justify-end">
-                                    <Stack spacing={2}>
-                                        <Pagination
-                                            count={events.last_page}
-                                            shape="rounded"
-                                            onChange={(e, page) => {
-                                                setPagination({
-                                                    ...pagination,
-                                                    pageIndex: page - 1,
-                                                });
-                                            }}
-                                        />
-                                    </Stack>
-                                </div>
-                            </>
-                        ) : (
-                            <div className="flex justify-center items-center h-96">
-                                <div className="text-3xl font-bold text-gray-600">Tidak Ada Event</div>
+                                <p>Memuat Event...</p>
                             </div>
+                        ) : (
+                                    events.data.length > 0 ? (
+                                        <>
+                                            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-3 p-1">
+                                                {events.data.map((item, i) => (
+                                                    <div className="flex justify-center rounded-2xl border-2 shadow-md" key={item.id}>
+                                                        <div className="flex flex-col gap-3 w-full">
+                                                            <div className="flex justify-center">
+                                                                <InertiaLink href={route('visitor.event-detail', item.id)}>
+                                                                    <img className="w-full object-cover rounded-t-2xl" src={asset('public', item.preview_url)} alt="" />
+                                                                </InertiaLink>
+                                                            </div>
+                                                            <div className="flex flex-col gap-3 px-5">
+                                                                <div className="text-2xl ">{item.name}</div>
+                                                                <div className="text-md text-gray-700">Mulai {new Date(item.start_date).toLocaleDateString("id") + '-' + new Date(item.end_date).toLocaleTimeString("id")}</div>
+                                                                <div className="text-md text-gray-700">Selesai {new Date(item.end_date).toLocaleDateString("id") + '-' + new Date(item.start_date).toLocaleTimeString("id")}</div>
+                                                                <div className="flex justify-center border-t-2 my-2">
+                                                                    <InertiaLink
+                                                                        href={route('visitor.event-detail', item.id)}
+                                                                        className="bg-gray-700 text-white rounded-full px-4 py-2 my-3 hover:bg-gray-500">
+                                                                        Buy Ticket
+                                                                    </InertiaLink>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <div className="flex justify-end">
+                                                <Stack spacing={2}>
+                                                    <Pagination
+                                                        count={events.last_page}
+                                                        shape="rounded"
+                                                        onChange={(e, page) => {
+                                                            setPagination({
+                                                                ...pagination,
+                                                                pageIndex: page - 1,
+                                                            });
+                                                        }}
+                                                    />
+                                                </Stack>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <div className="flex justify-center items-center h-96">
+                                            <div className="text-3xl font-bold text-gray-600">Tidak Ada Event</div>
+                                        </div>
+                                    )
                         )}
                     </div>
                 </div>
